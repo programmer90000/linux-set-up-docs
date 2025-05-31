@@ -48,3 +48,36 @@ Comment=Manage desktop icons and wallpaper
 ```
 
 Log out and back in to apply the changes
+
+## Make Shortcuts To Apps On The Desktop
+
+#### This example creates a shortcut on the Desktop for the terminal
+
+Run:
+```
+cd ~/Desktop
+touch terminal.desktop
+nano terminal.desktop
+```
+
+Add the following lines to the file:
+```
+[Desktop Entry]
+Name=Terminal
+Comment=Open Terminal
+Exec=gnome-terminal
+Icon=utilities-terminal
+Terminal=false
+Type=Application
+Categories=Utility;TerminalEmulator;
+```
+
+Save and close the file
+
+Run:
+```
+chmod +x terminal.desktop
+```
+
+Double click on the icon in the Desktop
+Select ```Mark as executable```
