@@ -154,3 +154,13 @@ Select `Desktop Settings`
 Select the `Folder option > Other > Select the backgrounds directory`
 
 Select the correct image
+
+---
+
+## Set Overview Background
+
+(Note: The overview is the view when switching between desktops)
+
+Go to `Settings > Appearance > Add Picture`
+
+Add the correct picture
