@@ -127,3 +127,30 @@ Using the pattern components, set the correct format for the date
 Close the Date Menu Formatter And Extension Manager
 
 The ```date-menu-formatter``` ZIP file can now be deleted
+
+---
+
+## Set Desktop Background
+
+Run:
+```
+xrandr | grep '*'
+```
+
+This will tell you the screen resolution
+
+Find an image with that resolution or a similar resolution for the Desktop background
+
+Download it to:
+```
+/home/user/backgrounds/
+```
+***(Note: You may need to make this directory)***
+
+Right Click on the Desktop
+
+Select `Desktop Settings`
+
+Select the `Folder option > Other > Select the backgrounds directory`
+
+Select the correct image
