@@ -297,3 +297,22 @@ Alternatively, reboot your system:
 ```
 sudo reboot
 ```
+
+## Taskbar Settings
+
+Find the shell version you are using:
+```
+gnome-shell --version
+```
+
+Visit the: (Dash To Panel Extension)[https://extensions.gnome.org/extension/1160/dash-to-panel/] page
+
+Install the latest version of the correct shell package (Click Install, do not open the automatically installed package)
+
+Click Install in the new window that pops up
+
+Open the Extensions Manager
+
+Click Settings next to the newly added Dash to Panel extension
+
+Configure the Settings for the extension
