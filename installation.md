@@ -316,3 +316,26 @@ Open the Extensions Manager
 Click Settings next to the newly added Dash to Panel extension
 
 Configure the Settings for the extension
+
+## Add Clipboard
+Run:
+```
+sudo apt install gpaste-2
+```
+
+Run:
+```
+find /usr/share/applications/ ~/.local/share/applications/ -iname '*gpaste*'
+```
+
+Run the following command replacing `/path/to/gpaste-preferences.desktop` with the path to `gpaste-preferences.desktop`
+```
+sudo rm /path/to/gpaste-preferences.desktop
+```
+
+To open the GPate, click the icon in the Applications window or run:
+```
+gpaste-client ui
+```
+
+Configure the settings for GPaste
