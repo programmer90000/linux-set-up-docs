@@ -164,3 +164,136 @@ Select the correct image
 Go to `Settings > Appearance > Add Picture`
 
 Add the correct picture
+
+---
+
+## Set Lock Screen Background
+
+### 1. Prepare your background image
+Use a PNG or JPG image, ideally 1920x1080 or higher resolution.
+
+Copy the image to a system-wide location accessible by GDM:
+```
+sudo cp yourimage.jpg /usr/share/backgrounds/gdm-background.jpg
+sudo chmod 644 /usr/share/backgrounds/gdm-background.jpg
+sudo chown root:root /usr/share/backgrounds/gdm-background.jpg
+```
+
+### 2. Install required tools
+```
+sudo apt update
+sudo apt install libglib2.0-dev-bin
+```
+
+### 3. Create working directory and copy original GDM theme resource
+```
+mkdir ~/gdm-theme-edit && cd ~/gdm-theme-edit
+sudo cp /usr/share/gnome-shell/gnome-shell-theme.gresource ./original.gresource
+```
+
+### 4. Extract the original CSS
+```
+gresource extract original.gresource /org/gnome/shell/theme/gnome-shell.css > gnome-shell.css
+```
+
+### 5. Edit the CSS to set your background image
+```
+nano gnome-shell.css
+```
+
+Locate the section starting with `#lockDialogGroup {` and modify it to:
+```
+#lockDialogGroup {
+  background: #2c001e url(file:///usr/share/backgrounds/gdm-background.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+```
+Save and exit (`Ctrl+O`, `Enter`, `Ctrl+X`).
+
+### 6. Extract all original resources into folders
+```
+mkdir files
+cd files
+```
+> **🔥 Run each of the lines in the following code block individually. Do not copy and paste the entire block:**
+```
+gresource list ../original.gresource | while read -r resource; do
+  local_path="./${resource#/}"
+  mkdir -p "$(dirname "$local_path")"
+  gresource extract ../original.gresource "$resource" > "$local_path"
+done
+```
+
+### 7. Replace the original CSS with your edited version
+```
+cp ../gnome-shell.css ./org/gnome/shell/theme/gnome-shell.css
+```
+
+### 8. Prepare the XML manifest for the resource compiler
+```
+cd org/gnome/shell/
+```
+Create or edit gnome-shell.gresource.xml:
+```
+nano gnome-shell.gresource.xml
+```
+Paste the full list of files extracted, like this example (make sure it includes all files from the original):
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+  <gresource prefix="/org/gnome/shell/theme">
+    <file>gnome-shell.css</file>
+    <file>calendar-today-light.svg</file>
+    <file>calendar-today.svg</file>
+    <file>checkbox-focused.svg</file>
+    <file>checkbox-off-focused-light.svg</file>
+    <file>checkbox-off-focused.svg</file>
+    <file>checkbox-off-light.svg</file>
+    <file>checkbox-off.svg</file>
+    <file>checkbox.svg</file>
+    <file>gnome-shell-high-contrast.css</file>
+    <file>gnome-shell-start.svg</file>
+    <file>pad-osd.css</file>
+    <file>process-working.svg</file>
+    <file>toggle-off-hc.svg</file>
+    <file>toggle-off-light.svg</file>
+    <file>toggle-off.svg</file>
+    <file>toggle-on-hc.svg</file>
+    <file>toggle-on-light.svg</file>
+    <file>toggle-on.svg</file>
+    <file>workspace-placeholder.svg</file>
+  </gresource>
+</gresources>
+```
+Make sure this list exactly matches the output of:
+```
+gresource list ../../original.gresource
+```
+
+### 9. Recompile the resource
+Return to your working directory:
+```
+cd ~/gdm-theme-edit
+```
+Run the compilation:
+```
+glib-compile-resources ./files/org/gnome/shell/gnome-shell.gresource.xml --target=gnome-shell-theme.gresource --sourcedir=files/org/gnome/shell/theme
+```
+
+### 10. Backup the original and replace the system theme
+```
+sudo cp /usr/share/gnome-shell/gnome-shell-theme.gresource /usr/share/gnome-shell/gnome-shell-theme.gresource.bak
+sudo cp gnome-shell-theme.gresource /usr/share/gnome-shell/gnome-shell-theme.gresource
+```
+
+### 11. Restart GDM to apply changes
+Warning: this will close all GUI sessions and log you out.
+```
+sudo systemctl restart gdm
+```
+Alternatively, reboot your system:
+```
+sudo reboot
+```
