@@ -349,3 +349,13 @@ gnome-tweaks
 
 Go to the `Window Titlebars` tab
 Enable the `Maximize`, `Minimize` buttons
+
+## Install Node, npm, npx and yarn
+Run:
+```
+sudo apt update
+sudo apt install -y nodejs
+sudo apt install npm
+npm install npx
+npm install yarn
+```
