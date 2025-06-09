@@ -434,3 +434,66 @@ Go to the [Raindrop.io extension](https://chromewebstore.google.com/detail/raind
 Click `Add to Brave`
 
 Login to the extension
+
+## Change Auto-Start programs
+Run:
+```
+systemctl list-unit-files --type=service --state=enabled
+```
+
+This will show the list of services that can start on boot and wether they start on boot or not
+> **The State field determines if the service starts on boot or not**
+
+### Stop a service starting on boot
+Run:
+```
+sudo systemctl disable name-of-service.service
+```
+
+### Add a new service to start at boot
+Create the service unit file:
+```
+sudo nano /etc/systemd/system/myservice.service
+```
+Add this template:
+```
+[Unit]
+Description=My Custom Program
+After=network.target
+
+[Service]
+ExecStart=/path/to/your/script.sh
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+```
+
+`multi-user.target` means it starts during the regular boot runlevel (like rc3 in SysVinit).
+
+Enable and start it:
+```
+sudo systemctl daemon-reload
+sudo systemctl enable myservice.service
+sudo systemctl start myservice.service
+```
+
+Verify status:
+```
+systemctl status myservice.service
+```
+
+### Enable a previously disabled service
+
+Run:
+```
+sudo systemctl enable <service>.service
+```
+Confirm it's enabled:
+```
+systemctl is-enabled <service>.service
+```
+It should return:
+```
+enabled
+```
