@@ -359,3 +359,14 @@ sudo apt install npm
 npm install npx
 npm install yarn
 ```
+
+## Install Nemo File Manager
+Run:
+```
+sudo apt update
+sudo apt install -y nemo
+```
+
+Open nemo by typing `nemo` into the terminal or clicking the nemo app icon
+Click `Edit > Perferences`
+Set your preferences for nemo
