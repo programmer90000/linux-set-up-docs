@@ -384,3 +384,37 @@ The first time you open Tilda, you will be presented with the preferences screen
 
 After this, to update preferences, right click inside the window and select prefernces
 > **To opn the context menu, right click inside the window. Not on the status bar**
+
+## Changing file icons
+
+### If using a pre-made icon
+Right click on the application
+
+Select `Edit Launcher`
+
+Click on the Icon
+
+Select an icon
+
+### If using a custom icon
+Download the file icon
+
+Run:
+```
+sudo cp location-to-downloaded-file-icon /usr/share/icons/app-icons/app-name
+```
+
+Open the Desktop file:
+```
+cd ~/Desktop
+nano app-name.desktop
+```
+
+Change the `Icon` line to the correct folder path.
+
+e.g.
+```
+/usr/share/icons/app-icons/settings/settings.png
+```
+
+Save the file
