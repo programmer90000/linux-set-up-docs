@@ -419,6 +419,130 @@ e.g.
 
 Save the file
 
+## Install Custom Fonts
+
+### Install Custom Font File
+Supported font formats: `.ttf` or `.otf`
+
+Copy the font to a system directory:
+```
+sudo mkdir -p /usr/local/share/fonts/custom
+sudo cp /path/to/your/fontfile.ttf /usr/local/share/fonts/custom/
+sudo chmod 644 /usr/local/share/fonts/custom/*.ttf
+```
+
+Update font cache:
+```
+sudo fc-cache -fv
+```
+
+Confirm installation:
+```
+fc-list | grep "Your Custom Font"
+```
+
+### Set as Default for GNOME Applications
+This affects GTK-based apps, menus, and desktop UI.
+
+Set the general interface font:
+```
+gsettings set org.gnome.desktop.interface font-name 'Your Custom Font 11'
+```
+
+Set the monospace font (used in terminals, editors):
+```
+gsettings set org.gnome.desktop.interface monospace-font-name 'Your Custom Font Mono 11'
+```
+
+Verify settings:
+```
+gsettings get org.gnome.desktop.interface font-name
+gsettings get org.gnome.desktop.interface monospace-font-name
+```
+
+### Window Title Font (Titlebars)
+Modern GNOME Shell does not allow changing the titlebar font via gsettings.
+
+Identify the GTK theme you use:
+```
+gsettings get org.gnome.desktop.interface gtk-theme
+```
+
+Open the theme’s CSS file:
+```
+sudo nano /usr/share/themes/<ThemeName>/gnome-shell/gnome-shell.css
+```
+Find the section like:
+
+```css
+.title {
+  font-family: "Sans";
+  font-size: 11pt;
+}
+```
+
+Change it to:
+```css
+font-family: "Your Custom Font";
+```
+
+You may need to restart GNOME Shell or reboot.
+
+### Set Font for Console (TTY)
+Virtual consoles (Ctrl+Alt+F3, etc.) use bitmap .psf fonts only.
+
+Set font temporarily:
+```
+sudo setfont /usr/share/consolefonts/YourFont.psf
+```
+
+Set font permanently:
+Edit `/etc/default/console-setup` and set:
+```
+FONTFACE="YourFontFace"
+FONTSIZE="YourFontSize"
+```
+
+Then run:
+```
+sudo setupcon
+```
+
+Use `dpkg-reconfigure console-setup` to see available fonts interactively.
+
+### Set as Default Font in Xorg (All Applications)
+This method forces your font system-wide across all X11 apps (Xorg), including GTK and Qt apps.
+
+⚠️ Use with caution — may break apps that depend on specific fonts or language scripts.
+Create `/etc/fonts/local.conf`:
+```
+sudo nano /etc/fonts/local.conf
+```
+
+Add:
+```xml
+<?xml version="1.0"?>
+<!DOCTYPE fontconfig SYSTEM "fonts.dtd">
+<fontconfig>
+  <match>
+    <edit name="family" mode="assign" binding="strong">
+      <string>Your Custom Font</string>
+    </edit>
+  </match>
+</fontconfig>
+```
+
+Rebuild font cache:
+```
+sudo fc-cache -fv
+```
+
+Reboot:
+
+```bash
+sudo reboot
+```
+
 ## Install Brave Web Browser
 Run:
 ```
