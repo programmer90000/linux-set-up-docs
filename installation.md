@@ -749,3 +749,13 @@ Find the `Notification Banner Reloaded` extension by `Marcin Jakubowski`.
 Install it
 
 Customize the notification positioning to your preferences
+
+## View logs shown during boot-up
+Run:
+```
+journalctl -b > ~/boot_log_current.txt
+dmesg > ~/kernel_boot_log.txt
+nano ~/kernel_boot_log.txt
+```
+
+> **Note: The logs will disappear after shutdown, unless they are saved using these commands**
