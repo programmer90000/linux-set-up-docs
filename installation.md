@@ -454,6 +454,17 @@ Run:
 source ~/.bashrc
 ```
 
+### Enable scrolling using scroll wheel
+Open Tilda
+
+Right Click inside the window
+
+Select `Prefrences`
+
+Select `Scrolling`
+
+Set the `Scrollbar is:` option to `On the Right` or `On the left`
+
 ## Changing file icons
 
 ### If using a pre-made icon
