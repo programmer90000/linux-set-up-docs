@@ -739,3 +739,13 @@ It should return:
 ```
 enabled
 ```
+
+## Change the position of notifications
+
+Open the Extension Manager
+
+Find the `Notification Banner Reloaded` extension by `Marcin Jakubowski`.
+
+Install it
+
+Customize the notification positioning to your preferences
