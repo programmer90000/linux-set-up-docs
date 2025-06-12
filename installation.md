@@ -385,6 +385,27 @@ The first time you open Tilda, you will be presented with the preferences screen
 After this, to update preferences, right click inside the window and select prefernces
 > **To opn the context menu, right click inside the window. Not on the status bar**
 
+## Customize Tilda Terminal
+
+### Change bash prompt colour
+
+Run:
+```
+nano ~/.bashrc
+```
+
+Add the following lines to the file:
+```
+PS1='\[\e[32m\]\u@\h \[\e[34m\]\w \$ \[\e[0m\]'
+```
+
+> **Note: Change the colour code to your preferred colours**
+
+Run:
+```
+source ~/.bashrc
+```
+
 ## Changing file icons
 
 ### If using a pre-made icon
