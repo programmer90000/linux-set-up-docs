@@ -759,3 +759,100 @@ nano ~/kernel_boot_log.txt
 ```
 
 > **Note: The logs will disappear after shutdown, unless they are saved using these commands**
+
+## Change boot theme
+
+The boot theme is the theme displayed between the option for selecting which UI to use and the lock screen. The boot theme is also displayed when the OS is shutting down
+
+### Choosing a theme
+
+Run:
+```
+sudo apt update
+sudo apt install zenity plymouth plymouth-themes plymouth-x11
+nano plymouth-theme-gui-preview.sh
+```
+
+Paste this code into the script:
+```
+#!/bin/bash
+
+# Ensure /usr/sbin is in PATH for non-root shells
+export PATH="$PATH:/usr/sbin"
+
+# Get available themes
+themes=$(plymouth-set-default-theme --list)
+if [ -z "$themes" ]; then
+    zenity --error --text="No Plymouth themes found."
+    exit 1
+fi
+
+# Let user pick a theme
+theme=$(echo "$themes" | zenity --list --title="Plymouth Theme Selector" \
+    --column="Available Themes" --width=400 --height=300)
+
+if [ -z "$theme" ]; then
+    zenity --info --text="No theme selected. Exiting."
+    exit 0
+fi
+
+# Confirm preview
+zenity --question --text="Preview theme: $theme ?" --width=300
+if [ $? -ne 0 ]; then
+    exit 0
+fi
+
+# Start preview
+sudo pkill plymouthd >/dev/null 2>&1
+sudo plymouth-set-default-theme "$theme"
+sudo update-alternatives --set default.plymouth "/usr/share/plymouth/themes/$theme/$theme.plymouth"
+sudo update-initramfs -u >/dev/null
+
+# Launch simulated splash
+(
+    sudo plymouthd --mode=boot
+    sudo plymouth --show-splash
+    sleep 5
+    sudo plymouth quit
+) &
+
+zenity --info --title="Preview" --text="Theme '$theme' previewed for 5 seconds."
+```
+
+Run these commands:
+```
+chmod +x plymouth-theme-gui-preview.sh
+./plymouth-theme-gui-preview.sh
+```
+
+This will launch a GUI application containing a list of available themes. Select a them to preview it. The theme will remain on-screen for 5 seconds
+
+### Once you know which theme to use
+
+Run the following commands to remove the terminal output:
+```
+sudo apt install plymouth plymouth-themes
+sudo apt install plymouth-theme-breeze kde-config-plymouth
+```
+
+Run the following command to list all of the themes avaliable:
+```
+sudo plymouth-set-default-theme --list
+```
+
+Choose a theme using:
+```
+sudo plymouth-set-default-theme emerald
+```
+
+> **Replace `emerald` with your selected theme**
+
+Run:
+```
+sudo update-initramfs -u
+```
+
+Reboot the system to view the theme:
+```
+sudo reboot
+```
