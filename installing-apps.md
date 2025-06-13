@@ -23,3 +23,20 @@ To install apps, you can now run:
 ```
 installer.sh
 ```
+
+## How to install apps
+
+Run the following command:
+```
+installer.sh
+```
+
+In the first prompt, asking for the name of the directory to create, write the name of the directory to create (e.g. /opt/program-name).
+
+In the second prompt, write the link or absolute file path to the installation file
+
+> **Note: If the link does not lead directly to a file, such as a `.tar.gz` file, the installation will fail. To find the correct download, run:```curl -Ls -o /dev/null -w %{url_effective} "PASTE_YOUR_DOWNLOAD_LINK_HERE"```**
+
+Depending on which file type was installed, the app may or may not be extracted.
+
+After installation, you may need to move the files up one directory
