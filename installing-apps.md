@@ -125,3 +125,57 @@ sudo cp /home/YOUR_USERNAME/Desktop/visual-studio-code.desktop /usr/share/applic
 ```
 
 If it doesn't, you will need to find the correct location of the All Application icons and copy the file there instead
+
+### Installing Kdenlive Video Editor
+
+Go to this site: [Kdenlive Download page](https://kdenlive.org/download/)
+
+Download the AppImage file for Linux
+
+The file should be installed in the Downloads directory
+
+Run:
+```
+chmod +x kdenlive-25.04.2-x86_64.AppImage
+sudo mkdir -p /opt/kdenlive
+sudo mv squashfs-root /opt/kdenlive/
+```
+
+#### Create Desktop Shortcut
+To create a Desktop shortcut to Kdenlive Video Editor, run:
+```
+cd ~/Desktop
+touch kdenlive.desktop
+nano kdenlive.desktop
+```
+
+Add the following lines to the file:
+```
+[Desktop Entry]
+Name=Kdenlive
+Comment=Open Kdenlive Video Editor
+Exec=/opt/kdenlive/usr/bin/kdenlive
+Icon=/opt/kdenlive/kdenlive.png
+Terminal=false
+Type=Application
+Categories=AudioVideo;Video;AudioVideoEditing;
+StartupNotify=true
+```
+
+#### Create All Applications Shortcut
+To create an All Applications shortcut to Kdenlive, run:
+
+```
+ls /usr/share/applications/
+```
+
+Ensure this directory contains all of the icons visible in the All Application menu
+
+> **Note: Some or many of the icons may not be visible in the All Applications menu**
+
+If it does, run the following command:
+```
+sudo cp /home/YOUR_USERNAME/Desktop/kdenlive.desktop /usr/share/applications/
+```
+
+If it doesn't, you will need to find the correct location of the All Application icons and copy the file there instead
