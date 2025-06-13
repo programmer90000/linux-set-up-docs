@@ -179,3 +179,85 @@ sudo cp /home/YOUR_USERNAME/Desktop/kdenlive.desktop /usr/share/applications/
 ```
 
 If it doesn't, you will need to find the correct location of the All Application icons and copy the file there instead
+
+### Installing FileZilla
+
+Go to the [FileZilla Download page](https://filezilla-project.org/download.php?platform=linux64)
+
+Ensure you have selected the correct version of Linux (64-bit or  32-bit)
+
+Right click on the Download button and select Copy Link
+
+Run the following commands:
+```
+sudo mkdir /opt/filezilla
+cd /opt/filezilla
+sudo wget -O FileZilla.tar.xz "https://dl2.cdn.filezilla-project.org/client/FileZilla_3.69.1_x86_64-linux-gnu.tar.xz?h=Y8IteOKeeKDbAs3C--XMhA&x=1749842548"
+```
+
+> **Replace the link with the latest stable version of FileZilla**
+
+Run the installation  script:
+```
+installer.sh
+```
+
+In the first prompt, asking for the name of the directory to create, write: `/opt/filezilla/filezilla`
+
+In the second prompt, asking for the URL to the file to download, enter the absolute path to the FileZilla .tar.xz file you downloaded
+
+Wait for the installation to complete
+
+Run the following command:
+```
+cd /opt/filezilla
+ls
+```
+
+Remove all of the sub-directories and files in this directory except for the one containing FileZilla
+
+> **Note: It may be named something slightly different e.g. `FileZilla3`. Copy the files from this directory into the correct directory**
+
+To run FileZilla from anywhere, run:
+```
+sudo ln -s /opt/filezilla/bin/filezilla /usr/local/bin/filezilla
+```
+
+#### Create Desktop Shortcut
+To create a Desktop shortcut to FileZilla, run:
+```
+cd ~/Desktop
+touch filezilla.desktop
+nano filezilla.desktop
+```
+
+Add the following lines to the file:
+```
+[Desktop Entry]
+Name=FileZilla
+Comment=Open FileZilla
+Exec=/opt/filezilla/bin/filezilla
+Icon=/opt/filezilla/share/icons/hicolor/480x480/apps/filezilla.png
+Terminal=false
+Type=Application
+Categories=Network;FileTransfer;
+StartupNotify=true
+```
+
+#### Create All Applications Shortcut
+To create an All Applications shortcut to FileZilla, run:
+
+```
+ls /usr/share/applications/
+```
+
+Ensure this directory contains all of the icons visible in the All Application menu
+
+> **Note: Some or many of the icons may not be visible in the All Applications menu**
+
+If it does, run the following command:
+```
+sudo cp /home/YOUR_USERNAME/Desktop/filezilla.desktop /usr/share/applications/
+```
+
+If it doesn't, you will need to find the correct location of the All Application icons and copy the file there instead
