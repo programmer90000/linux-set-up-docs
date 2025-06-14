@@ -49,3 +49,16 @@ To create a Desktop shortcut to FileZilla, run:
 cp /usr/share/applications/filezilla.desktop ~/Desktop/
 chmod +x ~/Desktop/filezilla.desktop
 ```
+
+### Installing Google Chrome
+
+Run:
+```
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo apt install ./google-chrome-stable_current_amd64.deb
+```
+
+To create a Desktop shortcut to Google Chrome, run:
+```
+cp /usr/share/applications/google-chrome.desktop ~/Desktop/
+```
