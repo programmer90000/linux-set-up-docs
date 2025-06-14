@@ -152,3 +152,16 @@ To create a Desktop shortcut to VirtualBox, run:
 ```
 cp /usr/share/applications/virtualbox.desktop ~/Desktop/
 ```
+
+### Installing HandBrake
+
+Run:
+```
+sudo apt update
+sudo apt install handbrake handbrake-cli
+```
+
+To create a Desktop shortcut to HandBrake, run:
+```
+cp /usr/share/applications/fr.handbrake.ghb.desktop ~/Desktop/
+```
