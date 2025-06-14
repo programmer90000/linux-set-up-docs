@@ -75,3 +75,25 @@ To create a Desktop shortcut to Mousepad, run:
 ```
 cp /usr/share/applications/org.xfce.mousepad.desktop ~/Desktop/
 ```
+
+### Installing Node, nvm, npm, npx and yarn
+
+Run:
+```
+sudo apt update
+sudo apt install curl build-essential -y
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | bash
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+nvm install --lts
+npm install -g yarn
+```
+
+To verify installation, run:
+```
+node -v
+nvm -v
+npm -v
+npx -v
+yarn -v
+```
