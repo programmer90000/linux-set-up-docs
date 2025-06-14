@@ -661,22 +661,6 @@ Reboot:
 sudo reboot
 ```
 
-## Install Brave Web Browser
-Run:
-```
-sudo apt install curl apt-transport-https
-sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
-echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main" | sudo tee /etc/apt/sources.list.d/brave-browser-release.list
-sudo apt update
-sudo apt install brave-browser
-```
-
-Go to the [Raindrop.io extension](https://chromewebstore.google.com/detail/raindropio/ldgfbffkinooeloadekpmfoklnobpien) page
-
-Click `Add to Brave`
-
-Login to the extension
-
 ## Change Auto-Start programs
 Run:
 ```
