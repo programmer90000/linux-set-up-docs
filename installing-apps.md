@@ -127,3 +127,28 @@ To create a Desktop shortcut to Mousepad, run:
 ```
 cp /usr/share/applications/Zoom.desktop ~/Desktop/
 ```
+
+### Installing VirtualBox
+
+Run:
+```
+sudo apt update
+sudo apt install -y wget gnupg2 lsb-release
+wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo gpg --dearmor -o /usr/share/keyrings/oracle-virtualbox-archive-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/oracle-virtualbox-archive-keyring.gpg] https://download.virtualbox.org/virtualbox/debian $(lsb_release -cs) contrib" | sudo tee /etc/apt/sources.list.d/virtualbox.list
+sudo apt update
+sudo apt install -y virtualbox-7.0
+sudo usermod -aG vboxusers $USER
+```
+
+Replace `virtualbox-7.0` with the version of VirtualBox you want to install
+
+To verify installation, run:
+```
+vboxmanage --version
+```
+
+To create a Desktop shortcut to VirtualBox, run:
+```
+cp /usr/share/applications/virtualbox.desktop ~/Desktop/
+```
