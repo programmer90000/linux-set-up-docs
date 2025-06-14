@@ -62,3 +62,16 @@ To create a Desktop shortcut to Google Chrome, run:
 ```
 cp /usr/share/applications/google-chrome.desktop ~/Desktop/
 ```
+
+### Installing Mousepad text editor
+
+Run:
+```
+sudo apt update
+sudo apt install mousepad
+```
+
+To create a Desktop shortcut to Mousepad, run:
+```
+cp /usr/share/applications/org.xfce.mousepad.desktop ~/Desktop/
+```
