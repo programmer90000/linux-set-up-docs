@@ -35,3 +35,17 @@ To create a Desktop shortcut to Kdenlive, run:
 cp /usr/share/applications/org.kde.kdenlive.desktop ~/Desktop/
 chmod +x ~/Desktop/org.kde.kdenlive.desktop
 ```
+
+### Installing FileZilla
+
+Run:
+```
+sudo apt update
+sudo apt install filezilla
+```
+
+To create a Desktop shortcut to FileZilla, run:
+```
+cp /usr/share/applications/filezilla.desktop ~/Desktop/
+chmod +x ~/Desktop/filezilla.desktop
+```
