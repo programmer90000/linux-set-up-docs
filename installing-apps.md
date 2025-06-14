@@ -112,3 +112,18 @@ To create a Desktop shortcut to Mousepad, run:
 ```
 cp /usr/share/applications/com.microsoft.Edge.desktop ~/Desktop/
 ```
+
+### Installing Zoom
+
+Run:
+```
+wget https://zoom.us/client/latest/zoom_amd64.deb
+sudo apt update
+sudo apt install -y gdebi-core
+sudo gdebi zoom_amd64.deb
+```
+
+To create a Desktop shortcut to Mousepad, run:
+```
+cp /usr/share/applications/Zoom.desktop ~/Desktop/
+```
