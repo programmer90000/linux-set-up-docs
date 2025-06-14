@@ -97,3 +97,18 @@ npm -v
 npx -v
 yarn -v
 ```
+
+### Installing Microsoft Edge
+
+Run:
+```
+curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor | sudo tee /usr/share/keyrings/microsoft.gpg > /dev/null
+echo "deb [arch=amd64 signed-by=/usr/share/keyrings/microsoft.gpg] https://packages.microsoft.com/repos/edge stable main" | sudo tee /etc/apt/sources.list.d/microsoft-edge.list
+sudo apt update
+sudo apt install microsoft-edge-stable
+```
+
+To create a Desktop shortcut to Mousepad, run:
+```
+cp /usr/share/applications/com.microsoft.Edge.desktop ~/Desktop/
+```
