@@ -306,3 +306,40 @@ To create a Desktop shortcut to Docker Desktop, run:
 ```
 cp /usr/share/applications/docker-desktop.desktop ~/Desktop/
 ```
+
+### Install Flameshot
+
+Run:
+```
+sudo apt install
+sudo apt install flameshot
+```
+
+To run Flameshot, press the Print Screen key on your keyboard
+
+Flameshot does not have a GUI window. To remove the Flameshot application from the All Apps menu, run:
+```
+mkdir -p ~/.local/share/applications
+cp /usr/share/applications/org.flameshot.Flameshot.desktop ~/.local/share/applications/
+nano ~/.local/share/applications/org.flameshot.Flameshot.desktop 
+```
+
+Add or modify this line:
+```
+NoDisplay=true
+```
+
+Log out and  back in to apply the changes
+
+### Install VLC Media Player
+
+Run:
+```
+sudo apt update
+sudo apt install vlc
+```
+
+To create a Desktop shortcut to VLC Media Player, run:
+```
+cp /usr/share/applications/vlc.desktop ~/Desktop/
+```
