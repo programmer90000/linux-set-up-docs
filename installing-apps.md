@@ -356,3 +356,16 @@ To create a Desktop shortcut to Viewnior, run:
 ```
 cp /usr/share/applications/viewnior.desktop ~/Desktop/
 ```
+
+### Install Gimp Image Editor
+
+Run:
+```
+sudo apt update
+sudo apt install gimp
+```
+
+To create a Desktop shortcut to Gimp, run:
+```
+cp /usr/share/applications/gimp.desktop ~/Desktop/
+```
