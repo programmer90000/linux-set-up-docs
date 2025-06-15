@@ -287,3 +287,22 @@ To create an All Apps shortcut to Android Studio, run:
 ```
 sudo cp ~/Desktop/android-studio.desktop /usr/share/applications/
 ```
+
+### Install Docker and Docker Desktop
+
+Run:
+```
+sudo apt update
+sudo apt install apt-transport-https ca-certificates curl gnupg software-properties-common lsb-release
+curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list >/dev/null
+sudo apt update
+sudo apt install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+wget https://desktop.docker.com/linux/main/amd64/docker-desktop-amd64.deb
+sudo apt install ./docker-desktop-amd64.deb
+```
+
+To create a Desktop shortcut to Docker Desktop, run:
+```
+cp /usr/share/applications/docker-desktop.desktop ~/Desktop/
+```
