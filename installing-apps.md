@@ -343,3 +343,16 @@ To create a Desktop shortcut to VLC Media Player, run:
 ```
 cp /usr/share/applications/vlc.desktop ~/Desktop/
 ```
+
+### Install Viewnior Image Viewer
+
+Run:
+```
+sudo apt update
+sudo apt install viewnior
+`````
+
+To create a Desktop shortcut to Viewnior, run:
+```
+cp /usr/share/applications/viewnior.desktop ~/Desktop/
+```
