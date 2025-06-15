@@ -239,3 +239,51 @@ Go to the [Raindrop.io extension](https://chromewebstore.google.com/detail/raind
 Click `Add to Brave`
 
 Login to the extension
+
+### Install Android Studio
+
+Go to the official [Android Studio website](https://developer.android.com/studio)
+
+Download the latest version of Android Studio by clicking the following Download button:
+
+![Android Studio Download Button](android-studio-download-button.png)
+
+Extract the downloaded folder by running:
+```
+tar -xzf android-studio-*.tar.gz
+```
+
+Move the extracted directory to the `/opt` directory by running:
+```
+sudo mv android-studio /opt/
+```
+
+To create a Desktop shortcut to Android Studio, run:
+```
+cd ~/Desktop/
+touch android-studio.desktop
+nano android-studio.desktop
+```
+
+Paste the following code in the file:
+```
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Android Studio
+Icon=/opt/android-studio/bin/studio.png
+Exec="/opt/android-studio/bin/studio.sh" %f
+Comment=Android Studio IDE
+Categories=Development;IDE;
+Terminal=false
+```
+
+Run:
+```
+chmod +x ~/Desktop/android-studio.desktop
+```
+
+To create an All Apps shortcut to Android Studio, run:
+```
+sudo cp ~/Desktop/android-studio.desktop /usr/share/applications/
+```
