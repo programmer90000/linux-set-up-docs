@@ -331,6 +331,67 @@ NoDisplay=true
 
 Log out and  back in to apply the changes
 
+### Install Tesseract OCR Text Extractor
+
+Run:
+```
+sudo apt update
+sudo apt install flameshot tesseract-ocr xclip
+mkdir ~/bin/
+touch ~/bin/text-extractor.sh
+nano ~/bin/text-extractor.sh
+```
+
+Paste the following code into the file:
+```
+#!/bin/bash
+
+# Temp file for screenshot
+TEMP_SCREENSHOT="/tmp/ocr-screenshot.png"
+
+# Capture screenshot using Flameshot (GUI mode, save to temp file)
+flameshot gui -r > "$TEMP_SCREENSHOT" 2>/dev/null
+
+# Check if the screenshot was taken (file exists and is not empty)
+if [ -f "$TEMP_SCREENSHOT" ] && [ -s "$TEMP_SCREENSHOT" ]; then
+    # Run OCR and copy to clipboard
+    tesseract "$TEMP_SCREENSHOT" - | xclip -selection clipboard
+    # Send a notification
+    notify-send "OCR Screenshot" "Text extracted and copied to clipboard!"
+else
+    notify-send "OCR Screenshot" "Screenshot canceled or failed."
+fi
+```
+
+Run:
+```
+chmod +x ~/bin/text-extractor.sh
+```
+
+Open the Settings app
+
+Go to the Keyboard section
+
+Select `View and Customize Shortcuts` under `Keyboard Shortcuts`
+
+Select Custom Shortcuts
+
+Create a new Shortcut
+
+Set the Name as `Text Extractor`
+
+Set the Command as the absolute path to the `text-extractor.sh` script. e.g. `/home/user/bin/text-extractor.sh`
+
+Set the Shortcut as `CTRL + Shift + S`
+
+Save the Shortcut
+
+Test the command by clicking `CTRL + Shift + S`
+
+Take a screenshot of a screen containing text
+
+Check if the text was saved to the clipboard
+
 ### Install VLC Media Player
 
 Run:
