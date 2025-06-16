@@ -482,3 +482,11 @@ To use Hardinfo, run:
 ```
 hardinfo
 ```
+
+### Install Stacer
+
+Run:
+```
+sudo apt update
+sudo apt install stacer
+```
