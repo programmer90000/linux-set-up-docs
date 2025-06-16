@@ -430,3 +430,18 @@ To create a Desktop shortcut to Gimp, run:
 ```
 cp /usr/share/applications/gimp.desktop ~/Desktop/
 ```
+
+### Install Shutter Screen Ruler
+
+Run:
+```
+sudo apt update
+sudo apt-get install shutter
+```
+
+To create a Desktop shortcut to Shutter, run:
+```
+cp /usr/share/applications/shutter.desktop ~/Desktop/
+```
+
+To use the screen ruler, open shutter and select `Selection`
