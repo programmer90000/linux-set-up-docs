@@ -469,3 +469,16 @@ Run:
 sudo apt update
 sudo apt install thunderbird
 ```
+
+### Install Hardinfo System Profiler
+
+Run:
+```
+sudo apt update
+sudo apt install hardinfo
+```
+
+To use Hardinfo, run:
+```
+hardinfo
+```
