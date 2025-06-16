@@ -461,3 +461,11 @@ Run:
 sudo apt update
 sudo apt install qdirstat
 ```
+
+### Install ThunderBird Email Client
+
+Run:
+```
+sudo apt update
+sudo apt install thunderbird
+```
