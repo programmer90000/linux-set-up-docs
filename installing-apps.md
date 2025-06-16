@@ -453,3 +453,11 @@ Run:
 sudo apt update
 sudo apt install krename
 ```
+
+### Install Qdirstat Disk Space Analyzer
+
+Run:
+```
+sudo apt update
+sudo apt install qdirstat
+```
