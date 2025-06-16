@@ -445,3 +445,11 @@ cp /usr/share/applications/shutter.desktop ~/Desktop/
 ```
 
 To use the screen ruler, open shutter and select `Selection`
+
+### Install Krename File Renamer
+
+Run:
+```
+sudo apt update
+sudo apt install krename
+```
