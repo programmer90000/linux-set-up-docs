@@ -52,3 +52,39 @@ Replace `PROCESS_NAME` with the name of the process you want to check. For examp
 ```
 check-if-process-running.sh bash
 ```
+
+## Network Ping Scan Script
+
+This script is used to troubleshoot connectivity issues by verifying which devices respond.
+
+
+Run:
+```
+cd /usr/local/bin/
+sudo touch network-ping.sh
+sudo nano network-ping.sh
+```
+
+Paste the contents of [network-ping.sh](network-ping.sh) into this file and save the file
+
+Run:
+```
+sudo chmod +x network-ping.sh
+```
+
+To run the script, use:
+```
+network-ping.sh NETWORK_PREFIX
+```
+
+Replace `NETWORK_PREFIX` with the network prefix you want to scan, using the format X.X.X (three octets). For example:
+```
+ping-scan.sh 192.168.1
+ping-scan.sh 10.0.0
+```
+
+The script will ping every host from `NETWORK_PREFIX.1` to `NETWORK_PREFIX.254` and print a message for each host that is up:
+```
+Host 192.168.1.5 is up
+Host 192.168.1.12 is up
+```
