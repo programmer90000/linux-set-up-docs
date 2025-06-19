@@ -88,3 +88,24 @@ The script will ping every host from `NETWORK_PREFIX.1` to `NETWORK_PREFIX.254` 
 Host 192.168.1.5 is up
 Host 192.168.1.12 is up
 ```
+
+## Check Disk Space
+
+Run:
+```
+cd /usr/local/bin/
+sudo touch check-disk-space.sh
+sudo nano check-disk-space.sh
+```
+
+Paste the contents of [check-disk-space.sh](check-disk-space.sh) into this file and save the file
+
+Run:
+```
+sudo chmod +x check-disk-space.sh
+```
+
+To run the file, run:
+```
+check-disk-space.sh
+```
