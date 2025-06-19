@@ -490,3 +490,21 @@ Run:
 sudo apt update
 sudo apt install stacer
 ```
+
+### Install Atuin
+
+Atuin allows you to view, use and edit all of the bash history from the terminal
+
+Run:
+```
+curl https://raw.githubusercontent.com/atuinsh/atuin/main/install.sh | bash
+```
+
+Ensure this line is added to the `.bashrc` file:
+```
+eval "$(atuin init bash)"
+```
+
+Restart the terminal
+
+Now, when pressing the up arrow, a list of previous commands will be displayed

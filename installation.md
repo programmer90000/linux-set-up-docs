@@ -465,30 +465,6 @@ Select `Scrolling`
 
 Set the `Scrollbar is:` option to `On the Right` or `On the left`
 
-### Disable automatic writing to bash history
-
-Run:
-```
-nano ~/.bashrc
-```
-
-Add the following lines to the file:
-```
-# Read history manually at session start
-history -r ~/.bash_history
-# Disable automatic history writing
-unset HISTFILE
-```
-
-Run the following command:
-```
-rm ~/.bash_history
-```
-
-To add commands to bash history, manually open the `.bash_history` file and add the commands
-
-> **This doesn't stop commands from the current session being avaliable by pressing the up/down arrow keys**
-
 ### Install bat
 
 The `bat` command allows you to view files in the terminal, similar to the `cat` command but with syntax highlighting
