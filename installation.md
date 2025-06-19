@@ -479,6 +479,21 @@ To use bat, run:
 batcat file-name
 ```
 
+## Install tree
+
+The `tree` command is similar to the `ls` commands but displays all sub-directories and files in a tree diagram
+
+Run:
+```
+sudo apt update
+sudo apt install tree
+```
+
+To use `tree`, run:
+```
+tree
+```
+
 ## Changing file icons
 
 ### If using a pre-made icon
