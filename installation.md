@@ -369,6 +369,8 @@ The first time you open Tilda, you will be presented with the preferences screen
 After this, to update preferences, right click inside the window and select prefernces
 > **To opn the context menu, right click inside the window. Not on the status bar**
 
+> **To close Tilda, you may need to change the preferences**
+
 ## Customize Tilda Terminal
 
 ### Change bash prompt colour
