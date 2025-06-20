@@ -31,49 +31,15 @@ This should return ```root```
 Run:
 ```
 sudo apt update
-sudo apt install xfce4 xfce4-settings xfdesktop4 xfce4-panel xfce4-appfinder xdg-utils
-```
-
-Log out
-
-At the login screen, click the gear icon and select `Xfce on Xorg` or `Xfce`
-
-Log in
-
-Run:
-```
-echo $XDG_SESSION_TYPE
-```
-
-Ensure the output is:
-```
-x11
+sudo apt install gnome-shell-extension-prefs gnome-shell-extensions gnome-shell-extension-desktop-icons-ng
 ```
 
 Run:
 ```
-xfdesktop &
+gnome-extensions-app
 ```
 
-Run:
-```
-mkdir -p ~/.config/autostart
-nano ~/.config/autostart
-```
-
-Paste the following text into the file:
-```
-[Desktop Entry]
-Type=Application
-Exec=xfdesktop
-Hidden=false
-NoDisplay=false
-X-GNOME-Autostart-enabled=true
-Name=xfdesktop
-Comment=Manage desktop icons and wallpaper
-```
-
-Log out and back in to apply the changes
+Enable the `Desktop Icons NG (DING)` extension
 
 ---
 
@@ -107,8 +73,8 @@ Run:
 chmod +x terminal.desktop
 ```
 
-Double click on the icon in the Desktop
-Select ```Mark as executable```
+Right click on the icon in the Desktop
+Select ```Allow Launching```
 
 ---
 
