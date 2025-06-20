@@ -1,5 +1,31 @@
 # Installation Docs for Debian
 
+## Enable Sudo Access For Your Account
+
+Run:
+```
+su -
+usermod -aG sudo YOURUSERNAME
+exit
+```
+
+Run:
+```
+groups yourusername
+```
+
+Ensure that sudo appears in the list of groups. 
+
+Log out and back in
+
+Run:
+```
+sudo whoami
+```
+This should return ```root```
+
+> **Note: If `sudo whoami` doesn't return `root` after logging out and back in, restart the PC**
+
 ## Enable Icons On The Desktop
 
 Run:
