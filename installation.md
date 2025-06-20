@@ -362,7 +362,7 @@ sudo apt update
 sudo apt install -y tilda
 ```
 
-Open nemo by typing `tilda` into the terminal or clicking the nemo app icon
+Open nemo by typing `tilda` into the terminal or clicking the Tilda app icon
 
 The first time you open Tilda, you will be presented with the preferences screen to update preferences
 
