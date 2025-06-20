@@ -401,38 +401,41 @@ nano ~/.bashrc
 
 Add the following lines to the file:
 ```
-# Get current git branch name
-parse_git_branch() {
-  git rev-parse --abbrev-ref HEAD 2>/dev/null
-}
-
-# Check if git repo is dirty (uncommitted changes)
-git_dirty() {
-  if [[ -n $(git status --porcelain 2>/dev/null) ]]; then
-    echo "dirty"
-  else
-    echo "clean"
-  fi
-}
-
-# Colors for prompt
+# Prompt colors
 GREEN="\[\e[32m\]"
-BLUE="\[\e[34m\]"
 RED="\[\e[31m\]"
+BLUE="\[\e[34m\]"
 RESET="\[\e[0m\]"
 
-# Define the prompt with Git branch and status
-export PS1="${GREEN}\u@\h${RESET}:${BLUE}\w${RESET}\$(
-  branch=\$(parse_git_branch)
-  if [ -n \"\$branch\" ]; then
-    status=\$(git_dirty)
-    if [ \"\$status\" = \"clean\" ]; then
-      echo \" ${GREEN}(\$branch)${RESET}\"
+# Get the current git branch
+parse_git_branch() {
+  git symbolic-ref --short HEAD 2>/dev/null
+}
+
+# Check if there are uncommitted changes
+git_dirty() {
+  [[ -n $(git status --porcelain 2>/dev/null) ]] && echo "dirty" || echo "clean"
+}
+
+# Set prompt dynamically
+set_bash_prompt() {
+  local branch=$(parse_git_branch)
+  local dirty=$(git_dirty)
+  local git_info=""
+
+  if [[ -n "$branch" ]]; then
+    if [[ "$dirty" == "dirty" ]]; then
+      git_info=" ${RED}($branch)${RESET}"
     else
-      echo \" ${RED}(\$branch)${RESET}\"
+      git_info=" ${GREEN}($branch)${RESET}"
     fi
   fi
-)\$ "
+
+  PS1="${GREEN}\u@\h${RESET}:${BLUE}\w${RESET}${git_info} \$ "
+}
+
+# Apply the prompt on every command
+PROMPT_COMMAND=set_bash_prompt
 ```
 
 Run:
