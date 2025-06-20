@@ -141,21 +141,13 @@ Download it to:
 
 Right Click on the Desktop
 
-Select `Desktop Settings`
+Select `Change Background`
 
-Select the `Folder option > Other > Select the backgrounds directory`
+Select `+ Add Picture` in the Settings Window
 
-Select the correct image
+Select the image you downloaded
 
----
-
-## Set Overview Background
-
-(Note: The overview is the view when switching between desktops)
-
-Go to `Settings > Appearance > Add Picture`
-
-Add the correct picture
+Select the image in the Settings Window
 
 ---
 
