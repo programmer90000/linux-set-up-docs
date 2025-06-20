@@ -100,7 +100,7 @@ Run the following command replacing the zip file name with the correct name of t
 sudo unzip panel-date-formatkeiii.github.com.v11.shell-extension.zip -d /usr/share/gnome-shell/extensions/panel-date-formatkeii
 ```
 
-Open the newly installed Extension Manager. ***Do this before the next step***
+Open the Extension Manager. ***Do this before the next step***
 
 Open this page: https://extensions.gnome.org/extension/4655/date-menu-formatter/
 
