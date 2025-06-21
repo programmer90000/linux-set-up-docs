@@ -106,7 +106,7 @@ Open the Extension Manager. ***Do this before the next step***
 
 Open this page: https://extensions.gnome.org/extension/4655/date-menu-formatter/
 
-Download the latest version of the correct shell.
+Download the latest version of the correct shell. ***Manually click the install button***
 
 This will open a new window titled Date Menu Formatter
 
