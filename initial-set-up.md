@@ -720,7 +720,7 @@ Customize the notification positioning to your preferences
 Run:
 ```
 journalctl -b > ~/boot_log_current.txt
-dmesg > ~/kernel_boot_log.txt
+sudo dmesg > ~/kernel_boot_log.txt
 nano ~/kernel_boot_log.txt
 ```
 
