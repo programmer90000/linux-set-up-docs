@@ -225,7 +225,7 @@ Create or edit gnome-shell.gresource.xml:
 ```
 nano gnome-shell.gresource.xml
 ```
-Paste the full list of files extracted, like this example (make sure it includes all files from the original):
+Paste the full list of files extracted, like this example (make sure it includes all files found in `gdm-theme-edit/files/org/gnome/shell/theme`):
 ```
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
