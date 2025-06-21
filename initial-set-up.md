@@ -41,6 +41,8 @@ gnome-extensions-app
 
 Enable the `Desktop Icons NG (DING)` extension
 
+> **Note: If the `Desktop Icons NG (DING)` section doesn't appear, log out and back in. If it still doesn't appear, restart the PC**
+
 ---
 
 ## Make Shortcuts To Apps On The Desktop
