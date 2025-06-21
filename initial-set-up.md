@@ -342,8 +342,8 @@ Run:
 sudo apt update
 sudo apt install -y nodejs
 sudo apt install npm
-npm install -g npx
-npm install -g yarn
+sudp npm install -g npx
+sudo npm install -g yarn
 ```
 
 ## Install Nemo File Manager
