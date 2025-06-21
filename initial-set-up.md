@@ -793,6 +793,8 @@ chmod +x plymouth-theme-gui-preview.sh
 
 This will launch a GUI application containing a list of available themes. Select a them to preview it. The theme will remain on-screen for 5 seconds
 
+> **You may need to press `CTRL + C` before viewing the theme**
+
 ### Once you know which theme to use
 
 Run the following commands to remove the terminal output:
