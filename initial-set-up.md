@@ -124,6 +124,20 @@ The ```date-menu-formatter``` ZIP file can now be deleted
 
 ---
 
+## Set Profile Picture
+
+Open the Settings app
+
+Select `Users` from the sidebar
+
+Click the pencil icon above the profile picture
+
+Click `Select a File`
+
+Select your profile picture
+
+---
+
 ## Set Desktop Background
 
 Run:
