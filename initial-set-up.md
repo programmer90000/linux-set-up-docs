@@ -501,37 +501,15 @@ tree
 
 ## Changing file icons
 
-### If using a pre-made icon
 Right click on the application
 
-Select `Edit Launcher`
+Select `Properties`
 
 Click on the Icon
 
 Select an icon
 
-### If using a custom icon
-Download the file icon
-
-Run:
-```
-sudo cp location-to-downloaded-file-icon /usr/share/icons/app-icons/app-name
-```
-
-Open the Desktop file:
-```
-cd ~/Desktop
-nano app-name.desktop
-```
-
-Change the `Icon` line to the correct folder path.
-
-e.g.
-```
-/usr/share/icons/app-icons/settings/settings.png
-```
-
-Save the file
+Close the window
 
 ## Install Custom Fonts
 
