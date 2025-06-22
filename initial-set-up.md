@@ -99,7 +99,7 @@ Download the latest version of the correct shell.
 
 Run the following command replacing the zip file name with the correct name of the downloaded zip file:
 ```
-sudo unzip panel-date-formatkeiii.github.com.v11.shell-extension.zip -d /usr/share/gnome-shell/extensions/panel-date-formatkeii
+sudo unzip panel-date-formatkeiii.github.com.v11.shell-extension.zip -d /usr/share/gnome-shell/extensions/panel-date-formatkeiii
 ```
 
 Open the Extension Manager. ***Do this before the next step***
