@@ -76,7 +76,7 @@ To create a Desktop shortcut to Mousepad, run:
 cp /usr/share/applications/org.xfce.mousepad.desktop ~/Desktop/
 ```
 
-### Installing Node, nvm, npm, npx and yarn
+### Installing NVM
 
 Run:
 ```
