@@ -123,7 +123,7 @@ sudo apt install -y gdebi-core
 sudo gdebi zoom_amd64.deb
 ```
 
-To create a Desktop shortcut to Mousepad, run:
+To create a Desktop shortcut to Zoom, run:
 ```
 cp /usr/share/applications/Zoom.desktop ~/Desktop/
 ```
