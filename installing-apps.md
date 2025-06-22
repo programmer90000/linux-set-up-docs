@@ -108,7 +108,7 @@ sudo apt update
 sudo apt install microsoft-edge-stable
 ```
 
-To create a Desktop shortcut to Mousepad, run:
+To create a Desktop shortcut to Microsoft Edge, run:
 ```
 cp /usr/share/applications/com.microsoft.Edge.desktop ~/Desktop/
 ```
