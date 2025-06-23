@@ -467,6 +467,12 @@ sudo apt update
 sudo apt install qdirstat
 ```
 
+To create a Desktop shortcut to Qdirstat Disk Space Analyzer, run:
+```
+sudo cp /usr/share/applications/qdirstat.desktop ~/Desktop/
+sudo chown $USER:$USER ~/Desktop/qdirstat.desktop
+```
+
 ### Install ThunderBird Email Client
 
 Run:
