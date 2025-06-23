@@ -60,7 +60,7 @@ Choose:
 
   * Set:
 
-    * Hostname (e.g., debian)
+    * Hostname (e.g., debian) **The hostname is what the computer will be known as on the network**
 
     * Domain name (optional)
 
