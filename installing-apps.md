@@ -454,6 +454,11 @@ sudo apt update
 sudo apt install krename
 ```
 
+To create a Desktop shortcut to Krename File Renamer, run:
+```
+cp /usr/share/applications/org.kde.krename.desktop ~/Desktop/
+```
+
 ### Install Qdirstat Disk Space Analyzer
 
 Run:
