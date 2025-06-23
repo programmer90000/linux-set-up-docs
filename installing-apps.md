@@ -500,6 +500,12 @@ To use Hardinfo, run:
 hardinfo
 ```
 
+To create a Desktop shortcut to Hardinfo, run:
+```
+sudo cp /usr/share/applications/hardinfo.desktop ~/Desktop/
+sudo chown $USER:$USER ~/Desktop/hardinfo.desktop 
+```
+
 ### Install Stacer
 
 Run:
