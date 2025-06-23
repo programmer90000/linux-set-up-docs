@@ -481,6 +481,12 @@ sudo apt update
 sudo apt install thunderbird
 ```
 
+To create a Desktop shortcut to ThunderBird Email Client, run:
+```
+sudo cp /usr/share/applications/thunderbird.desktop ~/Desktop/
+sudo chown $USER:$USER ~/Desktop/thunderbird.desktop 
+```
+
 ### Install Hardinfo System Profiler
 
 Run:
