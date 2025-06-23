@@ -499,6 +499,21 @@ To use `tree`, run:
 tree
 ```
 
+## Install duf
+
+The `duf` command allows you to view the amount of space used and the amount of free space on your drives
+
+Run:
+```
+sudo apt update
+sudo apt install duf
+```
+
+To use `duf`, run:
+```
+duf
+```
+
 ## Changing file icons
 
 Right click on the application
