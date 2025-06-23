@@ -514,6 +514,12 @@ sudo apt update
 sudo apt install stacer
 ```
 
+To create a Desktop shortcut to Stacer, run:
+```
+sudo cp /usr/share/applications/stacer.desktop ~/Desktop/
+sudo chown $USER:$USER ~/Desktop/stacer.desktop
+```
+
 ### Install Atuin
 
 Atuin allows you to view, use and edit all of the bash history from the terminal
