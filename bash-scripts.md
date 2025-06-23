@@ -79,8 +79,8 @@ network-ping.sh NETWORK_PREFIX
 
 Replace `NETWORK_PREFIX` with the network prefix you want to scan, using the format X.X.X (three octets). For example:
 ```
-ping-scan.sh 192.168.1
-ping-scan.sh 10.0.0
+netowrk-ping.sh 192.168.1
+network-ping.sh 10.0.0
 ```
 
 The script will ping every host from `NETWORK_PREFIX.1` to `NETWORK_PREFIX.254` and print a message for each host that is up:
