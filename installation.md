@@ -108,3 +108,7 @@ Select target device (usually /dev/sda or your main drive).
 Remove the USB installation media when prompted.
 
 Reboot into your new Debian system.
+
+## Troubleshooting
+
+If no desktop environments appear, install the full ISO file instead of the online version
