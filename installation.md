@@ -30,11 +30,7 @@ Save and exit BIOS/UEFI
 
 ## Start Installtion
 
-When the boot menu appears, choose one of:
-
-* Graphical Install (recommended for most users)
-
-* Install (text-based)
+When the boot menu appears, choose Install
 
 Press Enter to begin
 
