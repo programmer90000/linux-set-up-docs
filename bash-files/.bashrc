@@ -60,5 +60,18 @@ colorize_path() {
     echo -ne "$colored_path"
 }
 
+git_branch() {
+    if git rev-parse --is-inside-work-tree &>/dev/null; then
+        branch=$(git symbolic-ref --short HEAD 2>/dev/null)
+        if [[ -n $(git status --porcelain 2>/dev/null) ]]; then
+            # Dirty = red
+            echo -e "\e[1;31m($branch)\e[0m"
+        else
+            # Clean = green
+            echo -e "\e[1;32m($branch)\e[0m"
+        fi
+    fi
+}
+
 # Set PS1 with your desired colors and the colorized path
-PS1='\[\e[1;34m\]\H\[\e[0m\]@\[\e[1;32m\]\u\[\e[0m\] \[$(colorize_path)\]\$ '
+PS1='\[\e[1;34m\]\H\[\e[0m\]@\[\e[1;32m\]\u\[\e[0m\] \[$(colorize_path)\] \[$(git_branch)\]\$ '
