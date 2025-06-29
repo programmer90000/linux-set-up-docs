@@ -26,3 +26,6 @@ fi
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
+
+# Prompt customization
+PS1='\H@\u\w\$ '
