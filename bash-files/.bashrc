@@ -16,3 +16,8 @@ HISTCONTROL=ignoreboth
 HISTSIZE=1000
 # Maximum number of lines in .bash_history file
 HISTFILESIZE=2000
+
+# Add chroot name when applicable
+if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
+    debian_chroot=$(cat /etc/debian_chroot)
+fi
