@@ -4,6 +4,9 @@ case $- in
       *) return;;
 esac
 
+# Change the position of text on resize if needed
+shopt -s checkwinsize
+
 # Append to the history file, don't overwrite it
 shopt -s histappend
 
