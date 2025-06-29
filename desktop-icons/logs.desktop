@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Logs
+Comment=View system logs
+Exec=gnome-logs
+Icon=/usr/share/icons/hicolor/scalable/apps/org.gnome.Logs.svg
+Terminal=false
+Type=Application
+Categories=Utility;System;Monitor;
