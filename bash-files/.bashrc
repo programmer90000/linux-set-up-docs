@@ -28,4 +28,4 @@ if [ -f ~/.bash_aliases ]; then
 fi
 
 # Prompt customization
-PS1='\H@\u\w\$ '
+PS1='\[\e[1;34m\]\H\[\e[0m\]@\[\e[1;32m\]\u\[\e[0m\]\[\e[1;36m\]\w\[\e[0m\]\$ '
