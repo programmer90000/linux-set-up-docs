@@ -191,6 +191,7 @@ cp /usr/share/applications/github-desktop.desktop ~/Desktop/
 To display GitHub Desktop in Gnome Software, run:
 ```
 sudo nano /usr/share/metainfo/github-desktop.metainfo.xml
+```
 
 Paste this text in the file:
 ```
