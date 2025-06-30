@@ -214,3 +214,7 @@ Add Bookmarks
 - Google Advanced Search
     - Sign into [Google Advanced Search](https://www.google.co.uk/advanced_search)
     - Add it as a bookmark with the name `Advanced Search`
+
+- Raindrop
+    - Sign into [Raindrop.io](https://app.raindrop.io/my/0)
+    - Add it as a bookmark with the name `Raindrop`
