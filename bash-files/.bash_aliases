@@ -99,3 +99,13 @@ function cp() {
     echo
     [[ $REPLY =~ ^[Yy]$ ]] && command cp "${sources[@]}" "$dest"
 }
+
+# Ask for confirmation before moving files
+function mv() {
+    echo -e "\033[1;33mMOVING:\033[0m"
+    echo "Source(s): ${@:1:$#-1}"
+    echo "Destination: ${@: -1}"
+    read -p "Confirm move? (y/n) " -n 1 -r
+    echo
+    [[ $REPLY =~ ^[Yy]$ ]] && command mv -i "$@"
+}
