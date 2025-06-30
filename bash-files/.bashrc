@@ -75,3 +75,7 @@ git_branch() {
 
 # Set PS1 with your desired colors and the colorized path
 PS1='\[\e[1;34m\]\H\[\e[0m\]@\[\e[1;32m\]\u\[\e[0m\] \[$(colorize_path)\] \[$(git_branch)\]\$ '
+
+# Display history menu when pressing Ctrl + R
+export HSTR_CONFIG=hicolor
+bind '"\C-r": "\C-a hstr -- \C-j"'  # Better Ctrl+R history menu
