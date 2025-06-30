@@ -71,3 +71,16 @@ Go back to the Settings page
     - Set `Cycle through the most recently used tabs with Ctrl-Tab` to off
     - Set `Show Wayback Machine prompt on 404 pages` to on
     - Set `Speedreader` to off
+
+- Select `Shields`
+    - Set `Show the number of blocked items on the Shields icon` to on
+    - Set `Trackers & ads blocking` to `Standard`
+    - Set `Upgrade connections to HTTPS` to `Standard`
+    - Set `Block scripts` to on
+    - Set `Block fingerprinting` to on
+    - Set `Block cookies` to `Block third-party cookies`
+    - Set `Forget me when I close this site` to off
+    - Set `Store contact information for future broken site reports` to off
+    - Set `Allow Facebook logins and embedded posts` to on
+    - Set `Allow X (previously Twitter) embedded tweets` to on
+    - Set `Allow LinkedIn embedded posts` to on
