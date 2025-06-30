@@ -538,4 +538,4 @@ bind '"\C-r": "\C-a hstr -- \C-j"'  # Better Ctrl+R history menu
 
 Restart the terminal
 
-Now, when pressing the up arrow, a list of previous commands will be displayed
+Now, when pressing `Ctrl+R`, a list of previous commands will be displayed
