@@ -520,18 +520,19 @@ sudo cp /usr/share/applications/stacer.desktop ~/Desktop/
 sudo chown $USER:$USER ~/Desktop/stacer.desktop
 ```
 
-### Install Atuin
+### Install Hstr
 
-Atuin allows you to view, use and edit all of the bash history from the terminal
+Hstr allows you to view, use and edit all of the bash history from the terminal
 
 Run:
 ```
-curl https://raw.githubusercontent.com/atuinsh/atuin/main/install.sh | bash
+sudo apt install hstr
 ```
 
-Ensure this line is added to the `.bashrc` file:
+Ensure these line is added to the `.bashrc` file:
 ```
-eval "$(atuin init bash)"
+export HSTR_CONFIG=hicolor
+bind '"\C-r": "\C-a hstr -- \C-j"'  # Better Ctrl+R history menu
 ```
 
 Restart the terminal
