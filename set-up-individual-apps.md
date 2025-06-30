@@ -89,3 +89,57 @@ Go back to the Settings page
     - Select `Security`
         - Set `Safe Browsing` to `Standard protection`
         - Enable `Use secure DNS`
+
+- Select `Leo`
+    - Set `Show Leo icon in the sidebar` to on
+    - Set `Show Leo in the context menu on websites` to on
+    - Set `Tab Focus Mode` to on
+    - Set `Default model for new conversations` to `Automatic`
+    - Set `Store my conversation history` to on
+
+- Select `Sync`
+    - Select `Manage your synced devices`
+        - Set `Sync Settings` to `Customise sync`
+            - Set `Web apps (PWAs)` to off
+            - Set `Bookmarks` to on
+            - Set `Extensions` to on
+            - Set `History` to off
+            - Set `Settings` to on
+            - Set `Theme` to on
+            - Set `Reading list` to on
+            - Set `Open tabs` to off
+            - Set `Saved tab groups` to off
+            - Set `Passwords` to on
+            - Set `Phone numbers, emails and addresses` to on
+
+- Select `Search Engine`
+    - Set `Normal Window` to Google
+    - Set `Private Window` to Google
+    - Set `Improve search suggestions` to on
+    - Set `Web Discovery Project` to off
+    - Set `Index other search engines` to off
+
+- Select `Extensions`
+    - Set `Allow Google login for extensions` to off
+    - Set `Media Router` to false
+    - Set `WebTorrent` to false
+    - Set `Widevine` to false
+
+- Select `Downloads`
+    - Set `Location` to `/home/abdul/Downloads`
+    - Set `Ask where to save each file before downloading` to on
+    - Set `Show downloads when they're complete` to on
+
+- Select `Accessibility`
+    - Set `Show a quick highlight on the focused object` to off
+    - Set `Navigate pages with a text cursor` to off
+    - Set `Swipe between pages` to off
+    - Set `Copied to clipboard confirmations` to on
+
+- Set `System`
+    - Set `Continue running background apps when Brave is closed` to off
+    - Set `Use graphics acceleration when available` to on
+    - Set `Close window when closing last tab` to on
+    - Set `Warn me before closing window with multiple tabs` to on
+    - Set `Show full-screen reminder to press Esc on exit` to on
+    - Set `Memory Saver` to off
