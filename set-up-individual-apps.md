@@ -143,3 +143,9 @@ Go back to the Settings page
     - Set `Warn me before closing window with multiple tabs` to on
     - Set `Show full-screen reminder to press Esc on exit` to on
     - Set `Memory Saver` to off
+
+- Install Extensions
+    - Go to the [Raindrop extension page](https://chromewebstore.google.com/detail/raindropio/ldgfbffkinooeloadekpmfoklnobpien)
+    - Download the extension
+    - Click on the extension
+    - Sign in using Gmail
