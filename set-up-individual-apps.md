@@ -144,14 +144,14 @@ Go back to the Settings page
     - Set `Show full-screen reminder to press Esc on exit` to on
     - Set `Memory Saver` to off
 
-- Install Extensions
+Install Extensions
 
-    - Install Raindrop
-        - Go to the [Raindrop extension page](https://chromewebstore.google.com/detail/raindropio/ldgfbffkinooeloadekpmfoklnobpien)
-        - Download the extension
-        - Click on the extension
-        - Sign in using Gmail
+- Install Raindrop
+    - Go to the [Raindrop extension page](https://chromewebstore.google.com/detail/raindropio/ldgfbffkinooeloadekpmfoklnobpien)
+    - Download the extension
+    - Click on the extension
+    - Sign in using Gmail
 
-    - Install Temp Mail - Disposable Temporary Email
-        - Go to the [Temp Mail - Disposable Temporary Email extension page](https://chromewebstore.google.com/detail/temp-mail-disposable-temp/inojafojbhdpnehkhhfjalgjjobnhomj)
-        - Download the extension
+- Install Temp Mail - Disposable Temporary Email
+   - Go to the [Temp Mail - Disposable Temporary Email extension page](https://chromewebstore.google.com/detail/temp-mail-disposable-temp/inojafojbhdpnehkhhfjalgjjobnhomj)
+   - Download the extension
