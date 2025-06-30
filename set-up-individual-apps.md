@@ -226,3 +226,32 @@ Add Bookmarks
 ## Google Chrome
 
 - Sign in
+
+## Nemo File Manager
+
+Select `Edit > Prefrences`
+
+Set `View new folders using` to Icon View
+
+Disable `Inherit view type from parent`
+
+Set `Arrange items` to `By Name`
+
+Disable `Reverse Sort`
+
+Enable `Sort folders before files`
+
+Disable `Sort favourites before other files`
+
+Set `Default zoom level` under `Icon View Defaults` to `100%`
+
+Disable `Text beside icons`
+
+Set `Default zoom level` under `Compact View Defaults` to : `66%`
+
+Disable `All columns have the same width`
+
+
+Set `Default zoom level` to `50%`
+
+Disable `Show only folders` under `Tree View Defaults`
