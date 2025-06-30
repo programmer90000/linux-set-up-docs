@@ -218,3 +218,7 @@ Add Bookmarks
 - Raindrop
     - Sign into [Raindrop.io](https://app.raindrop.io/my/0)
     - Add it as a bookmark with the name `Raindrop`
+
+## Microsoft Edge
+
+- Sign in
