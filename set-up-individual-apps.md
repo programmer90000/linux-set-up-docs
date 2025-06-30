@@ -155,3 +155,62 @@ Install Extensions
 - Install Temp Mail - Disposable Temporary Email
    - Go to the [Temp Mail - Disposable Temporary Email extension page](https://chromewebstore.google.com/detail/temp-mail-disposable-temp/inojafojbhdpnehkhhfjalgjjobnhomj)
    - Download the extension
+
+Add Bookmarks
+
+- F1
+    - Open the [F1 homepage](https://www.formula1.com)
+    - Add it as a bookmark with the name `F1`
+
+- YouTube
+    - Sign into [YouTube](https://www.youtube.com)
+    - Add it as a bookmark with the name `YouTube`
+
+- Scuderia Ferrari
+    - Open [Scuderia Ferrari homepage](https://www.ferrari.com/en-EN/formula1)
+    - Add it as a bookmark with the name `Ferrari`
+
+- Manchester United
+    - Open [Manchester United homepage](https://www.manutd.com)
+    - Add it a a bookmark with the name `Manchester United`
+
+- Outlook
+    - Sign into [Outlook](https://outlook.live.com/mail/0/)
+    - Add it as a bookmark with the name `Outlook`
+
+- Quran
+    - Sign into the [Quran website](https://quran.com/1?startingVerse=1)
+    - Add it as a bookmark with the name `Quran`
+
+- Masjid Sunnah
+    - Open [Masjid Sunnah](https://www.masjidsunnahnelson.org/)
+    - Add it as a bookmark with the name `Masjid Sunnah`
+
+- ChatGPT
+    - Sign into [ChatGPT](https://chatgpt.com/)
+    - Add it as a bookmark with the name `ChatGPT`
+
+- DeepSeek
+    - Sign into [DeepSeek](https://chat.deepseek.com/)
+    - Add it as a bookmark with the name `DeepSeek`
+
+- Gemini
+    - Sign into [Gemini](https://gemini.google.com/app)
+    - Add it as a bookmark with the name `Gemini`
+
+- Copilot
+    - Sign into [Copilot](https://copilot.microsoft.com/chats/)
+    - Add it as a bookmark with the name `Copilot`
+
+- WhatsApp
+    - Open the [WhatsApp website](https://web.whatsapp.com/)
+    - Log into WhatsApp using your mobile phone
+    - Add it as a bookmark with the name `WhatsApp`
+
+- Flipboard
+    - Sign into [Flipboard](https://flipboard.com/)
+    - Add it as a bookmark with the name `Flipboard`
+
+- Google Advanced Search
+    - Sign into [Google Advanced Search](https://www.google.co.uk/advanced_search)
+    - Add it as a bookmark with the name `Advanced Search`
