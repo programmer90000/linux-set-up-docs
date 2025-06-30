@@ -222,3 +222,7 @@ Add Bookmarks
 ## Microsoft Edge
 
 - Sign in
+
+## Google Chrome
+
+- Sign in
