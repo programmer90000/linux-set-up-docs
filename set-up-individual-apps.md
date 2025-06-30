@@ -145,7 +145,9 @@ Go back to the Settings page
     - Set `Memory Saver` to off
 
 - Install Extensions
-    - Go to the [Raindrop extension page](https://chromewebstore.google.com/detail/raindropio/ldgfbffkinooeloadekpmfoklnobpien)
-    - Download the extension
-    - Click on the extension
-    - Sign in using Gmail
+
+    - Install Raindrop
+        - Go to the [Raindrop extension page](https://chromewebstore.google.com/detail/raindropio/ldgfbffkinooeloadekpmfoklnobpien)
+        - Download the extension
+        - Click on the extension
+        - Sign in using Gmail
