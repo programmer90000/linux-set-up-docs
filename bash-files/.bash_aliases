@@ -35,3 +35,67 @@ function rm() {
     return 1
   fi
 }
+
+# Ask for confirmation before copying files and an additional confirmation if overwriting
+function cp() {
+    local sources=()
+    local dest=""
+    local skip_prompt=0  # If -f (force) is used
+
+    # Parse arguments (handle -f/-i manually)
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            -i|-f)
+                # Ignore -i (we handle prompts ourselves)
+                # -f means skip confirmation
+                [[ "$1" == -f ]] && skip_prompt=1
+                shift
+                ;;
+            -*)
+                # Preserve other flags (e.g., -r, -v)
+                sources+=("$1")
+                shift
+                ;;
+            *)
+                # Last argument = destination
+                if [[ $# -eq 1 ]]; then
+                    dest="$1"
+                else
+                    sources+=("$1")
+                fi
+                shift
+                ;;
+        esac
+    done
+
+    echo -e "\033[1;36mCOPYING:\033[0m"
+    echo "Source(s): ${sources[*]}"
+    echo "Destination: $dest"
+
+    # Check for existing files
+    local overwrite_any=0
+    if [ -d "$dest" ]; then
+        # Destination is a directory → check each source
+        for src in "${sources[@]}"; do
+            if [[ -e "$dest/$(basename "$src")" ]]; then
+                echo -e "\033[1;31mWARNING:\033[0m '$dest/$(basename "$src")' already exists"
+                overwrite_any=1
+            fi
+        done
+    elif [ -e "$dest" ]; then
+        # Destination is a file → single overwrite
+        echo -e "\033[1;31mWARNING:\033[0m '$dest' already exists"
+        overwrite_any=1
+    fi
+
+    # Skip prompt if -f (force) or no overwrites needed
+    (( skip_prompt || !overwrite_any )) && {
+        command cp "${sources[@]}" "$dest"
+        return
+    }
+
+    # Custom (y/n) prompt
+    read -p "Overwrite? (y/n) " -n 1 -r
+    echo
+    [[ $REPLY =~ ^[Yy]$ ]] && command cp "${sources[@]}" "$dest"
+}
