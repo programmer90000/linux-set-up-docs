@@ -151,3 +151,7 @@ Go back to the Settings page
         - Download the extension
         - Click on the extension
         - Sign in using Gmail
+
+    - Install Temp Mail - Disposable Temporary Email
+        - Go to the [Temp Mail - Disposable Temporary Email extension page](https://chromewebstore.google.com/detail/temp-mail-disposable-temp/inojafojbhdpnehkhhfjalgjjobnhomj)
+        - Download the extension
