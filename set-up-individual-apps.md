@@ -84,3 +84,8 @@ Go back to the Settings page
     - Set `Allow Facebook logins and embedded posts` to on
     - Set `Allow X (previously Twitter) embedded tweets` to on
     - Set `Allow LinkedIn embedded posts` to on
+
+- Select `Privacy and Security`
+    - Select `Security`
+        - Set `Safe Browsing` to `Standard protection`
+        - Enable `Use secure DNS`
