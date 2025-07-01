@@ -491,3 +491,53 @@ Select `Account Settings`
 ## Visual Studio Code
 - Sign in
 - Ensure all sync options are selected
+
+## Gnome Terminal
+
+Click the hamburger menu in the top right
+
+Select `Prefrences`
+
+- Select `General`
+    - Disable `Enable mnemonics`
+    - Disable `Enable the menu accelerator key`
+    - Set the `Theme variant:` to `Dark`
+    - Set `Open new terminals in:` to `Tabs`
+    - Set the `New tab position` to `Last`
+    - Enable `Always check if default terminal`
+
+- Select `Shortcuts`
+    - Disable `Enable Shortcuts`
+
+- Select your profile
+    - Select `Text`
+        - Set `Inline terminal size` to `90 columns` and `30 rows`
+        - Set a `Custom font`: `Monospace` `12`
+        - Set `Cell Spacing` to `1.00 Width` and `1.00 height`
+        - Set `Allow blinking text` to `Always`
+        - Set `Cursor shape` to `Block`
+        - Set `Cursor blinking` to `Enabled`
+        - Enable `Terminal Bell`
+    - Select `Colours`
+        - Disable `Use colours from system theme`
+        - Set `Built-in schemes` to `Green on black`
+        - Set the `Text` to `#00FF66` and the `Background` to `#000000`
+        - Enable `Bold colour` and set it to `#00411A`
+        - Enable `Cursor colour`. Set the `Text` to `#00FF66` and the `Background` to `#000000`
+        - Enable `Highlight colour`. Set the `Text` to `#000000` and the `Background` to `#FFFFFF`
+        - Enable `Show bold text in bright colours`
+    - Select `Scrolling`
+        - Enable `Show scrollbar`
+        - Disable `Scroll on output`
+        - Enable `Scroll on keystroke`
+        - Set `Limit scrollback to:` `50000`
+    - Select `Command`
+        - Disable `Run command as a login shell`
+        - Disable `Run a custom command instead of my command`
+        - Set `Preserve working directory` to `Never`
+        - Set `When command exits` to `Hold the terminal open`
+    - Select `Compatibility`
+        - Set `Backspace key generates:` to `ASCII DEL`
+        - Set `Delete key generates:` to `Escape squence`
+        - Set `Encoding:` to `Unicode -- UTF-8`
+        - Set `Ambiguous-width characters` to `Wide`
