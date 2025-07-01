@@ -489,6 +489,5 @@ Select `Account Settings`
         - Enable `Always keep starred messages`
 
 ## Visual Studio Code
-
-    - Sign in
-    - Ensure all sync options are selected
+- Sign in
+- Ensure all sync options are selected
