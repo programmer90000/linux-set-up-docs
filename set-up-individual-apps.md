@@ -335,3 +335,155 @@ Close the `Prefrences` window
 - Enable `Show Thumbnails`
 - Set `Arrange Items` to `By Name`
 - Set the `View` to `Compact View`
+
+## Thunderbird
+
+- Enter your email credentials and sign in
+- Select `IMAP` as the configuration
+- Click on the hamburger menu icon in the top right of the screen
+- Select `New Account`
+- Select `Email`
+- Enter the details for your other email account
+- Repeat this for each email account you want to add
+- Click on the `Spaces` menu button in the top left hand corner
+- Select `Settings`
+- Disable `When Thunderbird launches, show the Start Page in the message area`
+- Set the `Default Search Engine` to `Google`
+- Disable `Always check to see if Thunderbird is the default mail clien on startup`
+- Disable `Hide system window titlebar`
+- Disable `Auto hide tab bar`
+- Set the `Default font` to `sans-serif`
+- Set the `Size` to `16`
+- Enable `Display emoticons as graphics`
+- Under `When displaying quoted plain text messages`, set the `Style` to `Regular` and the `Size` to `Regular`
+- Set `Date and Time Formatting` to `Regional settings locale`
+- Disable `Use autoscrolling`
+- Enable `Use smooth scrolling`
+- Enable `Always show scrollbars`
+- Enable `Show an alert`
+- Enable `Use the system notification`
+- Select `Customize`
+    - Disable `Message Preview Text`
+    - Enable `Subject`
+    - Enable `Sender`
+    - Set `Show New Mail Alert for` to `5` seconds
+- Disable `Play a sound`
+- Under `Files & Attachments`, set `PDF` to `Preview in Thunderbird`
+- Select `Always ask me where to save files`
+- Under `Tags`, create:
+    - `Important` in red colour
+    - `To Do` in blue colour
+    - `Read Later` in purple colour
+- Enable `View attatchments inline`
+- Enable `Automatically mark messages as read
+- Select `After displaying for`. Set it to `10` seconds
+- Select `Open messages in:` `A new tab`
+- Disable `Close message window/tab on move or delete`
+- Set `Message List` to `Full name and email address`
+- Disable `Show only display name for people in my address book`
+- Select `Return Reciepts...`
+    - Disable `When sending messages, always request a retuen receipt`
+    - Select `When a reciept arrives:` `Leave it in my Inbox`
+    - Select `When I recieve a request for a return receipt:` `Never send a return receipt`
+- Enable `Clear cache on shutdown`
+- Enable `Compact all folders when it will save over` `500` `MB in total`
+- Enable `Ask every time before compacting`
+- Enable `Enable Global Search and Indexer`
+- Set `Message Store Type for new accounts` to `File per folder (mbox)`
+- Enable `Use hardware acceleration when avaliable`
+
+Select `Composition`
+- Set `Forward messages` to `Inline`
+- Enable `add extension to file name`
+- Set `Auto Save every` to `5 minutes`
+- Enable `Confirm when using keyboard shortcut to send message`
+- Disable `Add link previews when pasting URLs`
+- Enable `Check spelling before sending`
+- Enable `Enable spellcheck as you type`
+- Set `Font` to `Variable Width` and `Size` to `Medium`
+- Enable `Use reader's default colors`
+- Disable `Use Paragraph format instead of Body Text by default`
+- Set `Sending Format` to `Automatic`
+- Under `Addressing`, enable: `Local Address Books`, `Automatically add outgoing email addresses to my:` `Collected Addresses`. Set `Default startup directory in the address book windows` to `All Address Books`
+- Enable `Check for missing attatchments`
+- Disable `Offer to share for files larger than`
+
+Select `Privacy & Security`
+- Disable `Allow remote content in messages Exceptions...`
+- Disable `Remember websites and links I've visited`
+- Disable `Accept cookies from sites`
+- Enable `Send websites a "Do Not Track” signal that you don’t want to be tracked`
+- Disable `Use a Primary Password`
+- Enable `When messages are marked as junk:`
+- Select `Move them to the account's "Junk" folder`
+- Disable `Mark messages as read` `When manually marked as junk` and `When Thunderbird determines that they are junk` and `Enable adaptive junk filter logging`
+- Enable `Allow Thunderbird to send technical and interaction data to Mozilla`
+- Disable `Allow Thunderbird to send backlogged crash reports on your behalf`
+- Enable `Tell me if the message I'm reading is a suspected email scam`
+- Enable `Allow antivirus clients to quarantine individual incoming messages`
+- Under `Certificates`, select `Ask me every time`
+- Enable `Query OCSP responder servers to confirm the current validity of certificates`
+- Enable `Automatically enable encryption when possible`
+- Enable `Automatically disable encryption when recipients change and encryption is no longer possible`
+- Enable `Show a notification whenever encryption is disabled automatically`
+
+Select `Chat`
+- Set `When Thunderbird starts` to `Connect my chat accounts automatically`
+- Disable `Let my contacts know that I am Idle after 5 minutes of inactivity`
+- Disable `Send typing notifications in conversations`
+- Enable `Show a notification:` and set it to `with sender's name and message preview`
+- Disable `Flash the taskbar item`
+- Disable `Playasound`
+- Set the `Theme` to `Dark`
+- Set the `Variant` to `Blue`
+
+Select `Account Settings`
+- For each account, do the following:
+  - Select `Server Settings`
+      - Ensure the `Server Type` is set to `IMAP Mail Server`
+      - Enable `Check for new messages at startup`
+      - Enable `Check fornew messages every` and set it to `10` `minutes`
+      - Enable `Allow immediate server notifications when new messages arrive`
+      - Set `When I delete a message` to `Move it to this folder:` `Deleted folder`
+      - Disable `Clean up ("Expunge") Inbox on Exit`
+      - Disable `Empty Trash on Exit`
+  - Select `Copies & Folders`
+      - Enable `When sending messages, automatically:` `Place a copy in`
+      - Set it to `"Sent" Folder on:` **Your email address**
+      - Enable `Place replies in the folder of the message being replied to`
+      - Enable `Keep message archives in:`. Set it to `"Archives" Folder on:` **Your email address**
+      - Set `Keep draft messages in:` to **Your email address**
+      - Set `Keep message templates in:` to **Your email address**
+      - Enable `Show confirmation dialog when messages are saved`
+    - Select `Composition & Addressing`
+        - Enable `Compose messages in HTML format`
+        - Enable `Automatically quote the original message when replying`
+        - Set `When quoting` to `start my reply above the quote` and set `place my signature` to `below the quote`
+        - Enable `Include signature for replies`
+        - Disable `Include signature for forwards`
+
+    - Select `Junk Settings`
+        - Disable `Enable adaptive junk mail controls for this account`
+        - Disable `Trust junk mail headers set by:`
+        - Enable `Move new junk messages to:`
+        - Select `"Junk" folder on:` **Your email address**
+        - Enable `Automatically delete junk mail older than`. Set it to `30` `days`
+
+    - Select `Synchronization & Storage`
+        - Disable `Keep messages in all folders for this account on this computer`
+        - Select `Synchronize the most recent`. Set it to `1` `Days`
+        - Enable `Don't download messages larger than` and set it to `1` `KB`
+        - Select `Don't delete any messages`
+        - Enable `Always keep starred messages`
+
+    - Select `Return Receipts`
+        - Select `Use my global receipt prefrences for this account`
+
+    - Outside of each individual email account's settings, select `Junk Settings`
+        - Disable `Enable adaptive junk mail controls for this account`
+        - Disable `Trust junk mail headers set by:`
+        - Disable `Move new junk messages to:`
+
+    - Outside of rach individual accounts's settings, select `Disk Space`
+        - Select `Don'd delete any messages`
+        - Enable `Always keep starred messages`
