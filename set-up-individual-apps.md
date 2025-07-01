@@ -231,7 +231,7 @@ Add Bookmarks
 
 Select `Edit > Prefrences`
 
-- Set `View new folders using` to Icon View
+- Set `View new folders using` to `Compact View`
 
 - Disable `Inherit view type from parent`
 
@@ -320,3 +320,18 @@ Select `Plugins`
 - Enable `Display Settings`
 - Disable `Change Desktop Background`
 - Under `Extensions`, enable `Nemo Fileroller`
+
+Close the `Prefrences` window
+
+`Select `View`
+- Set the `Sidebar` to `Tree` view
+- Enable `Show Sidebar`
+- Set the `Toolbar` to `Path Bar`
+- Enable `Main Toolbar`
+- Enable the `Menubar`
+- Enable the `Statusbar`
+- Disable `Extra Pane`
+- Disable `Show Hidden Files`
+- Enable `Show Thumbnails`
+- Set `Arrange Items` to `By Name`
+- Set the `View` to `Compact View`
