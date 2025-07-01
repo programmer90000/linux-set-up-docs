@@ -541,3 +541,17 @@ Select `Prefrences`
         - Set `Delete key generates:` to `Escape squence`
         - Set `Encoding:` to `Unicode -- UTF-8`
         - Set `Ambiguous-width characters` to `Wide`
+
+## Libre Office
+
+- Select `Tools > Options`
+    - Select `LibreOffice`
+        - Select `User Data`
+            - Enable `When encrypting documents, always encrypt to self`
+        - Select `General`
+            - Enable `Extended tips`
+            - Enable `Warn if local help is not installed`
+            - Enable `Show "Tip of the Day" dialogue box on start-up`
+            - Enable `Use LibreOffice dialogue boxes`
+            - Disable `Printing sets "document modified” status`
+            - Set `Year (Two Digits)` to `Interpret as years between` `1930` `and 2029`
