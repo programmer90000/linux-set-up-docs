@@ -487,3 +487,8 @@ Select `Account Settings`
     - Outside of rach individual accounts's settings, select `Disk Space`
         - Select `Don'd delete any messages`
         - Enable `Always keep starred messages`
+
+## Visual Studio Code
+
+    - Sign in
+    - Ensure all sync options are selected
