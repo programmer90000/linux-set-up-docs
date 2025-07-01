@@ -231,27 +231,26 @@ Add Bookmarks
 
 Select `Edit > Prefrences`
 
-Set `View new folders using` to Icon View
+- Set `View new folders using` to Icon View
 
-Disable `Inherit view type from parent`
+- Disable `Inherit view type from parent`
 
-Set `Arrange items` to `By Name`
+- Set `Arrange items` to `By Name`
 
-Disable `Reverse Sort`
+- Disable `Reverse Sort`
 
-Enable `Sort folders before files`
+- Enable `Sort folders before files`
 
-Disable `Sort favourites before other files`
+- Disable `Sort favourites before other files`
 
-Set `Default zoom level` under `Icon View Defaults` to `100%`
+- Set `Default zoom level` under `Icon View Defaults` to `100%`
 
-Disable `Text beside icons`
+- Disable `Text beside icons`
 
-Set `Default zoom level` under `Compact View Defaults` to : `66%`
+- Set `Default zoom level` under `Compact View Defaults` to : `66%`
 
-Disable `All columns have the same width`
+- Disable `All columns have the same width`
 
+- Set `Default zoom level` to `50%`
 
-Set `Default zoom level` to `50%`
-
-Disable `Show only folders` under `Tree View Defaults`
+- Disable `Show only folders` under `Tree View Defaults`
