@@ -610,7 +610,36 @@ Select `Prefrences`
         - Select `Languages`
             - Set the correct language
 
-
-
-
-
+## Settings App
+- Select `Apperance`
+    - Set the apperance to `Dark`
+- Select `Notifications`
+    - Enable notifications for all apps
+- Select `Search`
+    - Enable `Application Search`
+- Select `Multitasking`
+    - Enable `Hot Corner`
+    - Enable `Active Screen Edges`
+    - Set `Dynamic Workspaces`
+    - Set `Workspaces on all displays`
+    - Set `Include applications from all workspaces`
+- Select `Applications`
+    - Enable Notifications from all applications
+    - Enable Search for all applicable applications
+- Select `Privacy`
+    - Select `Screen`
+        - Set `Blank Screen Delay` to `10 minutes`
+        - Enable `Automatic screen lock`
+        - Set `Automatic Screen Lock Delay` to `Screen Turns Off`
+        - Disable `Lock Screen Notifications`
+    - Select `Location Services`
+        - Disable `Location Services`
+    - Select `File History & Wastebasket`
+        - Disable `File History`
+        - Disable `Automatically Empty Wastebasket`
+        - Disable `Automatically Delete Temporary Files`
+        - Set `Automatically Empty Wastebasket` to `30 days`
+- Select `Sharing`
+    - Disable `File Sharing`
+    - Disable `Remote Desktop`
+    - Disable `Media Sharing`
