@@ -254,3 +254,34 @@ Select `Edit > Prefrences`
 - Set `Default zoom level` to `50%`
 
 - Disable `Show only folders` under `Tree View Defaults`
+
+Select `Behaviour`
+
+- Select `Double click to open items`
+- Disable `Click ona file's name twice to rename it`
+- Disable `Open each folder in its own window`
+- Disable `Always start in dual-pane view`
+- Disable `Ignore per-folder view preferences`
+- Disable `Disable file operation queueing`
+- Disable `Double-click on a blank area to go to the parent folder`
+- Set `Executable Text Files` to `Ask each time`
+- Disable `Ask before moving files to the Rubbish Bin`
+- Enable `Ask before emptying the Rubbish Bin or deleting files`
+- Disable `Include a Delete command that bypasses the Rubbish Bin`
+- Disable `Bypass the Rubbish Bin when the Delete key is pressed`
+- Enable `Automatically mount removable media when inserted and on start-up`
+- Disable `Automatically open a folder for automounted media`
+- Disable `Prompt or autorun/autostart programs when media are inserted`
+- Disable `Automatically close the device's tab, pane, or window when a device is unmounted or ejected`
+- Enable `Detect content of media and suggest application to open`
+
+Select `Display`
+
+- Under `Icon Captions`, select `Size`, `Date Modified`, `Date Created`
+- Set the date format to `Tue 01 July 2025 14:10:25 BST`
+- Enable `Use a monospace font`
+- Enable `Show the full path in the title bar and tab bars`
+- Set the `File Size` `Prefixes` to `Decimal`
+- Disable `Show advanced permissions in the file property dialogue`
+- Enable `List bookmarks in the menu`
+- Enable `List devices and network locations in the menu`
