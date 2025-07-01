@@ -555,3 +555,62 @@ Select `Prefrences`
             - Enable `Use LibreOffice dialogue boxes`
             - Disable `Printing sets "document modified” status`
             - Set `Year (Two Digits)` to `Interpret as years between` `1930` `and 2029`
+        - Select `View`
+            - Set the `Toolbar` to `Small`
+            - Set the `Notebookbar` to `Small`
+            - Set the `Sidebar` to `Small`
+            - Set `Shortcuts` to `Hide`
+            - Set `Positioning` to `No automatic positioning`
+            - Set the `Middle button` to `Automatic Scrolling`
+            - Enable `Use hardware acceleration`
+            - Enable `Use anti-aliasing`
+            - Enable `Show preview of fonts`
+            - Enable `Screen font anti-aliasing` from `8` pixels
+        - Select `Printer`
+            - Set the `Settings for` `Printer`
+            - Enable `PDF as a standard print job format`
+            - Disable `Convert colours to greyscale`
+            - Enable `Include transparent objects`
+            - Disable `Reduce Bitmaps`
+            - Disable `Reduce Transparency`
+            - Enable warnings for: `Paper size`, `Paper orientation`, `Transparency`
+            - Disable `Reduce Gradient`
+        - Select `Personalisation`
+            - Select `Default look, do not use themes`
+        - Select `Accessibility`
+            - Enable `Use text selection cursor in read-only text documents`
+            - Enable `Allow animated images`
+            - Enable `Allow animated text`
+            - Disable `Automatically detect high-contrast mode of operating system`
+            - Enable `Use automatic font colour for screen display`
+            - Disable `Use system colours for page previews`
+    - Select `Load/Save`
+        - Select `General`
+            - Enable `Load user-specific settings with the document`
+            - Enable `Load printer settings with the document`
+            - Enable `Save AutoRecovery information every:` and set it to `10` minutes
+            - Disable `Edit document properties before saving`
+            - Disable `Always create a backup copy`
+            - Disable `Save URLs relative to file system`
+            - Disable `Save URLs relative to Internet`
+            - Set `ODF format version` to the recommended version
+            - Set the `Document type` to `Text document`
+            - Set `Always save as` to `ODF Text Document (*.odt)`
+            - Enable `Warn when not saving in ODF or default format`
+        - Select `VBA Properties`
+            - Enable `Load Basic code`
+            - Enable `Executable code`
+            - Enable `Save original Basic code`
+            - Enable `Load Basic code`
+            - Enable `Executable code`
+            - Enable `Save original Basic code`
+            - Enable `Load Basic code`
+            - Enable `Save original Basic code`
+    - Select `Language Settings`
+        - Select `Languages`
+            - Set the correct language
+
+
+
+
+
