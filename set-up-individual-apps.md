@@ -285,3 +285,38 @@ Select `Display`
 - Disable `Show advanced permissions in the file property dialogue`
 - Enable `List bookmarks in the menu`
 - Enable `List devices and network locations in the menu`
+
+Select `List Columns`
+- Enable: `Name`, `Size`, `Type`, `Date Modified`, `Date Created`
+
+Select `Preview`
+- Set `Show thumbnails` to `Local Files Only`
+- Disable `Inherit thumbnail visibility from parent`
+- Set `Only for files smaller than:` to `10 MB`
+- Set `Count number of items` to `Always`
+- Enable `Show tooltips in icon and compact views`
+- Enable `Show tooltips in list views`
+- Enable `Show tooltips on the desktop`
+- Enable `Detailed file type`
+- Enable `Modified date`
+- Enable `Created date`
+- Enable `Accessed date`
+- Enable `File or folder location`
+
+Select `Toolbar`
+- Enable: `Icon view`, `Compact view`, `Refresh`, `Search`, `List view`, `Show Thumbnails`
+
+Select `Context Menus`
+- Under `Selection`, enable: `Open`, `Open in New Tab`, `Open in New Window`, `Cut`, `Copy`, `Paste`, `Pin`, `Favourite`, `Rename`, `Move to the Rubbish Bin`, `Properties`
+- Under `Background`, enable: `Create New Folder`, `Show Hidden Files`, `Paste`, `Properties`
+- Under `Icon View`, enable: `Arrange Items`, `Organise by name`
+- Under Desktop, enable: `Customise`
+
+Select `Plugins`
+- Disable `Set as Wallpaper`
+- Enable `Create a new launcher here`
+- Enable `Add Desklets`
+- Enable `Mount archive`
+- Enable `Display Settings`
+- Disable `Change Desktop Background`
+- Under `Extensions`, enable `Nemo Fileroller`
