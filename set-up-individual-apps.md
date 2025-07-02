@@ -883,3 +883,39 @@ Disable `Allow metadata network access`
 - Open the hamburger menu
 - Select `Preffered Format`
 - Select `MP3`
+
+## Tweaks app
+
+- Select `General`
+    - Disable `Suspend when laptop lid is closed`
+    - Disable `Over-Amplification`
+- Select `Appearance`
+    - Set the `Cursor` to `Adwaita (default)`
+    - Set the `Icons` to `Adwaita (default)`
+    - Set the `Sound` to `Custom`
+    - Set the `Legacy Applications` to `Adwaita (default)`
+    - Set the `Background` to the Desktop background image
+- Select `Keyboard & Mouse`
+    - Disable `Show Extended Input Sources`
+    - Disable `Emacs Input`
+    - Set `Overview Shortcut` to `Left Super`
+    - Set `Acceleration Profile` to `Default`
+    - Enable `Pointer Location`
+    - Disable `Middle Click Paste`
+    - Enable `Touchpad` `Disable While Typing`
+    - Disable `Mouse Click Emulation`
+- Select `Top Bar`
+    - Enable `Weekday`, `Date`, `Seconds`
+- Select `Window Titlebars`
+    - Set `Double-Click` to `None`
+    - Set `Middle-Click` to `None`
+    - Set `Secondary-Click` to `Menu`
+    - Enable the `Maximise` titlebar button
+    - Enable the `Minimise` titlebar button
+    - Set the `Placement` to the `Right`
+- Select `Windows`
+    - Enable `Attach Modal Dialogues`
+    - Enable `Center New Windows`
+    - Disable `Resize with Secondary-Click`
+    - Disable `Window Action Key`
+    - Set `Window Focus` to `Click to Focus`
