@@ -643,3 +643,30 @@ Select `Prefrences`
     - Disable `File Sharing`
     - Disable `Remote Desktop`
     - Disable `Media Sharing`
+- Select `Sound`
+    - Set the volume levels
+    - Select `Click` for the `Alert Sound`
+- Select `Power`
+    - Set the `Power Mode` to balanced
+    - Set the `Screen Blank` option to `10 minutes`
+    - Set `Automatic Suspend` to `On`
+    - Set the `Power Button Behaviour` to `Suspend`
+- Select `Displays`
+    - Configure your displays
+- Select `Mouse & Touchpad`
+    - Set the `Primary Button` to `Left`
+    - Set the `Mouse Speed` to the middle
+    - Disable `Natural Scrolling`
+- Select `Removable Media`
+    - Enable `Never prompt or start programs on media insertion`
+- Select `Colour`
+    - Enable all of your monitors
+- Select `Default Applications`
+    - Set `Web` to `Brave Web Browser`
+    - Set `Mail` to `Thunderbird`
+    - Set `Calender` to `Thunderbird`
+    - Set `Music` to `VLC Media Player`
+    - Set `Video` to `VLC Media Player`
+    - Set `Photos` to `Viewinor`
+- Select `Date & Time`
+    - Set the correct date and time
