@@ -670,3 +670,63 @@ Select `Prefrences`
     - Set `Photos` to `Viewinor`
 - Select `Date & Time`
     - Set the correct date and time
+
+
+## Android Studio
+
+- Select `Settings > Apperance`
+    - Set the `Theme` to `Dark`
+    - Set the `Editor colour scheme` to `Dark Theme Default`
+    - Set the `Zoom` to `100%`
+    - Disable `Use custom font`
+    - Disable `Support screen readers`
+    - Enable `Use contrast scrollbars`
+    - Disbale `Adjust colours for red-green vision deficiency`
+    - Enable `Compact Mode`
+    - Enable `Always show full path in window header`
+    - Enable `Use project colours in main toolbar`
+    - Enable `Keep popups open for toggle items`
+    - Disable `Drag-and-drop with Alt key pressed`
+    - Diable `Smooth scrolling`
+    - Enable `Enable mnemonics in controls`
+    - Enable `Enable mnemonics in menu`
+    - Enable `Display icons in menu items`
+    - Set `Main menu` to `Show above Main Toolbar`
+    - Disable `Show indent guides,`
+    - Disable `Use smaller indents`
+    - Enable `Show tool window bars`
+    - Enable `Show tool window names`
+    - Disable `Widescreen tool window layout`
+    - Disable `Side-by-side layout on the left`
+    - Disable `Side-by-side layout on the right`
+    - Enable `Remember size for each tool window`
+    - Set `Presentation Mode` `Zoom` to `175%`
+    - Set the `IDE` to `Subpixel`
+    - Set the `Editor` to `Subpixel`
+- Select `System Settings`
+    - Enable `Confirm before exiting the IDE`
+    - Set `When closing a tool window with a running process:` to `Ask`
+    - Enable `Reopen projects on startup`
+    - Set `Open project in` to `Ask`
+    - Disable `Save files if the IDE is idle for seconds`
+    - Enable `Save files when switching to a different application or a built-in terminal`
+    - Enable `Back up files before saving`
+    - Enable `Sync external changes` `when switching to the IDE window or opening an editor tab` and `Periodically when the IDE is inactive (experimental)`
+- Click on the dropdown arrow next to `System Settings`
+- Select `Date Formats`
+    - Disable `Override system date and time format`
+    - Disable `Use pretty formatting`
+- Select `Updates`
+    - Enable `Check for IDE updates`
+    - Enable `Check for plugin updates`
+    - Disable `Update plugins automatically`
+    - Enable `Check for JDK updates`
+- Select `Notifications`
+    - Enable `Display baloon notifications`
+    - Enable `Enable system notifications`
+    - Set `Popup type` to `No popup`
+    - Enable `Show in tool window`
+    - Disable `Play sound`
+- Select `Languages & Frameworks > Android SDK`
+    - Install the correct `SDK Platforms` for the Android Emulators you want to run
+    - In the `SDK Tools` tab, install `Android SDK Build-Tools`, `NDK (Side by side)`, `Android SDK Command-line Tools`, `CMake`, `Android Emulator`, `Android SDK Platform-Tools`, `Google Play services`,
