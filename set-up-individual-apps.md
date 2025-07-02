@@ -730,3 +730,33 @@ Select `Prefrences`
 - Select `Languages & Frameworks > Android SDK`
     - Install the correct `SDK Platforms` for the Android Emulators you want to run
     - In the `SDK Tools` tab, install `Android SDK Build-Tools`, `NDK (Side by side)`, `Android SDK Command-line Tools`, `CMake`, `Android Emulator`, `Android SDK Platform-Tools`, `Google Play services`,
+
+## Kdenlive Video Editor
+
+- In the `View` tab of the taksbar, enable: `Library`, `Project Bin`, `Project Monitor`, `Timeline`, `Undo history`
+- In the `Settings` tab of the taksbar, enable: `Colour Scheme > Breeze Dark`, `Style > Default`, `Show Menubar`, `Toolbars Shown > Main Toolbar`, `Toolbars Shown > Extra Toolbar`, `Show Statusbar`
+- In the `Settings` tab of the taksbar, select `Configure Kdenlive`
+    - Select `Misc`
+        - Enable `Open last project on startup`
+        - Enable `Activate crash recovery (auto save)`
+        - Enable `Check if first added clip matches project profile`
+        - Disable `Automatically import all streams in multi stream clips`
+        - Disable `Automatically import image sequences`
+        - Disable `Get clip metadata with exiftool`
+        - Disable `Get clip metadata created by Magic Lantern`
+        - Disable `Ignore subfolder structure on import (import all files into toplevel folder)`
+        - Enable `Disable parameters when the effect is disabled`
+        - Set the `Tab position` to `Bottom`
+    - Select `Timeline`
+        - Enable `Enable for Video`
+        - Disable `Enable for Audio`
+        - Disable `Pause playback when seeking`
+        - Disable `Jump to timeline start if playback is started on last frame in timeline`
+        - Disable `Seek to clip when adding effect`
+        - Enable `Autoscroll while playing`
+        - Disable `Scroll vertically with scroll wheel, horizontally with Shift + scroll wheel`
+        - Disable `Display clip markers comments`
+        - Set `Default track height: 69`
+        - Under the `Raise Properties Pane when Selecting in Timeline` section, enable `Clips`, `Transitions` and `Tracks`
+        - Select `On import, enable:` `All Audio Streams`
+        - Enable `Check if project contains enough tracks`
