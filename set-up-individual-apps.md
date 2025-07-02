@@ -919,3 +919,15 @@ Disable `Allow metadata network access`
     - Disable `Resize with Secondary-Click`
     - Disable `Window Action Key`
     - Set `Window Focus` to `Click to Focus`
+
+## Handbrake
+
+Select `File > Prefrences`
+
+- Select `General`
+    - Set `Show Notification` for `Default action when all encodes are complete`
+    - Disable `Use automatic naming (uses modified source name)`
+    - Disable `Use iPod/iTunes friendly (.m4v) file extension for MP4`
+    - Set `Number of previews` to `10`
+    - Set ` Filter short DVD and Blu-ray titles (seconds)` to `10`
+    - Disable `Clear completed queue items after an encode completes`
