@@ -931,3 +931,31 @@ Select `File > Prefrences`
     - Set `Number of previews` to `10`
     - Set ` Filter short DVD and Blu-ray titles (seconds)` to `10`
     - Disable `Clear completed queue items after an encode completes`
+
+## GPaste
+
+Select the hamburger icon
+
+- Select `General behaviour`
+    - Enable `Track clipboard changes`
+    - Enable `Close UI on select`
+    - Enable `Enable the gnome-shell` extension
+    - Disable `Sync the daemon state with the extension’s one`
+    - Disable `Primary selection affects history`
+    - Disable `Synchronize clipboard with primary selection`
+    - Enable `Images support`
+    - Disable `Trim items`
+    - Disable `Detect growing lines`
+    - Enable `Save history`
+- Select `History Settings`
+    - Set `Max element size when displaying` to `60`
+    - Set `Max displayed history size` to `50`
+    - Set `Max history size` to `5000`
+    - Set `Max memory usage (MB)`
+    - Set `Max text item length` to `999999`
+    - Set `Min text item length` to `1`
+- Select `Keyboard shortcuts`
+    - Delete the shortcut: `Delete the active item from history`
+    - Set `Launch the graphical tool` to the shortcut `<Ctrl><Alt>G`
+    - Set `Mark the active item as being a password` to the shortcut `<Ctrl><Alt>P`
+    - Set `Display the history` to the shortcut `<Ctrl><Alt>H`
