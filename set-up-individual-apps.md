@@ -959,3 +959,38 @@ Select the hamburger icon
     - Set `Launch the graphical tool` to the shortcut `<Ctrl><Alt>G`
     - Set `Mark the active item as being a password` to the shortcut `<Ctrl><Alt>P`
     - Set `Display the history` to the shortcut `<Ctrl><Alt>H`
+
+## GitHub Desktop
+
+Sign In
+
+Select `File > Options`
+
+- Select `Integrations`
+    - Set the `External editor` to `Visual Studio Code`
+    - Set the `Shell` to `GNOME Terminal`
+- Select `Git`
+    - Set the `Default branch name for new repositories` to `main`
+- Select `Apperance`
+    - Set the `Theme` to `System`
+    - Set the `Tab Size` to `4`
+    - Set the `Title bar style` to `Native`
+- Select `Notifications`
+    - Select `Enable Notifications`
+- Select `Prompts`
+    - Enable `Removing repositories`
+    - Enable `Discarding changes`
+    - Enable `Discarding changes permanently`
+    - Enable `Discarding stash`
+    - Enable `Checking out a commit`
+    - Enable `Force pushing`
+    - Enable `Undo commit`
+    - Set `If I have changes and I switch branches...` to `Ask me where I want the changes to go`
+    - Enable `Show commit length warning`
+- Select `Advanced`
+    - Enable `Show status icons in the repository list`
+    - Disable ` Help GitHub Desktop improve by submitting usage stats`
+    - Disable `Use Git Credential Manager`
+- Select `Accessibility`
+    - Enable `Underline links`
+    - Enable `Show check marks in the diff`
