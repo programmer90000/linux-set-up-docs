@@ -760,3 +760,39 @@ Select `Prefrences`
         - Under the `Raise Properties Pane when Selecting in Timeline` section, enable `Clips`, `Transitions` and `Tracks`
         - Select `On import, enable:` `All Audio Streams`
         - Enable `Check if project contains enough tracks`
+
+## Viewnior
+
+- Click on the paper icon with a wrench
+- Select `Prefrences`
+- - Select `General`
+    - Set `Open new image in:` to `Smart Mode`
+    - Set `Desktop` to `GNOME3`
+    - Enable `Smooth images when zoomed`
+    - Enable `Confirm image deletions`
+    - Enable `Show hidden images`
+- Select `Fullscreen`
+    - Set `Show next image after (in seconds):` to `30` seconds
+    - Enable `Always expand images to fit screen`
+- Select `Behavior`
+    - Set `On mouse wheel:` to `Zoom image`
+    - Set `On double click:` to `Switch zoom modes`
+    - Set `On image modification:` to `Ask every time`
+- Select `Saving`
+    - Enable `Reload image on save`
+    - Set `JPEG quality` to `90`
+    - Set `PNG Compression` to `9`
+
+## Mousepad
+
+- Select `Edit > Prefrences`
+- Select `View`
+    - Enable `Show line numbers`
+    - Enable `Display whitespace`
+    - Enable `Display line endings`
+    - Disable `Longline margin at column:`
+    - Enable `Highlight current line`
+    - Enable `Highlight matching brackets`
+    - Enable `Wrap long lines`
+    - Enable `Use system monospace font`
+    - Set the `Colour Scheme` to `None`
