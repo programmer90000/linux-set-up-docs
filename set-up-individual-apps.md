@@ -839,3 +839,42 @@ Select `Prefrences`
     - Set `Line Ending` to `Unix (LF)
     - Disable `Write Unicode BOM`
     - Disable `Viewer Mode`   
+
+## VLC Media Player
+
+Select `Tools > Prefrences`
+Select `Simple` from the bottom left of the window
+
+- Select `Interface`
+    - Select `Use Native Style`
+    - Enable `Show controls in full screen mode`
+    - 
+Enable `Integrate video in interface`
+Enable `Resize interface to video size`
+Disable `Start in minimal view mode`
+Disable `Pause playback when minimised`
+Enable `Show systray icon`
+Set `Show media change popup:` to `When minimised`
+Set `Force window style:` to `System's default`
+Set `Auto raising the interface:` to `Video`
+Disable `Allow only one instance`
+Disable `Use only one instance when started from file manager`
+Enable `Display playlist tree`
+Enable `Pause on the last frame of a video`
+Set `Continue playback?` to `Ask`
+Enable `Save recently played items`
+Disable `Allow metadata network access`
+- Select `Audio`
+    - Enable `Enable Audio`
+    - Set `Output module:` to `Automatic`
+- Select `Video`
+    - Enable `Enable video`
+    - Disable `Fullscreen`
+    - Disable `Window decorations`
+    - Set the `Output` to `Automatic`
+    - Set the `Format` of `Video Snapshots` to `PNG`
+- Select `Subtitles/ OSD`
+    - Enable `Enable On Screen Display (OSD)`
+    - Enable `Show media title on video start`
+    - Set the `Position` to `bottom`
+    - Enable `Enable subtitles`
