@@ -786,13 +786,56 @@ Select `Prefrences`
 ## Mousepad
 
 - Select `Edit > Prefrences`
-- Select `View`
-    - Enable `Show line numbers`
-    - Enable `Display whitespace`
-    - Enable `Display line endings`
-    - Disable `Longline margin at column:`
-    - Enable `Highlight current line`
-    - Enable `Highlight matching brackets`
-    - Enable `Wrap long lines`
-    - Enable `Use system monospace font`
-    - Set the `Colour Scheme` to `None`
+    - Select `View`
+        - Enable `Show line numbers`
+        - Enable `Display whitespace`
+        - Enable `Display line endings`
+        - Disable `Longline margin at column:`
+        - Enable `Highlight current line`
+        - Enable `Highlight matching brackets`
+        - Enable `Wrap long lines`
+        - Enable `Use system monospace font`
+        - Set the `Colour Scheme` to `None`
+    - Select `Editor`
+        - Set the `Tab width` to `4`
+        - Set the `Tab mode` to `Insert spaces`
+        - Disable `Enable automatic indentation`
+        - Enable `Tab: Indent selection (Shift+ Tab: Unindent)`
+        - Disable `Backspace: Delete indent spaces as tabs`
+        - Set `Home/End: Detect leading/trailing whitespace:` to `Always`
+    - Select `Window`
+        - Disable `Client-side decorations (restart required)`
+        - Enable `Show full filename in title bar`
+        - Disable `Remember window size`
+        - Disable `Remember window position`
+        - Disable `Remember window state`
+        - Enable `Show toolbar`
+        - Set `Style:` to `Icons Only`
+        - Set `Icon Size` to `Menu`
+        - Enable `Always show tabs even with one file`
+        - Disable `Expand tabs to fill available space`
+        - Disable `Cycled notebook tab switching`
+        - Set `Open files in:` to `new tabs`
+    - Select `File`
+        - Disable `Ensure new line at file end`
+        - Disable `Make a copy with '~' suffix`
+        - Set `Session restore:` to `always`
+        - Set `Recent file menu length:` to `20`
+        - Set `Search history size:` to 20
+        - Disable `File monitoring`
+        - Set `Default encoding:` to `UTF-8`
+    - Select `Plugins`
+        - Enable `Spell Checking`
+- Go to `View`
+    - Set `Colour Scheme` to `None`
+    - Enable `Menubar`
+    - Enable `Toolbar`
+    - Enable `Statusbar`
+    - Disable `Fullscreen`
+- Go to `Document`
+    - Enable `Word Wrap`
+    - Disable `Auto indent`
+    - Set `Tab Size` to `4`
+    - Set `Line Ending` to `Unix (LF)
+    - Disable `Write Unicode BOM`
+    - Disable `Viewer Mode`   
