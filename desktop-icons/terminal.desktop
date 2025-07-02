@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=GNOME Terminal
+Comment=Use the command line
+Exec=gnome-terminal
+Icon=utilities-terminal
+Type=Application
+Categories=System;TerminalEmulator;
+Terminal=false
+Version=1.0
