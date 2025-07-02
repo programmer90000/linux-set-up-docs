@@ -878,3 +878,8 @@ Disable `Allow metadata network access`
     - Enable `Show media title on video start`
     - Set the `Position` to `bottom`
     - Enable `Enable subtitles`
+
+## Sound Recorder
+- Open the hamburger menu
+- Select `Preffered Format`
+- Select `MP3`
