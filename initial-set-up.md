@@ -331,6 +331,12 @@ Right-click on an application
 
 Select `Pin to Dash`
 
+## Enable Dark Mode
+
+Click on the Power, Sound and WiFi icon
+
+Enable Dark Mode
+
 ## Add Clipboard
 Run:
 ```
