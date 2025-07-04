@@ -42,6 +42,7 @@ COLOR_BG_DIRS=(
 )
 
 # Function to colorize each directory in the path
+# Function to colorize each directory in the path
 colorize_path() {
     local dirs=()
     IFS='/' read -r -a dirs <<< "$(pwd | sed 's|^/||')"  # Split path, remove leading /
@@ -52,13 +53,20 @@ colorize_path() {
     for dir in "${dirs[@]}"; do
         # Get the background color
         local bg_code="${COLOR_BG_DIRS[$color_index]}"
-        # Add directory with background color (NO \[\] here!)
-        colored_path+="\e[${bg_code}m ${dir} \e[0m"
+        # Add directory with background color (properly escaped)
+        colored_path+="\\[\\e[${bg_code}m\\] ${dir} \\[\\e[0m\\]"
         ((color_index = (color_index + 1) % 10))  # Cycle colors
     done
 
-    echo -ne "$colored_path"
+    echo -n "$colored_path"
 }
+
+# Set PS1 using PROMPT_COMMAND to ensure proper evaluation
+set_prompt() {
+    PS1="\[\e[1;34m\]\H\[\e[0m\]@\[\e[1;32m\]\u\[\e[0m\] $(colorize_path) $(git_branch)\$ "
+}
+
+PROMPT_COMMAND=set_prompt
 
 git_branch() {
     if git rev-parse --is-inside-work-tree &>/dev/null; then
