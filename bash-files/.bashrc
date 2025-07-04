@@ -50,10 +50,11 @@ colorize_path() {
     local color_index=0
 
     for dir in "${dirs[@]}"; do
+        # Get the background color
         local bg_code="${COLOR_BG_DIRS[$color_index]}"
-        # Wrap color codes in \[ \] to mark non-printing characters for bash
-        colored_path+="\[\e[${bg_code}m\] ${dir} \[\e[0m\]"
-        ((color_index = (color_index + 1) % 10))
+        # Add directory with background color (NO \[\] here!)
+        colored_path+="\e[${bg_code}m ${dir} \e[0m"
+        ((color_index = (color_index + 1) % 10))  # Cycle colors
     done
 
     echo -ne "$colored_path"
@@ -64,16 +65,16 @@ git_branch() {
         branch=$(git symbolic-ref --short HEAD 2>/dev/null)
         if [[ -n $(git status --porcelain 2>/dev/null) ]]; then
             # Dirty = red
-            echo -e "\[\e[1;31m\]($branch)\[\e[0m\]"
+            echo -e "\e[1;31m($branch)\e[0m"
         else
             # Clean = green
-            echo -e "\[\e[1;32m\]($branch)\[\e[0m\]"
+            echo -e "\e[1;32m($branch)\e[0m"
         fi
     fi
 }
 
 # Set PS1 with your desired colors and the colorized path
-PS1='\[\e[1;34m\]\H\[\e[0m\]@\[\e[1;32m\]\u\[\e[0m\] '"$(colorize_path)"' '"$(git_branch)"'\$ '
+PS1='\[\e[1;34m\]\H\[\e[0m\]@\[\e[1;32m\]\u\[\e[0m\] \[$(colorize_path)\] \[$(git_branch)\]\$ '
 
 # Display history menu when pressing Ctrl + R
 export HSTR_CONFIG=hicolor
