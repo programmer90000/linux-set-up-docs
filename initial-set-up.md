@@ -256,6 +256,18 @@ Right-click on an application
 
 Select `Pin to Dash`
 
+## Add Mute Volume Button To System Menu
+
+Visit the (Mute/Unmute Extension)[https://extensions.gnome.org/extension/5088/muteunmute/] page
+
+Install the latest version of the correct shell package (Click Install, do not open the automatically installed package)
+
+Click Install in the new window that pops up
+
+Open the System Menu
+
+Click the volume icon to mute
+
 ## Enable Dark Mode
 
 Click on the Power, Sound and WiFi icon
