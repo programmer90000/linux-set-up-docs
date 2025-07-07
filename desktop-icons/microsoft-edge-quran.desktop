@@ -1,0 +1,23 @@
+[Desktop Entry]
+NoDisplay=false
+Version=1.0
+Name=Microsoft Edge
+GenericName=Web Browser
+Comment=Access the Internet
+Exec=/usr/bin/microsoft-edge-stable --profile-directory="Profile 2" --class=edge-quran %U
+StartupNotify=true
+StartupWMClass=edge-quran
+Terminal=false
+Icon=/usr/share/icons/hicolor/64x64/apps/microsoft-edge-logo-quran.png
+Type=Application
+Categories=Network;WebBrowser;
+MimeType=application/pdf;application/rdf+xml;application/rss+xml;application/xhtml+xml;
+Actions=new-window;new-private-window;
+
+[Desktop Action new-window]
+Name=New Window
+Exec=/usr/bin/microsoft-edge-stable --profile-directory="Profile 2" --class=edge-quran %U
+
+[Desktop Action new-private-window]
+Name=New InPrivate Window
+Exec=/usr/bin/microsoft-edge-stable --inprivate --profile-directory="Profile 2" --class=edge-quran %U
