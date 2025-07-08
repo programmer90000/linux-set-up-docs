@@ -28,7 +28,7 @@ if [ -f ~/.bash_aliases ]; then
 fi
 
 # Setup nvm
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s ">
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
 # Define 10 background colors (ANSI codes)
@@ -46,10 +46,9 @@ COLOR_BG_DIRS=(
 )
 
 # Function to colorize each directory in the path
-# Function to colorize each directory in the path
 colorize_path() {
     local dirs=()
-    IFS='/' read -r -a dirs <<< "$(pwd | sed 's|^/||')"  # Split path, remove leading /
+    IFS='/' read -r -a dirs <<< "$(pwd | sed 's|^/||')" # Split path, remove leading /
 
     local colored_path=""
     local color_index=0
@@ -57,9 +56,9 @@ colorize_path() {
     for dir in "${dirs[@]}"; do
         # Get the background color
         local bg_code="${COLOR_BG_DIRS[$color_index]}"
-        # Add directory with background color (properly escaped)
-        colored_path+="\\[\\e[${bg_code}m\\] ${dir} \\[\\e[0m\\]"
-        ((color_index = (color_index + 1) % 10))  # Cycle colors
+        # Add directory with background color
+        colored_path+="\[\e[${bg_code}m\] ${dir} \[\e[0m\]"
+        ((color_index = (color_index + 1) % 10)) # Cycle colors
     done
 
     echo -n "$colored_path"
@@ -69,24 +68,28 @@ colorize_path() {
 set_prompt() {
     PS1="\[\e[1;34m\]\H\[\e[0m\]@\[\e[1;32m\]\u\[\e[0m\] $(colorize_path) $(git_branch)\$ "
 }
-
 PROMPT_COMMAND=set_prompt
 
 git_branch() {
     if git rev-parse --is-inside-work-tree &>/dev/null; then
+        local branch
         branch=$(git symbolic-ref --short HEAD 2>/dev/null)
         if [[ -n $(git status --porcelain 2>/dev/null) ]]; then
             # Dirty = red
-            echo -e "\e[1;31m($branch)\e[0m"
+            echo -n "\[\e[1;31m\](${branch})\[\e[0m\]"
         else
             # Clean = green
-            echo -e "\e[1;32m($branch)\e[0m"
+            echo -n "\[\e[1;32m\](${branch})\[\e[0m\]"
         fi
     fi
 }
 
 # Set PS1 with your desired colors and the colorized path
-PS1='\[\e[1;34m\]\H\[\e[0m\]@\[\e[1;32m\]\u\[\e[0m\] \[$(colorize_path)\] \[$(git_branch)\]\$ '
+set_prompt() {
+    PS1="\[\e[1;34m\]\H\[\e[0m\]@\[\e[1;32m\]\u\[\e[0m\] $(colorize_path) $(git_branch)\$ "
+}
+
+PROMPT_COMMAND=set_prompt
 
 # Display history menu when pressing Ctrl + R
 export HSTR_CONFIG=hicolor
