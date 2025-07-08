@@ -37,7 +37,7 @@ COLOR_BG_DIRS=(
     '48;5;93'   # Purple
     '48;5;39'   # Light Blue
     '48;5;196'  # Red
-    '48;5;46'   # Bright Green
+    '48;5;22'   # Dark Green
     '48;5;129'  # Lavender
 )
 
