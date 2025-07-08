@@ -32,7 +32,7 @@ COLOR_BG_DIRS=(
     '48;5;27'   # Blue
     '48;5;34'   # Green
     '48;5;161'  # Pink
-    '48;5;208'  # Orange
+    '48;5;130'  # Orange
     '48;5;178'  # Yellow
     '48;5;93'   # Purple
     '48;5;39'   # Light Blue
