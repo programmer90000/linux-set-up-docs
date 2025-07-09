@@ -72,14 +72,44 @@ PROMPT_COMMAND=set_prompt
 
 git_branch() {
     if git rev-parse --is-inside-work-tree &>/dev/null; then
-        local branch
+        local branch commit is_latest display
         branch=$(git symbolic-ref --short HEAD 2>/dev/null)
-        if [[ -n $(git status --porcelain 2>/dev/null) ]]; then
-            # Dirty = red
-            echo -n "\[\e[1;31m\](${branch})\[\e[0m\]"
+        commit=$(git rev-parse --short HEAD 2>/dev/null)
+
+        # Check if we're at the latest commit of the branch (not detached)
+        if [ -n "$branch" ]; then
+            local branch_head_commit=$(git rev-parse --short "$branch" 2>/dev/null)
+            if [ "$commit" = "$branch_head_commit" ]; then
+                is_latest=true
+            fi
+        fi
+
+        # Determine display format
+        if [ -n "$branch" ]; then
+            if [ "$is_latest" = true ]; then
+                display="$branch"  # Only show branch name at latest commit
+            else
+                display="$branch@$commit"  # Show branch@commit if behind
+            fi
         else
-            # Clean = green
-            echo -n "\[\e[1;32m\](${branch})\[\e[0m\]"
+            # Detached HEAD - try to find nearest branch
+            local nearest_branch=$(git branch --contains HEAD --sort=-committerdate | grep -v '(HEAD detached' | head -n 1 | sed 's/^[* ]*//')
+            if [ -n "$nearest_branch" ]; then
+                display="$nearest_branch@$commit"
+            else
+                display="@$commit"
+            fi
+        fi
+
+        # Apply colors
+        if [[ -n $(git status --porcelain 2>/dev/null) ]]; then
+            echo -n "\[\e[1;31m\]($display)\[\e[0m\]"  # Dirty = red
+        else
+            if [ -z "$branch" ]; then
+                echo -n "\[\e[1;33m\]($display)\[\e[0m\]"  # Detached clean = yellow
+            else
+                echo -n "\[\e[1;32m\]($display)\[\e[0m\]"  # On branch clean = green
+            fi
         fi
     fi
 }
