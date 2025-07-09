@@ -92,11 +92,15 @@ git_branch() {
                 display="$branch@$commit"  # Show branch@commit if behind
             fi
         else
-            # Detached HEAD - try to find nearest branch
-            local nearest_branch=$(git branch --contains HEAD --sort=-committerdate | grep -v '(HEAD detached' | head -n 1 | sed 's/^[* ]*//')
-            if [ -n "$nearest_branch" ]; then
-                display="$nearest_branch@$commit"
+            # Detached HEAD - try to find the branch we detached from
+            local detached_from=$(git reflog show --no-abbrev -n1 HEAD 2>/dev/null | \
+                                 grep -oE 'checkout: moving from .* to' | \
+                                 sed -E 's/checkout: moving from (.*) to/\1/' | \
+                                 grep -v 'HEAD')
+            if [ -n "$detached_from" ]; then
+                display="$detached_from@$commit"
             else
+                # If we can't find where we detached from, just show commit ID
                 display="@$commit"
             fi
         fi
