@@ -1,0 +1,1 @@
+These files need to be saved in: `home/user/.local/share/applications/`
