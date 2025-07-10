@@ -4,7 +4,7 @@ Version=1.0
 Name=Microsoft Edge
 GenericName=Web Browser
 Comment=Access the Internet
-Exec=/usr/bin/microsoft-edge-stable --profile-directory="Default" --class=edge-personal --user-data-dir=/tmp/edge-personal %U
+Exec=/usr/bin/microsoft-edge-stable --profile-directory="Default" --class=edge-personal --user-data-dir="$HOME/.config/microsoft-edge" %U
 StartupNotify=true
 StartupWMClass=edge-personal
 Terminal=false
