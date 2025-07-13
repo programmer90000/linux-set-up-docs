@@ -1,15 +1,18 @@
 #!/bin/bash
 
-# Usage: ./check_internet.sh <target>
-# Example: ./check_internet.sh 8.8.8.8 or ./check_internet.sh google.com
+# Usage: ./check_internet.sh
+# Usage: Enter target (e.g. 8.8.8.8 or google.com)
 
-if [ $# -ne 1 ]; then
-    echo "Usage: $0 <target> (e.g. 8.8.8.8 or google.com)"
+# Prompt user for target
+read -rp "Enter ping target (e.g. 8.8.8.8 or google.com): " PING_TARGET
+
+# Exit if input is empty
+if [ -z "$PING_TARGET" ]; then
+    echo "No target entered. Exiting."
     exit 1
 fi
 
-PING_TARGET="$1"
-
+# Check if target is reachable
 if ping -c 1 -W 2 "$PING_TARGET" > /dev/null; then
     echo "Internet is up (reachable: $PING_TARGET)."
     exit 0
