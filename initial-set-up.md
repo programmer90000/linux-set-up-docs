@@ -32,6 +32,26 @@ This should return ```root```
 
 ## Configure the Application Launcher
 
+### Edit Applications
+
+Right-click on the Application Launcher
+
+Select `Edit Applications`
+
+Right-click on each application submenu and delete it
+
+Create the following submenus: `Internet`, `Image & Video`, `Development`, `LibreOffice`, `Utilities`, `Settings`, `System`
+
+Right-click on each submenu and select `New Item`
+
+Enter the name of the application to be added to this submenu
+
+Add a description, icon and select the program to launch
+
+Enable `Enable launch feedback`
+
+Disable `Only show when logged into a Plasma session`
+
 ### Configure Application Dashboard
 
 Right-click on the Application Launcher
