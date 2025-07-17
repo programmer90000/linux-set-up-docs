@@ -137,15 +137,17 @@ chmod +x terminal.desktop
 
 ## Set Profile Picture
 
-Open the Settings app
+Open the System Settings app
 
 Select `Users` from the sidebar
 
-Click the pencil icon above the profile picture
+Click the profile picture
 
-Click `Select a File`
+Select `Choose a File`
 
 Select your profile picture
+
+Select `Apply`
 
 ---
 
