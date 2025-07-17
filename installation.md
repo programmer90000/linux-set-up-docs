@@ -91,9 +91,9 @@ Choose a nearby mirror for package downloads.
 Enable network mirror (recommended)
 
 ## Software Selection
-Select the GNOME desktop environment (or another if you prefer: KDE, XFCE, etc.)
+Select the KDE Plasma desktop environment (or another if you prefer: GNOME, XFCE, etc.)
 
-**Note: This documentation assumes you are using the GNOME Desktop environment**
+**Note: This documentation assumes you are using the KDE Plasma Desktop environment**
 
 ## Install GRUB Bootloader
 Choose Yes to install GRUB.
