@@ -236,25 +236,6 @@ Click the `Apply` button in the top left hand side of the window
 
 > Note: Logging out may apply the changes but it is better to restart
 
-## Taskbar Settings
-
-Find the shell version you are using:
-```
-gnome-shell --version
-```
-
-Visit the: (Dash To Panel Extension)[https://extensions.gnome.org/extension/1160/dash-to-panel/] page
-
-Install the latest version of the correct shell package (Click Install, do not open the automatically installed package)
-
-Click Install in the new window that pops up
-
-Open the Extensions Manager
-
-Click Settings next to the newly added Dash to Panel extension
-
-Configure the Settings for the extension
-
 ## Add Apps To Taskbar
 
 Visit the: (Favourites In AppGrid Extension)[https://extensions.gnome.org/extension/4485/favourites-in-appgrid/] page
