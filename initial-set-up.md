@@ -40,6 +40,34 @@ Select `Global Theme`
 
 Set it to `Breeze Dark`
 
+Select `Application Style`
+
+Set it to `Oxygen`
+
+Select `Plasma Style`
+
+Set it to `Oxygen`
+
+Select `Colours`
+
+Set it to `Breeze Dark`
+
+Select `Windows Decorations`
+
+Set it to `Plastik`
+
+Select `Icons`
+
+Set it to `Breeze Dark`
+
+Select `Cursors`
+
+Set it to `Adwaita`
+
+Select `Splash Screen`
+
+Set it to `None`
+
 ## Configure the Application Launcher
 
 ### Edit Applications
