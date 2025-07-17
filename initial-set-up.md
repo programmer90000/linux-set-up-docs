@@ -120,7 +120,7 @@ Add the following lines to the file:
 [Desktop Entry]
 Name=Terminal
 Comment=Open Terminal
-Exec=gnome-terminal
+Exec=konsole
 Icon=utilities-terminal
 Terminal=false
 Type=Application
