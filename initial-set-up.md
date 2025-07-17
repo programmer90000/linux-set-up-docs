@@ -30,7 +30,37 @@ This should return ```root```
 
 > **Note: If `sudo whoami` doesn't return `root` after logging out and back in, restart the PC**
 
-## Make the Application Launcher full-screen
+## Configure the Application Launcher
+
+Right-click on the Application Launcher
+
+Select `Configure Application Dashboard`
+
+Select the `Icon`
+
+Select `Choose...`
+
+Set the types of icons to `All`
+
+In the Search Menu, type `show-grid`
+
+Select the `show-grid` icon
+
+Set `Show application as` to `Name only`
+
+Disable `Sort applications alphabetically`
+
+Under `Show Categories`, enable `Often used applications`
+
+Under `Show Categories`, disable `Often used files` and `Often used contacts`
+
+Set `Sort items in categories by:` to `Often used`
+
+Enable `Expand search to bookmarks, files and emails`
+
+In the right-hand menu, select `Keyboard Shortcuts`
+
+Delete any keyboard shortcuts
 
 Right-click on the Application Launcher
 
