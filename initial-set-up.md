@@ -1,5 +1,9 @@
 # Installation Docs for Debian
 
+## Log-in
+
+Set the `Desktop Session` in the bottom left corner to `Plasma (Wayland)`
+
 ## Enable Sudo Access For Your Account
 
 Run:
