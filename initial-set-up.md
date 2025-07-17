@@ -32,6 +32,8 @@ This should return ```root```
 
 ## Configure the Application Launcher
 
+### Configure Application Dashboard
+
 Right-click on the Application Launcher
 
 Select `Configure Application Dashboard`
@@ -61,6 +63,8 @@ Enable `Expand search to bookmarks, files and emails`
 In the right-hand menu, select `Keyboard Shortcuts`
 
 Delete any keyboard shortcuts
+
+### Change Application Launcher View
 
 Right-click on the Application Launcher
 
