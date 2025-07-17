@@ -30,6 +30,16 @@ This should return ```root```
 
 > **Note: If `sudo whoami` doesn't return `root` after logging out and back in, restart the PC**
 
+## Make the Application Launcher full-screen
+
+Right-click on the Application Launcher
+
+Select `Show Alternatives`
+
+Select `Application Dashboard`
+
+Select `Switch`
+
 ## Enable Icons On The Desktop
 
 Run:
