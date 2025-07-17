@@ -238,17 +238,15 @@ Click the `Apply` button in the top left hand side of the window
 
 ## Add Apps To Taskbar
 
-Visit the: (Favourites In AppGrid Extension)[https://extensions.gnome.org/extension/4485/favourites-in-appgrid/] page
+Open the `All Applications` menu
 
-Install the latest version of the correct shell package (Click Install, do not open the automatically installed package)
+Select the `All Applications` tab
 
-Click Install in the new window that pops up
+Find the application you want to add to the taksbar
 
-Open the `All Applications` view
+Right-click on the application
 
-Right-click on an application
-
-Select `Pin to Dash`
+Select `Add to Panel (Widget)`
 
 ## Add Mute Volume Button To System Menu
 
