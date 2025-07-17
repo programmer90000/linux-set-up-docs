@@ -133,10 +133,6 @@ Run:
 ```
 chmod +x terminal.desktop
 ```
-
-Right click on the icon in the Desktop
-Select ```Allow Launching```
-
 ---
 
 ## Change Date And Time Format On Header
