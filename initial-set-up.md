@@ -30,6 +30,16 @@ This should return ```root```
 
 > **Note: If `sudo whoami` doesn't return `root` after logging out and back in, restart the PC**
 
+## Set Theme
+
+Open the `System Settings` app
+
+Select `Appearance` from the left-hand side menu
+
+Select `Global Theme`
+
+Set it to `Breeze Dark`
+
 ## Configure the Application Launcher
 
 ### Edit Applications
@@ -248,11 +258,6 @@ Right-click on the application
 
 Select `Add to Panel (Widget)`
 
-## Enable Dark Mode
-
-Click on the Power, Sound and WiFi icon
-
-Enable Dark Mode
 
 ## Add Clipboard
 Run:
