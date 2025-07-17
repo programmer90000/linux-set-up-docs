@@ -94,6 +94,14 @@ Select `Application Dashboard`
 
 Select `Switch`
 
+### Add Widgets
+
+Right-click on the Application Launcher
+
+Select `Add Widgets`
+
+Add the following widgets from right to left: `Peek at Desktop`, `Digital Clock`, `System Tray`, `Activities`, `Window List`, `Notifications`, `Clipboard`, `Margins Separator`, `Panel Spacer`, `Application Dashboard`
+
 ## Enable Icons On The Desktop
 
 Run:
