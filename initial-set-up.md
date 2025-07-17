@@ -102,23 +102,6 @@ Select `Add Widgets`
 
 Add the following widgets from right to left: `Peek at Desktop`, `Digital Clock`, `System Tray`, `Activities`, `Window List`, `Notifications`, `Clipboard`, `Margins Separator`, `Panel Spacer`, `Application Dashboard`
 
-## Enable Icons On The Desktop
-
-Run:
-```
-sudo apt update
-sudo apt install gnome-shell-extension-prefs gnome-shell-extensions gnome-shell-extension-desktop-icons-ng
-```
-
-Run:
-```
-gnome-extensions-app
-```
-
-Enable the `Desktop Icons NG (DING)` extension
-
-> **Note: If the `Desktop Icons NG (DING)` section doesn't appear, log out and back in. If it still doesn't appear, restart the PC**
-
 ---
 
 ## Make Shortcuts To Apps On The Desktop
