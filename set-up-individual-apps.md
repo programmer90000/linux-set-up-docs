@@ -994,3 +994,52 @@ Select `File > Options`
 - Select `Accessibility`
     - Enable `Underline links`
     - Enable `Show check marks in the diff`
+
+## VirtualBox
+
+Create a new Debian Virtual Machine
+
+In the settings of the virtual machine, set:
+- `Shared Clipboard` to `Bidirectional`
+- `Drag'n'Drop` to `Bidirectional`
+
+Start the virtual machine
+
+Set up the Debian virtual machine
+
+Open a terminal in the virtual machine
+
+In the virtual machine terminal, run:
+```
+sudo apt update && sudo apt upgrade -y
+sudo apt install build-essential dkms linux-headers-$(uname -r)
+```
+
+In the VirtualBox VM window, select to `Devices > Insert Guest Additions CD Image`
+
+Wait for the CD to mount
+
+Run:
+```
+sudo mkdir -p /mnt/cdrom
+sudo mount /dev/cdrom /mnt/cdrom
+cd /mnt/cdrom
+sudo sh ./VBoxLinuxAdditions.run
+```
+
+Run:
+```
+sudo reboot
+```
+
+Run:
+```
+lsmod | grep vboxguest
+```
+
+This should return `vboxguest` if successful
+
+To ensure it has worked, try:
+- Copying and pasting something to and from the virtual machine
+- Dragging and dropping something to and from the virtual machine
+
