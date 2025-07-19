@@ -44,31 +44,31 @@ Apply the changes to both `Apperance Settings` and `Desktop and window layout`
 
 Select `Application Style`
 
-Set it to `Oxygen`
+- Set it to `Oxygen`
 
 Select `Plasma Style`
 
-Set it to `Oxygen`
+- Set it to `Oxygen`
 
 Select `Colours`
 
-Set it to `Breeze Dark`
+- Set it to `Breeze Dark`
 
 Select `Windows Decorations`
 
-Set it to `Plastik`
+- Set it to `Plastik`
 
 Select `Icons`
 
-Set it to `Breeze Dark`
+- Set it to `Breeze Dark`
 
 Select `Cursors`
 
-Set it to `Adwaita`
+- Set it to `Adwaita`
 
 Select `Splash Screen`
 
-Set it to `None`
+- Set it to `None`
 
 ## Configure the Application Launcher
 
