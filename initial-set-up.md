@@ -136,6 +136,16 @@ In the right-hand menu, select `Keyboard Shortcuts`
 
 Delete any keyboard shortcuts
 
+### Clear Panel
+
+Right-click on the panel
+
+Select `Enter Edit Mode`
+
+Right-click on each item in the panel
+
+Select `Remove`
+
 ### Add Widgets
 
 Right-click on the Application Launcher
