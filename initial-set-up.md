@@ -80,13 +80,15 @@ Select `Edit Applications`
 
 Right-click on each application submenu and delete it
 
-Create the following submenus: `Internet`, `Image & Video`, `Development`, `LibreOffice`, `Utilities`, `Settings`, `System`
+Create the following parent submenus: `Internet`, `Image & Video`, `Development`, `LibreOffice`, `Utilities`, `Settings`, `System`
 
 Right-click on each submenu and select `New Item`
 
 Enter the name of the application to be added to this submenu
 
 Add a description, icon and select the program to launch
+
+> Note: Adding applications to each submenu should be done after installing all of the apps
 
 Enable `Enable launch feedback`
 
