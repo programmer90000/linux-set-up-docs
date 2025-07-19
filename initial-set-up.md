@@ -88,11 +88,11 @@ Enter the name of the application to be added to this submenu
 
 Add a description, icon and select the program to launch
 
-> Note: Adding applications to each submenu should be done after installing all of the apps
-
 Enable `Enable launch feedback`
 
 Disable `Only show when logged into a Plasma session`
+
+> Note: Adding applications to each submenu should be done after installing all of the apps
 
 ### Configure Application Dashboard
 
