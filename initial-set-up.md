@@ -243,7 +243,7 @@ Download it to:
 ```
 /home/user/backgrounds/
 ```
-***(Note: You may need to make this directory)***
+> ***(Note: You may need to make this directory)***
 
 Right Click on the Desktop
 
