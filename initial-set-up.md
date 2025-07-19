@@ -207,6 +207,9 @@ Run:
 ```
 chmod +x terminal.desktop
 ```
+
+> Note: If a warning sign appears above the icon, right-click on the desktop and select `Refresh Desktop`
+
 ---
 
 ## Set Profile Picture
