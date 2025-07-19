@@ -58,6 +58,20 @@ Select `Windows Decorations`
 
 - Set it to `Plastik`
 
+Select `Fonts`
+
+- Set `General` to `Noto Sans 10pt`
+- Set `Fixed Width` to `Hack 10pt`
+- Set `Small` to `Noto Sans 8pt`
+- Set `Toolbar` to `Noto Sans 10pt`
+- Set `Menu` to `Noto Sans 10pt`
+- Set `Windows Title` to `Noto Sans 10pt`
+- Enable `Anti-Aliasing`
+- Disable `Exclude range from anti-aliasing`
+- Set `Sub-pixel rendering` to `None`
+- Set `Hinting` to `None`
+- Disable `Force font DPI`
+
 Select `Icons`
 
 - Set it to `Breeze Dark`
