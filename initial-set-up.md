@@ -38,9 +38,9 @@ Select `Appearance` from the left-hand side menu
 
 Select `Global Theme`
 
-Select `Breeze Dark`
+- Select `Breeze Dark`
 
-Apply the changes to both `Apperance Settings` and `Desktop and window layout`
+   - Apply the changes to both `Apperance Settings` and `Desktop and window layout`
 
 Select `Application Style`
 
