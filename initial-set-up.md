@@ -106,7 +106,7 @@ Select `Configure Application Dashboard`
 
 - Set the types of icons to `All`
 
-In the Search Menu, type `show-grid`
+- In the Search Menu, type `show-grid`
 
 - Select the `show-grid` icon
 
