@@ -138,11 +138,11 @@ Set `Show application as` to `Name only`
 
 Disable `Sort applications alphabetically`
 
+Set `Sort items in categories by:` to `Often used`
+
 Under `Show Categories`, enable `Often used applications`
 
 Under `Show Categories`, disable `Often used files` and `Often used contacts`
-
-Set `Sort items in categories by:` to `Often used`
 
 Enable `Expand search to bookmarks, files and emails`
 
