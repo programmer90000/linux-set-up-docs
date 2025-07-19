@@ -100,15 +100,15 @@ Right-click on the Application Launcher
 
 Select `Configure Application Dashboard`
 
-Select the `Icon`
+- Select the `Icon`
 
-Select `Choose...`
+- Select `Choose...`
 
-Set the types of icons to `All`
+- Set the types of icons to `All`
 
 In the Search Menu, type `show-grid`
 
-Select the `show-grid` icon
+- Select the `show-grid` icon
 
 Set `Show application as` to `Name only`
 
