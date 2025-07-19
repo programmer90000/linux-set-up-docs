@@ -160,7 +160,7 @@ Select `Enter Edit Mode`
 
 Select `Add Spacer`
 
-Move the Panel Spacer to the left side of all widgets
+Move the Panel Spacer to the left side of all widgets except for the Application Dashboard
 
 ---
 
