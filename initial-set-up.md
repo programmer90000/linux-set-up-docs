@@ -152,7 +152,15 @@ Right-click on the Application Launcher
 
 Select `Add Widgets`
 
-Add the following widgets from right to left: `Peek at Desktop`, `Digital Clock`, `System Tray`, `Activities`, `Window List`, `Notifications`, `Clipboard`, `Margins Separator`, `Panel Spacer`, `Application Dashboard`
+Add the following widgets: `Peek at Desktop`, `Digital Clock`, `System Tray`, `Activities`, `Window List`, `Notifications`, `Clipboard`, `Application Dashboard`, `Margins Separator`
+
+Right-click on the Application Launcher
+
+Select `Enter Edit Mode`
+
+Select `Add Spacer`
+
+Move the Panel Spacer to the left side of all widgets
 
 ---
 
