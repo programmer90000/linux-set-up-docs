@@ -94,6 +94,16 @@ Disable `Only show when logged into a Plasma session`
 
 > Note: Adding applications to each submenu should be done after installing all of the apps
 
+### Change Application Launcher View
+
+Right-click on the Application Launcher
+
+Select `Show Alternatives`
+
+Select `Application Dashboard`
+
+Select `Switch`
+
 ### Configure Application Dashboard
 
 Right-click on the Application Launcher
@@ -125,16 +135,6 @@ Enable `Expand search to bookmarks, files and emails`
 In the right-hand menu, select `Keyboard Shortcuts`
 
 Delete any keyboard shortcuts
-
-### Change Application Launcher View
-
-Right-click on the Application Launcher
-
-Select `Show Alternatives`
-
-Select `Application Dashboard`
-
-Select `Switch`
 
 ### Add Widgets
 
