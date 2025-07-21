@@ -261,6 +261,38 @@ Add Bookmarks
                 - Enable `Show status bar`
                 - Enable `Show zoom slider`
                 - Enable `Show space information`
+        - Select `Startup`
+            - Set `Show on startup` to `/home/abdul`
+            - Disable `Begin in split view mode`
+            - Enable `Show filter bar`
+            - Enable `Make location bar editable`
+            - Disable `Open new folders in tabs`
+            - Enable `Show full path inside location bar`
+            - Enable `Show full path in title bar`
+        - Select `View Modes`
+            - Select `Icons`
+                - Set `Default icon size` to `32 pixels`
+                - Set `Preview icon size` to `64 pixels`
+                - Set `Label font` to `System Font`
+                - Set `Label width` to `Medium`
+                - Set `Maximum lines` to `3`
+            - Select `Compact`
+                - Set `Default icon size` to `16 pixels`
+                - Set `Preview icon size` to `48 pixels`
+                - Set `Label font` to `System Font`
+                - Set `Maximum width` to `Unlimited`
+            - Select `Details`
+                - Set `Default icon size` to `16 pixels`
+                - Set `Preview icon size` to `48 pixels`
+                - Set `Label font` to `System Font`
+                - Enable `Expandable` `Folders`
+                - Set `Open files and folders` to `By clicking anywhere in the row`
+                - Set `Folder size displays` to `Number of items`
+                - Set `Date style` to `Absolute`
+        - Select `Navigation`
+            - Set `Open new tabs` to `After current tab`
+            - Enable `Open archives as folder`
+            - Disable `Open folders during drag operations`
 
 ## Thunderbird
 
