@@ -1112,3 +1112,8 @@ To ensure it has worked, try:
 - Copying and pasting something to and from the virtual machine
 - Dragging and dropping something to and from the virtual machine
 
+## KWin Tiling Manager
+
+Press `Windows + T` to view the different tiles
+
+Press `Windows + Up/ Down/ Right/ Left` to move a window
