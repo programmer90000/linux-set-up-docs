@@ -513,6 +513,53 @@ Select `Account Settings`
     - Set `Red error background` to `Always`
     - Set `Alternating bars` to `Always`
     - Set `Alternation background` `to Always`
+- Select `Tabs`
+    - Set the `Tab title format` to `%d`
+    - Set the `Remote tab title format` to `(%u) %H`
+    - Set the `Tab Colour` to `None`
+    - Set the `Threshold for continuous silence` to `5 seconds`
+- Select `Apperance`
+    - Select `Colour scheme & font`
+        - Select `New`
+        - Set the `Description` to `Custom Colour Scheme`
+        - Set the `Foreground` `Colour` to `#00FF00`
+        - Set the `Foreground` `Intense Colour` to `#AAFF00`
+        - Set the `Foreground` `Faint Colour` to `#007700`
+        - Set the `Background` `Colour` to `#000000`
+        - Set the `Background` `Intense Colour` to `#000000`
+        - Set the `Background` `Faint Colour` to `#000000`
+        - Set `Colour 1` `Colour` to `#FF0000`
+        - Set `Colour 1` `Intense Colour` to `#FF5555`
+        - Set `Colour 1` `Faint Colour` to `#880000`
+        - Set `Colour 2` `Colour` to `#00FF00`
+        - Set `Colour 2` `Intense Colour` to `#AAFF00`
+        - Set `Colour 2` `Faint Colour` to `#007700`
+        - Set `Colour 3` `Colour` to `#FFFF00`
+        - Set `Colour 3` `Intense Colour` to `#FFFF55`
+        - Set `Colour 3` `Faint Colour` to `#888800`
+        - Set `Colour 4` `Colour` to `#0000FF`
+        - Set `Colour 4` `Intense Colour` to `#5555FF`
+        - Set `Colour 4` `Faint Colour` to `#000088`
+        - Set `Colour 5` `Colour` to `#FF00FF`
+        - Set `Colour 5` `Intense Colour` to `#FF55FF`
+        - Set `Colour 5` `Faint Colour` to `#880088`
+        - Set `Colour 6` `Colour` to `#00FFFF`
+        - Set `Colour 6` `Intense Colour` to `#55FFFF`
+        - Set `Colour 6` `Faint Colour` to `#008888`
+        - Set `Colour 7` `Colour` to `#FFFFFF`
+        - Set `Colour 7` `Intense Colour` to `#FFFFFF`
+        - Set `Colour 7` `Faint Colour` to `#888888`
+        - Set `Colour 8` `Colour` to `#555555`
+        - Set `Colour 8` `Intense Colour` to `#AAAAAA`
+        - Set `Colour 8` `Faint Colour` to `#222222`
+        - Disable `Randomly adjust colours for each session`
+        - Disable `Blur background`
+        - Set `Background Colour transparency` to `0%`
+        - Set `Wallpaper transparency` to `0%`
+    - Set `Font` to `Hack` `Regular` `10.00pt`
+    - Enable `Smooth fonts`
+    - Enable `Draw intense colours in bold font`
+    - Enable `Use line characters contained in font`
 - Select `View`
     - Select `Set Encoding`
         - Select `Unicode`
