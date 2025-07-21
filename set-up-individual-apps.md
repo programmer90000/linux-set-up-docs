@@ -235,6 +235,21 @@ Add Bookmarks
     - Disable `Folders`
     - Disable `Terminal`
     - Disable `Show Hidden Places`
+- Select `Configure`
+    - Select `Configure Dolphin`
+        - Select `General`
+            - Select `Behaviour`
+                - Set `View` to `Remember display style for each folder`
+                - Set `Sorting mode` to `Natural`
+                - Enable `Show tooltips`
+                - Enable `Show selection marker`
+                - Enable `Rename inline`
+                - Disable `Switch between split view panes with tab key`
+                - Disable `Turning off split view closes active pane`
+            - Select `Previews`
+                - Enable: `AppImage`, `Blender files`, `Comic books`, `Cursor Files`, `DjVu Files`, `eBooks`, `EXR Images`, `Images`, `JPEG Images`, `Krita Documents`, `Microsoft Windows Images`, `Mobipocket Files`, `Office Documents`, `Postscript, PDF and DVI Files`, `RAW Photo Camera Files`, `SVG Images`, `Text Files`, `Video Files`, `Web Archives and HTML files`
+                - Set `Skip previews for local files above` to `No limit`
+                - Set `Skip previews for remote files above` to `No previews`
 
 ## Thunderbird
 
