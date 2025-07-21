@@ -250,6 +250,17 @@ Add Bookmarks
                 - Enable: `AppImage`, `Blender files`, `Comic books`, `Cursor Files`, `DjVu Files`, `eBooks`, `EXR Images`, `Images`, `JPEG Images`, `Krita Documents`, `Microsoft Windows Images`, `Mobipocket Files`, `Office Documents`, `Postscript, PDF and DVI Files`, `RAW Photo Camera Files`, `SVG Images`, `Text Files`, `Video Files`, `Web Archives and HTML files`
                 - Set `Skip previews for local files above` to `No limit`
                 - Set `Skip previews for remote files above` to `No previews`
+            - Select `Confirmations`
+                - Enable `Moving files or folders to wastebin`
+                - Enable `Emptying wastebin`
+                - Enable `Deleting files or folders`
+                - Enable `Closing windows with multiple tabs`
+                - Enable `Closing windows with a program running in the Terminal panel`
+                - Set `When opening an executable file` to `Always ask`
+            - Select `Status Bar`
+                - Enable `Show status bar`
+                - Enable `Show zoom slider`
+                - Enable `Show space information`
 
 ## Thunderbird
 
