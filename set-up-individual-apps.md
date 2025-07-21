@@ -560,6 +560,12 @@ Select `Account Settings`
     - Enable `Smooth fonts`
     - Enable `Draw intense colours in bold font`
     - Enable `Use line characters contained in font`
+- Select `Scrolling`
+    - Set `Scrollback` to `Unlimited`
+    - Set `Scroll Page Up/Down` to `Half screen height`
+    - Set `Scrollbar position` to `Right side`
+    - Disable `Highlight the lines coming into view`
+    - Enable `Reflow lines when terminal resizes`
 - Select `View`
     - Select `Set Encoding`
         - Select `Unicode`
