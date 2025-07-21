@@ -591,6 +591,34 @@ Select `Account Settings`
         - Disable `Allow blinking text`
         - Disable `Flow control`
         - Set `Default Character Encoding` to `UTF-8`
+- Select `Settings`
+- Select `Manage Profiles`
+    - Select `General`
+    - Disable `Remember window size`
+    - Disbale `Run all Konsole windows in a single process`
+    - Disable `Enable menu accelerators`
+    - Enable`Show window title on the titlebar`
+    - Disable `Remove window titlebar and frame`
+    - Disable `Focus terminals when the mouse pointer is moved over them`
+    - Disable `Case sensitive`
+    - Enable `Match using regular expressions`
+    - Enable `Highlight all matches`
+    - Enable `Search backwards`
+- Select `Tab Bar/ Splitters`
+    - Select `Apperance`
+        - Set `Show` to `Always`
+        - Set `Position` to `Above terminal area`
+        - Set `Show Close Tab button` to `On each tab`
+        - Disable `Show 'New Tab' button`
+        - Enable `Expand individual tab widths to full window`
+        - Disable `Use user-defined stylesheet`
+    - Select `Behaviour`
+        - Set `Put new tabs` to `At the end`
+        - Disable `Close tab on middle-click`
+    - Select `Splits`
+        - Set `Show Header` to `Never`
+        - Set `Drag Handle Size` to `Medium`
+
 - Select `View`
     - Select `Set Encoding`
         - Select `Unicode`
