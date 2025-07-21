@@ -566,6 +566,31 @@ Select `Account Settings`
     - Set `Scrollbar position` to `Right side`
     - Disable `Highlight the lines coming into view`
     - Enable `Reflow lines when terminal resizes`
+- Select `Mouse`
+    - Select `Text interaction`
+        - Set `Triple-click selects` to `The whole line`
+        - Set `Middle-click pastes` to `From selection`
+        - Disable `Copy on select`
+        - Disbale `Copy text as HTML`
+        - Disable `Trim leading spaces`
+        - Disable `Trim trailing spaces`
+    - Select `Miscellaneous`
+        - Enable `Underline links`
+        - Enable `Underline files`
+        - Disable `Open files/links by direct click`
+        - Disable `Allow escape sequences for links`
+        - Enable `Require Ctrl key for drag & drop`
+        - Enable `Enable Alternate Screen buffer scrolling`
+        - Disable `Disable drag & drop menu for files & URLs`
+        - Disbale `Allow Ctrl#scrollwheel to zoom text size`
+        - Enable `Preview Colours on hover`
+        - Enable `Allow terminal applications to handle clicks and drags`
+    - Select `Advanced`
+        - Set `Key combination to show URL hints` to `Shift Ctrl Alt Meta`
+        - Disable `Reverse URL hint numbering`
+        - Disable `Allow blinking text`
+        - Disable `Flow control`
+        - Set `Default Character Encoding` to `UTF-8`
 - Select `View`
     - Select `Set Encoding`
         - Select `Unicode`
