@@ -618,7 +618,27 @@ Select `Account Settings`
     - Select `Splits`
         - Set `Show Header` to `Never`
         - Set `Drag Handle Size` to `Medium`
-
+- Select `Temporary Files`
+    - Set `Scrollback file location` to `System temporary directory (/tmp)`
+- Select `Thubnails`
+    - Disable `Enable thumbnails generation`
+- Select `Settings`
+    - Enable `Show Menubar`
+- Select `Settings`
+    - Select `Toolbars Shown`
+        - Enable `Main Toolbar`
+        - Enable `Session Toolbar`
+- Select `Settings`
+    - Select `Configure Toolbars`
+    - Add the following items: `New Tab`, `Split View`, `Add Bookmark`, `Last Used Tabs`
+- Select `Settings`
+    - Select `Notifications`
+        - Disable `Play a sound`
+        - Enable `Show a message in a popup`
+        - Disable `Log to a file`
+        - Disable `Main taskbar entry`
+        - Disable `Run Command`
+        - Disable `Speech`
 - Select `View`
     - Select `Set Encoding`
         - Select `Unicode`
