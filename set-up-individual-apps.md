@@ -293,6 +293,15 @@ Add Bookmarks
             - Set `Open new tabs` to `After current tab`
             - Enable `Open archives as folder`
             - Disable `Open folders during drag operations`
+        - Select `Context Menu`
+            - Enable: `'Compress' service menu`, `'Extract' service menu`, `Add to Places`, `Copy Location`, `Duplicate Here`, `Delete`, `Install`, `Open in New Window`, `Open in New Tab`, `Sort By`
+        - Select `Wastebin`
+            - Set `Delete files older than` to `30 days`
+            - Set `Limit to` to `10%`
+            - Set `Full Wastebin` to `Show a warning`
+        - Select `User Feedback`
+            - Set `Contribute Statistics` to `Do not share anything`
+            - Set `Participate in Surveys` to `Do not participate in usability surveys about Dolphin`
 
 ## Thunderbird
 
