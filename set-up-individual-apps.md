@@ -227,114 +227,14 @@ Add Bookmarks
 
 - Sign in
 
-## Nemo File Manager
+# Dolphin File Manager
 
-Select `Edit > Prefrences`
-
-- Set `View new folders using` to `Compact View`
-
-- Disable `Inherit view type from parent`
-
-- Set `Arrange items` to `By Name`
-
-- Disable `Reverse Sort`
-
-- Enable `Sort folders before files`
-
-- Disable `Sort favourites before other files`
-
-- Set `Default zoom level` under `Icon View Defaults` to `100%`
-
-- Disable `Text beside icons`
-
-- Set `Default zoom level` under `Compact View Defaults` to : `66%`
-
-- Disable `All columns have the same width`
-
-- Set `Default zoom level` to `50%`
-
-- Disable `Show only folders` under `Tree View Defaults`
-
-Select `Behaviour`
-
-- Select `Double click to open items`
-- Disable `Click ona file's name twice to rename it`
-- Disable `Open each folder in its own window`
-- Disable `Always start in dual-pane view`
-- Disable `Ignore per-folder view preferences`
-- Disable `Disable file operation queueing`
-- Disable `Double-click on a blank area to go to the parent folder`
-- Set `Executable Text Files` to `Ask each time`
-- Disable `Ask before moving files to the Rubbish Bin`
-- Enable `Ask before emptying the Rubbish Bin or deleting files`
-- Disable `Include a Delete command that bypasses the Rubbish Bin`
-- Disable `Bypass the Rubbish Bin when the Delete key is pressed`
-- Enable `Automatically mount removable media when inserted and on start-up`
-- Disable `Automatically open a folder for automounted media`
-- Disable `Prompt or autorun/autostart programs when media are inserted`
-- Disable `Automatically close the device's tab, pane, or window when a device is unmounted or ejected`
-- Enable `Detect content of media and suggest application to open`
-
-Select `Display`
-
-- Under `Icon Captions`, select `Size`, `Date Modified`, `Date Created`
-- Set the date format to `Tue 01 July 2025 14:10:25 BST`
-- Enable `Use a monospace font`
-- Enable `Show the full path in the title bar and tab bars`
-- Set the `File Size` `Prefixes` to `Decimal`
-- Disable `Show advanced permissions in the file property dialogue`
-- Enable `List bookmarks in the menu`
-- Enable `List devices and network locations in the menu`
-
-Select `List Columns`
-- Enable: `Name`, `Size`, `Type`, `Date Modified`, `Date Created`
-
-Select `Preview`
-- Set `Show thumbnails` to `Local Files Only`
-- Disable `Inherit thumbnail visibility from parent`
-- Set `Only for files smaller than:` to `10 MB`
-- Set `Count number of items` to `Always`
-- Enable `Show tooltips in icon and compact views`
-- Enable `Show tooltips in list views`
-- Enable `Show tooltips on the desktop`
-- Enable `Detailed file type`
-- Enable `Modified date`
-- Enable `Created date`
-- Enable `Accessed date`
-- Enable `File or folder location`
-
-Select `Toolbar`
-- Enable: `Icon view`, `Compact view`, `Refresh`, `Search`, `List view`, `Show Thumbnails`
-
-Select `Context Menus`
-- Under `Selection`, enable: `Open`, `Open in New Tab`, `Open in New Window`, `Cut`, `Copy`, `Paste`, `Pin`, `Favourite`, `Rename`, `Move to the Rubbish Bin`, `Properties`
-- Under `Background`, enable: `Create New Folder`, `Show Hidden Files`, `Paste`, `Properties`
-- Under `Icon View`, enable: `Arrange Items`, `Organise by name`
-- Under Desktop, enable: `Customise`
-
-Select `Plugins`
-- Disable `Set as Wallpaper`
-- Enable `Create a new launcher here`
-- Enable `Add Desklets`
-- Enable `Mount archive`
-- Enable `Display Settings`
-- Disable `Change Desktop Background`
-- Under `Extensions`, enable `Nemo Fileroller`
-
-Close the `Prefrences` window
-
-`Select `View`
-- Set the `Sidebar` to `Tree` view
-- Enable `Show Sidebar`
-- Set the `Toolbar` to `Path Bar`
-- Enable `Main Toolbar`
-- Enable the `Menubar`
-- Enable the `Statusbar`
-- Disable `Extra Pane`
-- Disable `Show Hidden Files`
-- Enable `Show Thumbnails`
-- Set `Arrange Items` to `By Name`
-- Set the `View` to `Compact View`
+- Select `Show Panels`
+    - Enable `Places`
+    - Disable `Information`
+    - Disable `Folders`
+    - Disable `Terminal`
+    - Disable `Show Hidden Places`
 
 ## Thunderbird
 
