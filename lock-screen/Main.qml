@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.0
+import QtQuick.Layouts 1.0
 
 Item {
     width: 640
@@ -19,15 +20,19 @@ Item {
         TextField {
             id: username
             placeholderText: "Username"
+            focus: true  // Set initial focus to username field
+            Keys.onReturnPressed: password.forceActiveFocus()
         }
 
         TextField {
             id: password
             placeholderText: "Password"
             echoMode: TextInput.Password
+            Keys.onReturnPressed: loginButton.clicked()
         }
 
         Button {
+            id: loginButton
             text: "Login"
             onClicked: sddm.login(username.text, password.text, 0)
         }
