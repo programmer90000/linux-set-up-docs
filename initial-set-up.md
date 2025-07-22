@@ -349,18 +349,7 @@ gpaste-client ui
 
 Configure the settings for GPaste
 
-## Install Nemo File Manager
-Run:
-```
-sudo apt update
-sudo apt install -y nemo
-```
-
-Open nemo by typing `nemo` into the terminal or clicking the nemo app icon
-Click `Edit > Perferences`
-Set your preferences for nemo
-
-### Install bat
+## Install bat
 
 The `bat` command allows you to view files in the terminal, similar to the `cat` command but with syntax highlighting
 
