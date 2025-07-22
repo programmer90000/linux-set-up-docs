@@ -349,16 +349,6 @@ gpaste-client ui
 
 Configure the settings for GPaste
 
-## Add Close, Maximize, Minimize buttons to every window
-Run:
-```
-sudo apt install gnome-tweaks
-gnome-tweaks
-```
-
-Go to the `Window Titlebars` tab
-Enable the `Maximize`, `Minimize` buttons
-
 ## Install Nemo File Manager
 Run:
 ```
