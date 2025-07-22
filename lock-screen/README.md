@@ -10,7 +10,7 @@ cp -r lock-screen/ ~/.local/share/sddm/themes/
 
 Run:
 ```
-nano /etc/sddm.conf
+sudo nano /etc/sddm.conf
 ```
 
 Copy the `sddm.conf` file into it
