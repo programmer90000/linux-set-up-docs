@@ -2,6 +2,8 @@ Create a new directory titled `lock-screen`
 
 Copy the `Main.qml` and `theme.conf` files into it
 
+Copy the `background.jpg` file into the `assets` directory
+
 Copy the `lock-screen` directory to `/usr/share/sddm/themes/lock-screen` and `~/.local/share/sddm/themes/lock-screen` by running:
 ```
 sudo cp -r lock-screen/ /usr/share/sddm/themes/
