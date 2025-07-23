@@ -19,6 +19,17 @@ Item {
         anchors.centerIn: parent
         spacing: 10
 
+        // User icon above password field
+        Image {
+            id: currentUserIcon
+            anchors.horizontalCenter: parent.horizontalCenter
+            source: userListView.currentItem ? userListView.currentItem.userIcon : "qrc:/assets/user-icon.png"
+            sourceSize: Qt.size(64, 64)
+            width: 64
+            height: 64
+            fillMode: Image.PreserveAspectFit
+        }
+
         TextField {
             id: password
             placeholderText: "Password"
@@ -63,18 +74,19 @@ Item {
                 highlighted: ListView.isCurrentItem
                 onClicked: {
                     userListView.currentIndex = index;
-                    password.forceActiveFocus(); // Move focus to password field
+                    password.forceActiveFocus();
                 }
 
-                // Store the username as a property
+                // Store user properties
                 property string userName: model.name
+                property string userIcon: model.icon || "qrc:/assets/user-icon.png"
 
                 contentItem: RowLayout {
                     spacing: 10
 
                     Image {
                         id: userIcon
-                        source: model.icon || "qrc:/assets/user-icon.png"
+                        source: parent.parent.userIcon
                         sourceSize: Qt.size(32, 32)
                         fillMode: Image.PreserveAspectFit
                         Layout.preferredWidth: 32
