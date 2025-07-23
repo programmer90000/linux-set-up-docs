@@ -44,7 +44,7 @@ Item {
         color: "#40000000"
         radius: 5
         anchors {
-            right: parent.left
+            left: parent.left
             bottom: parent.bottom
             margins: 20
         }
