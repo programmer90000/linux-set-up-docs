@@ -135,16 +135,16 @@ Item {
             anchors {
                 horizontalCenter: parent.horizontalCenter
                 top: parent.top
-                topMargin: 20 
+                topMargin: 40 
             }
-            spacing: 5
+            spacing: 10
             width: Math.max(loginDateText.implicitWidth, loginTimeText.implicitWidth) + 20
 
             Text {
                 id: loginDateText
                 width: parent.width
                 color: "white"
-                font.pixelSize: 18
+                font.pixelSize: 24
                 style: Text.Outline
                 styleColor: "#80000000"
                 horizontalAlignment: Text.AlignHCenter
@@ -154,7 +154,7 @@ Item {
                 id: loginTimeText
                 width: parent.width
                 color: "white"
-                font.pixelSize: 32
+                font.pixelSize: 48
                 font.bold: true
                 style: Text.Outline
                 styleColor: "#80000000"
