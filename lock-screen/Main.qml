@@ -214,6 +214,7 @@ Item {
             Button {
                 id: loginButton
                 text: "Login"
+                anchors.horizontalCenter: parent.horizontalCenter
                 onClicked: {
                     if (userListView.currentIndex >= 0) {
                         var success = sddm.login(userListView.currentItem.userName, password.text, 0);
