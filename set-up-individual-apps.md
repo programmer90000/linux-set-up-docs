@@ -501,9 +501,9 @@ Select `Account Settings`
         - Set `Colour 2` `Colour` to `#00FF00`
         - Set `Colour 2` `Intense Colour` to `#AAFF00`
         - Set `Colour 2` `Faint Colour` to `#007700`
-        - Set `Colour 3` `Colour` to `#FFFF00`
-        - Set `Colour 3` `Intense Colour` to `#FFFF55`
-        - Set `Colour 3` `Faint Colour` to `#888800`
+        - Set `Colour 3` `Colour` to `#008855`
+        - Set `Colour 3` `Intense Colour` to `#008855`
+        - Set `Colour 3` `Faint Colour` to `#008855`
         - Set `Colour 4` `Colour` to `#0000FF`
         - Set `Colour 4` `Intense Colour` to `#5555FF`
         - Set `Colour 4` `Faint Colour` to `#000088`
