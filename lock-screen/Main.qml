@@ -85,10 +85,11 @@ Item {
                 topMargin: 40 
             }
             spacing: 10
+            width: Math.max(preLoginDateText.implicitWidth, preLoginTimeText.implicitWidth) + 20
 
             Text {
                 id: preLoginDateText
-                width: implicitWidth + 20
+                width: parent.width
                 color: "white"
                 font.pixelSize: 24
                 style: Text.Outline
@@ -98,7 +99,7 @@ Item {
 
             Text {
                 id: preLoginTimeText
-                width: implicitWidth + 20
+                width: parent.width
                 color: "white"
                 font.pixelSize: 48
                 font.bold: true
@@ -137,10 +138,11 @@ Item {
                 topMargin: 20 
             }
             spacing: 5
+            width: Math.max(loginDateText.implicitWidth, loginTimeText.implicitWidth) + 20
 
             Text {
                 id: loginDateText
-                width: implicitWidth + 20
+                width: parent.width
                 color: "white"
                 font.pixelSize: 18
                 style: Text.Outline
@@ -150,7 +152,7 @@ Item {
 
             Text {
                 id: loginTimeText
-                width: implicitWidth + 20
+                width: parent.width
                 color: "white"
                 font.pixelSize: 32
                 font.bold: true
