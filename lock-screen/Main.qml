@@ -47,15 +47,28 @@ Item {
     // Function to update time and date
     function updateTime() {
         var date = new Date();
-        timeText.text = Qt.formatTime(date, "hh:mm:ss");
-        dateText.text = Qt.formatDate(date, "dddd, MMMM d");
+        var timeString = Qt.formatTime(date, "hh:mm:ss");
+        var dateString = Qt.formatDate(date, "dddd, MMMM d");
+        
+        if (preLoginTimeText) preLoginTimeText.text = timeString;
+        if (preLoginDateText) preLoginDateText.text = dateString;
+        if (loginTimeText) loginTimeText.text = timeString;
+        if (loginDateText) loginDateText.text = dateString;
+    }
+
+    // Timer to update time
+    Timer {
+        interval: 1000 // Update every second
+        running: true
+        repeat: true
+        onTriggered: updateTime()
     }
 
     // Pre-login screen
     Item {
         id: preLoginScreen
         anchors.fill: parent
-        focus: true  // Allow keyboard focus
+        focus: true // Allow keyboard focus
 
         Image {
             anchors.fill: parent
@@ -64,7 +77,7 @@ Item {
             smooth: true
         }
 
-        // Time and Date Display
+        // Time and Date Display for pre-login
         Column {
             anchors {
                 horizontalCenter: parent.horizontalCenter
@@ -72,11 +85,10 @@ Item {
                 topMargin: 40 
             }
             spacing: 10
-            width: Math.max(dateText.implicitWidth, timeText.implicitWidth) + 20
 
             Text {
-                id: dateText
-                width: parent.width
+                id: preLoginDateText
+                width: implicitWidth + 20
                 color: "white"
                 font.pixelSize: 24
                 style: Text.Outline
@@ -85,8 +97,8 @@ Item {
             }
 
             Text {
-                id: timeText
-                width: parent.width
+                id: preLoginTimeText
+                width: implicitWidth + 20
                 color: "white"
                 font.pixelSize: 48
                 font.bold: true
@@ -96,29 +108,12 @@ Item {
             }
         }
 
-        // Timer to update time
-        Timer {
-            interval: 1000 // Update every second
-            running: true
-            repeat: true
-            onTriggered: updateTime()
-        }
-
-        // Initialize time immediately
-        Component.onCompleted: updateTime()
-
         MouseArea {
             anchors.fill: parent
-            onClicked: {
-                parent.parent.state = "login"
-                inactivityTimer.restart()
-            }
+            onClicked: parent.parent.state = "login"
         }
 
-        Keys.onPressed: {
-            parent.parent.state = "login"
-            inactivityTimer.restart()
-        }
+        Keys.onPressed: parent.parent.state = "login"
     }
 
     // Main login container
@@ -132,6 +127,37 @@ Item {
             source: "./assets/background.jpg" // Path to your image
             fillMode: Image.PreserveAspectCrop // Ensures full coverage without stretching
             smooth: true // Anti-aliasing
+        }
+
+        // Time and Date Display for login screen
+        Column {
+            anchors {
+                horizontalCenter: parent.horizontalCenter
+                top: parent.top
+                topMargin: 20 
+            }
+            spacing: 5
+
+            Text {
+                id: loginDateText
+                width: implicitWidth + 20
+                color: "white"
+                font.pixelSize: 18
+                style: Text.Outline
+                styleColor: "#80000000"
+                horizontalAlignment: Text.AlignHCenter
+            }
+
+            Text {
+                id: loginTimeText
+                width: implicitWidth + 20
+                color: "white"
+                font.pixelSize: 32
+                font.bold: true
+                style: Text.Outline
+                styleColor: "#80000000"
+                horizontalAlignment: Text.AlignHCenter
+            }
         }
 
         // Login Form
@@ -168,10 +194,7 @@ Item {
                     inactivityTimer.restart()
                     loginError.visible = false
                 }
-                Keys.onReturnPressed: {
-                    loginButton.clicked()
-                    inactivityTimer.restart()
-                }
+                Keys.onReturnPressed: loginButton.clicked()
             }
 
             // Error message
@@ -200,7 +223,6 @@ Item {
                             shakeAnimation.start();
                         }
                     }
-                    inactivityTimer.restart()
                 }
             }
         }
@@ -232,15 +254,6 @@ Item {
             }
         }
 
-        Connections {
-            target: shakeAnimation
-            onRunningChanged: {
-                if (!shakeAnimation.running) {
-                    loginError.visible = true // Ensure error stays visible after animation
-                }
-            }
-        }
-
         // User List
         Rectangle {
             id: userListContainer
@@ -265,11 +278,6 @@ Item {
                     height: 50
                     flat: true
                     highlighted: ListView.isCurrentItem
-                    onClicked: {
-                        userListView.currentIndex = index;
-                        password.forceActiveFocus();
-                        inactivityTimer.restart()
-                    }
 
                     // Store user properties
                     property string userName: model.name
@@ -279,7 +287,6 @@ Item {
                         spacing: 10
 
                         Image {
-                            id: userIcon
                             source: parent.parent.userIcon
                             sourceSize: Qt.size(32, 32)
                             fillMode: Image.PreserveAspectFit
@@ -293,8 +300,12 @@ Item {
                             font.pixelSize: 14
                             elide: Text.ElideRight
                             Layout.fillWidth: true
-                            verticalAlignment: Text.AlignVCenter
                         }
+                    }
+
+                    onClicked: {
+                        userListView.currentIndex = index;
+                        password.forceActiveFocus();
                     }
                 }
             }
