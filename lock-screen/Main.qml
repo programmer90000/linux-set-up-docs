@@ -136,6 +136,7 @@ Item {
 
         // Login Form
         Column {
+            id: loginForm
             anchors.centerIn: parent
             spacing: 10
 
@@ -163,11 +164,26 @@ Item {
                 id: password
                 placeholderText: "Password"
                 echoMode: TextInput.Password
+                onTextChanged: {
+                    inactivityTimer.restart()
+                    loginError.visible = false
+                }
                 Keys.onReturnPressed: {
                     loginButton.clicked()
                     inactivityTimer.restart()
                 }
-                onTextChanged: inactivityTimer.restart()
+            }
+
+            // Error message
+            Text {
+                id: loginError
+                visible: false
+                text: "Password incorrect. Please try again"
+                color: "#ff4444"
+                font.pixelSize: 12
+                font.bold: true
+                horizontalAlignment: Text.AlignHCenter
+                anchors.horizontalCenter: parent.horizontalCenter
             }
 
             Button {
@@ -175,10 +191,44 @@ Item {
                 text: "Login"
                 onClicked: {
                     if (userListView.currentIndex >= 0) {
-                        sddm.login(userListView.currentItem.userName, password.text, 0);
+                        var success = sddm.login(userListView.currentItem.userName, password.text, 0);
+                        
+                        if (!success) {
+                            loginError.visible = true;
+                            password.text = "";
+                            password.forceActiveFocus();
+                            shakeAnimation.start();
+                        }
                     }
                     inactivityTimer.restart()
                 }
+            }
+        }
+
+        // Shake animation for error feedback
+        SequentialAnimation {
+            id: shakeAnimation
+            loops: 2
+            PropertyAnimation {
+                target: loginForm
+                property: "x"
+                from: 0
+                to: -10
+                duration: 50
+            }
+            PropertyAnimation {
+                target: loginForm
+                property: "x"
+                from: -10
+                to: 10
+                duration: 50
+            }
+            PropertyAnimation {
+                target: loginForm
+                property: "x"
+                from: 10
+                to: 0
+                duration: 50
             }
         }
 
