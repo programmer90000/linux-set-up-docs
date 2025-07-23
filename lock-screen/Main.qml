@@ -51,9 +51,11 @@ Item {
                 topMargin: 40 
             }
             spacing: 10
+            width: Math.max(dateText.implicitWidth, timeText.implicitWidth) + 20
 
         Text {
             id: dateText
+            width: parent.width
             color: "white"
             font.pixelSize: 24
             style: Text.Outline
@@ -63,6 +65,7 @@ Item {
 
         Text {
             id: timeText
+            width: parent.width
             color: "white"
             font.pixelSize: 48
             font.bold: true
