@@ -23,6 +23,27 @@ Item {
     // Start with pre-login screen
     Component.onCompleted: state = "preLogin"
 
+    // Inactivity timer
+    Timer {
+        id: inactivityTimer
+        interval: 15000 // 15 seconds
+        onTriggered: if (state === "login") state = "preLogin"
+    }
+
+    // Reset timer on any interaction
+    MouseArea {
+        anchors.fill: parent
+        hoverEnabled: true
+        acceptedButtons: Qt.AllButtons
+        onPositionChanged: inactivityTimer.restart()
+        onClicked: {
+            inactivityTimer.restart()
+            mouse.accepted = false // Allow click to propagate
+        }
+    }
+
+    Keys.onPressed: inactivityTimer.restart()
+
     // Function to update time and date
     function updateTime() {
         var date = new Date();
@@ -53,48 +74,52 @@ Item {
             spacing: 10
             width: Math.max(dateText.implicitWidth, timeText.implicitWidth) + 20
 
-        Text {
-            id: dateText
-            width: parent.width
-            color: "white"
-            font.pixelSize: 24
-            style: Text.Outline
-            styleColor: "#80000000"
-            horizontalAlignment: Text.AlignHCenter
+            Text {
+                id: dateText
+                width: parent.width
+                color: "white"
+                font.pixelSize: 24
+                style: Text.Outline
+                styleColor: "#80000000"
+                horizontalAlignment: Text.AlignHCenter
+            }
+
+            Text {
+                id: timeText
+                width: parent.width
+                color: "white"
+                font.pixelSize: 48
+                font.bold: true
+                style: Text.Outline
+                styleColor: "#80000000"
+                horizontalAlignment: Text.AlignHCenter
+            }
         }
 
-        Text {
-            id: timeText
-            width: parent.width
-            color: "white"
-            font.pixelSize: 48
-            font.bold: true
-            style: Text.Outline
-            styleColor: "#80000000"
-            horizontalAlignment: Text.AlignHCenter
+        // Timer to update time
+        Timer {
+            interval: 1000 // Update every second
+            running: true
+            repeat: true
+            onTriggered: updateTime()
+        }
+
+        // Initialize time immediately
+        Component.onCompleted: updateTime()
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: {
+                parent.parent.state = "login"
+                inactivityTimer.restart()
+            }
+        }
+
+        Keys.onPressed: {
+            parent.parent.state = "login"
+            inactivityTimer.restart()
         }
     }
-
-    // Timer to update time
-    Timer {
-        interval: 1000 // Update every second
-        running: true
-        repeat: true
-        onTriggered: updateTime()
-    }
-
-    // Initialize time immediately
-    Component.onCompleted: updateTime()
-
-    MouseArea {
-        anchors.fill: parent
-        onClicked: parent.parent.state = "login"
-    }
-
-    Keys.onPressed: {
-        parent.parent.state = "login"
-    }
-}
 
     // Main login container
     Item {
@@ -138,7 +163,11 @@ Item {
                 id: password
                 placeholderText: "Password"
                 echoMode: TextInput.Password
-                Keys.onReturnPressed: loginButton.clicked()
+                Keys.onReturnPressed: {
+                    loginButton.clicked()
+                    inactivityTimer.restart()
+                }
+                onTextChanged: inactivityTimer.restart()
             }
 
             Button {
@@ -148,6 +177,7 @@ Item {
                     if (userListView.currentIndex >= 0) {
                         sddm.login(userListView.currentItem.userName, password.text, 0);
                     }
+                    inactivityTimer.restart()
                 }
             }
         }
@@ -179,6 +209,7 @@ Item {
                     onClicked: {
                         userListView.currentIndex = index;
                         password.forceActiveFocus();
+                        inactivityTimer.restart()
                     }
 
                     // Store user properties
