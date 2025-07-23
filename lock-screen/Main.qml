@@ -36,6 +36,51 @@ Item {
             smooth: true
         }
 
+        // Time and Date Display
+        Column {
+            anchors {
+                top: parent.top
+                right: parent.right
+                margins: 20
+            }
+            spacing: 5
+
+            Text {
+                id: timeText
+                color: "white"
+                font.pixelSize: 48
+                font.bold: true
+                style: Text.Outline
+                styleColor: "#80000000"
+            }
+
+            Text {
+                id: dateText
+                color: "white"
+                font.pixelSize: 24
+                style: Text.Outline
+                styleColor: "#80000000"
+            }
+        }
+
+        // Timer to update time
+        Timer {
+            interval: 1000 // Update every second
+            running: true
+            repeat: true
+            onTriggered: updateTime()
+        }
+
+        // Function to update time and date
+        function updateTime() {
+            var date = new Date();
+            timeText.text = Qt.formatTime(date, "hh:mm");
+            dateText.text = Qt.formatDate(date, "dddd, MMMM d");
+        }
+
+        // Initialize time immediately
+        Component.onCompleted: updateTime()
+
         MouseArea {
             anchors.fill: parent
             onClicked: parent.parent.state = "login"
