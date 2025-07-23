@@ -173,9 +173,9 @@ Item {
                 id: currentUserIcon
                 anchors.horizontalCenter: parent.horizontalCenter
                 source: userListView.currentItem ? userListView.currentItem.userIcon : "qrc:/assets/user-icon.png"
-                sourceSize: Qt.size(64, 64)
-                width: 64
-                height: 64
+                sourceSize: Qt.size(96, 96)
+                width: 96
+                height: 96
                 fillMode: Image.PreserveAspectFit
             }
 
@@ -261,7 +261,7 @@ Item {
         Rectangle {
             id: userListContainer
             width: 300
-            height: Math.min(300, userListView.contentHeight)
+            height: Math.min(400, userListView.contentHeight)
             color: "#40000000"
             radius: 5
             anchors {
@@ -278,7 +278,7 @@ Item {
                 currentIndex: 0 // Select first user by default
                 delegate: Button {
                     width: ListView.view.width
-                    height: 50
+                    height: 64
                     flat: true
                     highlighted: ListView.isCurrentItem
 
@@ -291,10 +291,10 @@ Item {
 
                         Image {
                             source: parent.parent.userIcon
-                            sourceSize: Qt.size(32, 32)
+                            sourceSize: Qt.size(48, 48)
                             fillMode: Image.PreserveAspectFit
-                            Layout.preferredWidth: 32
-                            Layout.preferredHeight: 32
+                            Layout.preferredWidth: 48
+                            Layout.preferredHeight: 48
                         }
 
                         Label {
