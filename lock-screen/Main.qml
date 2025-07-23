@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.0
+import QtQuick.Layouts 1.15
 
 Item {
     width: 640
@@ -29,8 +30,8 @@ Item {
             id: loginButton
             text: "Login"
             onClicked: {
-                if (userListView.currentItem) {
-                    sddm.login(userListView.currentItem.text, password.text, 0);
+                if (userListView.currentIndex >= 0) {
+                    sddm.login(userListView.currentItem.userName, password.text, 0);
                 }
             }
         }
@@ -39,7 +40,7 @@ Item {
     // User List
     Rectangle {
         id: userListContainer
-        width: 200
+        width: 300
         height: Math.min(300, userListView.contentHeight)
         color: "#40000000"
         radius: 5
@@ -57,12 +58,37 @@ Item {
             currentIndex: 0 // Select first user by default
             delegate: Button {
                 width: ListView.view.width
-                text: model.name
+                height: 50
                 flat: true
                 highlighted: ListView.isCurrentItem
                 onClicked: {
                     userListView.currentIndex = index;
                     password.forceActiveFocus(); // Move focus to password field
+                }
+
+                // Store the username as a property
+                property string userName: model.name
+
+                contentItem: RowLayout {
+                    spacing: 10
+
+                    Image {
+                        id: userIcon
+                        source: model.icon || "qrc:/assets/user-icon.png"
+                        sourceSize: Qt.size(32, 32)
+                        fillMode: Image.PreserveAspectFit
+                        Layout.preferredWidth: 32
+                        Layout.preferredHeight: 32
+                    }
+
+                    Label {
+                        text: model.name
+                        color: highlighted ? "white" : "#ccc"
+                        font.pixelSize: 14
+                        elide: Text.ElideRight
+                        Layout.fillWidth: true
+                        verticalAlignment: Text.AlignVCenter
+                    }
                 }
             }
         }
