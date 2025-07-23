@@ -23,6 +23,13 @@ Item {
     // Start with pre-login screen
     Component.onCompleted: state = "preLogin"
 
+    // Function to update time and date
+    function updateTime() {
+        var date = new Date();
+        timeText.text = Qt.formatTime(date, "hh:mm:ss");
+        dateText.text = Qt.formatDate(date, "dddd, MMMM d");
+    }
+
     // Pre-login screen
     Item {
         id: preLoginScreen
@@ -69,13 +76,6 @@ Item {
             running: true
             repeat: true
             onTriggered: updateTime()
-        }
-
-        // Function to update time and date
-        function updateTime() {
-            var date = new Date();
-            timeText.text = Qt.formatTime(date, "hh:mm:ss");
-            dateText.text = Qt.formatDate(date, "dddd, MMMM d");
         }
 
         // Initialize time immediately
