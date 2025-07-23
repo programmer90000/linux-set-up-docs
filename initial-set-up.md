@@ -259,59 +259,7 @@ Select the image in the Settings Window
 
 ## Change Lock Screen Apperance
 
-### 1. Prepare your background image
-Use a PNG or JPG image, ideally 1920x1080 or higher resolution.
-
-### 2. Install Flatpak
-
-Run:
-```
-sudo apt install flatpak
-```
-
-### 3. Install the Software Flatpak plugin
-
-Run:
-```
-sudo apt install gnome-software-plugin-flatpak
-```
-
-### 4. Add the Flathub repository
-
-Run:
-```
-flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-```
-
-### 5. Restart your computer
-
-> Note: The `flatpak` command wil be usable but may result in errors until you restart your computer
-
-### 6. Install GDM Settings
-
-Run:
-```
-flatpak install flathub io.github.realmazharhussain.GdmSettings
-```
-
-### 7. Run GDM Settings
-
-Run:
-```
-flatpak run io.github.realmazharhussain.GdmSettings
-```
-
-### 8. Configure the lock screen apperance
-
-> Note: All of the options in **all** tabs are to configure the lock screen apperance
-
-### 9. Apply Changes
-
-Click the `Apply` button in the top left hand side of the window
-
-### 9. Restart the computer to apply changes
-
-> Note: Logging out may apply the changes but it is better to restart
+Follow the docs found in the [Lock Screen directory](./lock-screen)
 
 ## Add Apps To Taskbar
 
