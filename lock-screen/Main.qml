@@ -232,6 +232,15 @@ Item {
             }
         }
 
+        Connections {
+            target: shakeAnimation
+            onRunningChanged: {
+                if (!shakeAnimation.running) {
+                    loginError.visible = true // Ensure error stays visible after animation
+                }
+            }
+        }
+
         // User List
         Rectangle {
             id: userListContainer
