@@ -30,6 +30,15 @@ Item {
             fillMode: Image.PreserveAspectFit
         }
 
+        Text {
+            id: currentUsernameText
+            anchors.horizontalCenter: parent.horizontalCenter
+            text: userListView.currentItem ? userListView.currentItem.userName : "Select a user"
+            color: "white"
+            font.pixelSize: 16
+            font.bold: true
+        }
+
         TextField {
             id: password
             placeholderText: "Password"
