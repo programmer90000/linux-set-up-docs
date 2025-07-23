@@ -6,109 +6,155 @@ Item {
     width: 640
     height: 480
 
-    // Background
-    Image {
+    // States for pre-login and login screens
+    states: [
+        State {
+            name: "preLogin"
+            PropertyChanges { target: preLoginScreen; visible: true }
+            PropertyChanges { target: loginContainer; visible: false }
+        },
+        State {
+            name: "login"
+            PropertyChanges { target: preLoginScreen; visible: false }
+            PropertyChanges { target: loginContainer; visible: true }
+        }
+    ]
+
+    // Start with pre-login screen
+    Component.onCompleted: state = "preLogin"
+
+    // Pre-login screen
+    Item {
+        id: preLoginScreen
         anchors.fill: parent
-        source: "./assets/background.jpg" // Path to your image
-        fillMode: Image.PreserveAspectCrop // Ensures full coverage without stretching
-        smooth: true // Anti-aliasing
+        focus: true  // Allow keyboard focus
+
+        Image {
+            anchors.fill: parent
+            source: "./assets/background.jpg"
+            fillMode: Image.PreserveAspectCrop
+            smooth: true
+        }
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: parent.parent.state = "login"
+        }
+
+        Keys.onPressed: {
+            parent.parent.state = "login"
+        }
     }
 
-    // Login Form
-    Column {
-        anchors.centerIn: parent
-        spacing: 10
+    // Main login container
+    Item {
+        id: loginContainer
+        anchors.fill: parent
 
-        // User icon above password field
+        // Background
         Image {
-            id: currentUserIcon
-            anchors.horizontalCenter: parent.horizontalCenter
-            source: userListView.currentItem ? userListView.currentItem.userIcon : "qrc:/assets/user-icon.png"
-            sourceSize: Qt.size(64, 64)
-            width: 64
-            height: 64
-            fillMode: Image.PreserveAspectFit
+            anchors.fill: parent
+            source: "./assets/background.jpg" // Path to your image
+            fillMode: Image.PreserveAspectCrop // Ensures full coverage without stretching
+            smooth: true // Anti-aliasing
         }
 
-        Text {
-            id: currentUsernameText
-            anchors.horizontalCenter: parent.horizontalCenter
-            text: userListView.currentItem ? userListView.currentItem.userName : "Select a user"
-            color: "white"
-            font.pixelSize: 16
-            font.bold: true
-        }
+        // Login Form
+        Column {
+            anchors.centerIn: parent
+            spacing: 10
 
-        TextField {
-            id: password
-            placeholderText: "Password"
-            echoMode: TextInput.Password
-            Keys.onReturnPressed: loginButton.clicked()
-        }
+            // User icon above password field
+            Image {
+                id: currentUserIcon
+                anchors.horizontalCenter: parent.horizontalCenter
+                source: userListView.currentItem ? userListView.currentItem.userIcon : "qrc:/assets/user-icon.png"
+                sourceSize: Qt.size(64, 64)
+                width: 64
+                height: 64
+                fillMode: Image.PreserveAspectFit
+            }
 
-        Button {
-            id: loginButton
-            text: "Login"
-            onClicked: {
-                if (userListView.currentIndex >= 0) {
-                    sddm.login(userListView.currentItem.userName, password.text, 0);
+            Text {
+                id: currentUsernameText
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: userListView.currentItem ? userListView.currentItem.userName : "Select a user"
+                color: "white"
+                font.pixelSize: 16
+                font.bold: true
+            }
+
+            TextField {
+                id: password
+                placeholderText: "Password"
+                echoMode: TextInput.Password
+                Keys.onReturnPressed: loginButton.clicked()
+            }
+
+            Button {
+                id: loginButton
+                text: "Login"
+                onClicked: {
+                    if (userListView.currentIndex >= 0) {
+                        sddm.login(userListView.currentItem.userName, password.text, 0);
+                    }
                 }
             }
         }
-    }
 
-    // User List
-    Rectangle {
-        id: userListContainer
-        width: 300
-        height: Math.min(300, userListView.contentHeight)
-        color: "#40000000"
-        radius: 5
-        anchors {
-            left: parent.left
-            bottom: parent.bottom
-            margins: 20
-        }
+        // User List
+        Rectangle {
+            id: userListContainer
+            width: 300
+            height: Math.min(300, userListView.contentHeight)
+            color: "#40000000"
+            radius: 5
+            anchors {
+                left: parent.left
+                bottom: parent.bottom
+                margins: 20
+            }
 
-        ListView {
-            id: userListView
-            anchors.fill: parent
-            clip: true
-            model: userModel // SDDM's built-in user model
-            currentIndex: 0 // Select first user by default
-            delegate: Button {
-                width: ListView.view.width
-                height: 50
-                flat: true
-                highlighted: ListView.isCurrentItem
-                onClicked: {
-                    userListView.currentIndex = index;
-                    password.forceActiveFocus();
-                }
-
-                // Store user properties
-                property string userName: model.name
-                property string userIcon: model.icon || "qrc:/assets/user-icon.png"
-
-                contentItem: RowLayout {
-                    spacing: 10
-
-                    Image {
-                        id: userIcon
-                        source: parent.parent.userIcon
-                        sourceSize: Qt.size(32, 32)
-                        fillMode: Image.PreserveAspectFit
-                        Layout.preferredWidth: 32
-                        Layout.preferredHeight: 32
+            ListView {
+                id: userListView
+                anchors.fill: parent
+                clip: true
+                model: userModel // SDDM's built-in user model
+                currentIndex: 0 // Select first user by default
+                delegate: Button {
+                    width: ListView.view.width
+                    height: 50
+                    flat: true
+                    highlighted: ListView.isCurrentItem
+                    onClicked: {
+                        userListView.currentIndex = index;
+                        password.forceActiveFocus();
                     }
 
-                    Label {
-                        text: model.name
-                        color: highlighted ? "white" : "#ccc"
-                        font.pixelSize: 14
-                        elide: Text.ElideRight
-                        Layout.fillWidth: true
-                        verticalAlignment: Text.AlignVCenter
+                    // Store user properties
+                    property string userName: model.name
+                    property string userIcon: model.icon || "qrc:/assets/user-icon.png"
+
+                    contentItem: RowLayout {
+                        spacing: 10
+
+                        Image {
+                            id: userIcon
+                            source: parent.parent.userIcon
+                            sourceSize: Qt.size(32, 32)
+                            fillMode: Image.PreserveAspectFit
+                            Layout.preferredWidth: 32
+                            Layout.preferredHeight: 32
+                        }
+
+                        Label {
+                            text: model.name
+                            color: highlighted ? "white" : "#ccc"
+                            font.pixelSize: 14
+                            elide: Text.ElideRight
+                            Layout.fillWidth: true
+                            verticalAlignment: Text.AlignVCenter
+                        }
                     }
                 }
             }
