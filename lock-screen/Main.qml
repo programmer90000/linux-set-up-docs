@@ -46,50 +46,52 @@ Item {
         // Time and Date Display
         Column {
             anchors {
+                horizontalCenter: parent.horizontalCenter
                 top: parent.top
-                right: parent.right
-                margins: 20
+                topMargin: 40 
             }
-            spacing: 5
+            spacing: 10
 
-            Text {
-                id: timeText
-                color: "white"
-                font.pixelSize: 48
-                font.bold: true
-                style: Text.Outline
-                styleColor: "#80000000"
-            }
-
-            Text {
-                id: dateText
-                color: "white"
-                font.pixelSize: 24
-                style: Text.Outline
-                styleColor: "#80000000"
-            }
+        Text {
+            id: dateText
+            color: "white"
+            font.pixelSize: 24
+            style: Text.Outline
+            styleColor: "#80000000"
+            horizontalAlignment: Text.AlignHCenter
         }
 
-        // Timer to update time
-        Timer {
-            interval: 1000 // Update every second
-            running: true
-            repeat: true
-            onTriggered: updateTime()
-        }
-
-        // Initialize time immediately
-        Component.onCompleted: updateTime()
-
-        MouseArea {
-            anchors.fill: parent
-            onClicked: parent.parent.state = "login"
-        }
-
-        Keys.onPressed: {
-            parent.parent.state = "login"
+        Text {
+            id: timeText
+            color: "white"
+            font.pixelSize: 48
+            font.bold: true
+            style: Text.Outline
+            styleColor: "#80000000"
+            horizontalAlignment: Text.AlignHCenter
         }
     }
+
+    // Timer to update time
+    Timer {
+        interval: 1000 // Update every second
+        running: true
+        repeat: true
+        onTriggered: updateTime()
+    }
+
+    // Initialize time immediately
+    Component.onCompleted: updateTime()
+
+    MouseArea {
+        anchors.fill: parent
+        onClicked: parent.parent.state = "login"
+    }
+
+    Keys.onPressed: {
+        parent.parent.state = "login"
+    }
+}
 
     // Main login container
     Item {
