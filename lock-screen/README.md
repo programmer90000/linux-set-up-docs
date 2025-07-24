@@ -8,6 +8,7 @@ Copy the `background.jpg` and `user-icon.png` files into the `assets` directory
 
 Copy the `lock-screen` directory to `/usr/share/sddm/themes/lock-screen` and `~/.local/share/sddm/themes/lock-screen` by running:
 ```
+cd ../
 sudo cp -r lock-screen/ /usr/share/sddm/themes/
 cp -r lock-screen/ ~/.local/share/sddm/themes/
 ```
