@@ -94,6 +94,8 @@ Remove all unneeded apps
 
 > ***Do not delete packages. Only delete apps found in the application launcher***
 
+The final list of installed apps in the `Discover` app should be the same as the list in the [installed-apps-and-packages.md file](installed-apps-and-packages.md)
+
 ## Configure the Application Launcher
 
 ### Edit Applications
