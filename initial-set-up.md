@@ -96,6 +96,8 @@ Right-click on each application submenu and delete it
 
 Create the following parent submenus: `Internet`, `Image & Video`, `Development`, `LibreOffice`, `Utilities`, `Settings`, `System`
 
+Drag each submenu out so they are all parent submenus
+
 Right-click on each submenu and select `New Item`
 
 Enter the name of the application to be added to this submenu
