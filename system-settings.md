@@ -337,3 +337,25 @@ Set `Dailer` to `Other`
 ## User Feedback
 
 Set it to Disabled
+
+### Connections and Settings
+
+Set the correct WiFi connection
+
+## Power Management
+
+### Energy Saving
+
+Enable `Screen Energy Saving`
+
+Set `Switch off after` to `10 min`
+
+Disable `Suspend session`
+
+Enable `Button events handling`
+
+Set `When power button pressed` to `Do nothing`
+
+Disable `Run script`
+
+Disbale `Wireless`
