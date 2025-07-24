@@ -226,6 +226,8 @@ chmod +x terminal.desktop
 
 > Note: If a warning sign appears above the icon, right-click on the desktop and select `Refresh Desktop`
 
+Do this for all files on [this page](https://github.com/programmer90000/linux-set-up-docs/tree/debian/desktop)
+
 ---
 
 ## Set Profile Picture
