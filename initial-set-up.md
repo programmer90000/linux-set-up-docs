@@ -480,27 +480,6 @@ Run:
 sudo update-grub
 ```
 
-Create a new file to test the boot theme:
-```
-nano test-boot-theme.sh
-```
-
-Paste the following lines into this file and then save it:
-```
-sudo plymouthd
-sudo plymouth --show-splash
-sleep 5
-sudo plymouth quit
-```
-
-Run:
-```
-chmod +x test-boot-theme.sh
-./test-boot-theme.sh
-```
-
-> **If a black screen appears, you may need to run `sudo reboot` and then preview each theme using this method**
-
 Reboot the system to view the theme:
 ```
 sudo reboot
