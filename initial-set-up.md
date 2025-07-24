@@ -104,6 +104,8 @@ Enter the name of the application to be added to this submenu
 
 Add a description, icon and select the program to launch
 
+> To find the program executable to launch, open the terminal and run: `which PROGRAM-NAME`. The file path output is the program executable to write
+
 Enable `Enable launch feedback`
 
 Disable `Only show when logged into a Plasma session`
