@@ -248,3 +248,92 @@ Disable all shortcuts
 Enable `Show` `Logout Screen`
 
 Set `On login, launch apps that were open` to `Start with an empty session`
+
+## Notifications
+
+Under `Do Not Disturb Mode`:
+- Enable `When screens are mirrored`
+- Enable `During screen sharing`
+
+Under `Visibility conditions`
+- Enable `Critical notifications` `Show in Do Not Disturb mode`
+- Enable `Normal notifications` `Show over full screen windows`
+- Enable `Low priority notifications` `Show popup`
+- Enable `Low priority notifications` `Show in history`
+
+Under `Popups`
+- Select `Choose Custom Position`
+- Set it to the bottom right
+- Set `Hide after` to `5 seconds`
+
+Under `Additional feedback`
+- Enable `Application progress` `Show in task manager`
+- Enable `Application progress` `Show in notifications`
+- Enable `Application progress` `Keep popup open during progress`
+- Enable `Notification badges` `Show in task manager`
+
+## Regional Settings
+
+Set the correct settings
+
+## Accessibility
+
+### Bell
+
+Enable `Audible bell`
+
+Disable `Visual bell`
+
+### Modifier Keys
+
+`Disable` `Sticky keys`
+
+Enable `Ring system bell when locking keys are toggled`
+
+Enable `Show notification when modifier or locking keys are used`
+
+### Keyboard Filters
+
+Disable `Slow keys`
+
+Disable `Bounce keys`
+
+### Mouse Navigation
+
+Disable `Use number pad to move cursor`
+
+Under `When a gesture is used`, enable `Display a confirmation dialogue`. Disable `Ring the System Bell` and `Show a notification`
+
+Set `Acceleration delay` to `160`
+
+Set `Repeat interval` to `40`
+
+Set `Acceleration time` to `30`
+
+Set `Maximum speed` `30`
+
+Set `Acceleration profile` to `0`
+
+### Screen Reader
+
+Disable `Screen Reader`
+
+## Applications
+
+### Default Applications
+
+Set `Web Browser` to `Brave Web Browser`
+
+Set `File Manager` to `Dolphin`
+
+Set `Email client` to `Thunderbird`
+
+Set `Terminal Emulator` to `Konsole`
+
+Set `Map` to `Google Maps`
+
+Set `Dailer` to `Other`
+
+## User Feedback
+
+Set it to Disabled
