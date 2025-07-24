@@ -247,7 +247,7 @@ Go to the official [Android Studio website](https://developer.android.com/studio
 
 Download the latest version of Android Studio by clicking the following Download button:
 
-![Android Studio Download Button](android-studio-download-button.png)
+![Android Studio Download Button](images/android-studio-download-button.png)
 
 Extract the downloaded folder by running:
 ```
