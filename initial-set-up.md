@@ -279,6 +279,8 @@ Select the image in the Settings Window
 
 Follow the docs found in the [Lock Screen directory](./lock-screen)
 
+---
+
 ## Add Apps To Taskbar
 
 Open the `All Applications` menu
