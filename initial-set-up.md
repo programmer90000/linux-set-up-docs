@@ -106,7 +106,7 @@ Select `Edit Applications`
 
 Right-click on each application submenu and delete it
 
-Create the following parent submenus: `Internet`, `Image & Video`, `Development`, `LibreOffice`, `Utilities`, `Settings`, `System`
+Image & VideoCreate the following parent submenus: `Internet`, `Image & Video`, `Development`, `LibreOffice`, `Utilities`, `Settings`, `System`
 
 Drag each submenu out so they are all parent submenus
 
@@ -182,7 +182,7 @@ Right-click on the Application Launcher
 
 Select `Add Widgets`
 
-Add the following widgets: `Peek at Desktop`, `Digital Clock`, `System Tray`, `Activities`, `Notifications`, `Clipboard`, `Icons-only Task Manager`, `Application Dashboard`, `Margins Separator`
+Add the following widgets: `Peek at Desktop`, `Digital Clock`, `System Tray`, `Activities`, `Notifications`, `Clipboard`, `Margins Separator`, `Icons-only Task Manager`, `Application Dashboard`
 
 Right-click on the Application Launcher
 
