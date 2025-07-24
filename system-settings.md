@@ -117,3 +117,134 @@ Enable `Show animation when switching` and set it to `Slide`. Set the `Gap betwe
 Set `Keep history` to `For 1 month`
 
 Set `Remember opened documents` to `For all applications`
+
+## Window Management
+
+### Window Behaviour
+
+#### Focus
+
+Set `Window activation policy` to `Click to focus`
+
+Set `Delay focus by` to `300 ms`
+
+Set `Focus stealing prevention` to `Medium`
+
+Enable `Click raises active window`
+
+Disable `Raise on hover, delayed by`
+
+#### Titlebar Actions
+
+Set `Double-click` to `Do nothing`
+
+Set `Mouse wheel` to `Do nothing`
+
+Set `Left click` `Active` to `Raise` and `Inactive` to `Activate and raise`
+
+Set `Middle click` `Active` to `Do nothing` and `Inactive` to `Do nothing`
+
+Set `Right click` `Active` to `Show actions menu` and `Inactive` to `Show actions menu`
+
+For the `Maximise Button Actions`, set all buttons to `Maximise`
+
+#### Window Actions
+
+Under `Inactive Inner Window Actions`:
+- Set `Left click` to `Activate, raise and pass click`
+- Set `Middle click` to `Activate, raise and pass click`
+- Set `Right click` to `Activate, raise and pass click`
+- Set `Mouse wheel` to `Scroll`
+
+Under `Inner Window, Titlebar and Frame Actions`
+- Set `Left click` to `Raise`
+- Set `Middle click` to `Do nothing`
+- Set `Right click` to `Do nothing`
+- Set `Mouse wheel` to `Do nothing`
+- Set `Modifier key` to `Meta`
+
+#### Movement
+
+Set `Screen edge snap zone` to `10 px`
+
+Set `Windows snap zone` to `10 px`
+
+Set `Centre snap zone` tp `None`
+
+Disable `Snap windows` `Only when overlapping`
+
+#### Advanced
+
+Disable `Window unshading` `On titlebar hover after`
+
+Set `Window placement` to `Centered`
+
+Enable `Hide utility windows for inactive applications`
+
+Set `Virtual Desktop behaviour: When activating a window on a different Virtual Desktop` to `Switch to that Virtual Desktop`
+
+### Task Switcher
+
+#### Main
+
+##### Visualsation
+- Enable `Show selected window`
+- Enable and set the theme to `Breeze`
+- Under `All windows`
+    - Set `Forward` to `Alt+Tab`
+    - Set `Reverse` to `None`
+- Under `Current application`
+    - Set `Forward` to `Alt+` `
+    - Set `Reverse` to `None`
+
+##### Content
+- Set `Sort Order` to `Recently used`
+- Disable `Include "Show Desktop" icon`
+- Disable `Only one window per application`
+- Disable `Order minimised windows after non-minimised windows`
+- Enable `Virtual desktops` and set it to `Current desktop`
+- Enable `Activities` and set it to `Current activity`
+- Disable `Minimisation`
+
+#### Alternative
+
+##### Visualsation
+- Enable `Show selected window`
+- Enable and set the theme to `Breeze`
+- Under `All windows`
+    - Set `Forward` to `Alt+Tab`
+    - Set `Reverse` to `None`
+- Under `Current application`
+    - Set `Forward` to `Alt+` `
+    - Set `Reverse` to `None`
+
+##### Content
+- Set `Sort Order` to `Recently used`
+- Disable `Include "Show Desktop" icon`
+- Disable `Only one window per application`
+- Disable `Order minimised windows after non-minimised windows`
+- Enable `Virtual desktops` and set it to `Current desktop`
+- Enable `Activities` and set it to `Current activity`
+- Disable `Minimisation`
+
+### KWin Scripts
+
+Disable `Desktop Changes OSD`
+
+Disable `MinimiseAll`
+
+Disable `Synchronise Skip Switcher with Taksbar`
+
+Disable `Video Wall`
+
+## Shortcuts
+
+Disable all shortcuts
+
+## Startup and Shutdown
+
+### Desktop Session
+
+Enable `Show` `Logout Screen`
+
+Set `On login, launch apps that were open` to `Start with an empty session`
