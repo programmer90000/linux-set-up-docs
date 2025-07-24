@@ -329,6 +329,10 @@ Select an icon
 
 Close the window
 
+## Installing Custom Fonts
+
+Follow the docs found in the [Fonts directory](./fonts)
+
 ## Change Auto-Start programs
 Run:
 ```
