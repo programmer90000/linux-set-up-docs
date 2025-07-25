@@ -43,3 +43,20 @@ To use `duf`, run:
 ```
 duf
 ```
+
+## Install ncdu
+
+The `ncdu` command allows you to view the amount of space used by each directory and file
+
+Run:
+```
+sudo apt update
+sudo apt install ncdu
+```
+
+To use `ncdu`, run:
+```
+ncdu
+```
+
+This will open an interactive window, from which you can navigate between directories to view the size of each directory file
