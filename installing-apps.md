@@ -316,6 +316,18 @@ sudo apt install
 sudo apt install flameshot
 ```
 
+Open the System Settings app
+
+Select `Shortcuts`
+
+Click `Add Command`
+
+In the command field, type `flameshot gui`
+
+Click `Add custom shortcut`
+
+Press the `Print Screen` key
+
 To run Flameshot, press the Print Screen key on your keyboard
 
 Flameshot does not have a GUI window. To remove the Flameshot application from the All Apps menu, run:
@@ -369,29 +381,25 @@ Run:
 chmod +x ~/bin/text-extractor.sh
 ```
 
-Open the Settings app
+Open the System Settings app
 
-Go to the Keyboard section
+Select `Shortcuts`
 
-Select `View and Customize Shortcuts` under `Keyboard Shortcuts`
+Click `Add Command`
 
-Select Custom Shortcuts
+In the command field, type `/home/abdul/bin/text-extractor.sh`
 
-Create a new Shortcut
+Click `Add custom shortcut`
 
-Set the Name as `Text Extractor`
-
-Set the Command as the absolute path to the `text-extractor.sh` script. e.g. `/home/user/bin/text-extractor.sh`
-
-Set the Shortcut as `CTRL + Shift + S`
-
-Save the Shortcut
+Press `Ctrl + Shift + S`
 
 Test the command by clicking `CTRL + Shift + S`
 
 Take a screenshot of a screen containing text
 
 Check if the text was saved to the clipboard
+
+> Note: The text may not be saved to the default Debian clipboard. It may only be saved to the GPaste clipboard
 
 ### Install VLC Media Player
 
