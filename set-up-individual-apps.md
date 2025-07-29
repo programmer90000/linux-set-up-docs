@@ -743,6 +743,10 @@ Select `Account Settings`
 
 ## Android Studio
 
+- Select the `Install Type` as `Custom`
+- Enable installation for all components
+- Set the `Android SDK Location` to `/home/abdul/Android/Sdk`
+
 - Select `Settings > Apperance`
     - Set the `Theme` to `Dark`
     - Set the `Editor colour scheme` to `Dark Theme Default`
