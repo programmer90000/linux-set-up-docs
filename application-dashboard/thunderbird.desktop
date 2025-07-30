@@ -1,0 +1,15 @@
+[Desktop Entry]
+Name=Thunderbird
+GenericName=Thunderbird
+Type=Application
+Exec=/usr/bin/thunderbird
+Icon=thunderbird
+StartupWMClass=thunderbird-default
+StartupNotify=true
+NoDisplay=false
+Terminal=false
+TerminalOptions=
+X-KDE-SubstituteUID=false
+X-KDE-Username=
+Path=
+Comment=
