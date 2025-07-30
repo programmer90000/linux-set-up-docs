@@ -1,0 +1,16 @@
+[Desktop Entry]
+Name=Brave
+GenericName=Brave Web Browser
+Type=Application
+Exec=/usr/bin/brave-browser-stable
+Icon=/usr/share/icons/hicolor/64x64/apps/brave-browser.png
+StartupWMClass=Brave-browser
+StartupNotify=true
+NoDisplay=false
+Terminal=false
+TerminalOptions=
+Type=Application
+X-KDE-SubstituteUID=false
+X-KDE-Username=
+Path=
+Comment=
