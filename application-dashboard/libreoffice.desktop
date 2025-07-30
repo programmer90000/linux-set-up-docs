@@ -1,0 +1,14 @@
+[Desktop Entry]
+Name=LibreOffice StartCenter
+GenericName=LibreOffice StartCenter
+Type=Application
+Exec=libreoffice
+Icon=libreoffice-startcenter
+StartupNotify=true
+NoDisplay=false
+Terminal=false
+TerminalOptions=
+X-KDE-SubstituteUID=false
+X-KDE-Username=
+Path=
+Comment=
