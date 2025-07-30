@@ -1,0 +1,16 @@
+[Desktop Entry]
+Name=Microsoft Edge (Programming)
+GenericName=Microsoft Edge (Programming)
+Type=Application
+Exec=/bin/microsoft-edge-stable --profile-directory="Profile 1" --class=edge-programming %U
+Icon=microsoft-edge-logo-programming
+StartupWMClass=edge-programming
+StartupNotify=true
+NoDisplay=false
+Terminal=false
+TerminalOptions=
+Type=Application
+X-KDE-SubstituteUID=false
+X-KDE-Username=
+Path=
+Comment=
