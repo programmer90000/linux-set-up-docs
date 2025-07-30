@@ -1,0 +1,14 @@
+[Desktop Entry]
+Name=Krename File Renamer
+GenericName=Krename File Renamer
+Type=Application
+Exec=/usr/bin/krename
+Icon=krename
+StartupNotify=true
+NoDisplay=false
+Terminal=false
+TerminalOptions=
+X-KDE-SubstituteUID=false
+X-KDE-Username=
+Path=
+Comment=
