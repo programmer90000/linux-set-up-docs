@@ -1,0 +1,1 @@
+These files should be saved in: `home/abdul/.local/share/applications`
