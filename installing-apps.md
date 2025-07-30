@@ -188,42 +188,6 @@ To create a Desktop shortcut to GitHub Desktop, run:
 cp /usr/share/applications/github-desktop.desktop ~/Desktop/
 ```
 
-To display GitHub Desktop in Gnome Software, run:
-```
-sudo nano /usr/share/metainfo/github-desktop.metainfo.xml
-```
-
-Paste this text in the file:
-```
-<?xml version="1.0" encoding="UTF-8"?>
-<component type="desktop-application">
-  <id>github-desktop.desktop</id>
-  <name>GitHub Desktop</name>
-  <summary>Simple collaboration from your desktop</summary>
-  <description>
-    <p>GitHub Desktop is a graphical Git client that allows you to interact with GitHub using a clean and simple interface.</p>
-  </description>
-  <launchable type="desktop-id">github-desktop.desktop</launchable>
-  <url type="homepage">https://desktop.github.com/</url>
-  <developer_name>GitHub, Inc.</developer_name>
-  <metadata_license>CC0-1.0</metadata_license>
-  <project_license>MIT</project_license>
-</component>
-```
-
-Run:
-```
-sudo appstreamcli refresh --force
-```
-
-Close Gnome Software
-
-Log out
-
-Log in
-
-GitHub Desktop should now appear in Gnome Software
-
 ### Install Brave Web Browser
 
 Run:
