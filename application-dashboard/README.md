@@ -340,3 +340,5 @@
     - `Icon`: `plasmadiscover`
     - Enable `Enable launch feedback`
     - Disable `Only show when logged into a Plasma session`
+
+Save any icons in `/usr/share/icons/hicolor/64x64/apps/`
