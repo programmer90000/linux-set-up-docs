@@ -98,32 +98,6 @@ The final list of installed apps in the `Discover` app should be the same as the
 
 ## Configure the Application Launcher
 
-### Edit Applications
-
-Right-click on the Application Launcher
-
-Select `Edit Applications`
-
-Right-click on each application submenu and delete it
-
-Image & VideoCreate the following parent submenus: `Internet`, `Image & Video`, `Development`, `LibreOffice`, `Utilities`, `Settings`, `System`
-
-Drag each submenu out so they are all parent submenus
-
-Right-click on each submenu and select `New Item`
-
-Enter the name of the application to be added to this submenu
-
-Add a description, icon and select the program to launch
-
-> To find the program executable to launch, open the terminal and run: `which PROGRAM-NAME`. The file path output is the program executable to write
-
-Enable `Enable launch feedback`
-
-Disable `Only show when logged into a Plasma session`
-
-> Note: Adding applications to each submenu should be done after installing all of the apps
-
 ### Change Application Launcher View
 
 Right-click on the Application Launcher
@@ -191,6 +165,10 @@ Select `Enter Edit Mode`
 Select `Add Spacer`
 
 Move the Panel Spacer to the left side of all widgets except for the `Application Dashboard` and `Icons-only Task Manager`
+
+### Add Apps To Application Dashboard
+
+Follow the docs in the [Application Dashboard directory](./application-dashboard/README.md)
 
 ---
 
