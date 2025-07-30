@@ -1,0 +1,14 @@
+[Desktop Entry]
+Name=IBus Setup
+GenericName=IBus Setup
+Type=Application
+Exec=ibus-setup
+Icon=ibus
+StartupNotify=true
+NoDisplay=false
+Terminal=false
+TerminalOptions=
+X-KDE-SubstituteUID=false
+X-KDE-Username=
+Path=
+Comment=
