@@ -334,22 +334,13 @@ if [ $OCR_STATUS -ne 0 ] || [ -z "$OCR_OUTPUT" ]; then
 fi
 
 # Copy to clipboard
-qdbus org.kde.klipper /klipper setClipboardContents "$OCR_OUTPUT"
+qdbus org.kde.klipper /klipper setClipboardContents "$OCR_OUTPUT" 2>/dev/null || echo -n "$OCR_OUTPUT" | wl-copy 2>/dev/null || echo -n "$OCR_OUTPUT" | xclip -selection clipboard
 
-# Verify clipboard content
-CLIPBOARD_CONTENT=$(xclip -selection clipboard -o 2>/dev/null)
-if [ -z "$CLIPBOARD_CONTENT" ]; then
-    notify-send "Clipboard Error" "Failed to copy text to clipboard" -u critical
-    exit 1
-fi
+# Small delay to ensure Klipper registers the text
+sleep 0.5
 
-# Success notification with first 40 characters
-PREVIEW="${OCR_OUTPUT:0:40}"
-if [ ${#OCR_OUTPUT} -gt 40 ]; then
-    PREVIEW="$PREVIEW..."
-fi
-
-notify-send "OCR Successful" "Text copied to clipboard:\n$PREVIEW" -t 5000
+# Success notification
+notify-send "OCR Successful" "Text copied to clipboard:\n${OCR_OUTPUT:0:40}..." -t 5000
 
 # Cleanup
 rm -f "$TEMP_SCREENSHOT" "$TEMP_CLEAN"
