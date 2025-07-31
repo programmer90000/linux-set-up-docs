@@ -303,7 +303,7 @@ TEMP_CLEAN="/tmp/ocr-cleaned.png"
 rm -f "$TEMP_SCREENSHOT" "$TEMP_CLEAN"
 
 # Capture screenshot using Spectacle
-spectacle -b -r -o "$TEMP_SCREENSHOT"
+spectacle -b -r -n 0 -o "$TEMP_SCREENSHOT"
 
 # Wait for screenshot (max 5 seconds)
 for ((i=0; i<10; i++)); do
