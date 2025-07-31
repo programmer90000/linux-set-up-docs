@@ -1,0 +1,14 @@
+[Desktop Entry]
+Name=Viewnior Image Viewer
+GenericName=Viewnior Image Viewer
+Type=Application
+Exec=/usr/bin/viewnior
+Icon=viewnior
+StartupNotify=true
+NoDisplay=false
+Terminal=false
+TerminalOptions=
+X-KDE-SubstituteUID=false
+X-KDE-Username=
+Path=
+Comment=
