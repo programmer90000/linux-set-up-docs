@@ -57,7 +57,7 @@ colorize_path() {
         # Get the background color
         local bg_code="${COLOR_BG_DIRS[$color_index]}"
         # Add directory with background color
-        colored_path+="\[\e[${bg_code}m\] ${dir} \[\e[0m\]"
+        colored_path+="\[\e[${bg_code}m\]${dir}/\[\e[0m\]"
         ((color_index = (color_index + 1) % 10)) # Cycle colors
     done
 
