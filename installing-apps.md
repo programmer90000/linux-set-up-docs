@@ -363,8 +363,6 @@ Take a screenshot of a screen containing text
 
 Check if the text was saved to the clipboard
 
-> Note: The text may not be saved to the default Debian clipboard. It may only be saved to the GPaste clipboard
-
 ### Install VLC Media Player
 
 Run:

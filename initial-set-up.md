@@ -272,29 +272,6 @@ Right-click on the application
 Select `Add to Panel (Widget)`
 
 
-## Add Clipboard
-Run:
-```
-sudo apt install gpaste-2
-```
-
-Run:
-```
-find /usr/share/applications/ ~/.local/share/applications/ -iname '*gpaste*'
-```
-
-Run the following command replacing `/path/to/gpaste-preferences.desktop` with the path to `gpaste-preferences.desktop`
-```
-sudo rm /path/to/gpaste-preferences.desktop
-```
-
-To open the GPate, click the icon in the Applications window or run:
-```
-gpaste-client ui
-```
-
-Configure the settings for GPaste
-
 ## Changing file icons
 
 Right click on the application
