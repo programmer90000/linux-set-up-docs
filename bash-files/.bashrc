@@ -120,7 +120,7 @@ git_branch() {
 
 # Set PS1 with your desired colors and the colorized path
 set_prompt() {
-    PS1="\[\e[1;34m\]\H\[\e[0m\]@\[\e[1;32m\]\u\[\e[0m\] $(colorize_path) $(git_branch)\$ "
+    PS1="\[\e[1;34m\]\H\[\e[0m\]@\[\e[1;32m\]\u\[\e[0m\] $(colorize_path)$(git_branch)\$ "
 }
 
 PROMPT_COMMAND=set_prompt
