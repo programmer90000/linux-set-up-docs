@@ -1005,6 +1005,27 @@ Select `File > Prefrences`
     - Set ` Filter short DVD and Blu-ray titles (seconds)` to `10`
     - Disable `Clear completed queue items after an encode completes`
 
+## Clipboard
+
+Select the clipboard icon in the dash
+
+> If the clipboard icon isn't present, click on the upward icon on the right of the dash
+
+Select the Configure Clipboard setting (Wrench icon)
+
+- Select `General`
+    - Disable `Keep the selection and clipboard the same`
+    - Enable `Save history across dektop sessions`
+    - Set the `History size` to `500 entries`
+    - Set the `Text selection` to `Only when explicitly copied`
+    - Set the `Non-text selection` to `Only when explicitly copied`
+- Select `Action menu`
+    - Disable `Show action popup menu` `Immediately on selection`
+    - Disable `Show action popup menu` `For an item chosen from history`
+    - Set the `Automatic action menu time` to `8 seconds`
+    - Enable `Trim whitespace from selection`
+    - Enable `Include MIME actions`
+
 ## GitHub Desktop
 
 Sign In
