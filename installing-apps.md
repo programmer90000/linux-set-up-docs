@@ -297,19 +297,63 @@ Paste the following code into the file:
 
 # Temp file for screenshot
 TEMP_SCREENSHOT="/tmp/ocr-screenshot.png"
+TEMP_CLEAN="/tmp/ocr-cleaned.png"
 
-# Capture screenshot using Flameshot (GUI mode, save to temp file)
-flameshot gui -r > "$TEMP_SCREENSHOT" 2>/dev/null
+# Cleanup previous files
+rm -f "$TEMP_SCREENSHOT" "$TEMP_CLEAN"
 
-# Check if the screenshot was taken (file exists and is not empty)
-if [ -f "$TEMP_SCREENSHOT" ] && [ -s "$TEMP_SCREENSHOT" ]; then
-    # Run OCR and copy to clipboard
-    tesseract "$TEMP_SCREENSHOT" - | xclip -selection clipboard
-    # Send a notification
-    notify-send "OCR Screenshot" "Text extracted and copied to clipboard!"
-else
-    notify-send "OCR Screenshot" "Screenshot canceled or failed."
+# Capture screenshot using Spectacle
+spectacle -b -r -o "$TEMP_SCREENSHOT"
+
+# Wait for screenshot (max 5 seconds)
+for ((i=0; i<10; i++)); do
+    [ -f "$TEMP_SCREENSHOT" ] && break
+    sleep 0.5
+done
+
+# Verify screenshot was captured
+if [ ! -f "$TEMP_SCREENSHOT" ] || [ ! -s "$TEMP_SCREENSHOT" ]; then
+    notify-send "OCR Failed" "No screenshot was captured" -u critical
+    exit 1
 fi
+
+# Clean the image for better OCR
+if ! convert "$TEMP_SCREENSHOT" -colorspace Gray -contrast-stretch 1% -sharpen 0x1 "$TEMP_CLEAN" 2>/dev/null; then
+    # Fallback to original if conversion fails
+    cp "$TEMP_SCREENSHOT" "$TEMP_CLEAN"
+fi
+
+# Run OCR and capture both stdout and stderr
+OCR_OUTPUT=$(tesseract "$TEMP_CLEAN" stdout --psm 6 --oem 3 2>&1)
+OCR_STATUS=$?
+
+# Check if OCR succeeded
+if [ $OCR_STATUS -ne 0 ] || [ -z "$OCR_OUTPUT" ]; then
+    notify-send "OCR Failed" "Could not extract text\n$OCR_OUTPUT" -u critical
+    exit 1
+fi
+
+# Copy to clipboard using both primary and clipboard selections
+echo -n "$OCR_OUTPUT" | xclip -selection clipboard
+echo -n "$OCR_OUTPUT" | xclip -selection primary
+
+# Verify clipboard content
+CLIPBOARD_CONTENT=$(xclip -selection clipboard -o 2>/dev/null)
+if [ -z "$CLIPBOARD_CONTENT" ]; then
+    notify-send "Clipboard Error" "Failed to copy text to clipboard" -u critical
+    exit 1
+fi
+
+# Success notification with first 40 characters
+PREVIEW="${OCR_OUTPUT:0:40}"
+if [ ${#OCR_OUTPUT} -gt 40 ]; then
+    PREVIEW="$PREVIEW..."
+fi
+
+notify-send "OCR Successful" "Text copied to clipboard:\n$PREVIEW" -t 5000
+
+# Cleanup
+rm -f "$TEMP_SCREENSHOT" "$TEMP_CLEAN"
 ```
 
 Run:
