@@ -1,0 +1,14 @@
+[Desktop Entry]
+Name=Qdirstat Disk Space Analyzer
+GenericName=Qdirstat Disk Space Analyzer
+Type=Application
+Exec=/usr/bin/qdirstat
+Icon=qdirstat
+StartupNotify=true
+NoDisplay=false
+Terminal=false
+TerminalOptions=
+X-KDE-SubstituteUID=false
+X-KDE-Username=
+Path=
+Comment=
