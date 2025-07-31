@@ -333,9 +333,8 @@ if [ $OCR_STATUS -ne 0 ] || [ -z "$OCR_OUTPUT" ]; then
     exit 1
 fi
 
-# Copy to clipboard using both primary and clipboard selections
-echo -n "$OCR_OUTPUT" | xclip -selection clipboard
-echo -n "$OCR_OUTPUT" | xclip -selection primary
+# Copy to clipboard
+qdbus org.kde.klipper /klipper setClipboardContents "$OCR_OUTPUT"
 
 # Verify clipboard content
 CLIPBOARD_CONTENT=$(xclip -selection clipboard -o 2>/dev/null)
