@@ -285,7 +285,7 @@ sudo apt install kde-spectacle
 Run:
 ```
 sudo apt update
-sudo apt install flameshot tesseract-ocr xclip
+sudo apt install spectacle tesseract-ocr xclip
 mkdir ~/bin/
 touch ~/bin/text-extractor.sh
 nano ~/bin/text-extractor.sh
