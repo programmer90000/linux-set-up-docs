@@ -1068,6 +1068,104 @@ Select `File > Options`
     - Enable `Underline links`
     - Enable `Show check marks in the diff`
 
+## LibreOffice
+Select `Tools > Options`
+
+- Select `LibreOffice`
+    - Select `General`
+        - Enable `Extended tips`
+        - Enable `Warn if local help is not installed`
+        - Enable `Show "Tip of the Day" dialogue box on start-up`
+        - Enable `Use LibreOffice dialogue boxes`
+        - Disable `Printing sets "document modified" status`
+    - Select `View`
+        - Set the `Theme` to `Automatic`
+        - Set the `Toolbar` to `Small`
+        - Set the `Notebookbar` to `Small`
+        - Set the `Sidebar` to `Small`
+        - Set the `Menu icons` to `Show`
+        - Set the `Shortcuts` to `Show`
+        - Set the `Mouse Postioning` to `Dialogue box centre`
+        - Set the `Moddel button` to `Automatic scrolling`
+        - Enable `Use hardware acceleration`
+        - Enable `Use anti-aliasing`
+        - Enable `Show preview of fonts`
+        - Enable `Screen font anti-aliasing` and set it to `8 pixels`
+    - Select `Security`
+        - Click `Options`
+            - Enable `Security Warnings` `When sending or saving`
+            - Enable `Security Warnings` `When printing`
+            - Enable `Security Warnings` `When signing`
+            - Enable `Security Warnings` `When creating PDF files`
+            - Enable `Remove personal information on saving`
+            - Enable `Recommend password protection on saving`
+            - Enable `Ctrl+click required to open hyperlinks`
+            - Disable `Block any links from documents not among the trusted locations`
+        - Disable `Persitently save passwords for web connections`
+    - Select `LibreOffice Themes`
+        - STIL NEED TO LOOK AT THIS
+    - Select `Application Colours`
+        - Set the `Scheme` to `LibreOffice Dark`
+        - Enable all check boxes
+    - Select `Accessibility`
+        - Enable `Use text selection cursor in read-only text documents`
+        - Enable `Allow animated images`
+        - Enable `Allow animated text`
+        - Disable `Automatically detect high-contrast mode of operating system`
+        - Disable `Use automatic font colour for screen display`
+        - Enable `Use system colours for page previews`
+
+- Select `Load/Save`
+    - Select `General`
+        - Enable `Load user-specific settings with the document`
+        - Enable `Load printer settings with the document`
+        - Enable `Save AutoRecovery information every:` and set it to `5` minutes
+        - Disable `Edit document properties before saving`
+        - Enable `Always create a backup copy`
+        - Disable `Save URLs relative to file system`
+        - Disable `Save URLs relative to Internet`
+        - Set `ODF format version` to the recommended version
+        - Set the `Document type` to `Text document`
+        - Set `Always save as` to `Word 2007-365 (*.docx)`
+        - Enable `Warn when not saving in ODF or default format`
+    - Select `VBA Properties`
+        - Disable `Microsoft Word` `Load Basic code`
+        - Disable `Microsoft Word` `Executable code`
+        - Disable `Microsoft Word` `Save original Basic code`
+        - Disable `Microsoft Excel` `Load Basic code`
+        - Disable `Microsoft Excel` `Executable code`
+        - Disable `Microsoft Excel` `Save original Basic code`
+        - Disable `Microsoft PowerPoint` `Load Basic code`
+        - Disable `Microsoft PowerPoint` `Save original Basic code`
+    - Select `Microsoft Office`
+        - Enable all `Embedded Objects`
+        - Set `Character Highlighting` to `Export as` `Highlighting`
+        - Enable `Create MSO lock file`
+- Select `Language Settings`
+    - Select `Languages`
+        - Set the `User interface` to 
+        - Set the `Locale setting` to 
+        - Set the `Default currency` to 
+        - Enable/ Disable `Decimal separator key`
+        - Set the `Date acceptance patterns` to 
+        - Set the `Default Languages for Documents` to 
+        - Disable `Ignore system input language`
+    - Select `Writing Aids`
+        - Enable all `Avaliable Language Modules`
+        - Enable all `User-defined Dictionaries`
+        - Enable `Check spelling as you type`
+        - Enable `Check grammar as you type`
+        - Enable `Check upper-case words`
+        - Enable `Check words with numbers`
+        - Enable `Check special regions`
+        - Set `Minimum number of characters for hyphenation` to `2`
+        - Set `Characters before line break` to `2`
+        - Set `Characters after line break` to `2`
+        - Disable `Hyphenate without inquiry`
+        - Enable `Hyphenate special regions`
+    - Select `LanguageTool Server Settings`
+        - Disable `Enable LanguageTool`
+
 ## VirtualBox
 
 Create a new Debian Virtual Machine
