@@ -272,6 +272,14 @@ To create a Desktop shortcut to Docker Desktop, run:
 cp /usr/share/applications/docker-desktop.desktop ~/Desktop/
 ```
 
+### Install KDE Spectacle
+
+Run:
+```
+sudo apt update
+sudo apt install kde-spectacle
+```
+
 ### Install Tesseract OCR Text Extractor
 
 Run:
