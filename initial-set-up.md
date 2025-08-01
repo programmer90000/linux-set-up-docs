@@ -288,6 +288,86 @@ Close the window
 
 Follow the docs found in the [Fonts directory](./fonts)
 
+## Change Sound Device Names
+
+Run:
+```
+sudo apt install wireplumber pipewire pipewire-pulse
+systemctl --user enable pipewire
+systemctl --user start wireplumber
+systemctl --user enable wireplumber
+systemctl --user status wireplumber
+```
+
+This should output something like:
+```
+wireplumber.service - Multimedia Service Session Manager
+Loaded: loaded (/usr/lib/systemd/user/wireplumber.service; enabled; preset: enabled)
+Active: active (running) since Fri 2025-08-01 16:38:25 BST; 3min 20s ago
+Main PID: 1045 (wirepLumber)
+Tasks: 4 (Limit: 2279)
+Memory: 8.4
+CPU: 118ms
+CGroup: /user.slice/user-1000.slice/user@1000.service/session.slice/wireplumber .service
+        1015 /usr/bin/wireplumber
+
+Aug 01 16:38:25 vm-are-debian wireplumber[1015]: The decibel volume range for element ‘Center’ (-4650 dB - -2400 dB) has negative maximum. Disabling the decibel range
+Aug 01 16:38:25 vm-are-debian wireplumber[1015]: The decibel volume range for element ‘LFE' (-4650 dB - -2400 dB) has negative maximum.
+Aug 01 16:38:25 vm-are-debian wireplumber[1015]: The decibel volume range for element ‘Center’ (-4650 dB - -2400 dB) has negative maximum. Disabling the decibel range
+Aug 01 16:38:25 vm-are-debian wireplumber[1015]: The decibel volume range for element ‘LFE' (-4650 dB - -2400 dB) has negative maximum. Disabling the decibel range
+Aug 01 16:38:25 vm-are-debian wireplumber[1015]: The decibel volume range for element ‘Center’ (-4650 dB - -2400 dB) has negative maximum. Disabling the decibel range
+Aug 01 16:38:25 vm-are-debian wireplumber[1015]: The decibel volume range for element ‘LFE' (-4650 dB - -2400 dB) has negative maximum. Disabling the decibel range
+Aug 01 16:38:25 vm-are-debian wireplumber[1015]: The decibel volume range for element ‘Center’ (-4650 dB - -2400 dB) has negative maximum. Disabling the decibel range
+Aug 01 16:38:25 vm-are-debian wireplumber[1015]: The decibel volume range for element ‘LFE' (-4650 dB - -2400 dB) has negative maximum. Disabling the decibel range
+Aug 01 16:38:25 vm-are-debian wireplumber[1015]: The decibel volume range for element ‘Center’ (-4650 dB - -2400 dB) has negative maximum. Disabling the decibel range
+Aug 01 16:38:25 vm-are-debian wireplumber[1015]: The decibel volume range for element ‘LFE' (-4650 dB - -2400 dB) has negative maximum. Disabling the decibel range
+a
+```
+
+Run:
+```
+pw-cli list-objects | grep -E "node\.name|node\.description"
+```
+
+This should display the name and description of your audio devices
+
+Copy the name of the audio device you want to rename
+
+Run:
+```
+mkdir -p ~/.config/wireplumber/main.lua.d/
+nano ~/.config/wireplumber/main.lua.d/50-rename-devices.lua
+```
+
+Add the following code to the file:
+```lua
+-- Rename Audio Device - AUDIO DEVICE NAME
+rule = {
+  matches = {
+    {
+      { "node.name", "equals", "AUDIO-DEVICE-NAME" },
+    },
+  },
+  apply_properties = {
+    ["node.description"] = "Speakers (Custom Name)",
+  },
+}
+table.insert(alsa_monitor.rules, rule)
+```
+
+Run:
+```
+systemctl --user restart pipewire wireplumber pipewire-pulse
+```
+
+To see the updated name, run:
+```
+pw-cli list-objects | grep -E "node\.name|node\.description"
+```
+
+Hovering over the correct audio device in the volume menu should now display this updated name
+
+
 ## Change Auto-Start programs
 Run:
 ```
