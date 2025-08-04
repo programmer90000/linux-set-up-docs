@@ -310,19 +310,9 @@ Memory: 8.4
 CPU: 118ms
 CGroup: /user.slice/user-1000.slice/user@1000.service/session.slice/wireplumber .service
         1015 /usr/bin/wireplumber
-
-Aug 01 16:38:25 vm-are-debian wireplumber[1015]: The decibel volume range for element ‘Center’ (-4650 dB - -2400 dB) has negative maximum. Disabling the decibel range
-Aug 01 16:38:25 vm-are-debian wireplumber[1015]: The decibel volume range for element ‘LFE' (-4650 dB - -2400 dB) has negative maximum.
-Aug 01 16:38:25 vm-are-debian wireplumber[1015]: The decibel volume range for element ‘Center’ (-4650 dB - -2400 dB) has negative maximum. Disabling the decibel range
-Aug 01 16:38:25 vm-are-debian wireplumber[1015]: The decibel volume range for element ‘LFE' (-4650 dB - -2400 dB) has negative maximum. Disabling the decibel range
-Aug 01 16:38:25 vm-are-debian wireplumber[1015]: The decibel volume range for element ‘Center’ (-4650 dB - -2400 dB) has negative maximum. Disabling the decibel range
-Aug 01 16:38:25 vm-are-debian wireplumber[1015]: The decibel volume range for element ‘LFE' (-4650 dB - -2400 dB) has negative maximum. Disabling the decibel range
-Aug 01 16:38:25 vm-are-debian wireplumber[1015]: The decibel volume range for element ‘Center’ (-4650 dB - -2400 dB) has negative maximum. Disabling the decibel range
-Aug 01 16:38:25 vm-are-debian wireplumber[1015]: The decibel volume range for element ‘LFE' (-4650 dB - -2400 dB) has negative maximum. Disabling the decibel range
-Aug 01 16:38:25 vm-are-debian wireplumber[1015]: The decibel volume range for element ‘Center’ (-4650 dB - -2400 dB) has negative maximum. Disabling the decibel range
-Aug 01 16:38:25 vm-are-debian wireplumber[1015]: The decibel volume range for element ‘LFE' (-4650 dB - -2400 dB) has negative maximum. Disabling the decibel range
-a
 ```
+
+> Note: It may contain extra information
 
 Run:
 ```
