@@ -144,6 +144,13 @@
     - Enable `Enable launch feedback`
     - Disable `Only show when logged into a Plasma session`
 
+- Create a new item with the name `KDE Connect`
+    - `Name`: `KDE Connect`
+    - `Program`: `kdeconnect-app`
+    - `Icon`: `prefrences-kde-connect`
+    - Enable `Enable launch feedback`
+    - Disable `Only show when logged into a Plasma session`
+
 ### LibreOffice
 
 - Create a new item with the name `LibreOffice StartCenter`
