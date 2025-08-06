@@ -1163,45 +1163,17 @@ Select `Tools > Options`
 
 Create a new Debian Virtual Machine
 
-In the settings of the virtual machine, set:
-- `Shared Clipboard` to `Bidirectional`
-- `Drag'n'Drop` to `Bidirectional`
-
 Start the virtual machine
 
 Set up the Debian virtual machine
 
-Open a terminal in the virtual machine
+Open the `KDE Connect` app on both the host machine and virtual machine
 
-In the virtual machine terminal, run:
-```
-sudo apt update && sudo apt upgrade -y
-sudo apt install build-essential dkms linux-headers-$(uname -r)
-```
+Connect both machines to one another
 
-In the VirtualBox VM window, select to `Devices > Insert Guest Additions CD Image`
+On both machines, go to `Plugin Settings` within `KDE Connect`
 
-Wait for the CD to mount
-
-Run:
-```
-sudo mkdir -p /mnt/cdrom
-sudo mount /dev/cdrom /mnt/cdrom
-cd /mnt/cdrom
-sudo sh ./VBoxLinuxAdditions.run
-```
-
-Run:
-```
-sudo reboot
-```
-
-Run:
-```
-lsmod | grep vboxguest
-```
-
-This should return `vboxguest` if successful
+Disable all plugins except: `RemoteControl`, `Share and receive`, `Clipboard`
 
 To ensure it has worked, try:
 - Copying and pasting something to and from the virtual machine
