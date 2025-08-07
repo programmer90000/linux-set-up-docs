@@ -327,6 +327,15 @@ Item {
                 margins: 20
             }
 
+            Rectangle {
+                anchors.centerIn: parent
+                width: parent.width + 16
+                height: width
+                radius: width / 2
+                color: "#80000000"
+                z: -1
+            }
+
             MouseArea {
                 anchors.fill: parent
                 onClicked: powerMenu.visible = !powerMenu.visible
