@@ -384,7 +384,10 @@ Item {
                         radius: 3
                     }
 
-                    onClicked: sddm.powerOff()
+                    onClicked: {
+                        powerMenu.visible = false;
+                        sddm.powerOff();
+                    }
                 }
 
                 // Restart Button
@@ -414,7 +417,10 @@ Item {
                         radius: 3
                     }
 
-                    onClicked: sddm.reboot()
+                    onClicked: {
+                        powerMenu.visible = false;
+                        sddm.reboot();
+                    }
                 }
 
                 // Suspend Button
@@ -444,19 +450,20 @@ Item {
                         radius: 3
                     }
 
-                    onClicked: sddm.suspend()
+                    onClicked: {
+                        powerMenu.visible = false;
+                        sddm.suspend();
+                    }
                 }
             }
+        }
 
-            // Close when clicking outside
-            MouseArea {
-                anchors.fill: parent
-                propagateComposedEvents: true
-                onClicked: {
-                    mouse.accepted = false
-                    powerMenu.visible = false
-                }
-            }
+        // Overlay to close power menu when clicking outside
+        MouseArea {
+            anchors.fill: parent
+            enabled: powerMenu.visible
+            onClicked: powerMenu.visible = false
+            z: powerMenu.z - 1
         }
     }
 }
