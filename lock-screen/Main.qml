@@ -200,6 +200,16 @@ Item {
                 Keys.onReturnPressed: loginButton.clicked()
             }
 
+            // Desktop environment/session selector
+            ComboBox {
+                id: sessionBox
+                model: sessionModel
+                textRole: "name"
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: 200
+                onCurrentIndexChanged: inactivityTimer.restart()
+            }
+
             // Error message
             Text {
                 id: loginError
@@ -218,7 +228,7 @@ Item {
                 anchors.horizontalCenter: parent.horizontalCenter
                 onClicked: {
                     if (userListView.currentIndex >= 0) {
-                        var success = sddm.login(userListView.currentItem.userName, password.text, 0);
+                        var success = sddm.login(userListView.currentItem.userName, password.text, sessionBox.currentIndex);
                         
                         if (!success) {
                             loginError.visible = true;
