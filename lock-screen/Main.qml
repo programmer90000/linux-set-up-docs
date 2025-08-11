@@ -24,6 +24,14 @@ Item {
     // Start with pre-login screen
     Component.onCompleted: state = "preLogin"
 
+    // Clear password and error when switching to preLogin state
+    onStateChanged: {
+        if (state === "preLogin") {
+            password.text = "";
+            loginError.visible = false;
+        }
+    }
+
     // Inactivity timer
     Timer {
         id: inactivityTimer
