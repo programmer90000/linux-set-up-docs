@@ -235,6 +235,9 @@ Item {
                             password.text = "";
                             password.forceActiveFocus();
                             shakeAnimation.start();
+                        } else {
+                            // Clear password field on success
+                            password.text = "";
                         }
                     }
                 }
