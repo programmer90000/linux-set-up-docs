@@ -322,6 +322,11 @@ Item {
                         password.forceActiveFocus();
                     }
                 }
+                onCurrentIndexChanged: {
+                    password.text = "";
+                    loginError.visible = false;
+                    inactivityTimer.restart();
+                }
             }
         }
 
