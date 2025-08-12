@@ -2,7 +2,7 @@
 Name=Power Menu
 Comment=Power Menu
 Type=Service
-Icon=configure
+Icon=system-shutdown
 X-KDE-ServiceTypes=Plasma/Applet
 X-Plasma-API=declarativeappletscript
 X-Plasma-MainScript=ui/main.qml
