@@ -7,10 +7,6 @@ ColumnLayout {
     // Main Icon
     property alias cfg_mainIconName: iconButton.icon.name
     
-    // Widget Size
-    property alias cfg_width: widthSpinBox.value
-    property alias cfg_height: heightSpinBox.value
-    
     // Power Options
     property alias cfg_lockScreenEnabled: lockScreenCheck.checked
     property alias cfg_logOutEnabled: logOutCheck.checked
@@ -28,22 +24,6 @@ ColumnLayout {
         KQuickAddons.IconDialog {
             id: iconDialog
             onIconNameChanged: iconButton.icon.name = iconName
-        }
-    }
-
-    // Widget Size
-    RowLayout {
-        Label { text: i18n("Width:") }
-        SpinBox {
-            id: widthSpinBox
-            from: 100
-            to: 500
-        }
-        Label { text: i18n("Height:") }
-        SpinBox {
-            id: heightSpinBox
-            from: 100
-            to: 500
         }
     }
 
