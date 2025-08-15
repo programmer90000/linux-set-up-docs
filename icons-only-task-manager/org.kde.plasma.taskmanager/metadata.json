@@ -1,0 +1,20 @@
+{
+    "KPlugin": {
+        "Category": "Windows and Tasks",
+        "Description": "Taskbar-style window switcher displaying icons and text",
+        "EnabledByDefault": true,
+        "Icon": "preferences-system-windows",
+        "Id": "org.kde.plasma.taskmanager",
+        "License": "GPL-2.0+",
+        "Name": "Task Manager",
+        "ServiceTypes": [
+            "Plasma/Applet"
+        ],
+        "Version": "1.0"
+    },
+    "X-Plasma-API": "declarativeappletscript",
+    "X-Plasma-MainScript": "ui/main.qml",
+    "X-Plasma-Provides": [
+        "org.kde.plasma.multitasking"
+    ]
+}

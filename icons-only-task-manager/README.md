@@ -1,1 +1,1 @@
-These files should be saved in: `home/abdul/.local/share/applications`
+This code is forked from (eikehein)[https://github.com/eikehein]
