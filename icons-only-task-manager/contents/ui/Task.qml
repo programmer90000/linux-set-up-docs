@@ -460,6 +460,15 @@ PlasmaCore.ToolTipArea {
             return margin;
         }
 
+        Text {
+            id: windowCountText
+            anchors.right: iconBox.right
+            anchors.verticalCenter: iconBox.verticalCenter
+            font.pixelSize: theme.smallestFont.pixelSize
+            color: theme.textColor
+            text: task.childCount > 1 ? task.childCount : ""
+        }
+
         PlasmaCore.IconItem {
             id: icon
 
