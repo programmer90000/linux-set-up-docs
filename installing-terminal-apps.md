@@ -60,3 +60,39 @@ ncdu
 ```
 
 This will open an interactive window, from which you can navigate between directories to view the size of each directory file
+
+## Install Gemini CLI
+
+Run:
+```
+sudo apt update
+sudo apt install nodejs npm
+```
+
+> Run this even if you have already installed nodejs and npm using the documentation in [installing-apps.md](./installing-apps.md)
+
+Run:
+```
+node --version
+npm --version
+```
+
+Ensure node is at version 20.0.0 or higher
+
+Run this command without `sudo`:
+```
+npm install -g @google/gemini-cli
+```
+
+Run:
+```
+gemini
+```
+
+Select:
+```
+Login with Google
+```
+
+Login with your Google account
+
