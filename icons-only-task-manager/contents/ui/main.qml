@@ -456,6 +456,7 @@ MouseArea {
 
     TriangleMouseFilter {
         id: tmf
+        anchors.fill: parent
         filterTimeOut: 300
         active: tasks.toolTipAreaItem && tasks.toolTipAreaItem.toolTipOpen
         blockFirstEnter: false
@@ -486,66 +487,93 @@ MouseArea {
             return Qt.point(x+width/2, height);
         }
 
-        anchors {
-            left: parent.left
-            top: parent.top
-        }
+        PlasmaComponents3.ScrollView {
+            id: scrollView
+            anchors.fill: parent
+            clip: true
 
-        height: taskList.implicitHeight
-        width: taskList.implicitWidth
+            PlasmaComponents3.ScrollBar.horizontal.policy: tasks.vertical ? PlasmaComponents3.ScrollBar.AlwaysOff : PlasmaComponents3.ScrollBar.AsNeeded
+            PlasmaComponents3.ScrollBar.vertical.policy: tasks.vertical ? PlasmaComponents3.ScrollBar.AsNeeded : PlasmaComponents3.ScrollBar.AlwaysOff
 
-        TaskList {
-            id: taskList
+            TaskList {
+                id: taskList
 
-            anchors {
-                left: parent.left
-                top: parent.top
-            }
-            width: tasks.shouldShirnkToZero ? 0 : LayoutManager.layoutWidth()
-            height: tasks.shouldShirnkToZero ? 0 : LayoutManager.layoutHeight()
+                width: {
+                    if (tasks.shouldShirnkToZero || taskRepeater.count === 0) return 0;
+                    if (tasks.vertical) return scrollView.width;
 
-            flow: {
-                if (tasks.vertical) {
-                    return plasmoid.configuration.forceStripes ? Flow.LeftToRight : Flow.TopToBottom
-                }
-                return plasmoid.configuration.forceStripes ? Flow.TopToBottom : Flow.LeftToRight
-            }
-
-            onAnimatingChanged: {
-                if (!animating) {
-                    tasks.publishIconGeometries(children, tasks);
-                }
-            }
-            onWidthChanged: layoutTimer.restart()
-            onHeightChanged: layoutTimer.restart()
-
-            function layout() {
-                LayoutManager.layout(taskRepeater);
-            }
-
-            Timer {
-                id: layoutTimer
-
-                interval: 0
-                repeat: false
-
-                onTriggered: taskList.layout()
-            }
-
-            Repeater {
-                id: taskRepeater
-
-                delegate: Task {}
-                onItemAdded: taskList.layout()
-                onItemRemoved: {
-                    if (tasks.containsMouse && index != taskRepeater.count &&
-                        item.winIdList && item.winIdList.length > 0 &&
-                        taskClosedWithMouseMiddleButton.indexOf(item.winIdList[0]) > -1) {
-                        needLayoutRefresh = true;
-                    } else {
-                        taskList.layout();
+                    // Horizontal panel
+                    const taskWidth = LayoutManager.taskWidth();
+                    if (flow === Flow.LeftToRight) { // single row
+                        return taskRepeater.count * taskWidth + (taskRepeater.count - 1) * spacing;
+                    } else { // TopToBottom, multi-row
+                        const taskHeight = LayoutManager.taskHeight();
+                        if (taskHeight === 0) return 0;
+                        const itemsPerColumn = Math.max(1, Math.floor(scrollView.height / taskHeight));
+                        const numColumns = Math.ceil(taskRepeater.count / itemsPerColumn);
+                        return numColumns * taskWidth + (numColumns - 1) * spacing;
                     }
-                    taskClosedWithMouseMiddleButton = [];
+                }
+                height: {
+                    if (tasks.shouldShirnkToZero || taskRepeater.count === 0) return 0;
+                    if (!tasks.vertical) return scrollView.height;
+
+                    // Vertical panel
+                    const taskHeight = LayoutManager.taskHeight();
+                    if (flow === Flow.TopToBottom) { // single column
+                        return taskRepeater.count * taskHeight + (taskRepeater.count - 1) * spacing;
+                    } else { // LeftToRight, multi-column
+                        const taskWidth = LayoutManager.taskWidth();
+                        if (taskWidth === 0) return 0;
+                        const itemsPerRow = Math.max(1, Math.floor(scrollView.width / taskWidth));
+                        const numRows = Math.ceil(taskRepeater.count / itemsPerRow);
+                        return numRows * taskHeight + (numRows - 1) * spacing;
+                    }
+                }
+
+                flow: {
+                    if (tasks.vertical) {
+                        return plasmoid.configuration.forceStripes ? Flow.LeftToRight : Flow.TopToBottom
+                    }
+                    return plasmoid.configuration.forceStripes ? Flow.TopToBottom : Flow.LeftToRight
+                }
+
+                onAnimatingChanged: {
+                    if (!animating) {
+                        tasks.publishIconGeometries(children, tasks);
+                    }
+                }
+                onWidthChanged: layoutTimer.restart()
+                onHeightChanged: layoutTimer.restart()
+
+                function layout() {
+                    LayoutManager.layout(taskRepeater);
+                }
+
+                Timer {
+                    id: layoutTimer
+
+                    interval: 0
+                    repeat: false
+
+                    onTriggered: taskList.layout()
+                }
+
+                Repeater {
+                    id: taskRepeater
+
+                    delegate: Task {}
+                    onItemAdded: taskList.layout()
+                    onItemRemoved: {
+                        if (tasks.containsMouse && index != taskRepeater.count &&
+                            item.winIdList && item.winIdList.length > 0 &&
+                            taskClosedWithMouseMiddleButton.indexOf(item.winIdList[0]) > -1) {
+                            needLayoutRefresh = true;
+                        } else {
+                            taskList.layout();
+                        }
+                        taskClosedWithMouseMiddleButton = [];
+                    }
                 }
             }
         }

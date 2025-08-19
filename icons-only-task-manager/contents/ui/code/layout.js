@@ -158,11 +158,9 @@ function taskWidth() {
     if (tasks.vertical) {
         return Math.floor(taskList.width / calculateStripes());
     } else {
-        if (full() && Math.max(1, logicalTaskCount()) > tasksPerStripe()) {
-            return Math.floor(taskList.width / Math.ceil(logicalTaskCount() / maxStripes()));
-        } else {
-            return Math.min(preferredMaxWidth(), Math.floor(taskList.width / Math.min(logicalTaskCount(), tasksPerStripe())));
-        }
+        // Return a fixed width for tasks to prevent them from shrinking.
+        // The ScrollView will handle the overflow.
+        return preferredMaxWidth();
     }
 }
 
