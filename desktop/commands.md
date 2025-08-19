@@ -1,3 +1,8 @@
+# gemini
+
+## Description:
+`gemini` is a command to run Google Gemini directly from the command line
+
 # batcat
 
 ## Description:
