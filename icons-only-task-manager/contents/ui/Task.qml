@@ -413,6 +413,21 @@ PlasmaCore.ToolTipArea {
         }
     }
 
+    // Indicator for single minimized window
+    Rectangle {
+        id: minimizedUnderline
+        anchors {
+            bottom: parent.bottom
+            horizontalCenter: parent.horizontalCenter
+            bottomMargin: 1 // Sit just above the very bottom edge
+        }
+        width: parent.width * 0.7 // Doesn't span the full width
+        height: 3 // Thicker, more visible line
+        radius: 1
+        color: theme.highlightColor // Use the theme's accent color
+        visible: model.IsMinimized === true && model.IsWindow === true && task.childCount < 2
+    }
+
     Loader {
         id: taskProgressOverlayLoader
 
