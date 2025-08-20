@@ -1,27 +1,31 @@
 import QtQuick 2.15
-
 import org.kde.plasma.core 2.0 as PlasmaCore
 
 MouseArea {
     id: audioStreamIconBox
 
-    width: Math.min(Math.min(iconBox.width, iconBox.height) * 0.4, PlasmaCore.Units.iconSizes.smallMedium)
+    // Size it appropriately - smaller than the app icon
+    width: PlasmaCore.Units.iconSizes.small
     height: width
+    
+    // Position at top-right corner of the app icon
     anchors {
-        top: frame.top
-        right: frame.right
-        rightMargin: taskFrame.margins.right
-        topMargin: Math.round(taskFrame.margins.top * indicatorScale)
+        top: parent.top
+        right: parent.right
+        // Add a small offset to keep it inside
+        topMargin: -width * 0.2  // Slightly overlaps the edge for better visual connection
+        rightMargin: -width * 0.2
     }
-
+    
+    // Ensure it doesn't go outside parent bounds
+    z: 10 // Make sure it's on top
+    
+    // Rest of your existing code remains the same...
     readonly property real indicatorScale: 1.2
-
     activeFocusOnTab: true
     hoverEnabled: true
     onClicked: toggleMuted()
-
-    // Using States rather than a simple Behavior we can apply different transitions,
-    // which allows us to delay showing the icon but hide it instantly still.
+    
     states: [
         State {
             name: "playing"
