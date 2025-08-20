@@ -473,19 +473,16 @@ MouseArea {
         active: tasks.toolTipAreaItem && tasks.toolTipAreaItem.toolTipOpen
         blockFirstEnter: false
 
-        edge: {
-            switch (plasmoid.location) {
-                case PlasmaCore.Types.BottomEdge:
-                    return Qt.TopEdge;
-                case PlasmaCore.Types.TopEdge:
-                    return Qt.BottomEdge;
-                case PlasmaCore.Types.LeftEdge:
-                    return Qt.RightEdge;
-                case PlasmaCore.Types.RightEdge:
-                    return Qt.LeftEdge;
-                default:
-                    return Qt.TopEdge;
-            }
+        x: prevButton.visible ? prevButton.width : 0
+        width: tasks.shouldShirnkToZero ? 0 : (LayoutManager.layoutWidth() - ((prevButton.visible ? prevButton.width : 0) + (nextButton.visible ? nextButton.width : 0)))
+        height: tasks.shouldShirnkToZero ? 0 : LayoutManager.layoutHeight()
+
+        edge: switch (plasmoid.location) {
+            case PlasmaCore.Types.BottomEdge: return Qt.TopEdge;
+            case PlasmaCore.Types.TopEdge: return Qt.BottomEdge;
+            case PlasmaCore.Types.LeftEdge: return Qt.RightEdge;
+            case PlasmaCore.Types.RightEdge: return Qt.LeftEdge;
+            default: return Qt.TopEdge;
         }
 
         secondaryPoint: {
@@ -499,24 +496,9 @@ MouseArea {
             return Qt.point(x+width/2, height);
         }
 
-        anchors {
-            left: parent.left
-            top: parent.top
-        }
-
-        height: taskList.implicitHeight
-        width: taskList.implicitWidth
-
         TaskList {
             id: taskList
-
-            x: prevButton.visible ? prevButton.width : 0
-            anchors {
-                left: parent.left
-                top: parent.top
-            }
-            width: tasks.shouldShirnkToZero ? 0 : (LayoutManager.layoutWidth() - ((prevButton.visible ? prevButton.width : 0) + (nextButton.visible ? nextButton.width : 0)))
-            height: tasks.shouldShirnkToZero ? 0 : LayoutManager.layoutHeight()
+            anchors.fill: parent
 
             flow: {
                 if (tasks.vertical) {
