@@ -510,11 +510,12 @@ MouseArea {
         TaskList {
             id: taskList
 
+            x: prevButton.visible ? prevButton.width : 0
             anchors {
                 left: parent.left
                 top: parent.top
             }
-            width: tasks.shouldShirnkToZero ? 0 : LayoutManager.layoutWidth()
+            width: tasks.shouldShirnkToZero ? 0 : (LayoutManager.layoutWidth() - ((prevButton.visible ? prevButton.width : 0) + (nextButton.visible ? nextButton.width : 0)))
             height: tasks.shouldShirnkToZero ? 0 : LayoutManager.layoutHeight()
 
             flow: {

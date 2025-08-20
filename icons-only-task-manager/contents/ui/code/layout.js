@@ -201,8 +201,7 @@ function tasksPerPage() {
         return Math.floor(tasks.height / preferredMinHeight());
     }
     // Account for the space taken by pagination buttons
-    const buttonWidth = PlasmaCore.Units.gridUnit * 1.5;
-    const availableWidth = tasks.width - (prevButton.visible ? buttonWidth : 0) - (nextButton.visible ? buttonWidth : 0);
+    const availableWidth = tasks.width - (prevButton.visible ? prevButton.width : 0) - (nextButton.visible ? nextButton.width : 0);
     return Math.floor(availableWidth / preferredMinWidth());
 }
 
@@ -230,7 +229,11 @@ function paginatedLayout(container) {
         }
     }
 
-    const itemWidth = Math.floor(taskList.width / visibleItems.length);
+    if (visibleItems.length === 0) {
+        return;
+    }
+
+    const itemWidth = Math.floor(taskList.width / perPage);
     const itemHeight = taskList.height;
     visibleItems.forEach(item => { item.width = itemWidth; item.height = itemHeight; });
 }
