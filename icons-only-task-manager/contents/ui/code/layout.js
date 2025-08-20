@@ -189,7 +189,57 @@ function maximumContextMenuTextWidth() {
   return (PlasmaCore.Theme.mSize(PlasmaCore.Theme.defaultFont).width * 28);
 }
 
+function isOverflowing() {
+    if (tasks.vertical) {
+        return (logicalTaskCount() * preferredMinHeight()) > tasks.height;
+    }
+    return (logicalTaskCount() * preferredMinWidth()) > tasks.width;
+}
+
+function tasksPerPage() {
+    if (tasks.vertical) {
+        return Math.floor(tasks.height / preferredMinHeight());
+    }
+    // Account for the space taken by pagination buttons
+    const buttonWidth = PlasmaCore.Units.gridUnit * 1.5;
+    const availableWidth = tasks.width - (prevButton.visible ? buttonWidth : 0) - (nextButton.visible ? buttonWidth : 0);
+    return Math.floor(availableWidth / preferredMinWidth());
+}
+
+function totalPages() {
+    const perPage = tasksPerPage();
+    if (perPage > 0) {
+        return Math.ceil(logicalTaskCount() / perPage);
+    }
+    return 1;
+}
+
+function paginatedLayout(container) {
+    const perPage = tasksPerPage();
+    if (perPage <= 0) return;
+
+    const startIndex = tasks.currentPage * perPage;
+    const endIndex = startIndex + perPage;
+
+    let visibleItems = [];
+    for (let i = 0; i < container.count; ++i) {
+        let item = container.itemAt(i);
+        item.visible = (i >= startIndex && i < endIndex);
+        if (item.visible) {
+            visibleItems.push(item);
+        }
+    }
+
+    const itemWidth = Math.floor(taskList.width / visibleItems.length);
+    const itemHeight = taskList.height;
+    visibleItems.forEach(item => { item.width = itemWidth; item.height = itemHeight; });
+}
+
 function layout(container) {
+    if (plasmoid.configuration.paginationEnabled && isOverflowing()) {
+        return paginatedLayout(container);
+    }
+
     var item;
     var stripes = calculateStripes();
     var taskCount = tasksModel.count - tasksModel.logicalLauncherCount;

@@ -28,6 +28,19 @@ MouseArea {
 
     property var toolTipOpenedByClick: null
 
+    // --- Pagination Properties ---
+    property int currentPage: 0
+    readonly property bool isOverflowing: LayoutManager.isOverflowing()
+    readonly property bool paginated: plasmoid.configuration.paginationEnabled && isOverflowing
+
+    onCurrentPageChanged: {
+        // When the page changes, we need to re-calculate the layout
+        taskList.layout();
+    }
+    onPaginatedChanged: {
+        currentPage = 0; // Reset to first page when pagination state changes
+    }
+
     property QtObject contextMenuComponent: Qt.createComponent("ContextMenu.qml")
     property QtObject pulseAudioComponent: Qt.createComponent("PulseAudio.qml")
 
@@ -549,6 +562,30 @@ MouseArea {
                 }
             }
         }
+    }
+
+    // --- Pagination Controls ---
+    PlasmaComponents3.ToolButton {
+        id: prevButton
+        anchors.left: parent.left
+        anchors.verticalCenter: parent.verticalCenter
+        icon.name: "go-previous"
+        visible: tasks.paginated && tasks.currentPage > 0
+        onClicked: tasks.currentPage--
+
+        z: 1 // Ensure it's on top of the task list
+    }
+
+    PlasmaComponents3.ToolButton {
+        id: nextButton
+        anchors.right: parent.right
+        anchors.verticalCenter: parent.verticalCenter
+        icon.name: "go-next"
+        readonly property int totalPages: LayoutManager.totalPages()
+        visible: tasks.paginated && tasks.currentPage < totalPages - 1
+        onClicked: tasks.currentPage++
+
+        z: 1 // Ensure it's on top of the task list
     }
 
     readonly property Component groupDialogComponent: Qt.createComponent("GroupDialog.qml")

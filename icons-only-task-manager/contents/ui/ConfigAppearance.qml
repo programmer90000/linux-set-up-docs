@@ -20,6 +20,7 @@ Kirigami.FormLayout {
     property alias cfg_fill: fill.checked
     property alias cfg_maxStripes: maxStripes.value
     property alias cfg_forceStripes: forceStripes.checked
+    property alias cfg_paginationEnabled: pagination.checked
     property int cfg_iconSpacing: 0
 
     CheckBox {
@@ -60,6 +61,13 @@ Kirigami.FormLayout {
         id: forceStripes
         text: plasmoidVertical ? i18n("Always arrange tasks in rows of as many columns") : i18n("Always arrange tasks in columns of as many rows")
         enabled: maxStripes.value > 1
+    }
+
+    CheckBox {
+        id: pagination
+        text: i18n("Use pagination when full (single row only)")
+        enabled: maxStripes.value === 1
+        Kirigami.FormData.toolTip: i18n("When the taskbar is full, show arrow buttons to scroll through pages of icons instead of wrapping to a new line. This only works when Maximum rows/columns is set to 1.")
     }
 
     Item {

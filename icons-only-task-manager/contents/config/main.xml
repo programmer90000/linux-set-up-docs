@@ -127,7 +127,10 @@
       <label> Spacing between icons in task manager. Margin is multiplied by this value.</label>
       <default>1</default>
     </entry>
+    <entry name="paginationEnabled" type="Bool">
+      <label>Enable pagination with arrow buttons when the taskbar is full, instead of wrapping to new rows.</label>
+      <default>true</default>
+    </entry>
   </group>
 
 </kcfg>
-
