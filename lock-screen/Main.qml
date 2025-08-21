@@ -206,6 +206,7 @@ Item {
                     loginError.visible = false
                 }
                 Keys.onReturnPressed: loginButton.clicked()
+                Keys.onEnterPressed: loginButton.clicked()
             }
 
             // Desktop environment/session selector
