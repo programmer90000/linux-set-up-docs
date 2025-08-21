@@ -280,6 +280,14 @@ sudo apt update
 sudo apt install kde-spectacle
 ```
 
+### Install CopyQ Clipboard Manager
+
+Run:
+```
+sudo apt update
+sudo apt install copyq
+```
+
 ### Install Tesseract OCR Text Extractor
 
 Run:
