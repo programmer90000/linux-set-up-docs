@@ -1005,26 +1005,70 @@ Select `File > Prefrences`
     - Set ` Filter short DVD and Blu-ray titles (seconds)` to `10`
     - Disable `Clear completed queue items after an encode completes`
 
-## Clipboard
+## CopyQ Clipboard Manager
 
-Select the clipboard icon in the dash
-
-> If the clipboard icon isn't present, click on the upward icon on the right of the dash
-
-Select the Configure Clipboard setting (Wrench icon)
+Select `File > Prefrences`
 
 - Select `General`
-    - Disable `Keep the selection and clipboard the same`
-    - Enable `Save history across dektop sessions`
-    - Set the `History size` to `500 entries`
-    - Set the `Text selection` to `Only when explicitly copied`
-    - Set the `Non-text selection` to `Only when explicitly copied`
-- Select `Action menu`
-    - Disable `Show action popup menu` `Immediately on selection`
-    - Disable `Show action popup menu` `For an item chosen from history`
-    - Set the `Automatic action menu time` to `8 seconds`
-    - Enable `Trim whitespace from selection`
-    - Enable `Include MIME actions`
+    - Enable `Wrap Long Text`
+    - Disable `Always on Top`
+    - Enable `Close When Unfocused`
+    - Enable `Open windows on current screen`
+    - Disable `Confirm application exit`
+    - Enable `Autostart`
+    - Disable `Vi style navigation`
+    - Enable `Save Filter History`
+    - Disable `Auto-complete Commands`
+    - Enable `Store clipboard`
+    - Disable `Store text selected using mouse`
+    - Disable `Paste clipboard with mouse`
+    - Disable `Paste mouse selection with keyboard`
+    - Disable `Run automatic commands on selection`
+- Select `Layout`
+    - Disable `Hide tabs`
+    - Disable `Hide toolbar`
+    - Enable `Hide toolbar labels`
+    - Disable `Hide main window`
+    - Enable `Tab Tree`
+    - Enable `Show Item Count`
+    - Set `Focused transparency:` to `0%`
+    - Set `Unfocused transparency:` to `0%`
+- Select `History`
+    - Set `Tab for storing clipboard:` to empty
+    - Set `Maximum number of items in history:` to `500`
+    - Set `Unload tab after an interval in minutes:` to `0`
+    - Set `External editor command (%1 is file to edit):` to `konsole -e nano %1`
+    - Enable `Save edited item with Ctrl+Return and create new line with Return key`
+    - Disable `Show simple items`
+    - Enable `Search for numbers`
+    - Enable `Activate item with single click`
+    - Enable `Move item to the top`
+    - Enable `Close main window`
+    - Enable `Focus last window`
+    - Enable ` Paste to current window`
+- Select `Tray`
+    - Disable `Disable tray`
+    - Enable `Show commands for clipboard content`
+    - Set `Number of items in tray menu:` to `5`
+    - Enable `Show current tab in menu`
+    - Enable `Paste activated item to current window`
+    - Enable `Show image preview as menu item icon`
+- Select `Notifications`
+    - Enable `Use native notifications`
+    - Set `Notification position:` to `Bottom Right`
+    - Set `Interval in seconds to display notifications:` to `0`
+    - Set `Number of lines for clipboard notification:` `3`
+- Select `Items`
+    - Enable `Images`
+    - Enable `Encryption`
+    - Enable `FakeVim`
+    - Enable `Notes`
+    - Enable `Pinned Items`
+    - Enable `Synchronize`
+    - Enable `Tags`
+    - Enable `Text`
+- Select `Shortcuts`
+    - Set `Show/hide main window` to `Ctrl+Shift+V`
 
 ## GitHub Desktop
 
