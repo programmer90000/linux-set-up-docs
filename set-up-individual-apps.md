@@ -1034,7 +1034,7 @@ Select `File > Prefrences`
     - Set `Focused transparency:` to `0%`
     - Set `Unfocused transparency:` to `0%`
 - Select `History`
-    - Set `Tab for storing clipboard:` to empty
+    - Set `Tab for storing clipboard:` to `&clipboard`
     - Set `Maximum number of items in history:` to `500`
     - Set `Unload tab after an interval in minutes:` to `0`
     - Set `External editor command (%1 is file to edit):` to `konsole -e nano %1`
