@@ -156,7 +156,7 @@ Right-click on the Application Launcher
 
 Select `Add Widgets`
 
-Add the following widgets: `Peek at Desktop`, `Digital Clock`, `System Tray`, `Activities`, `Notifications`, `Clipboard`, `Margins Separator`, `Icons-only Task Manager`, `Application Dashboard`
+Add the following widgets: `Peek at Desktop`, `Digital Clock`, `System Tray`, `Activities`, `Notifications`, `Margins Separator`, `Icons-only Task Manager`, `Application Dashboard`
 
 Right-click on the Application Launcher
 

@@ -31,7 +31,6 @@ This is a list of all of the apps and packages that should be installed after th
 - KDE Plasma Desktop - Bluetooth
 - KDE Plasma Desktop - Calculator
 - KDE Plasma Desktop - Calender
-- KDE Plasma Desktop - Clipboard
 - KDE Plasma Desktop - Colour Picker
 - KDE Plasma Desktop - Comic Strip
 - KDE Plasma Desktop - Declarative Toolbox
