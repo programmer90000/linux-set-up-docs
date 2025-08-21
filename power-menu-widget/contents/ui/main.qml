@@ -9,7 +9,6 @@ Item {
     property string mainIconName: plasmoid.configuration.mainIconName
     
     // Power options
-    property bool lockScreenEnabled: plasmoid.configuration.lockScreenEnabled
     property bool logOutEnabled: plasmoid.configuration.logOutEnabled
     property bool suspendEnabled: plasmoid.configuration.suspendEnabled
     property bool restartEnabled: plasmoid.configuration.restartEnabled

@@ -21,11 +21,6 @@
   </group>
 
   <group name="PowerOptions">
-    <!-- Lock Screen -->
-    <entry name="lockScreenEnabled" type="bool">
-      <default>true</default>
-    </entry>
-    
     <!-- Log Out -->
     <entry name="logOutEnabled" type="bool">
       <default>true</default>

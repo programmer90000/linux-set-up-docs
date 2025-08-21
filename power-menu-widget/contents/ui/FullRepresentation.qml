@@ -13,15 +13,6 @@ ColumnLayout {
         id: sessionManagement
     }
 
-    // Lock Screen
-    PlasmaComponents.Button {
-        visible: root.lockScreenEnabled
-        icon.name: "system-lock-screen"
-        text: i18n("Lock Screen")
-        onClicked: sessionManagement.lock()
-        Layout.fillWidth: true
-    }
-
     // Log Out
     PlasmaComponents.Button {
         visible: root.logOutEnabled
