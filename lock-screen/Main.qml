@@ -11,12 +11,12 @@ Item {
     states: [
         State {
             name: "preLogin"
-            PropertyChanges { target: preLoginScreen; visible: true }
+            PropertyChanges { target: preLoginLoader; visible: true }
             PropertyChanges { target: loginContainer; visible: false }
         },
         State {
             name: "login"
-            PropertyChanges { target: preLoginScreen; visible: false }
+            PropertyChanges { target: preLoginLoader; visible: false }
             PropertyChanges { target: loginContainer; visible: true }
         }
     ]
@@ -59,8 +59,10 @@ Item {
         var timeString = Qt.formatTime(date, "hh:mm:ss");
         var dateString = Qt.formatDate(date, "dddd, MMMM d");
         
-        if (preLoginTimeText) preLoginTimeText.text = timeString;
-        if (preLoginDateText) preLoginDateText.text = dateString;
+        if (preLoginLoader.item && preLoginLoader.item.timeText) 
+            preLoginLoader.item.timeText.text = timeString;
+        if (preLoginLoader.item && preLoginLoader.item.dateText) 
+            preLoginLoader.item.dateText.text = dateString;
         if (loginTimeText) loginTimeText.text = timeString;
         if (loginDateText) loginDateText.text = dateString;
     }
@@ -73,63 +75,24 @@ Item {
         onTriggered: updateTime()
     }
 
-    // Pre-login screen
-    Item {
-        id: preLoginScreen
+    // Pre-login screen (loaded from external component)
+    Loader {
+        id: preLoginLoader
         anchors.fill: parent
-        focus: true // Allow keyboard focus
-
-        Image {
-            anchors.fill: parent
-            source: "./assets/background.jpg"
-            fillMode: Image.PreserveAspectCrop
-            smooth: true
+        source: "components/pre-login.qml"
+        
+        onLoaded: {
+            item.loginRequested.connect(function() {
+                parent.state = "login";
+            });
         }
-
-        // Time and Date Display for pre-login
-        Column {
-            anchors {
-                horizontalCenter: parent.horizontalCenter
-                top: parent.top
-                topMargin: 40 
-            }
-            spacing: 10
-            width: Math.max(preLoginDateText.implicitWidth, preLoginTimeText.implicitWidth) + 20
-
-            Text {
-                id: preLoginDateText
-                width: parent.width
-                color: "white"
-                font.pixelSize: 24
-                style: Text.Outline
-                styleColor: "#80000000"
-                horizontalAlignment: Text.AlignHCenter
-            }
-
-            Text {
-                id: preLoginTimeText
-                width: parent.width
-                color: "white"
-                font.pixelSize: 48
-                font.bold: true
-                style: Text.Outline
-                styleColor: "#80000000"
-                horizontalAlignment: Text.AlignHCenter
-            }
-        }
-
-        MouseArea {
-            anchors.fill: parent
-            onClicked: parent.parent.state = "login"
-        }
-
-        Keys.onPressed: parent.parent.state = "login"
     }
 
     // Main login container
     Item {
         id: loginContainer
         anchors.fill: parent
+        visible: false
 
         // Background
         Image {
