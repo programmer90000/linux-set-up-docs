@@ -1,5 +1,34 @@
 # Installing Terminal Apps
 
+## Connect to GitHub
+
+Create a Personal Access Token:
+Go to `GitHub` > `Settings` > `Developer settings` > `Personal access tokens` > `Tokens (classic)`
+
+Click `Generate new token` > `Generate new token (classic)`
+
+Select appropriate scopes (repo, workflow, etc.)
+
+Generate token and copy it (you won't see it again!)
+
+Configure Git with the token:
+```
+# Set your username
+git config --global user.name "Your Name"
+
+# Set your email (must match GitHub email)
+git config --global user.email "your.email@example.com"
+
+# Configure credential helper to store your token
+git config --global credential.helper store
+```
+
+Test it by cloning and pushing to a private repository using HTTPS:
+```
+git clone https://github.com/username/repo.git
+# When prompted for password, use your personal access token
+```
+
 ## Install bat
 
 The `bat` command allows you to view files in the terminal, similar to the `cat` command but with syntax highlighting
