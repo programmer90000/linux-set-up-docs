@@ -222,6 +222,12 @@ Select your profile picture
 
 Select `Apply`
 
+Open the Dolphin File Manager
+
+Go to your user profile directory
+
+Replace both the `.face` and `.face.icon` images with [this image](./images/profile-picture.jpg)
+
 ---
 
 ## Set Desktop Background
