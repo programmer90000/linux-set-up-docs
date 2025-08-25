@@ -120,9 +120,9 @@ Select `Configure Application Dashboard`
 
 - Set the types of icons to `All`
 
-- In the Search Menu, type `show-grid`
+- In the Search Menu, type `start-here-kde-plasma`
 
-- Select the `show-grid` icon
+- Select the `start-here-kde-plasma` icon
 
 Set `Show application as` to `Name only`
 
