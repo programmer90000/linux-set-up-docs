@@ -1277,7 +1277,7 @@ VBoxManage clonemedium disk "/home/user/VirtualBox VMs/Cloned-VM-Name/Cloned-VM-
 8. Select the `Gparted Live` `ISO` file you downloaded
 9. Start the machine
 10. Select `GParted Live (Default Settings)`
-11. Select Don't touch keymap
+11. Select `Don't touch keymap`
 12. Select your language by typing in the correct number
 13. Select `Continue to start X to use GParted automatically` by typing `0`
 14. Right-click and delete all partitions except `/dev/sda1`
