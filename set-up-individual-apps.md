@@ -1222,3 +1222,5 @@ Disable all plugins except: `RemoteControl`, `Share and receive`, `Clipboard`
 To ensure it has worked, try:
 - Copying and pasting something to and from the virtual machine
 - Dragging and dropping something to and from the virtual machine
+
+Make a snapshot of the virtual machine
