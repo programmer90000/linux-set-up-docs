@@ -1275,11 +1275,18 @@ VBoxManage clonemedium disk "/home/user/VirtualBox VMs/Cloned-VM-Name/Cloned-VM-
 6. Select `+ Optical Drive`
 7. Select `Add`
 8. Select the `Gparted Live` `ISO` file you downloaded
-9. Right-click and delete all partitions except `/dev/sda1`
-10. Right-click the `/dev/sda1` partition
-11. Select `Resize/ Move`
-12. Drag the arrow icons to fill in the space, or manually resize the partitions
-10. Click the green tick icon
-11. Close the window
-12. Double-click the `Exit` button
-13. Select `Reboot`
+9. Start the machine
+10. Select `GParted Live (Default Settings)`
+11. Select Don't touch keymap
+12. Select your language by typing in the correct number
+13. Select `Continue to start X to use GParted automatically` by typing `0`
+14. Right-click and delete all partitions except `/dev/sda1`
+15. Right-click the `/dev/sda1` partition
+16. Select `Resize/ Move`
+17. Drag the arrow icons to fill in the space, or manually resize the partitions
+18. Click the green tick icon
+19. Select Apply
+20. Close the window
+21. Double-click the `Exit` button
+22. Select `Reboot`
+23. Press `Enter` when prompted
