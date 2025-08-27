@@ -1290,3 +1290,4 @@ VBoxManage clonemedium disk "/home/user/VirtualBox VMs/Cloned-VM-Name/Cloned-VM-
 21. Double-click the `Exit` button
 22. Select `Reboot`
 23. Press `Enter` when prompted
+> It may take a while for the VM to boot up
