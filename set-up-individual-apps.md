@@ -1247,6 +1247,19 @@ VBoxManage clonemedium disk "/home/user/VirtualBox VMs/Cloned-VM-Name/Cloned-VM-
 
 > Replace these placeholders with the correct names. Set the resized hard disk name to the original name + `_RESIZED`
 
+9. From the Oracle VM VirtualBox Manager window, select `Tools`
+10. Select `Hard disks`
+11. Select the newly created hard disk
+12. Increase the size of the hard disk
+13. Right-click on your cloned VM
+14. Select `Settings`
+15. Select `Storage`
+16. Right-click on any storage devices underneath `Controller: SATA` and remove them
+17. Right-click on `Controller: SATA`
+18. Select `+ Hard Disk`
+19. Select the hard disk you created
+20. Click `Ok`
+
 #### Download the GParted Live ISO
 
 1. Go to the [GParted Download page](https://gparted.org/livecd.php)
