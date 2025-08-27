@@ -1236,7 +1236,7 @@ Make a snapshot of the virtual machine
 5. Select `Next`
 6. Select `Full Clone`
 7. Select `Everything`
-8. In a terminal on your host machine, run the following command, replacing the :
+8. In a terminal on your host machine, run the following command:
 ```
 VBoxManage clonemedium disk "/home/user/VirtualBox VMs/Cloned-VM-Name/Cloned-VM-Hard-Disk.vdi" "/home/user/VirtualBox VMs/Cloned-VM-Name/Cloned-VM-Hard-Disk_RESIZED.vdi" --format VDI --variant Standard
 ```
