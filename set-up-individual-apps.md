@@ -1224,3 +1224,15 @@ To ensure it has worked, try:
 - Dragging and dropping something to and from the virtual machine
 
 Make a snapshot of the virtual machine
+
+### Increase the size of the virtual machine
+
+#### Clone the virtual machine
+
+1. Right-click on the virtual machine
+2. Select `Clone`
+3. Set the `Name` to `Debian-Clone`
+4. Ensure the `Path` is set to `/home/user/VirtualBox VMs`
+5. Select `Next`
+6. Select `Full Clone`
+7. Select `Everything`
