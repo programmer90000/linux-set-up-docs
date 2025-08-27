@@ -1246,3 +1246,19 @@ VBoxManage clonemedium disk "/home/user/VirtualBox VMs/Cloned-VM-Name/Cloned-VM-
 > `user`, `Cloned-VM-Name` `Cloned-VM-Hard-Disk.vdi` `Cloned-VM-Hard-Disk_RESIZED.vdi`
 
 > Replace these placeholders with the correct names. Set the resized hard disk name to the original name + `_RESIZED`
+
+#### Download the GParted Live ISO
+
+1. Go to the [GParted Download page](https://gparted.org/livecd.php)
+2. Download the stable version of the `GParted Live CD/USB/HD/PXE Bootable Image` `ISO` file
+
+#### Boot into the VM using GParted
+
+1. Go to the `Oracle VM VirtualBox Manager`
+2. Select your cloned VM
+3. Select `Settings`
+4. Select `Storage`
+5. Right-click on the `Controller:IDE`
+6. Select `+ Optical Drive`
+7. Select `Add`
+8. Select the `Gparted Live` `ISO` file you downloaded
