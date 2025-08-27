@@ -1285,7 +1285,7 @@ VBoxManage clonemedium disk "/home/user/VirtualBox VMs/Cloned-VM-Name/Cloned-VM-
 16. Select `Resize/ Move`
 17. Drag the arrow icons to fill in the space, or manually resize the partitions
 18. Click the green tick icon
-19. Select Apply
+19. Select `Apply`
 20. Close the window
 21. Double-click the `Exit` button
 22. Select `Reboot`
