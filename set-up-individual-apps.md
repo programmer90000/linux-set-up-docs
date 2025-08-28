@@ -1291,3 +1291,25 @@ VBoxManage clonemedium disk "/home/user/VirtualBox VMs/Cloned-VM-Name/Cloned-VM-
 22. Select `Reboot`
 23. Press `Enter` when prompted
 > It may take a while for the VM to boot up
+
+## ClamAV
+
+Run:
+```
+sudo nano /etc/clamav/clamd.conf
+```
+
+Add the following lines to the bottom of the file:
+```
+# Custom setting to move infected files to quarantine
+VirusEvent /usr/bin/mv "%v" /var/malware-quarantine
+```
+
+Run:
+```
+sudo mkdir -p /var/malware-quarantine
+sudo chmod 000 /var/malware-quarantine
+sudo systemctl restart clamav-daemon.service
+sudo systemctl restart clamav-freshclam.service
+sudo systemctl start clamav-daemon.service
+```
