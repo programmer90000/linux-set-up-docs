@@ -1313,3 +1313,16 @@ sudo systemctl restart clamav-daemon.service
 sudo systemctl restart clamav-freshclam.service
 sudo systemctl start clamav-daemon.service
 ```
+
+Open the ClamTK GUI app
+
+Select `Settings`
+    - Enable `Scan for PUAs`
+    - Enable `Use heuristic scanning`
+    - Enable `Scan files beginning with a dot (.*)`
+    - Enable `Scan files larger than 20 MB`
+    - Enable `Scan directories recursively`
+    - Enable `Check for updates to this program`
+
+Select `Network`
+    - Select `No Proxy`
