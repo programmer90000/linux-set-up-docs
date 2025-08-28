@@ -39,14 +39,14 @@ Title=Starting
 UseEndAnimation=true
 UseFirmwareBackground=false
 ProgressBarShowPercentComplete=false
-UseProgressBar=false
+UseProgressBar=true
 Title=Shutting down
 
 [reboot]
 UseEndAnimation=true
 UseFirmwareBackground=false
 ProgressBarShowPercentComplete=false
-UseProgressBar=false
+UseProgressBar=true
 Title=Restarting
 
 [updates]
