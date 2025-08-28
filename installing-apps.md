@@ -523,3 +523,11 @@ bind '"\C-r": "\C-a hstr -- \C-j"'  # Better Ctrl+R history menu
 Restart the terminal
 
 Now, when pressing `Ctrl+R`, a list of previous commands will be displayed
+
+### Install Clamav Malware Scanner
+
+Run:
+```
+sudo apt update
+sudo apt install clamav clamtk clamav-daemon
+```
