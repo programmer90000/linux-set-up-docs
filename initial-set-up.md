@@ -292,7 +292,7 @@ Follow the docs found in the [Lock Screen directory](./lock-screen)
 
 ---
 
-## Add Apps To Taskbar
+## Add Apps To Dash
 
 Open the `All Applications` menu
 
