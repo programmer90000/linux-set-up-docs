@@ -30,6 +30,29 @@ This should return ```root```
 
 > **Note: If `sudo whoami` doesn't return `root` after logging out and back in, restart the PC**
 
+## Enable apt
+Run:
+```
+sudo nano /etc/apt/sources.list
+```
+
+Remove all of the lines which already exist
+
+Add the following lines to this file:
+```
+# Debian Bookworm Main Repositories
+deb http://deb.debian.org/debian bookworm main contrib non-free non-free-firmware
+deb-src http://deb.debian.org/debian bookworm main contrib non-free non-free-firmware
+
+# Debian Bookworm Updates
+deb http://deb.debian.org/debian bookworm-updates main contrib non-free non-free-firmware
+deb-src http://deb.debian.org/debian bookworm-updates main contrib non-free non-free-firmware
+
+# Debian Bookworm Security Updates
+deb http://security.debian.org/debian-security bookworm-security main contrib non-free non-free-firmware
+deb-src http://security.debian.org/debian-security bookworm-security main contrib non-free non-free-firmware
+```
+
 ## Set Theme
 
 Open the `System Settings` app
