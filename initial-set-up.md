@@ -8,7 +8,7 @@ Set the `Desktop Session` in the bottom left corner to `Plasma (Wayland)`
 
 Run:
 ```
-su -
+sudo su
 usermod -aG sudo YOURUSERNAME
 exit
 ```
