@@ -113,6 +113,10 @@ Open the `Discover` app
 
 Select `Installed` in the left menu
 
+Open the Application Launcher
+
+Find any installed applications you don't need 
+
 Remove all unneeded apps
 
 > ***Do not delete packages. Only delete apps found in the application launcher***
