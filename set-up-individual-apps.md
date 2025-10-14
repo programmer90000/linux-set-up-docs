@@ -222,6 +222,9 @@ Add Bookmarks
 ## Microsoft Edge
 
 - Sign in
+- Select `Settings`
+- Select `Add Profile`
+- Add the other profile
 
 ## Google Chrome
 
