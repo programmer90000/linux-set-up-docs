@@ -16,6 +16,8 @@ balenaEtcher (Linux/macOS/Windows)
 
 dd command (Linux/macOS - use with caution)
 
+> If the USB drive can't be flashed, use a tool like GParted to format it first
+
 ## Boot From USB
 
 Insert the USB into the target computer
