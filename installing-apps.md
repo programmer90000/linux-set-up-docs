@@ -89,6 +89,8 @@ nvm install --lts
 npm install -g yarn
 ```
 
+> Replace `v0.39.5` with the latest stable version of NVM
+
 To verify installation, run:
 ```
 node -v
