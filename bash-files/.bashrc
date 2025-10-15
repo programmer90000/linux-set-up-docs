@@ -27,6 +27,10 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
+# Setup Gemini CLI
+# Replace the key with the correct key from https://console.cloud.google.com
+export GOOGLE_CLOUD_PROJECT=REPLACE-WITH-ACTUAL-GOOGLE-CLOUD-PROJECT-KEY
+
 # Setup nvm
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
