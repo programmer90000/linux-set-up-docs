@@ -295,7 +295,7 @@ sudo apt install copyq
 Run:
 ```
 sudo apt update
-sudo apt install spectacle tesseract-ocr xclip
+sudo apt install tesseract-ocr xclip
 mkdir ~/bin/
 touch ~/bin/text-extractor.sh
 nano ~/bin/text-extractor.sh
