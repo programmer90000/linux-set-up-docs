@@ -282,9 +282,15 @@ Download it to:
 
 Right Click on the Desktop
 
-Select `Change Background`
+Select `Configure Desktop and Wallpaper`
 
-Select `+ Add Picture` in the Settings Window
+Set the `Layout` to `Desktop`
+
+Set the `Wallpaper type` to `Image`
+
+Set the `Positioning` to `Scaled and Cropped`
+
+Select `+ Add Image`
 
 Select the image you downloaded
 
