@@ -53,6 +53,12 @@ deb http://security.debian.org/debian-security bookworm-security main contrib no
 deb-src http://security.debian.org/debian-security bookworm-security main contrib non-free non-free-firmware
 ```
 
+Run:
+```
+sudo apt update
+sudo apt upgrade
+```
+
 ## Set Theme
 
 Open the `System Settings` app
