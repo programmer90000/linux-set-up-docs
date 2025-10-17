@@ -478,7 +478,6 @@ Add Bookmarks
         - Disable `Enable adaptive junk mail controls for this account`
         - Disable `Trust junk mail headers set by:`
         - Disable `Move new junk messages to:`
-
     - Outside of each individual accounts's settings, select `Disk Space`
         - Select `Don't delete any messages`
         - Enable `Always keep starred messages`
