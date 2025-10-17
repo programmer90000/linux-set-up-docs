@@ -317,97 +317,116 @@ Add Bookmarks
 - Repeat this for each email account you want to add
 - Click on the `Settings` button in the bottom left hand corner
 - Select `Settings`
-- Disable `When Thunderbird launches, show the Start Page in the message area`
-- Set the `Default Search Engine` to `Google`
-- Disable `Always check to see if Thunderbird is the default mail clien on startup`
-- Disable `Hide system window titlebar`
-- Disable `Auto hide tab bar`
-- Set the `Default font` to `sans-serif`
-- Set the `Size` to `16`
-- Enable `Display emoticons as graphics`
-- Under `When displaying quoted plain text messages`, set the `Style` to `Regular` and the `Size` to `Regular`
-- Set `Date and Time Formatting` to `Regional settings locale`
-- Disable `Use autoscrolling`
-- Enable `Use smooth scrolling`
-- Enable `Always show scrollbars`
-- Enable `Show an alert`
-- Enable `Use the system notification`
-- Select `Customize`
-    - Disable `Message Preview Text`
-    - Enable `Subject`
-    - Enable `Sender`
-    - Set `Show New Mail Alert for` to `5` seconds
-- Disable `Play a sound`
-- Under `Files & Attachments`, set `PDF` to `Preview in Thunderbird`
-- Select `Always ask me where to save files`
-- Under `Tags`, create:
-    - `Important` in red colour
-    - `To Do` in blue colour
-    - `Read Later` in purple colour
-- Enable `View attatchments inline`
-- Enable `Automatically mark messages as read
-- Select `After displaying for`. Set it to `10` seconds
-- Select `Open messages in:` `A new tab`
-- Disable `Close message window/tab on move or delete`
-- Set `Message List` to `Full name and email address`
-- Disable `Show only display name for people in my address book`
-- Select `Return Reciepts...`
-    - Disable `When sending messages, always request a retuen receipt`
-    - Select `When a reciept arrives:` `Leave it in my Inbox`
-    - Select `When I recieve a request for a return receipt:` `Never send a return receipt`
-- Enable `Clear cache on shutdown`
-- Enable `Compact all folders when it will save over` `500` `MB in total`
-- Enable `Ask every time before compacting`
-- Enable `Enable Global Search and Indexer`
-- Set `Message Store Type for new accounts` to `File per folder (mbox)`
-- Enable `Use hardware acceleration when avaliable`
+    - Select `General`
+        - Disable `When Thunderbird launches, show the Start Page in the message area`
+        - Set the `Default Search Engine` to `Google`
+        - Disable `Always check to see if Thunderbird is the default mail clien on startup`
+        - Disable `Use autoscrolling`
+        - Enable `Use smooth scrolling`
+        - Enable `Always show scrollbars`
+        - Set the `Default font` to `sans-serif`
+        - Set the `Size` to `16`
+        - Enable `Show an alert`
+        - Enable `Use the system notification`
+        - Select `Customize`
+            - Enable `Subject`
+            - Enable `Sender`
+            - Disable `Message Preview Text`
+            - Disable `Mark as Read`
+            - Disable `Delete`
+            - Disable `Mark as Starred`
+            - Disable `Mark as Spam`
+            - Disable `Play a sound`
+        - Under `Files & Attachments`, set `PDF` to `Preview in Thunderbird`
+        - Select `Always ask me where to save files`
+        - Under `Tags`, create:
+            - `Important` in the third red colour
+            - `To Do` in the third blue colour
+            - `Read Later` in the third purple colour
+        - Enable `Always underline links`
+        - Enable `View attatchments inline`
+        - Disable `Automatically mark messages as read`
+        - Set `Open messages in:` to `A new tab`
+        - Disable `Close message window/tab on move or delete`
+        - Enable `Display emoticons as graphics`
+        - Under `When displaying quoted plain text messages`, set the `Style` to `Regular` and the `Size` to `Regular`
+        - Set `Message List` to `Full name and email address`
+        - Disable `Show only display name for people in my address book`
+        - Select `Return Reciepts...`
+            - Disable `When sending messages, always request a retuen receipt`
+            - Select `When a reciept arrives:` `Leave it in my Inbox`
+            - Select `When I recieve a request for a return receipt:` `Never send a return receipt`
+        - Enable `Enable dark message mode`
+        - Enable `Show dark message mode toggle`
+        - Select `Offline`
+            - Enable `Automatically follow detected online state`
+            - Set `Send unset messages when going online?` to `Ask me`
+            - Set `Download messages for offline use when going offline` to `Ask me`
+        - Enable `Clear cache on shutdown`
+        - Disable `Override automatic cache management`
+        - Enable `Compact all folders when it will save over` `500` `MB in total`
+        - Enable `Ask every time before compacting`
+        - Enable `Enable Global Search and Indexer`
+        - Set `Message Store Type for new accounts` to `File per folder (mbox)`
+        - Enable `Use hardware acceleration when avaliable`
+        - Disable `Hide system window titlebar`
+        - Disable `Auto hide tab bar`
+        - Set `View Style` to `Cards View`
+        - Set `Row Count` to `2 rows`
+        - Set `Default Threading` to `Unthreaded`
+        - Set `Default Sort by` to `Date`
+        - Set `Default Sort Order` to `Descending`
+    - Select `Composition`
+        - Set `Forward messages` to `Inline`
+        - Enable `add extension to file name`
+        - Set `Auto Save every` to `5 minutes`
+        - Enable `Confirm when using keyboard shortcut to send message`
+        - Disable `Add link previews when pasting URLs`
+        - Enable `Check spelling before sending`
+        - Enable `Enable spellcheck as you type`
+        - Set `Font` to `Variable Width` and `Size` to `Medium`
+        - Enable `Use reader's default colors`
+        - Disable `Use Paragraph format instead of Body Text by default`
+        - Set `Sending Format` to `Automatic`
+        - Under `Addressing`:
+            - Enable: `Local Address Books`
+            - Set: `Automatically add outgoing email addresses to my:` to `Collected Addresses`
+            - Set `Default startup directory in the address book windows` to `All Address Books`
+        - Enable `Check for missing attatchments`
+        - Disable `Offer to share for files larger than`
+    - Select `Privacy & Security`
+        - Disable `Allow remote content in messages Exceptions...`
+        - Disable `Remember websites and links I've visited`
+        - Disable `Accept cookies from sites`
+        - Enable `Tell websites not to sell or share my data`
+        - Disable `Use a Primary Password`
+        - Enable `When messages are marked as junk:`
+            - Select `Move them to the account's "Junk" folder`
+            - Under `Mark messages as read`
+                - Disable `When manually marked as junk`
+                - Disable `When Thunderbird determines that they are junk`
+                - Disable `Enable adaptive junk filter logging`
+        - Enable `Allow Thunderbird to send technical and interaction data to Mozilla`
+        - Disable `Allow Thunderbird to send backlogged crash reports on your behalf`
+        - Enable `Tell me if the message I'm reading is a suspected email scam`
+        - Enable `Allow antivirus clients to quarantine individual incoming messages`
+        - Under `Certificates`, select `Ask me every time`
+        - Enable `Query OCSP responder servers to confirm the current validity of certificates`
+        - Enable `Automatically enable encryption when possible`
+        - Enable `Automatically disable encryption when recipients change and encryption is no longer possible`
+        - Enable `Show a notification whenever encryption is disabled automatically`
 
-Select `Composition`
-- Set `Forward messages` to `Inline`
-- Enable `add extension to file name`
-- Set `Auto Save every` to `5 minutes`
-- Enable `Confirm when using keyboard shortcut to send message`
-- Disable `Add link previews when pasting URLs`
-- Enable `Check spelling before sending`
-- Enable `Enable spellcheck as you type`
-- Set `Font` to `Variable Width` and `Size` to `Medium`
-- Enable `Use reader's default colors`
-- Disable `Use Paragraph format instead of Body Text by default`
-- Set `Sending Format` to `Automatic`
-- Under `Addressing`, enable: `Local Address Books`, `Automatically add outgoing email addresses to my:` `Collected Addresses`. Set `Default startup directory in the address book windows` to `All Address Books`
-- Enable `Check for missing attatchments`
-- Disable `Offer to share for files larger than`
+    - Select `Chat`
+        - Set `When Thunderbird starts` to `Connect my chat accounts automatically`
+        - Disable `Let my contacts know that I am Idle after 5 minutes of inactivity`
+        - Disable `Send typing notifications in conversations`
+        - Enable `Show a notification:` and set it to `with sender's name and message preview`
+        - Disable `Flash the taskbar item`
+        - Disable `Playasound`
+        - Set the `Theme` to `Dark`
+        - Set the `Variant` to `Blue`
 
-Select `Privacy & Security`
-- Disable `Allow remote content in messages Exceptions...`
-- Disable `Remember websites and links I've visited`
-- Disable `Accept cookies from sites`
-- Enable `Send websites a "Do Not Track” signal that you don’t want to be tracked`
-- Disable `Use a Primary Password`
-- Enable `When messages are marked as junk:`
-- Select `Move them to the account's "Junk" folder`
-- Disable `Mark messages as read` `When manually marked as junk` and `When Thunderbird determines that they are junk` and `Enable adaptive junk filter logging`
-- Enable `Allow Thunderbird to send technical and interaction data to Mozilla`
-- Disable `Allow Thunderbird to send backlogged crash reports on your behalf`
-- Enable `Tell me if the message I'm reading is a suspected email scam`
-- Enable `Allow antivirus clients to quarantine individual incoming messages`
-- Under `Certificates`, select `Ask me every time`
-- Enable `Query OCSP responder servers to confirm the current validity of certificates`
-- Enable `Automatically enable encryption when possible`
-- Enable `Automatically disable encryption when recipients change and encryption is no longer possible`
-- Enable `Show a notification whenever encryption is disabled automatically`
-
-Select `Chat`
-- Set `When Thunderbird starts` to `Connect my chat accounts automatically`
-- Disable `Let my contacts know that I am Idle after 5 minutes of inactivity`
-- Disable `Send typing notifications in conversations`
-- Enable `Show a notification:` and set it to `with sender's name and message preview`
-- Disable `Flash the taskbar item`
-- Disable `Playasound`
-- Set the `Theme` to `Dark`
-- Set the `Variant` to `Blue`
-
-Select `Account Settings`
+- Select `Account Settings`
 - For each account, do the following:
   - Select `Server Settings`
       - Ensure the `Server Type` is set to `IMAP Mail Server`
