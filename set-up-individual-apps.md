@@ -315,6 +315,17 @@ Add Bookmarks
 - Select `Email`
 - Enter the details for your other email account
 - Repeat this for each email account you want to add
+- Click the hamburger menu in the top-right hand corner
+- Select `View`
+    - Select `Toolbars`
+        - Enable `Menu Bar`
+    - Select `Layout`
+        - Set the `Layout` to `Vertical View`
+        - Enable `Folder Pane`
+        - Enable `Message List Header`
+    - Select `Folders`
+        - Enable `Folder Pane Header`
+        - Enable `All Folders`
 - Click on the `Settings` button in the bottom left hand corner
 - Select `Settings`
     - Select `General`
@@ -436,7 +447,7 @@ Add Bookmarks
       - Disable `Empty Trash on Exit`
   - Select `Copies & Folders`
       - Enable `When sending messages, automatically:` `Place a copy in`
-      - Set it to `"Sent" Folder on:` **Your email address**
+          - Set it to `"Sent" Folder on:` **Your email address**
       - Enable `Place replies in the folder of the message being replied to`
       - Enable `Keep message archives in:`. Set it to `"Archives" Folder on:` **Your email address**
       - Set `Keep draft messages in:` to **Your email address**
@@ -445,34 +456,31 @@ Add Bookmarks
     - Select `Composition & Addressing`
         - Enable `Compose messages in HTML format`
         - Enable `Automatically quote the original message when replying`
-        - Set `When quoting` to `start my reply above the quote` and set `place my signature` to `below the quote`
+        - Set `When quoting` to `start my reply above the quote`
+        - Set `place my signature` to `below the quote`
         - Enable `Include signature for replies`
         - Disable `Include signature for forwards`
-
     - Select `Junk Settings`
         - Disable `Enable adaptive junk mail controls for this account`
         - Disable `Trust junk mail headers set by:`
         - Enable `Move new junk messages to:`
         - Select `"Junk" folder on:` **Your email address**
         - Enable `Automatically delete junk mail older than`. Set it to `30` `days`
-
     - Select `Synchronization & Storage`
         - Disable `Keep messages in all folders for this account on this computer`
         - Select `Synchronize the most recent`. Set it to `1` `Days`
         - Enable `Don't download messages larger than` and set it to `1` `KB`
         - Select `Don't delete any messages`
         - Enable `Always keep starred messages`
-
     - Select `Return Receipts`
         - Select `Use my global receipt prefrences for this account`
-
     - Outside of each individual email account's settings, select `Junk Settings`
         - Disable `Enable adaptive junk mail controls for this account`
         - Disable `Trust junk mail headers set by:`
         - Disable `Move new junk messages to:`
 
-    - Outside of rach individual accounts's settings, select `Disk Space`
-        - Select `Don'd delete any messages`
+    - Outside of each individual accounts's settings, select `Disk Space`
+        - Select `Don't delete any messages`
         - Enable `Always keep starred messages`
 
 ## Visual Studio Code
