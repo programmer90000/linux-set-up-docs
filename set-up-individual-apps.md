@@ -297,7 +297,7 @@ Add Bookmarks
             - Enable `Open archives as folder`
             - Disable `Open folders during drag operations`
         - Select `Context Menu`
-            - Enable: `'Compress' service menu`, `'Extract' service menu`, `Add to Places`, `Copy Location`, `Duplicate Here`, `Delete`, `Install`, `Open in New Window`, `Open in New Tab`, `Sort By`
+            - Enable: `'Compress' service menu`, `'Extract' service menu`, `Add to Places`, `Copy Location`, `Duplicate Here`, `Delete`, `Install`, `Open in New Window`, `Scan for threats...`, `Open in New Tab`, `Sort By`
         - Select `Wastebin`
             - Set `Delete files older than` to `30 days`
             - Set `Limit to` to `10%`
