@@ -483,7 +483,7 @@ Add Bookmarks
         - Enable `Always keep starred messages`
 
 ## Visual Studio Code
-- Sign in
+- Sign in using my programming Outlook account
 - Ensure all sync options are selected
 
 ## Konsole
