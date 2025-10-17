@@ -415,17 +415,15 @@ Add Bookmarks
         - Enable `Automatically enable encryption when possible`
         - Enable `Automatically disable encryption when recipients change and encryption is no longer possible`
         - Enable `Show a notification whenever encryption is disabled automatically`
-
     - Select `Chat`
         - Set `When Thunderbird starts` to `Connect my chat accounts automatically`
         - Disable `Let my contacts know that I am Idle after 5 minutes of inactivity`
         - Disable `Send typing notifications in conversations`
-        - Enable `Show a notification:` and set it to `with sender's name and message preview`
+        - Enable `Show a notification:` and set it to `with sender's name only`
         - Disable `Flash the taskbar item`
         - Disable `Playasound`
         - Set the `Theme` to `Dark`
         - Set the `Variant` to `Blue`
-
 - Select `Account Settings`
 - For each account, do the following:
   - Select `Server Settings`
