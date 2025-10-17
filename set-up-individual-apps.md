@@ -315,7 +315,7 @@ Add Bookmarks
 - Select `Email`
 - Enter the details for your other email account
 - Repeat this for each email account you want to add
-- Click on the `Spaces` menu button in the top left hand corner
+- Click on the `Settings` button in the bottom left hand corner
 - Select `Settings`
 - Disable `When Thunderbird launches, show the Start Page in the message area`
 - Set the `Default Search Engine` to `Google`
