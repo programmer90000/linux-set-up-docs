@@ -1108,7 +1108,7 @@ Select `File > Options`
 
 - Select `Integrations`
     - Set the `External editor` to `Visual Studio Code`
-    - Set the `Shell` to `GNOME Terminal`
+    - Set the `Shell` to `Konsole`
 - Select `Git`
     - Set the `Default branch name for new repositories` to `main`
 - Select `Apperance`
