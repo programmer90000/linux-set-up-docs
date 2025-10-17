@@ -485,6 +485,9 @@ Add Bookmarks
 ## Visual Studio Code
 - Sign in using my programming Outlook account
 - Ensure all sync options are selected
+- Sign into `Qodo Gen` using my programming Outlook account
+- Sign into `Continue` using my programming Outlook account
+- Sign into `Cody` using my programming Outlook account
 
 ## Konsole
 
