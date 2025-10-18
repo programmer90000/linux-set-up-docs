@@ -1331,6 +1331,29 @@ Boot into the VM
 
 Login
 
+### Install VirtualBox Guest Additions
+
+Open a terminal in the VM
+
+Run:
+```
+sudo apt update
+sudo apt upgrade
+sudo apt install build-essential dkms linux-headers-$(uname -r)
+```
+
+Inside the VM window, go to `Devices > Insert Guest Additions CD Image`
+
+> **Do not click on the window that opens**
+
+Run:
+```
+sudo mount /dev/cdrom /mnt
+cd /mnt
+sudo ./VBoxLinuxAdditions.run
+sudo reboot
+```
+
 Open the `KDE Connect` app on both the host machine and virtual machine
 
 Connect both machines to one another
