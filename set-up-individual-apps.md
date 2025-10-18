@@ -230,7 +230,7 @@ Add Bookmarks
 
 - Sign in
 
-# Dolphin File Manager
+## Dolphin File Manager
 
 - Select `Show Panels`
     - Enable `Places`
