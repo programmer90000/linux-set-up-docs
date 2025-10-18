@@ -1423,11 +1423,10 @@ Make a snapshot of the virtual machine
 2. Select `Clone`
 3. Set the `Name` to the name of the cloned VM
 4. Ensure the `Path` is set to `/home/user/VirtualBox VMs`
-5. Select `Next`
-6. Select `Linked Clone`
-7. Set `Mac Address Policy` to `Generate new MAC addresses for all network adapters`
-8. Disable `Keep Disk Names`
-9. Disable `Keep Hardware UUIDs`
+5. Select `Linked Clone`
+6. Set `Mac Address Policy` to `Generate new MAC addresses for all network adapters`
+7. Disable `Keep Disk Names`
+8. Disable `Keep Hardware UUIDs`
 
 #### Increase The Size Of A VM
 
