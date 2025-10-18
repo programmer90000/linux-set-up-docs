@@ -1354,6 +1354,16 @@ sudo ./VBoxLinuxAdditions.run
 sudo reboot
 ```
 
+### Increase The Size Of The Window
+
+Open System Settings
+
+Select `Display and Monitor`
+
+Select `Display Configuration`
+
+Set it to the correct resolution
+
 Open the `KDE Connect` app on both the host machine and virtual machine
 
 Connect both machines to one another
