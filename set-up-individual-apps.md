@@ -1379,6 +1379,8 @@ Select `Display Configuration`
 
 Set it to the correct resolution
 
+Set the `Scale` value to `100%`
+
 ### Connect Host And Guest Machines
 
 Open the `KDE Connect` app on both the host machine and virtual machine
