@@ -113,22 +113,6 @@ Select `Splash Screen`
 
 - Set it to `None`
 
-## Delete Unneeded Apps
-
-Open the `Discover` app
-
-Select `Installed` in the left menu
-
-Open the Application Launcher
-
-Find any installed applications you don't need 
-
-Remove all unneeded apps
-
-> ***Do not delete packages. Only delete apps found in the application launcher***
-
-The final list of installed apps in the `Discover` app should be the same as the list in the [installed-apps-and-packages.md file](installed-apps-and-packages.md)
-
 ## Configure the Application Launcher
 
 ### Change Application Launcher View

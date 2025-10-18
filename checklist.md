@@ -6,7 +6,6 @@
 | Enable sudo access for your account                            | ❌     |
 | Enable apt                                                     | ❌     |
 | Set theme                                                      | ❌     |
-| Delete unneeded apps                                           | ❌     |
 | Change application launcher view                               | ❌     |
 | Configure application dashboard                                | ❌     |
 | Clear panel                                                    | ❌     |
