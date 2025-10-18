@@ -1,7 +1,7 @@
 [Desktop Entry]
-Name=GNOME Terminal
+Name=Konsole
 Comment=Use the command line
-Exec=gnome-terminal
+Exec=konsole
 Icon=utilities-terminal
 Type=Application
 Categories=System;TerminalEmulator;
