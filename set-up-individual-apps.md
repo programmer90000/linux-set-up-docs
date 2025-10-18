@@ -1383,6 +1383,24 @@ Set the `Scale` value to `100%`
 
 ### Connect Host And Guest Machines
 
+Shutdown the VM
+
+In the VirtualBox Manager window, right click on the VM
+
+Select `Settings`
+
+Select `Network`
+
+Set `Attached to` to `Bridged Adapter`
+
+Set `Name` to the name of your host's network adapter
+
+> If this name doesn't work, try using a different name
+
+Set the `Promiscuous Mode` to `Allow All`
+
+Start the VM
+
 Open the `KDE Connect` app on both the host machine and virtual machine
 
 Connect both machines to one another
