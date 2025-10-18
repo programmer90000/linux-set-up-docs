@@ -1353,6 +1353,21 @@ cd /mnt
 sudo ./VBoxLinuxAdditions.run
 sudo reboot
 ```
+### Enable 3D Acceleration
+
+Shut down the VM
+
+In the VirtualBox Manager window, right click on the VM
+
+Select `Settings`
+
+Go to `Display > Screen`
+
+Enable `3D Acceleration`
+
+Set the `Video Memory` to at least `128 MB`
+
+> Note: If there is a problem with the VM window flashing black, this may fix it
 
 ### Increase The Size Of The Window
 
