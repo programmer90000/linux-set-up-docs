@@ -1235,11 +1235,101 @@ Select `Tools > Options`
 
 ## VirtualBox
 
-Create a new Debian Virtual Machine
+### Create the VM
 
-Start the virtual machine
+Create a new virtual machine
 
-Set up the Debian virtual machine
+Give it the name `debian-base`
+
+Set the `VM Folder` to `/home/abdul/VirtualBox VMs`
+
+Set the `ISO Image` to the Debian ISO image you have downloaded
+
+Set the `User Name` to `password-is-admin`
+
+Set the `Password` to `admin`
+
+Set the `Host Name` to `debian-base`
+
+Set the `Domain Name` to `myguest.virtualbox.org`
+
+Set the `Base Memory` to `2048 MB`
+
+Set the `Number of CPUs` to `2`
+
+Set the `Disk Size` to `10.00 GB`
+
+Complete the creation of the virtual machine
+
+If the virtual machine starts automatically, power it off
+
+Right click on the virtual machine in the VirtualBox main window
+
+Select `Settings`
+
+Select `Storage`
+
+Click the CD Icon
+
+Add the Debian ISO image you have downloaded
+
+Close the screen
+
+Remove any existing `Controller: IDE` attatchments
+
+Add the Debian ISO image you have downloaded as a `Controller: IDE` attatchment
+
+Click `OK`
+
+Start the VM
+
+Select `Install`
+
+Set the Language
+
+Set the Location
+
+Set the keyboard layout
+
+Set the `Hostname` to `are-debian-vm` or something similar
+
+Leave the `Domain Name` blank
+
+Leave the `Root Password` blank
+
+Set the `Full name for the new user` to `password-is-admin`
+
+Set the `Username` to `password-is-admin`
+
+Set the `Password` to `admin`
+
+Set the `Partioning Method` to `Guided - use entire disk`
+
+Select the correct disk (The VM disk)
+
+Set the `Partitioning scheme` to `All files in one partition`
+
+When prompted to `Scan extra installation media`, select `No`
+
+Set the `Debian archive mirror country`
+
+Set the `Debian archive mirror`
+
+Leave the `HTTP proxy information` blank
+
+When prompted to `Paricipate in the package usage survey`, select `No`
+
+When prompted for the `Software Selection`, install `Debian desktop environment`, `KDE Plasma` and `Standard System Utilities`
+
+When prompted to `install the GRUB Boot Loader`, select `Yes`
+
+Set the device for the `Booy Loader installation` to the correct disk (The VM disk)
+
+### Boot into the VM
+
+Boot into the VM
+
+Login
 
 Open the `KDE Connect` app on both the host machine and virtual machine
 
