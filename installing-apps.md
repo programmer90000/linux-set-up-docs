@@ -12,28 +12,12 @@ sudo apt update
 sudo apt install -y code
 ```
 
-#### Create Desktop Shortcut
-
-To create a Desktop shortcut to Visual Studio Code, run:
-```
-cp /usr/share/applications/code.desktop ~/Desktop/
-chmod +x ~/Desktop/code.desktop
-```
-
 ### Installing Kdenlive Video Editor
 
 Run:
 ```
 sudo apt update
 sudo apt install kdenlive
-```
-
-#### Create Desktop Shortcut
-
-To create a Desktop shortcut to Kdenlive, run:
-```
-cp /usr/share/applications/org.kde.kdenlive.desktop ~/Desktop/
-chmod +x ~/Desktop/org.kde.kdenlive.desktop
 ```
 
 ### Installing FileZilla
@@ -44,12 +28,6 @@ sudo apt update
 sudo apt install filezilla
 ```
 
-To create a Desktop shortcut to FileZilla, run:
-```
-cp /usr/share/applications/filezilla.desktop ~/Desktop/
-chmod +x ~/Desktop/filezilla.desktop
-```
-
 ### Installing Google Chrome
 
 Run:
@@ -58,22 +36,12 @@ wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 sudo apt install ./google-chrome-stable_current_amd64.deb
 ```
 
-To create a Desktop shortcut to Google Chrome, run:
-```
-cp /usr/share/applications/google-chrome.desktop ~/Desktop/
-```
-
 ### Installing Mousepad text editor
 
 Run:
 ```
 sudo apt update
 sudo apt install mousepad
-```
-
-To create a Desktop shortcut to Mousepad, run:
-```
-cp /usr/share/applications/org.xfce.mousepad.desktop ~/Desktop/
 ```
 
 ### Installing NVM
@@ -110,11 +78,6 @@ sudo apt update
 sudo apt install microsoft-edge-stable
 ```
 
-To create a Desktop shortcut to Microsoft Edge, run:
-```
-cp /usr/share/applications/com.microsoft.Edge.desktop ~/Desktop/
-```
-
 ### Installing Zoom
 
 Run:
@@ -123,11 +86,6 @@ wget https://zoom.us/client/latest/zoom_amd64.deb
 sudo apt update
 sudo apt install -y gdebi-core
 sudo gdebi zoom_amd64.deb
-```
-
-To create a Desktop shortcut to Zoom, run:
-```
-cp /usr/share/applications/Zoom.desktop ~/Desktop/
 ```
 
 ### Installing VirtualBox
@@ -150,22 +108,12 @@ To verify installation, run:
 vboxmanage --version
 ```
 
-To create a Desktop shortcut to VirtualBox, run:
-```
-cp /usr/share/applications/virtualbox.desktop ~/Desktop/
-```
-
 ### Installing HandBrake
 
 Run:
 ```
 sudo apt update
 sudo apt install handbrake handbrake-cli
-```
-
-To create a Desktop shortcut to HandBrake, run:
-```
-cp /usr/share/applications/fr.handbrake.ghb.desktop ~/Desktop/
 ```
 
 ### Installing GitHub Desktop
@@ -183,11 +131,6 @@ wget LINK-YOU-COPIED
 ls
 sudo dpkg -i <filename>.deb
 rm FILE-NAME-OF-DEB-PACKAGE
-```
-
-To create a Desktop shortcut to GitHub Desktop, run:
-```
-cp /usr/share/applications/github-desktop.desktop ~/Desktop/
 ```
 
 ### Install Brave Web Browser
@@ -225,36 +168,6 @@ Move the extracted directory to the `/opt` directory by running:
 sudo mv android-studio /opt/
 ```
 
-To create a Desktop shortcut to Android Studio, run:
-```
-cd ~/Desktop/
-touch android-studio.desktop
-nano android-studio.desktop
-```
-
-Paste the following code in the file:
-```
-[Desktop Entry]
-Version=1.0
-Type=Application
-Name=Android Studio
-Icon=/opt/android-studio/bin/studio.png
-Exec="/opt/android-studio/bin/studio.sh" %f
-Comment=Android Studio IDE
-Categories=Development;IDE;
-Terminal=false
-```
-
-Run:
-```
-chmod +x ~/Desktop/android-studio.desktop
-```
-
-To create an All Apps shortcut to Android Studio, run:
-```
-sudo cp ~/Desktop/android-studio.desktop /usr/share/applications/
-```
-
 ### Install Docker and Docker Desktop
 
 Run:
@@ -267,11 +180,6 @@ sudo apt update
 sudo apt install docker-ce docker-ce-cli containerd.io docker-compose-plugin
 wget https://desktop.docker.com/linux/main/amd64/docker-desktop-amd64.deb
 sudo apt install ./docker-desktop-amd64.deb
-```
-
-To create a Desktop shortcut to Docker Desktop, run:
-```
-cp /usr/share/applications/docker-desktop.desktop ~/Desktop/
 ```
 
 ### Install KDE Spectacle
@@ -334,11 +242,6 @@ sudo apt update
 sudo apt install vlc
 ```
 
-To create a Desktop shortcut to VLC Media Player, run:
-```
-cp /usr/share/applications/vlc.desktop ~/Desktop/
-```
-
 ### Install Viewnior Image Viewer
 
 Run:
@@ -347,22 +250,12 @@ sudo apt update
 sudo apt install viewnior
 `````
 
-To create a Desktop shortcut to Viewnior, run:
-```
-cp /usr/share/applications/viewnior.desktop ~/Desktop/
-```
-
 ### Install Gimp Image Editor
 
 Run:
 ```
 sudo apt update
 sudo apt install gimp
-```
-
-To create a Desktop shortcut to Gimp, run:
-```
-cp /usr/share/applications/gimp.desktop ~/Desktop/
 ```
 
 ### Install Shutter Screen Ruler
@@ -373,24 +266,12 @@ sudo apt update
 sudo apt-get install shutter
 ```
 
-To create a Desktop shortcut to Shutter, run:
-```
-cp /usr/share/applications/shutter.desktop ~/Desktop/
-```
-
-To use the screen ruler, open shutter and select `Selection`
-
 ### Install Krename File Renamer
 
 Run:
 ```
 sudo apt update
 sudo apt install krename
-```
-
-To create a Desktop shortcut to Krename File Renamer, run:
-```
-cp /usr/share/applications/org.kde.krename.desktop ~/Desktop/
 ```
 
 ### Install Qdirstat Disk Space Analyzer
@@ -401,24 +282,12 @@ sudo apt update
 sudo apt install qdirstat
 ```
 
-To create a Desktop shortcut to Qdirstat Disk Space Analyzer, run:
-```
-sudo cp /usr/share/applications/qdirstat.desktop ~/Desktop/
-sudo chown $USER:$USER ~/Desktop/qdirstat.desktop
-```
-
 ### Install ThunderBird Email Client
 
 Run:
 ```
 sudo apt update
 sudo apt install thunderbird
-```
-
-To create a Desktop shortcut to ThunderBird Email Client, run:
-```
-sudo cp /usr/share/applications/thunderbird.desktop ~/Desktop/
-sudo chown $USER:$USER ~/Desktop/thunderbird.desktop 
 ```
 
 ### Install Hardinfo System Profiler
@@ -429,29 +298,12 @@ sudo apt update
 sudo apt install hardinfo
 ```
 
-To use Hardinfo, run:
-```
-hardinfo
-```
-
-To create a Desktop shortcut to Hardinfo, run:
-```
-sudo cp /usr/share/applications/hardinfo.desktop ~/Desktop/
-sudo chown $USER:$USER ~/Desktop/hardinfo.desktop 
-```
-
 ### Install Stacer
 
 Run:
 ```
 sudo apt update
 sudo apt install stacer
-```
-
-To create a Desktop shortcut to Stacer, run:
-```
-sudo cp /usr/share/applications/stacer.desktop ~/Desktop/
-sudo chown $USER:$USER ~/Desktop/stacer.desktop
 ```
 
 ### Install Hstr
