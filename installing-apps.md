@@ -144,12 +144,6 @@ sudo apt update
 sudo apt install brave-browser
 ```
 
-Go to the [Raindrop.io extension](https://chromewebstore.google.com/detail/raindropio/ldgfbffkinooeloadekpmfoklnobpien) page
-
-Click `Add to Brave`
-
-Login to the extension
-
 ### Install Android Studio
 
 Go to the official [Android Studio website](https://developer.android.com/studio)
