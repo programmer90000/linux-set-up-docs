@@ -360,8 +360,8 @@ nano ~/.config/wireplumber/main.lua.d/50-rename-devices.lua
 
 Add the following code to the file:
 ```lua
--- Rename Audio Device - AUDIO DEVICE NAME
-rule = {
+-- Rename Audio Device - AUDIO DEVICE NAME 1
+rule1 = {
   matches = {
     {
       { "node.name", "equals", "AUDIO-DEVICE-NAME" },
@@ -371,7 +371,34 @@ rule = {
     ["node.description"] = "Speakers (Custom Name)",
   },
 }
-table.insert(alsa_monitor.rules, rule)
+
+-- Rename Audio Device - AUDIO DEVICE NAME 2
+rule2 = {
+  matches = {
+    {
+      { "node.name", "equals", "alsa_output.usb-Device_Name-00.analog-stereo" },
+    },
+  },
+  apply_properties = {
+    ["node.description"] = "Headphones (Custom Name)",
+  },
+}
+
+-- Rename Audio Device - AUDIO DEVICE NAME 3
+rule3 = {
+  matches = {
+    {
+      { "node.name", "equals", "alsa_input.usb-Microphone_Device-00.mono-fallback" },
+    },
+  },
+  apply_properties = {
+    ["node.description"] = "USB Microphone",
+  },
+}
+
+table.insert(alsa_monitor.rules, rule1)
+table.insert(alsa_monitor.rules, rule2)
+table.insert(alsa_monitor.rules, rule3)
 ```
 
 Run:
