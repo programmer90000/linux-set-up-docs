@@ -1415,47 +1415,28 @@ To ensure it has worked, try:
 
 Make a snapshot of the virtual machine
 
-### Increase the size of the virtual machine
+### Setup A VM For Usage
 
 #### Clone the virtual machine
 
 1. Right-click on the virtual machine
 2. Select `Clone`
-3. Set the `Name` to `Debian-Clone`
+3. Set the `Name` to the name of the cloned VM
 4. Ensure the `Path` is set to `/home/user/VirtualBox VMs`
 5. Select `Next`
-6. Select `Full Clone`
-7. Select `Everything`
-8. In a terminal on your host machine, run the following command:
-```
-VBoxManage clonemedium disk "/home/user/VirtualBox VMs/Cloned-VM-Name/Cloned-VM-Hard-Disk.vdi" "/home/user/VirtualBox VMs/Cloned-VM-Name/Cloned-VM-Hard-Disk_RESIZED.vdi" --format VDI --variant Standard
-```
+6. Select `Linked Clone`
+7. Set `Mac Address Policy` to `Generate new MAC addresses for all network adapters`
+8. Disable `Keep Disk Names`
+9. Disable `Keep Hardware UUIDs`
 
-> For the above command, the following placeholders are used:
+#### Increase The Size Of A VM
 
-> `user`, `Cloned-VM-Name` `Cloned-VM-Hard-Disk.vdi` `Cloned-VM-Hard-Disk_RESIZED.vdi`
-
-> Replace these placeholders with the correct names. Set the resized hard disk name to the original name + `_RESIZED`
-
-9. From the Oracle VM VirtualBox Manager window, select `Tools`
-10. Select `Hard disks`
-11. Select the newly created hard disk
-12. Increase the size of the hard disk
-13. Right-click on your cloned VM
-14. Select `Settings`
-15. Select `Storage`
-16. Right-click on any storage devices underneath `Controller: SATA` and remove them
-17. Right-click on `Controller: SATA`
-18. Select `+ Hard Disk`
-19. Select the hard disk you created
-20. Click `Ok`
-
-#### Download the GParted Live ISO
+##### Download the GParted Live ISO
 
 1. Go to the [GParted Download page](https://gparted.org/livecd.php)
 2. Download the stable version of the `GParted Live CD/USB/HD/PXE Bootable Image` `ISO` file
 
-#### Boot into the VM using GParted
+##### Boot into the VM using GParted
 
 1. Go to the `Oracle VM VirtualBox Manager`
 2. Select your cloned VM
