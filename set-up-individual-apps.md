@@ -219,6 +219,8 @@ Add Bookmarks
     - Sign into [Raindrop.io](https://app.raindrop.io/my/0)
     - Add it as a bookmark with the name `Raindrop`
 
+> Note: If a site on Brave isn't working, click on the Brave icon in the address bar and disable `scripts`, `fingerptinting` or `shields`
+
 ## Microsoft Edge
 
 - Sign in
