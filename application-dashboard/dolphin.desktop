@@ -1,9 +1,0 @@
-[Desktop Entry]
-Name=Dolphin
-GenericName=Dolphin
-Type=Application
-Exec=dolphin
-Icon=system-file-manager
-Terminal=false
-Categories=Utility;FileManager;
-Comment=
