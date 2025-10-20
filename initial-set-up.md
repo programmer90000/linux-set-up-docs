@@ -485,4 +485,9 @@ sudo dmesg > ~/kernel_boot_log.txt
 nano ~/kernel_boot_log.txt
 ```
 
+To view only problems from the logs, run:
+```
+sudo journalctl -b -p err..warning --no-pager
+```
+
 > **Note: The logs will disappear after shutdown, unless they are saved using these commands**
