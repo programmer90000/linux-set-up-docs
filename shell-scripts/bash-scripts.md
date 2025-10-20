@@ -98,3 +98,37 @@ To run the file, run:
 ```
 check-disk-space.sh
 ```
+
+## anacrontab
+
+Run:
+```
+sudo apt update
+sudo apt install anacron
+```
+
+Run:
+```
+cd /etc
+sudo nano anacrontab
+```
+
+Paste the contents of [anacrontab](anacrontab) into this file and save the file
+
+Run:
+```
+sudo systemctl enable anacron
+sudo systemctl start anacron
+```
+
+Ensure the `anacrontab` script is executable:
+```
+sudo chmod +x /usr/local/bin/run-commands
+```
+
+To test the file, run:
+```
+sudo anacron -f -d
+```
+
+> This will take 10 minutes to run. To change this, temporarily change the number to 1 in the `anacrontab` file. Update it back to 10 after the test
