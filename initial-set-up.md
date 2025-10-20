@@ -413,6 +413,24 @@ pw-cli list-objects | grep -E "node\.name|node\.description"
 
 Hovering over the correct audio device in the volume menu should now display this updated name
 
+## Keep Window In Focus After Opening New Window
+
+Run:
+```
+nano ~/.config/kwinrc
+```
+
+Find the following section:
+```
+[Windows]
+```
+
+Add or modify the following lines in this section:
+```
+FocusPolicy=ClickToFocus
+FocusStealingPreventionLevel=4
+DelayFocusInterval=0
+```
 
 ## Change Auto-Start programs
 Run:
