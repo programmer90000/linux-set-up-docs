@@ -485,6 +485,18 @@ Select `+ Add Custom Shortcut`
 
 Set the command to `Volume Down` or a custom shortcut
 
+### Add Keyboard Shortcut For Lock Session
+
+Go to System Settings
+
+Under `Workspace`, select `Shortcuts`
+
+Select `Session Management`
+
+Find the `Lock Session` command
+
+Set it to `Super + L` or a custom shortcut
+
 ## Change Auto-Start programs
 Run:
 ```
