@@ -18,14 +18,10 @@ sudo chmod +x check-internet-connection.sh
 
 To run the file, run:
 ```
-check-internet-connection.sh PING_TARGET
+check-internet-connection.sh
 ```
 
-Replace `PING_TARGET` with your ping target. For example:
-```
-check-internet-connection.sh 8.8.8.8
-check-internet-connection.sh google.com
-```
+This will prompt you to enter a ping target, such as `8.8.8.8` or `google.com`
 
 ## Check If Process Is Running
 
@@ -45,13 +41,10 @@ sudo chmod +x check-if-process-running.sh
 
 To run the file, run:
 ```
-check-if-process-running.sh PROCESS_NAME
+check-if-process-running.sh
 ```
 
-Replace `PROCESS_NAME` with the name of the process you want to check. For example:
-```
-check-if-process-running.sh bash
-```
+This will prompt you to enter a process name, such as `bash`
 
 ## Network Ping Scan Script
 
@@ -74,16 +67,12 @@ sudo chmod +x network-ping.sh
 
 To run the script, use:
 ```
-network-ping.sh NETWORK_PREFIX
+network-ping.sh
 ```
 
-Replace `NETWORK_PREFIX` with the network prefix you want to scan, using the format X.X.X (three octets). For example:
-```
-netowrk-ping.sh 192.168.1
-network-ping.sh 10.0.0
-```
+This will prompt you to enter a ping target, such as `192.168.1` or `10.0.0`
 
-The script will ping every host from `NETWORK_PREFIX.1` to `NETWORK_PREFIX.254` and print a message for each host that is up:
+The script will ping every avaliable host from `NETWORK_PREFIX.1` to `NETWORK_PREFIX.254` and print a message for each host that is up:
 ```
 Host 192.168.1.5 is up
 Host 192.168.1.12 is up
