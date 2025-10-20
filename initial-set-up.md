@@ -434,6 +434,23 @@ DelayFocusInterval=0
 
 ## Add Keyboard Shortcuts
 
+### Add Keyboard Shortcut For Mute
+
+Go to System Settings
+
+Under `Workspace`, select `Shortcuts`
+
+Select `Add Command`
+
+Set the command to:
+```
+pactl set-sink-mute @DEFAULT_SINK@ toggle
+```
+
+Select `+ Add Custom Shortcut`
+
+Set the command to `Mute` or a custom shortcut
+
 ### Add Keyboard Shortcut For Volume Up
 
 Go to System Settings
