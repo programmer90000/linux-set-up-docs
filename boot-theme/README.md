@@ -5,16 +5,16 @@ Install the required plymouth packages by running:
 sudo apt install plymouth plymouth-themes kde-config-plymouth
 ```
 
-Create a new directory titled `debian-boot-theme` by running:
+Create a new directory titled `debian-logo` by running:
 ```
-mkdir debian-boot-theme
+mkdir debian-logo
 ```
 
-Copy the `debian-logo.plymouth` and `header-image.png` files into the `debian-boot-theme` directory
+Copy the `debian-logo.plymouth` and `header-image.png` files into the `debian-logo` directory
 
 Run:
 ```
-sudo cp -r /home/user/debian-boot-theme/ /usr/share/plymouth/themes/
+sudo cp -r /home/user/debian-logo/ /usr/share/plymouth/themes/
 sudo plymouth-set-default-theme -R debian-logo
 sudo update-initramfs -u
 ```
