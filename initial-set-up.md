@@ -432,6 +432,42 @@ FocusStealingPreventionLevel=4
 DelayFocusInterval=0
 ```
 
+## Add Keyboard Shortcuts
+
+### Add Keyboard Shortcut For Volume Up
+
+Go to System Settings
+
+Under `Workspace`, select `Shortcuts`
+
+Select `Add Command`
+
+Set the command to:
+```
+pactl set-sink-volume @DEFAULT_SINK@ +1%
+```
+
+Select `+ Add Custom Shortcut`
+
+Set the command to `Volume Up` or a custom shortcut
+
+### Add Keyboard Shortcut For Volume Down
+
+Go to System Settings
+
+Under `Workspace`, select `Shortcuts`
+
+Select `Add Command`
+
+Set the command to:
+```
+pactl set-sink-volume @DEFAULT_SINK@ -1%
+```
+
+Select `+ Add Custom Shortcut`
+
+Set the command to `Volume Down` or a custom shortcut
+
 ## Change Auto-Start programs
 Run:
 ```
