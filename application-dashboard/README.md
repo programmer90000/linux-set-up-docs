@@ -56,6 +56,13 @@
     - Enable `Enable launch feedback`
     - Disable `Only show when logged into a Plasma session`
 
+- Create a new item with the name `Thunderbird`
+    - `Name`: `Thunderbird`
+    - `Program`: `/usr/bin/thunderbird`
+    - `Icon`: `thunderbird`
+    - Enable `Enable launch feedback`
+    - Disable `Only show when logged into a Plasma session`
+
 ### Image & Video
 
 - Create a new item with the name `HandBrake`
@@ -250,13 +257,6 @@
     - `Name`: `K Font View`
     - `Program`: `kfontview`
     - `Icon`: `kfontview`
-    - Enable `Enable launch feedback`
-    - Disable `Only show when logged into a Plasma session`
-
-- Create a new item with the name `Thunderbird`
-    - `Name`: `Thunderbird`
-    - `Program`: `/usr/bin/thunderbird`
-    - `Icon`: `thunderbird`
     - Enable `Enable launch feedback`
     - Disable `Only show when logged into a Plasma session`
 
