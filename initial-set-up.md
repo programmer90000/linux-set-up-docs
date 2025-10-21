@@ -535,6 +535,26 @@ Find the `Paste` command
 
 Set it to `Ctrl + V` or a custom shortcut
 
+### Add Keyboard Shortcuts For Undo, Redo
+
+Go to System Settings
+
+Under `Workspace`, select `Shortcuts`
+
+Select `Edit`
+
+#### Undo
+
+Find the `Undo` command
+
+Set it to `Ctrl + Z` or a custom shortcut
+
+#### Redo
+
+Find the `Redo` command
+
+Set it to `Ctrl + Y` or a custom shortcut
+
 ## Change Auto-Start programs
 Run:
 ```
