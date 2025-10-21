@@ -509,6 +509,32 @@ Find the `Rename` command
 
 Set it to `F2` or a custom shortcut
 
+### Add Keyboard Shortcuts For Cut, Copy, Paste
+
+Go to System Settings
+
+Under `Workspace`, select `Shortcuts`
+
+Select `Edit`
+
+#### Copy
+
+Find the `Copy` command
+
+Set it to `Ctrl + C` or a custom shortcut
+
+#### Cut
+
+Find the `Cut` command
+
+Set it to `Ctrl + X` or a custom shortcut
+
+#### Paste
+
+Find the `Paste` command
+
+Set it to `Ctrl + V` or a custom shortcut
+
 ## Change Auto-Start programs
 Run:
 ```
