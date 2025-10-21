@@ -497,6 +497,18 @@ Find the `Lock Session` command
 
 Set it to `Super + L` or a custom shortcut
 
+### Add Keyboard Shortcut For Renaming Files
+
+Go to System Settings
+
+Under `Workspace`, select `Shortcuts`
+
+Select `File`
+
+Find the `Rename` command
+
+Set it to `F2` or a custom shortcut
+
 ## Change Auto-Start programs
 Run:
 ```
