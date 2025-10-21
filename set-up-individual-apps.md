@@ -221,6 +221,10 @@ Add Bookmarks
 
 > Note: If a site on Brave isn't working, click on the Brave icon in the address bar and disable `scripts`, `fingerptinting` or `shields`
 
+### Troubleshooting
+
+If opening Brave browser causes the System Settings app to open, disable/ delete the Raindrop extension
+
 ## Microsoft Edge
 
 - Sign in
