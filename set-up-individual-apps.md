@@ -495,11 +495,7 @@ In the terminal, run:
 emacs ~/.emacs
 ```
 
-Inside the file, write the following code to load the configuration file when Emacs is opened from the application dashboard:
-```
-;; Universal config loader
-(load-file "~/.emacs.d/init.el")
-```
+Inside the file, write the code from the [.emacs](./emacs/.emacs) file to load the configuration file when Emacs is opened from the application dashboard:
 
 Run:
 ```
