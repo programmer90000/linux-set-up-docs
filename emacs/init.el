@@ -50,6 +50,10 @@
 (global-font-lock-mode 1) ; Enable syntax highlighting
 (setq font-lock-maximum-decoration t) ; Maximum syntax highlighting
 (add-hook 'prog-mode-hook 'imenu-add-menubar-index) ; Add imenu to menu bar
+(setq search-upper-case 'not-yanks) ; Case-sensitive only if search contains uppercase
+(setq compilation-scroll-output nil) ; Don't scroll to error
+(setq compilation-always-kill nil) ; Don't kill old compilation before new
+(setq compilation-ask-about-save t) ; Save all before compile
 
 ;; No backup files
 (setq make-backup-files nil)
