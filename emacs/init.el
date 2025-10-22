@@ -26,3 +26,6 @@
 (setq word-wrap t)
 (setq truncate-lines nil)
 (setq visual-line-fringe-indicators '(nil right-curly-arrow))
+
+;; Highlight matching parentheses and braces
+(show-paren-mode 1)
