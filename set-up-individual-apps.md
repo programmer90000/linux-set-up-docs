@@ -501,6 +501,18 @@ Inside the file, write the following code to load the configuration file when Em
 (load-file "~/.emacs.d/init.el")
 ```
 
+Run:
+```
+mkdir -p ~/.emacs.d
+emacs ~/.emacs.d/init.el
+```
+
+Paste the following code in this file:
+```
+;; Disable startup screen
+(setq inhibit-startup-screen t)
+```
+
 ## Visual Studio Code
 - Sign in using my programming Outlook account
 - Ensure all sync options are selected
