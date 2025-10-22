@@ -20,3 +20,9 @@
 
 ;; Highlight matching parentheses
 (show-paren-mode 1)
+
+;; Word wrap
+(global-visual-line-mode 1)
+(setq word-wrap t)
+(setq truncate-lines nil)
+(setq visual-line-fringe-indicators '(nil right-curly-arrow))
