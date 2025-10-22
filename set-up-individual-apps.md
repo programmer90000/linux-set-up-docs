@@ -503,14 +503,7 @@ mkdir -p ~/.emacs.d
 emacs ~/.emacs.d/init.el
 ```
 
-Paste the following code in this file:
-```
-;; Disable startup screen
-(setq inhibit-startup-screen t)
-
-;; Enable line numbers
-(global-display-line-numbers-mode 1)
-```
+Paste the code from the [init.el](./emacs/init.el) file in this file:
 
 ## Visual Studio Code
 - Sign in using my programming Outlook account
