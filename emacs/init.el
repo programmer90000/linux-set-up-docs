@@ -14,7 +14,26 @@
 (show-paren-mode 1) ; Highlight matching parentheses
 (setq show-paren-delay 0) ; Instant parenthesis highlighting
 (setq show-paren-style 'parenthesis) ; Highlight entire expression
-(blink-cursor-mode 1)                         ; Enable cursor blinking
+(blink-cursor-mode 1) ; Enable cursor blinking
+(setq backward-delete-char-untabify-method nil) ; Delete all whitespace with backspace
+(setq require-final-newline t) ; Ensure files end with newline
+(setq delete-by-moving-to-trash t) ; Move deleted files to trash instead of permenant deletion
+(setq case-fold-search t) ; Case-insensitive search by default
+(setq isearch-lazy-count t) ; Show match count in search
+(setq lazy-count-prefix-format "(%s/%s) ") ; Format for match counter
+(setq isearch-allow-scroll 'unlimited) ; Allow scrolling during search
+(global-set-key (kbd "C-M-s") 'isearch-forward-regexp) ; Regex search
+(global-set-key (kbd "C-M-r") 'isearch-backward-regexp) ; Backward regex search
+(save-place-mode 1) ; Remember cursor position in files
+(setq-default indent-tabs-mode nil) ; Use spaces, not tabs
+(setq-default tab-width 4) ; Tab width = 4 spaces
+(setq c-basic-offset 4) ; C-style language indent
+(setq python-indent-offset 4) ; Python indent
+(setq js-indent-level 4) ; JavaScript indent
+(setq css-indent-offset 4) ; CSS indent
+(setq standard-indent 4) ; Default indent
+(setq c-tab-always-indent t) ; Always indent in C modes
+(electric-indent-mode 1) ; Auto-indent new lines
 
 ;; No backup files
 (setq make-backup-files nil)
