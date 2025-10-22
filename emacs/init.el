@@ -34,6 +34,22 @@
 (setq standard-indent 4) ; Default indent
 (setq c-tab-always-indent t) ; Always indent in C modes
 (electric-indent-mode 1) ; Auto-indent new lines
+(recentf-mode 1) ; Keep track of recent files
+(setq recentf-max-menu-items 15) ; Number of recent files to remember
+(setq recentf-max-saved-items 30) ; Max recent files to save
+(tool-bar-mode 1) ; Enable toolbar
+(menu-bar-mode 1) ; Enable menu bar
+(scroll-bar-mode 1) ; Enable scroll bars
+(setq frame-title-format "%b - Emacs") ; Window title format
+(setq icon-title-format frame-title-format) ; Icon title format
+(setq use-dialog-box nil) ; Don't use dialog boxes for prompts
+(setq redisplay-dont-pause t) ; Smoother redisplay
+(column-number-mode 1) ; Show column number in mode line
+(size-indication-mode 1) ; Show file size in mode line
+(setq kill-whole-line nil) ; C-k kills line only not including newline
+(global-font-lock-mode 1) ; Enable syntax highlighting
+(setq font-lock-maximum-decoration t) ; Maximum syntax highlighting
+(add-hook 'prog-mode-hook 'imenu-add-menubar-index) ; Add imenu to menu bar
 
 ;; No backup files
 (setq make-backup-files nil)
