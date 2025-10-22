@@ -1,5 +1,13 @@
 # Installing apps on Debian Docs
 
+### Installing Emacs
+
+Run:
+```
+sudo apt update
+sudo apt-get install emacs-gtk
+```
+
 ### Installing Visual Studio Code
 
 Run:
