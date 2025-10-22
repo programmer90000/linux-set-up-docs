@@ -57,6 +57,11 @@
 (setq undo-limit 800000) ; Undo limit
 (setq undo-strong-limit 12000000) ; Strong undo limit
 (setq undo-outer-limit 120000000) ; Outer undo limit
+(setq comment-auto-fill-only-comments t) ; Wrap comments
+(add-hook 'prog-mode-hook 'display-line-numbers-mode) ; Line numbers for code
+(setq gdb-many-windows t) ; Use many windows in GDB
+(setq gdb-show-main t) ; Show main function in GDB
+(setq mode-line-format '("%e" mode-line-front-space mode-line-mule-info mode-line-client mode-line-modified mode-line-remote mode-line-frame-identification mode-line-buffer-identification " " mode-line-position " " mode-line-modes mode-line-misc-info mode-line-end-spaces))
 
 ;; No backup files
 (setq make-backup-files nil)
