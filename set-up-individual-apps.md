@@ -495,15 +495,22 @@ In the terminal, run:
 emacs ~/.emacs
 ```
 
-Inside the file, write the code from the [.emacs](./emacs/.emacs) file to load the configuration file when Emacs is opened from the application dashboard:
+Inside the file, write the code from the [.emacs](./emacs/.emacs) file to load the configuration file when Emacs is opened from the application dashboard
 
 Run:
 ```
 mkdir -p ~/.emacs.d
+emacs ~/.emacs.d/theme.el
+```
+
+Paste the code from the [theme.el](./emacs/theme.el) file in this file
+
+Run:
+```
 emacs ~/.emacs.d/init.el
 ```
 
-Paste the code from the [init.el](./emacs/init.el) file in this file:
+Paste the code from the [init.el](./emacs/init.el) file in this file
 
 ## Visual Studio Code
 - Sign in using my programming Outlook account

@@ -27,5 +27,9 @@
 (setq truncate-lines nil)
 (setq visual-line-fringe-indicators '(nil right-curly-arrow))
 
-;; Highlight matching parentheses and braces
-(show-paren-mode 1)
+;; Theme
+(load-file "~/.emacs.d/theme.el")
+
+;; Enable current line highlighting
+(global-hl-line-mode 1) 
+(set-face-attribute 'hl-line nil :background "#2d2d30")
