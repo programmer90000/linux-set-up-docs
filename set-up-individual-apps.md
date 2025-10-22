@@ -488,6 +488,19 @@ If opening Brave browser causes the System Settings app to open, disable/ delete
         - Select `Don't delete any messages`
         - Enable `Always keep starred messages`
 
+## Emacs
+
+In the terminal, run:
+```
+emacs ~/.emacs
+```
+
+Inside the file, write the following code to load the configuration file when Emacs is opened from the application dashboard:
+```
+;; Universal config loader
+(load-file "~/.emacs.d/init.el")
+```
+
 ## Visual Studio Code
 - Sign in using my programming Outlook account
 - Ensure all sync options are selected
