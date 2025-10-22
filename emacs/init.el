@@ -54,6 +54,9 @@
 (setq compilation-scroll-output nil) ; Don't scroll to error
 (setq compilation-always-kill nil) ; Don't kill old compilation before new
 (setq compilation-ask-about-save t) ; Save all before compile
+(setq undo-limit 800000) ; Undo limit
+(setq undo-strong-limit 12000000) ; Strong undo limit
+(setq undo-outer-limit 120000000) ; Outer undo limit
 
 ;; No backup files
 (setq make-backup-files nil)
