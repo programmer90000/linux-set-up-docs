@@ -17,3 +17,6 @@
 ;; Use spaces instead of tabs
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
+
+;; Highlight matching parentheses
+(show-paren-mode 1)
