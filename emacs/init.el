@@ -1,12 +1,20 @@
-;; Disable startup screen
-(setq inhibit-startup-screen t)
-
-;; Enable line numbers
-(global-display-line-numbers-mode 1)
-
-;; Smooth scrolling
-(setq scroll-step 1)
-(setq scroll-margin 3)
+(setq inhibit-startup-screen t) ;Disable startup screen
+(global-display-line-numbers-mode 1) ;Enable line numbers
+(setq scroll-step 1) ; Scroll one line at a time with keyboard
+(setq scroll-margin 3) ; Keep 3 lines margin when scrolling
+(setq scroll-conservatively 101) ; Smooth scrolling behavior
+(setq mouse-wheel-scroll-amount '(3 ((shift) . 5))) ; Mouse wheel scroll amount is set to 3 normally and 5 when holding shift
+(setq mouse-wheel-progressive-speed t) ; Scrolling speed based upon mouse scrolling speed
+(setq mouse-wheel-follow-mouse 't) ; Scroll window under mouse instead of selected window
+(setq next-line-add-newlines nil) ; Don't create new lines when moving down at EOF
+(setq line-move-visual t) ; Move by logical lines, not visual
+(delete-selection-mode 1) ; Typing whilst text selected deletes selected text instead of typing after it
+(global-auto-revert-mode 1) ; Auto-reload files on external change
+(electric-pair-mode 1) ; Auto-close brackets and quotes
+(show-paren-mode 1) ; Highlight matching parentheses
+(setq show-paren-delay 0) ; Instant parenthesis highlighting
+(setq show-paren-style 'parenthesis) ; Highlight entire expression
+(blink-cursor-mode 1)                         ; Enable cursor blinking
 
 ;; No backup files
 (setq make-backup-files nil)
