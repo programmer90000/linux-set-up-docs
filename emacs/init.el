@@ -10,3 +10,6 @@
 
 ;; No backup files
 (setq make-backup-files nil)
+
+;; No auto-save files  
+(setq auto-save-default nil)
