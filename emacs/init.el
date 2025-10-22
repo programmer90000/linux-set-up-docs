@@ -62,6 +62,14 @@
 (setq gdb-many-windows t) ; Use many windows in GDB
 (setq gdb-show-main t) ; Show main function in GDB
 (setq mode-line-format '("%e" mode-line-front-space mode-line-mule-info mode-line-client mode-line-modified mode-line-remote mode-line-frame-identification mode-line-buffer-identification " " mode-line-position " " mode-line-modes mode-line-misc-info mode-line-end-spaces))
+(set-fringe-mode 10) ; Set fringe width
+(line-number-mode 1) ; Show line numbers in mode line
+(column-number-mode 1) ; Show column numbers in mode line
+(size-indication-mode 1) ; Show file size in mode line
+(display-time-mode 1) ; Show time in mode line
+(setq display-time-format "%H:%M") ; Time format
+(setq display-time-day-and-date t) ; Show day and date
+(global-hl-line-mode 1) ; Highlight current line
 
 ;; No backup files
 (setq make-backup-files nil)
