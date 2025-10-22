@@ -7,3 +7,6 @@
 ;; Smooth scrolling
 (setq scroll-step 1)
 (setq scroll-margin 3)
+
+;; No backup files
+(setq make-backup-files nil)
