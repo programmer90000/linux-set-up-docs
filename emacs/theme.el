@@ -12,11 +12,11 @@
 
 ;; Line numbers
 (set-face-attribute 'line-number nil :foreground "#5a5a5a" :background "#1e1e1e") ; Regular line numbers colour
-(set-face-attribute 'line-number-current-line nil :foreground "#ffffff" :background "#2d2d30") // Current line number colour
+(set-face-attribute 'line-number-current-line nil :foreground "#ffffff" :background "#2d2d30") ; Current line number colour
 
 ;; UI elements
-(set-face-attribute 'mode-line nil :foreground "#ffffff" :background "#0078d4" :box nil) // Colour of status bar
-(set-face-attribute 'region nil :background "#264f78") // Background colour of selected text
-(set-face-attribute 'show-paren-match nil :background "#0f3d5c" :bold t) // Background colour of matching parentheses
+(set-face-attribute 'mode-line nil :foreground "#ffffff" :background "#0078d4" :box nil) ; Colour of status bar
+(set-face-attribute 'region nil :background "#264f78") ; Background colour of selected text
+(set-face-attribute 'show-paren-match nil :background "#0f3d5c" :bold t) ; Background colour of matching parentheses
 
 (provide 'theme)
