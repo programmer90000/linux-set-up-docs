@@ -116,3 +116,4 @@
 (global-set-key (kbd "C-c") 'kill-ring-save) ; Shortcut to copy text using Ctrl + C
 (global-set-key (kbd "C-v") 'yank) ; Shortcut to pate text using Ctrl + V
 (global-set-key (kbd "C-x") 'kill-region) ; Shortcut to cut text using Ctrl + X
+(global-set-key (kbd "C-z") 'undo-only) ; Shortcut to undo using Ctrl + Z
