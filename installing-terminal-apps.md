@@ -90,6 +90,19 @@ ncdu
 
 This will open an interactive window, from which you can navigate between directories to view the size of each directory file
 
+## Install Ripgrep and Fuzzy Finder
+
+Run:
+```
+sudo apt update
+sudo apt install fzf ripgrep
+```
+
+To use `Ripgrep` and `Fuzzy Finder`, run:
+```
+rg --line-number --no-heading '' | fzf --delimiter : --preview 'batcat --style=numbers --color=always --highlight-line {2} {1}' --preview-window=right:60%:wrap
+```
+
 ## Install Gemini CLI
 
 Run:
@@ -124,4 +137,3 @@ Login with Google
 ```
 
 Login with your Google account
-
