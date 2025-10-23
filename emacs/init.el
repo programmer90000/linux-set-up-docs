@@ -93,6 +93,14 @@
 (setq frame-inhibit-implied-resize nil) ; Allow auto resizing
 (setq package--init-file-ensured nil) ; Check for all package initialization
 (setq mode-require-final-newline t) ; Add newline at end of files
+(setq inhibit-splash-screen t) ; Disable splash screen
+(setq create-lockfiles nil) ; Disable lock files (Allow the same file to be opened multiple times)
+(setq read-process-output-max (* 1024 1024)) ; Increase read process output
+(setq initial-major-mode 'fundamental-mode) ; Disable lisp specific features on startup
+(setq process-adaptive-read-buffering t) ; Enable adaptive read buffering
+(setq bidi-inhibit-bpa nil) ; Enable bidirectional text support
+(setq ring-bell-function nil) ; Enable bell sound
+(setq visible-bell nil) ; Disable visible bell
 
 ;; No backup files
 (setq make-backup-files nil)
