@@ -6,7 +6,7 @@
 (set-face-attribute 'font-lock-comment-face nil :foreground "#5a8a45" :italic t) ; Colour of comments
 (set-face-attribute 'font-lock-keyword-face nil :foreground "#d4832d" :bold t) ; Colour of keywords
 (set-face-attribute 'font-lock-string-face nil :foreground "#6bab6a") ; Colour of strings
-(set-face-attribute 'font-lock-function-name-face nil :foreground "#dcdcaa")
+(set-face-attribute 'font-lock-function-name-face nil :foreground "#dcdcaa") ; Colour of function name
 (set-face-attribute 'font-lock-variable-name-face nil :foreground "#9cdcfe")
 (set-face-attribute 'font-lock-type-face nil :foreground "#4ec9b0")
 
