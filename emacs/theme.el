@@ -3,9 +3,9 @@
 (set-face-attribute 'cursor nil :background "#0078d4")
 
 ;; Syntax highlighting
-(set-face-attribute 'font-lock-comment-face nil :foreground "#6a9955" :italic t)
-(set-face-attribute 'font-lock-keyword-face nil :foreground "#569cd6" :bold t)
-(set-face-attribute 'font-lock-string-face nil :foreground "#ce9178")
+(set-face-attribute 'font-lock-comment-face nil :foreground "#5a8a45" :italic t) ; Colour of comments
+(set-face-attribute 'font-lock-keyword-face nil :foreground "#d4832d" :bold t) ; Colour of keywords
+(set-face-attribute 'font-lock-string-face nil :foreground "#6bab6a") ; Colour of strings
 (set-face-attribute 'font-lock-function-name-face nil :foreground "#dcdcaa")
 (set-face-attribute 'font-lock-variable-name-face nil :foreground "#9cdcfe")
 (set-face-attribute 'font-lock-type-face nil :foreground "#4ec9b0")
