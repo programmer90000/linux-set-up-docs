@@ -5,6 +5,7 @@
 Run:
 ```
 sudo apt update
+sudo apt install fonts-firacode
 sudo apt-get install emacs-gtk
 ```
 
