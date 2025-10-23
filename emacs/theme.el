@@ -1,6 +1,6 @@
 ;; Basic faces
 (set-face-attribute 'default nil :foreground "#e0e0e0" :background "#1e1e1e")
-(set-face-attribute 'cursor nil :background "#569cd6")
+(set-face-attribute 'cursor nil :background "#0078d4")
 
 ;; Syntax highlighting
 (set-face-attribute 'font-lock-comment-face nil :foreground "#6a9955" :italic t)

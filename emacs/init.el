@@ -70,7 +70,6 @@
 (setq display-time-format "%H:%M") ; Time format
 (setq display-time-day-and-date t) ; Show day and date
 (global-hl-line-mode 1) ; Highlight current line
-(setq default-frame-alist '((cursor-color . "#0078d4"))) ; Set cursor colour
 (blink-cursor-mode 1) ; Enable cursor blinking
 (setq visible-cursor t) ; Show cursor in inactive windows
 (setq x-stretch-cursor t) ; Stretch cursor to character width
