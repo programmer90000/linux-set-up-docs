@@ -112,3 +112,4 @@
 (load-file "~/.emacs.d/theme.el") ; Load theme file
 (global-hl-line-mode 1) ; Enable highlight current line globally
 (set-face-attribute 'hl-line nil :background "#2d2d30") ; Set highlight color to dark gray
+(global-set-key (kbd "C-s") 'save-buffer) ; Shortcut to save file using Ctrl + S
