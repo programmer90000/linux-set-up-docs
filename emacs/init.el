@@ -101,29 +101,15 @@
 (setq bidi-inhibit-bpa nil) ; Enable bidirectional text support
 (setq ring-bell-function nil) ; Enable bell sound
 (setq visible-bell nil) ; Disable visible bell
-
-;; No backup files
-(setq make-backup-files nil)
-
-;; No auto-save files  
-(setq auto-save-default nil)
-
-;; Use spaces instead of tabs
-(setq-default indent-tabs-mode nil)
-(setq-default tab-width 4)
-
-;; Highlight matching parentheses
-(show-paren-mode 1)
-
-;; Word wrap
-(global-visual-line-mode 1)
-(setq word-wrap t)
-(setq truncate-lines nil)
-(setq visual-line-fringe-indicators '(nil right-curly-arrow))
-
-;; Theme
-(load-file "~/.emacs.d/theme.el")
-
-;; Enable current line highlighting
-(global-hl-line-mode 1) 
-(set-face-attribute 'hl-line nil :background "#2d2d30")
+(setq make-backup-files nil) ; No backup files
+(setq auto-save-default nil) ; No auto-save files  
+(setq-default indent-tabs-mode nil) ; Use spaces instead of tabs
+(setq-default tab-width 4) ; Set the tab width to 4
+(show-paren-mode 1) ; Highlight matching parentheses
+(global-visual-line-mode 1) ; Enable visual line wrapping
+(setq word-wrap t) ; Allow words to wrap at line boundaries
+(setq truncate-lines nil) ; Don't truncate long lines with $
+(setq visual-line-fringe-indicators '(nil right-curly-arrow)) ; Show wrap indicator in right fringe as a right curly arrow
+(load-file "~/.emacs.d/theme.el") ; Load theme file
+(global-hl-line-mode 1) ; Enable highlight current line globally
+(set-face-attribute 'hl-line nil :background "#2d2d30") ; Set highlight color to dark gray
