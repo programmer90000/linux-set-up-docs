@@ -70,6 +70,29 @@
 (setq display-time-format "%H:%M") ; Time format
 (setq display-time-day-and-date t) ; Show day and date
 (global-hl-line-mode 1) ; Highlight current line
+(setq default-frame-alist '((cursor-color . "#0078d4"))) ; Set cursor colour
+(blink-cursor-mode 1) ; Enable cursor blinking
+(setq visible-cursor t) ; Show cursor in inactive windows
+(setq x-stretch-cursor t) ; Stretch cursor to character width
+(setq line-spacing 0.0) ; Set line spacing to default
+(setq word-wrap t) ; Enable word wrap
+(set-face-attribute 'default nil :height 100) ; Set default font size
+(set-frame-font "Fira Code-10" nil t) ; Set font to Fira Code size 10
+(set-face-attribute 'region nil :background "#264f78") ; Selection color
+(set-face-attribute 'fringe nil :background "#1e1e1e") ; Fringe color
+(setq redisplay-skip-fontification-on-input nil) ; Apply fontification during input
+(setq jit-lock-defer-time 0.1) ; Wait 0.1 seconds after typing. If nothing is typed, apply fontification
+(setq gc-cons-threshold 100000000) ; Wait until 100MB used before garbage collection
+(setq gc-cons-percentage 0.6) ; Garbage collection when heap is 60% full  
+(run-with-idle-timer 5 t (lambda () (garbage-collect))) ; Garbage collection every 5s when idle
+(setq fast-but-imprecise-scrolling nil) ; Disable faster scrolling
+(setq inhibit-compacting-font-caches nil) ; Compact font caches
+(setq large-file-warning-threshold 50000000) ; Warn for files > 50MB
+(setq inhibit-startup-message t) ; Disable startup message
+(setq initial-scratch-message nil) ; Empty scratch message
+(setq frame-inhibit-implied-resize nil) ; Allow auto resizing
+(setq package--init-file-ensured nil) ; Check for all package initialization
+(setq mode-require-final-newline t) ; Add newline at end of files
 
 ;; No backup files
 (setq make-backup-files nil)
