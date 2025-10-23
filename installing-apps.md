@@ -9,6 +9,14 @@ sudo apt install fonts-firacode
 sudo apt-get install emacs-gtk
 ```
 
+### Installing GitKraken
+
+Run:
+```
+wget https://release.gitkraken.com/linux/gitkraken-amd64.deb
+sudo dpkg -i gitkraken-amd64.deb
+```
+
 ### Installing Visual Studio Code
 
 Run:
