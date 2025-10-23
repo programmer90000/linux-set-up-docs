@@ -114,3 +114,4 @@
 (set-face-attribute 'hl-line nil :background "#2d2d30") ; Set highlight color to dark gray
 (global-set-key (kbd "C-s") 'save-buffer) ; Shortcut to save file using Ctrl + S
 (global-set-key (kbd "C-c") 'kill-ring-save) ; Shortcut to copy text using Ctrl + C
+(global-set-key (kbd "C-v") 'yank) ; Shortcut to pate text using Ctrl + V
