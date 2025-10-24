@@ -109,36 +109,3 @@ function mv() {
     echo
     [[ $REPLY =~ ^[Yy]$ ]] && command mv -i "$@"
 }
-
-search_for_text_in_files() {
-    rg --line-number --no-heading '' | fzf --delimiter : --preview 'batcat --style=numbers --color=always --highlight-line {2} {1}' --preview-window=right:60%:wrap
-}
-
-replace_text_in_file() {
-    local selected=$(rg --line-number --no-heading '' | fzf --delimiter : --preview 'batcat --style=numbers --color=always --highlight-line {2} {1}' --preview-window=right:60%:wrap)
-
-    if [[ -n "$selected" ]]; then
-        local file=$(echo "$selected" | cut -d: -f1)
-        local line=$(echo "$selected" | cut -d: -f2)
-        local original_text=$(echo "$selected" | cut -d: -f3-)
-
-        # Show replacement prompt
-        clear
-        echo "================================================================"
-        echo "                     TEXT REPLACEMENT"
-        echo "----------------------------------------------------------------"
-        echo "File: $file"
-        echo "Line: $line"
-        echo "Current: $original_text"
-        echo "----------------------------------------------------------------"
-        echo -n "Replacement:"
-
-        read replacement_text
-        echo "================================================================"
-
-        if [[ -n "$replacement_text" ]]; then
-            sed -i "${line}s/.*/${replacement_text}/" "$file"
-            echo "✓ Text replaced successfully!"
-        fi
-    fi
-}
