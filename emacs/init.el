@@ -118,3 +118,45 @@
 (global-set-key (kbd "C-x") 'kill-region) ; Shortcut to cut text using Ctrl + X
 (global-set-key (kbd "C-z") 'undo-only) ; Shortcut to undo using Ctrl + Z
 (global-set-key (kbd "C-y") 'undo-redo) ; Shortcut to redo using Ctrl + Y
+(add-to-list 'load-path "~/.emacs.d/lisp/neotree") ; Add neotree to load path
+(require 'neotree) ; Require neotree
+(global-set-key (kbd "<f8>") 'neotree-toggle) ; Set F8 key to toggle neotree
+(setq neo-window-width 35) ; Initial width of neotree
+(setq neo-smart-open t) ; Smart file opening inside neotree
+(setq neo-show-hidden-files t) ; Show hidden files inside neotree
+(setq neotree-enable-arrow-and-mouse-support t) ; Enable mouse support inside neotree
+(setq neo-auto-indent-point t) ; Auto-indent neotree
+(setq neo-show-updir-line t) ; Show ".." for parent directory inside neotree
+;; Neotree width keybindings
+(add-hook 'neotree-mode-hook
+          (lambda ()
+            (define-key neotree-mode-map (kbd "C-+") 'neotree-increase-width)
+            (define-key neotree-mode-map (kbd "C--") 'neotree-decrease-width)
+            (define-key neotree-mode-map (kbd "C-0") 'neotree-reset-width)))
+(defun neotree-increase-width ()
+  "Increase neotree window width by 5 columns."
+  (interactive)
+  (setq neo-window-width (+ neo-window-width 5))
+  (let ((current-dir (if (and (boundp 'neo-buffer--start-node) neo-buffer--start-node)
+                         neo-buffer--start-node
+                       default-directory)))
+    (neotree-hide)
+    (neotree-dir current-dir)))
+(defun neotree-decrease-width ()
+  "Decrease neotree window width by 5 columns (minimum 20)."
+  (interactive)
+  (setq neo-window-width (max 20 (- neo-window-width 5)))
+  (let ((current-dir (if (and (boundp 'neo-buffer--start-node) neo-buffer--start-node)
+                         neo-buffer--start-node
+                       default-directory)))
+    (neotree-hide)
+    (neotree-dir current-dir)))
+(defun neotree-reset-width ()
+  "Reset neotree window width to default 35 columns."
+  (interactive)
+  (setq neo-window-width 35)
+  (let ((current-dir (if (and (boundp 'neo-buffer--start-node) neo-buffer--start-node)
+                         neo-buffer--start-node
+                       default-directory)))
+    (neotree-hide)
+    (neotree-dir current-dir)))

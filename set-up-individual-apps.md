@@ -512,6 +512,18 @@ emacs ~/.emacs.d/init.el
 
 Paste the code from the [init.el](./emacs/init.el) file in this file
 
+### Install Neotree
+
+Run:
+```
+mkdir -p ~/.emacs.d/lisp/
+```
+
+Copy the files from the [neotree](./emacs/neotree/) directory into this directory:
+```
+cp -r emacs-neotree/ ~/.emacs.d/lisp/neotree/
+```
+
 ## Visual Studio Code
 - Sign in using my programming Outlook account
 - Ensure all sync options are selected
