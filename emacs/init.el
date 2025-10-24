@@ -160,3 +160,53 @@
                        default-directory)))
     (neotree-hide)
     (neotree-dir current-dir)))
+
+;; Function to check if neotree is open
+(defun my-neotree-is-open-p ()
+  "Return t if neotree is currently open and visible."
+  (catch 'found
+    (dolist (frame (frame-list))
+      (dolist (window (window-list frame))
+        (let ((buffer (window-buffer window)))
+          (when (and (buffer-live-p buffer)
+                     (string-match "\\*NeoTree\\*" (buffer-name buffer)))
+            (throw 'found t)))))
+    nil))
+
+;; Function to save neotree state
+(defun my-save-neotree-state ()
+  "Save neotree open/close state and width."
+  (let ((state-file "~/.emacs.d/neotree-state.el")
+        (is-open (my-neotree-is-open-p)))
+    (with-temp-file state-file
+      (insert ";; Neotree state - auto-generated\n")
+      (insert (format "(setq my-neotree-last-width %d)\n" neo-window-width))
+      (insert (format "(setq my-neotree-was-open %s)\n" 
+                      (if is-open "t" "nil"))))))
+
+;; Function to load neotree state  
+(defun my-load-neotree-state ()
+  "Load neotree state and restore if it was open."
+  (let ((state-file "~/.emacs.d/neotree-state.el"))
+    (when (file-exists-p state-file)
+      (load-file state-file)
+      (when (and (boundp 'my-neotree-last-width) my-neotree-last-width)
+        (setq neo-window-width my-neotree-last-width))
+      (when (and (boundp 'my-neotree-was-open) my-neotree-was-open)
+        (neotree-show)))))
+
+;; Save state when neotree is toggled, shown, or hidden
+(advice-add 'neotree-toggle :after #'my-save-neotree-state)
+(advice-add 'neotree-show :after #'my-save-neotree-state)
+(advice-add 'neotree-hide :after #'my-save-neotree-state)
+
+;; Save state when resized
+(advice-add 'neotree-increase-width :after #'my-save-neotree-state)
+(advice-add 'neotree-decrease-width :after #'my-save-neotree-state)
+(advice-add 'neotree-reset-width :after #'my-save-neotree-state)
+
+;; Save state when Emacs is killed
+(add-hook 'kill-emacs-hook 'my-save-neotree-state)
+
+;; Load state after a short delay when Emacs starts
+(run-with-timer 1 nil 'my-load-neotree-state)
