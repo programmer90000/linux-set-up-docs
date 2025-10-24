@@ -113,3 +113,27 @@ function mv() {
 search_for_text_in_files() {
     rg --line-number --no-heading '' | fzf --delimiter : --preview 'batcat --style=numbers --color=always --highlight-line {2} {1}' --preview-window=right:60%:wrap
 }
+
+replace_text_in_file() {
+    local selected=$(rg --line-number --no-heading '' | fzf --delimiter : --preview 'batcat --style=numbers --color=always --highlight-line {2} {1}' --preview-window=right:60%:wrap)
+
+    if [[ -n "$selected" ]]; then
+        local file=$(echo "$selected" | cut -d: -f1)
+        local line=$(echo "$selected" | cut -d: -f2)
+
+        local original_text=$(sed -n "${line}p" "$file")
+
+        echo "File: $file"
+        echo "Line: $line"
+        echo "Text: $original_text"
+        echo
+
+        read -p "Replace with: " new_text
+        if [[ -n "$new_text" ]]; then
+            sed -i "${line}s/.*/$new_text/" "$file"
+            echo "Text replaced successfully!"
+        fi
+    else
+        echo "No file selected."
+    fi
+}
