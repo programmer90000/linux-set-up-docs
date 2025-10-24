@@ -109,3 +109,7 @@ function mv() {
     echo
     [[ $REPLY =~ ^[Yy]$ ]] && command mv -i "$@"
 }
+
+search_for_text_in_files() {
+    rg --line-number --no-heading '' | fzf --delimiter : --preview 'batcat --style=numbers --color=always --highlight-line {2} {1}' --preview-window=right:60%:wrap
+}
