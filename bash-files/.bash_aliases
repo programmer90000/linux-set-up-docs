@@ -120,20 +120,25 @@ replace_text_in_file() {
     if [[ -n "$selected" ]]; then
         local file=$(echo "$selected" | cut -d: -f1)
         local line=$(echo "$selected" | cut -d: -f2)
+        local original_text=$(echo "$selected" | cut -d: -f3-)
 
-        local original_text=$(sed -n "${line}p" "$file")
-
+        # Show replacement prompt
+        clear
+        echo "================================================================"
+        echo "                     TEXT REPLACEMENT"
+        echo "----------------------------------------------------------------"
         echo "File: $file"
         echo "Line: $line"
-        echo "Text: $original_text"
-        echo
+        echo "Current: $original_text"
+        echo "----------------------------------------------------------------"
+        echo -n "Replacement:"
 
-        read -p "Replace with: " new_text
-        if [[ -n "$new_text" ]]; then
-            sed -i "${line}s/.*/$new_text/" "$file"
-            echo "Text replaced successfully!"
+        read replacement_text
+        echo "================================================================"
+
+        if [[ -n "$replacement_text" ]]; then
+            sed -i "${line}s/.*/${replacement_text}/" "$file"
+            echo "✓ Text replaced successfully!"
         fi
-    else
-        echo "No file selected."
     fi
 }
