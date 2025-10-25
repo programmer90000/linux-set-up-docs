@@ -243,11 +243,11 @@
         ;; Results
         (widget-insert (propertize "Results Area:" 'face '(:weight bold)))
         (widget-insert "\n")
-        (widget-insert (propertize (make-string search-replace-width ?─) 'face 'shadow))
+        (widget-insert (propertize (make-string (max 10 (- search-replace-width 2)) ?─) 'face 'shadow))
         (widget-insert "\n")
         (widget-insert (propertize "  Ready for search and replace...\n" 
                                   'face 'font-lock-doc-face))
-        (widget-insert (propertize (make-string search-replace-width ?─) 'face 'shadow))
+        (widget-insert (propertize (make-string (max 10 (- search-replace-width 2)) ?─) 'face 'shadow))
         (widget-insert "\n\n")
 
         ;; Help text
@@ -265,6 +265,10 @@
 (defun search-replace-sidebar-show ()
   "Show the search and replace sidebar."
   (interactive)
+  ;; Kill any existing sidebar buffer to avoid conflicts
+  (when (get-buffer search-replace-sidebar-buffer-name)
+    (kill-buffer search-replace-sidebar-buffer-name))
+  
   (let ((buffer (search-replace-sidebar-create)))
     (display-buffer-in-side-window
      buffer
@@ -303,8 +307,15 @@
 (defun search-replace-sidebar-refresh ()
   "Refresh the sidebar display."
   (interactive)
-  (when (get-buffer-window search-replace-sidebar-buffer-name)
-    (search-replace-sidebar-show)))
+  (let ((sidebar-window (get-buffer-window search-replace-sidebar-buffer-name)))
+    (when sidebar-window
+      ;; Store the current state
+      (let ((was-visible t))
+        ;; Recreate the sidebar
+        (search-replace-sidebar-toggle) ; Hide it
+        (run-with-timer 0.05 nil ; Show it again after a short delay
+                       (lambda ()
+                         (search-replace-sidebar-show)))))))
 
 ;; Keybindings
 (global-set-key (kbd "<f9>") 'search-replace-sidebar-toggle)
