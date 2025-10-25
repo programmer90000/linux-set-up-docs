@@ -316,3 +316,28 @@
               (local-set-key (kbd "C-+") 'search-replace-sidebar-increase-width)
               (local-set-key (kbd "C--") 'search-replace-sidebar-decrease-width)
               (local-set-key (kbd "C-0") 'search-replace-sidebar-reset-width))))
+
+;; Global keybindings for both sidebars
+(global-set-key (kbd "C-+") 
+                (lambda () 
+                  (interactive)
+                  (cond ((get-buffer-window search-replace-sidebar-buffer-name)
+                         (search-replace-sidebar-increase-width))
+                        ((my-neotree-is-open-p)
+                         (neotree-increase-width)))))
+                         
+(global-set-key (kbd "C--") 
+                (lambda () 
+                  (interactive)
+                  (cond ((get-buffer-window search-replace-sidebar-buffer-name)
+                         (search-replace-sidebar-decrease-width))
+                        ((my-neotree-is-open-p)
+                         (neotree-decrease-width)))))
+                         
+(global-set-key (kbd "C-0") 
+                (lambda () 
+                  (interactive)
+                  (cond ((get-buffer-window search-replace-sidebar-buffer-name)
+                         (search-replace-sidebar-reset-width))
+                        ((my-neotree-is-open-p)
+                         (neotree-reset-width)))))
