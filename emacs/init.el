@@ -318,7 +318,7 @@
                          (search-replace-sidebar-show)))))))
 
 ;; Keybindings
-(global-set-key (kbd "<f9>") 'search-replace-sidebar-toggle)
+(global-set-key (kbd "<f9>") 'deadgrep)
 
 ;; Add resize keybindings to sidebar buffer
 (add-hook 'widget-setup-hook
