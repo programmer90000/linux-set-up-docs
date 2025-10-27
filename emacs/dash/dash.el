@@ -3848,14 +3848,15 @@ This function satisfies the following laws:
 ;;; Font lock
 
 (defvar dash--keywords
-    (,(rx symbol-start (| "acc" "it" "it-index" "other") symbol-end)
-     . 'font-lock-variable-name-face)
+  `((,(rx symbol-start (| "acc" "it" "it-index" "other") symbol-end)
+     . font-lock-variable-name-face)
     (,(rx ?\( (group (| "defexamples" "def-example-group")) symbol-end
           (+ (in "\t "))
           (group (* (| (syntax word) (syntax symbol) (: ?\\ nonl)))))
      (1 'font-lock-keyword-face)
      (2 'font-lock-function-name-face))
-    ,(rx symbol-start (| "=>" "~>" "!!>") symbol-end)
+    (,(rx symbol-start (| "=>" "~>" "!!>") symbol-end)
+     . font-lock-keyword-face)
     ,@(when (< emacs-major-version 25)
         (let ((macs '("!cdr"
                       "!cons"
