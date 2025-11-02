@@ -211,3 +211,25 @@
 
 ;; Load state after a short delay when Emacs starts
 (run-with-timer 1 nil 'my-load-neotree-state)
+
+;; =============== Search And Replace ===============
+(defvar search-and-replace-buffer "*search-and-replace*")
+
+(defun search-and-replace ()
+  (interactive)
+  (when (get-buffer-window search-and-replace-buffer)
+    (delete-window (get-buffer-window search-and-replace-buffer)))
+  (split-window-horizontally (round (* (window-width) 0.25)))
+  (with-current-buffer (get-buffer-create search-and-replace-buffer)
+    (switch-to-buffer search-and-replace-buffer)
+    (erase-buffer)
+    (let ((inhibit-read-only t))
+      (widget-insert (propertize " SEARCH-AND-REPLACE\n" 'face '(:weight bold :height 1.2)))
+      (widget-insert "=====================\n\n")
+      (widget-insert "Add content here...\n\n")
+      (use-local-map widget-keymap)
+      (widget-setup)
+      (setq-local cursor-type nil)
+      (setq-local truncate-lines t)
+      (setq-local window-size-fixed 'width)
+      (read-only-mode 1))))
