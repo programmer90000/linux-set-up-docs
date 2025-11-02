@@ -265,15 +265,15 @@
       (switch-to-buffer search-and-replace-buffer)
       (erase-buffer)
       (let ((inhibit-read-only t))
-        (widget-insert (propertize " SEARCH-AND-REPLACE\n" 'face '(:weight bold :height 1.2)))
-        (widget-insert "=====================\n\n")
-
-        ;; Add close button
+        ;; Header line with button on the right
+        (widget-insert (propertize " SEARCH-AND-REPLACE" 'face '(:weight bold :height 1.2)))
+        (widget-insert "   ")
         (widget-create 'push-button
                        :notify (lambda (&rest ignore) 
                                  (my-close-search-and-replace))
-                       "Close Sidebar")
-        (widget-insert "\n\n")
+                       "Close")
+        (widget-insert "\n")
+        (widget-insert "=====================\n\n")
 
         (widget-insert "Add content here...\n\n")
         (use-local-map (let ((map (copy-keymap widget-keymap)))
