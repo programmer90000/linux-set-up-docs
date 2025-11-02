@@ -133,7 +133,10 @@
           (lambda ()
             (define-key neotree-mode-map (kbd "C-+") 'neotree-increase-width)
             (define-key neotree-mode-map (kbd "C--") 'neotree-decrease-width)
-            (define-key neotree-mode-map (kbd "C-0") 'neotree-reset-width)))
+            (define-key neotree-mode-map (kbd "C-0") 'neotree-reset-width)
+            ;; Add close button to neotree
+            (define-key neotree-mode-map (kbd "C-c C-c") 'my-close-sidebars)))
+
 (defun neotree-increase-width ()
   "Increase neotree window width by 5 columns."
   (interactive)
@@ -173,6 +176,27 @@
                      (string-match "\\*NeoTree\\*" (buffer-name buffer)))
             (throw 'found t)))))
     nil))
+
+;; Function to check if search-and-replace is open
+(defun my-search-and-replace-is-open-p ()
+  "Return t if search-and-replace sidebar is currently open and visible."
+  (catch 'found
+    (dolist (frame (frame-list))
+      (dolist (window (window-list frame))
+        (let ((buffer (window-buffer window)))
+          (when (and (buffer-live-p buffer)
+                     (string= (buffer-name buffer) search-and-replace-buffer))
+            (throw 'found t)))))
+    nil))
+
+;; Function to close both sidebars
+(defun my-close-sidebars ()
+  "Close both neotree and search-and-replace sidebars."
+  (interactive)
+  (when (my-neotree-is-open-p)
+    (neotree-hide))
+  (when (my-search-and-replace-is-open-p)
+    (my-close-search-and-replace)))
 
 ;; Function to save neotree state
 (defun my-save-neotree-state ()
@@ -215,21 +239,62 @@
 ;; =============== Search And Replace ===============
 (defvar search-and-replace-buffer "*search-and-replace*")
 
-(defun search-and-replace ()
+(defun my-close-search-and-replace ()
+  "Close the search-and-replace sidebar."
   (interactive)
   (when (get-buffer-window search-and-replace-buffer)
     (delete-window (get-buffer-window search-and-replace-buffer)))
-  (split-window-horizontally (round (* (window-width) 0.25)))
-  (with-current-buffer (get-buffer-create search-and-replace-buffer)
-    (switch-to-buffer search-and-replace-buffer)
-    (erase-buffer)
-    (let ((inhibit-read-only t))
-      (widget-insert (propertize " SEARCH-AND-REPLACE\n" 'face '(:weight bold :height 1.2)))
-      (widget-insert "=====================\n\n")
-      (widget-insert "Add content here...\n\n")
-      (use-local-map widget-keymap)
-      (widget-setup)
-      (setq-local cursor-type nil)
-      (setq-local truncate-lines t)
-      (setq-local window-size-fixed 'width)
-      (read-only-mode 1))))
+  (when (get-buffer search-and-replace-buffer)
+    (kill-buffer search-and-replace-buffer)))
+
+(defun search-and-replace ()
+  "Open search-and-replace sidebar, closing neotree if open."
+  (interactive)
+  ;; Close neotree if open
+  (when (my-neotree-is-open-p)
+    (neotree-hide))
+
+  ;; If already open, just close it (toggle behavior)
+  (if (my-search-and-replace-is-open-p)
+      (my-close-search-and-replace)
+    ;; Otherwise open it
+    (when (get-buffer-window search-and-replace-buffer)
+      (delete-window (get-buffer-window search-and-replace-buffer)))
+    (split-window-horizontally (round (* (window-width) 0.25)))
+    (with-current-buffer (get-buffer-create search-and-replace-buffer)
+      (switch-to-buffer search-and-replace-buffer)
+      (erase-buffer)
+      (let ((inhibit-read-only t))
+        (widget-insert (propertize " SEARCH-AND-REPLACE\n" 'face '(:weight bold :height 1.2)))
+        (widget-insert "=====================\n\n")
+
+        ;; Add close button
+        (widget-create 'push-button
+                       :notify (lambda (&rest ignore) 
+                                 (my-close-search-and-replace))
+                       "Close Sidebar")
+        (widget-insert "\n\n")
+
+        (widget-insert "Add content here...\n\n")
+        (use-local-map (let ((map (copy-keymap widget-keymap)))
+                         ;; Add close keybinding
+                         (define-key map (kbd "C-c C-c") 'my-close-sidebars)
+                         map))
+        (widget-setup)
+        (setq-local cursor-type nil)
+        (setq-local truncate-lines t)
+        (setq-local window-size-fixed 'width)
+        (read-only-mode 1)))))
+
+;; Enhanced neotree toggle with mutual exclusion
+(defun my-neotree-toggle ()
+  "Toggle neotree, closing search-and-replace if open."
+  (interactive)
+  ;; Close search-and-replace if open
+  (when (my-search-and-replace-is-open-p)
+    (my-close-search-and-replace))
+  
+  ;; Toggle neotree
+  (if (my-neotree-is-open-p)
+      (neotree-hide)
+    (neotree-show)))
