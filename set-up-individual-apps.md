@@ -490,12 +490,6 @@ If opening Brave browser causes the System Settings app to open, disable/ delete
 
 ## Emacs
 
-Run:
-```
-sudo apt update
-sudo apt install ripgrep
-```
-
 In the terminal, run:
 ```
 emacs ~/.emacs
@@ -517,22 +511,6 @@ emacs ~/.emacs.d/init.el
 ```
 
 Paste the code from the [init.el](./emacs/init.el) file in this file
-
-Run:
-```
-mkdir ~/.emacs.d/lisp/
-```
-
-Copy the following directories into `~/.emacs.d/lisp/`:
-```
-dash
-deadgrep
-ht
-neotree
-s
-spinner
-wgrep
-```
 
 ### Install Neotree
 
