@@ -258,14 +258,14 @@
                        " NeoTree")))
     
     ;; Calculate padding to push close button to the right
-    (let* ((available-width (- (window-width) (length header-line) (length "[X] Close") 3))
+    (let* ((available-width (- (window-width) (length header-line) 1))
            (padding (make-string (max 1 available-width) ?\s)))
       
       ;; Insert the header line with close button on the right
       (insert (propertize header-line 'face 'neo-banner-face))
       (insert padding)
-      (insert (propertize "[X] Close" 
-                          'face 'neo-button-face
+      (insert (propertize "X" 
+                          'face '(:foreground "red" :weight bold)
                           'mouse-face 'highlight
                           'help-echo "Close Neotree sidebar"
                           'keymap (let ((map (make-sparse-keymap)))
@@ -274,8 +274,6 @@
       (neo-buffer--newline-and-begin)
       (neo-buffer--newline-and-begin))))
 
-;; Override the default banner insertion
-(advice-add 'neo-buffer--insert-banner :override 'my-neotree-insert-header)
 ;; =============== Search And Replace ===============
 (defvar search-and-replace-buffer "*search-and-replace*")
 (defvar search-and-replace-width 35 "Default width for search-and-replace sidebar")
