@@ -251,6 +251,27 @@
 ;; Load state after a short delay when Emacs starts
 (run-with-timer 1 nil 'my-load-sidebar-states)
 
+(defun my-neotree-insert-header ()
+  "Insert Neotree header with close button."
+  (when neo-banner-message
+    (let ((start (point)))
+      (insert neo-banner-message)
+      (set-text-properties start (point) '(face neo-banner-face)))
+    (neo-buffer--newline-and-begin))
+
+  ;; Insert close button line
+  (insert (propertize "[X] Close" 
+                      'face 'neo-button-face
+                      'mouse-face 'highlight
+                      'help-echo "Close Neotree sidebar"
+                      'keymap (let ((map (make-sparse-keymap)))
+                                (define-key map [mouse-1] 'neotree-hide)
+                                map)))
+  (neo-buffer--newline-and-begin)
+  (neo-buffer--newline-and-begin))
+
+;; Override the default banner insertion
+(advice-add 'neo-buffer--insert-banner :override 'my-neotree-insert-header)
 ;; =============== Search And Replace ===============
 (defvar search-and-replace-buffer "*search-and-replace*")
 (defvar search-and-replace-width 35 "Default width for search-and-replace sidebar")
