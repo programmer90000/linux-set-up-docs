@@ -127,7 +127,8 @@
 (setq neotree-enable-arrow-and-mouse-support t) ; Enable mouse support inside neotree
 (setq neo-auto-indent-point t) ; Auto-indent neotree
 (setq neo-show-updir-line t) ; Show ".." for parent directory inside neotree
-;; Neotree width keybindings
+
+;; =============== Neotree ===============
 (add-hook 'neotree-mode-hook
           (lambda ()
             (define-key neotree-mode-map (kbd "C-+") 'neotree-increase-width)
