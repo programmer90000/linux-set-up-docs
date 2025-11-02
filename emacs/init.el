@@ -285,16 +285,3 @@
         (setq-local truncate-lines t)
         (setq-local window-size-fixed 'width)
         (read-only-mode 1)))))
-
-;; Enhanced neotree toggle with mutual exclusion
-(defun my-neotree-toggle ()
-  "Toggle neotree, closing search-and-replace if open."
-  (interactive)
-  ;; Close search-and-replace if open
-  (when (my-search-and-replace-is-open-p)
-    (my-close-search-and-replace))
-  
-  ;; Toggle neotree
-  (if (my-neotree-is-open-p)
-      (neotree-hide)
-    (neotree-show)))
