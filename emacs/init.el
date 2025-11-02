@@ -198,46 +198,86 @@
   (when (my-search-and-replace-is-open-p)
     (my-close-search-and-replace)))
 
-;; Function to save neotree state
-(defun my-save-neotree-state ()
-  "Save neotree open/close state and width."
-  (let ((state-file "~/.emacs.d/neotree-state.el")
-        (is-open (my-neotree-is-open-p)))
+;; Function to save sidebar states
+(defun my-save-sidebar-states ()
+  "Save neotree and search-and-replace sidebar states."
+  (let ((state-file "~/.emacs.d/sidebar-states.el")
+        (neotree-open (my-neotree-is-open-p))
+        (search-replace-open (my-search-and-replace-is-open-p)))
     (with-temp-file state-file
-      (insert ";; Neotree state - auto-generated\n")
+      (insert ";; Sidebar states - auto-generated\n")
       (insert (format "(setq my-neotree-last-width %d)\n" neo-window-width))
+      (insert (format "(setq my-search-replace-last-width %d)\n" search-and-replace-width))
       (insert (format "(setq my-neotree-was-open %s)\n" 
-                      (if is-open "t" "nil"))))))
+                      (if neotree-open "t" "nil")))
+      (insert (format "(setq my-search-replace-was-open %s)\n"
+                      (if search-replace-open "t" "nil"))))))
 
-;; Function to load neotree state  
-(defun my-load-neotree-state ()
-  "Load neotree state and restore if it was open."
-  (let ((state-file "~/.emacs.d/neotree-state.el"))
+;; Function to load sidebar states  
+(defun my-load-sidebar-states ()
+  "Load sidebar states and restore if they were open."
+  (let ((state-file "~/.emacs.d/sidebar-states.el"))
     (when (file-exists-p state-file)
       (load-file state-file)
       (when (and (boundp 'my-neotree-last-width) my-neotree-last-width)
         (setq neo-window-width my-neotree-last-width))
+      (when (and (boundp 'my-search-replace-last-width) my-search-replace-last-width)
+        (setq search-and-replace-width my-search-replace-last-width))
       (when (and (boundp 'my-neotree-was-open) my-neotree-was-open)
-        (neotree-show)))))
+        (neotree-show))
+      (when (and (boundp 'my-search-replace-was-open) my-search-replace-was-open)
+        (search-and-replace)))))
 
 ;; Save state when neotree is toggled, shown, or hidden
-(advice-add 'neotree-toggle :after #'my-save-neotree-state)
-(advice-add 'neotree-show :after #'my-save-neotree-state)
-(advice-add 'neotree-hide :after #'my-save-neotree-state)
+(advice-add 'neotree-toggle :after #'my-save-sidebar-states)
+(advice-add 'neotree-show :after #'my-save-sidebar-states)
+(advice-add 'neotree-hide :after #'my-save-sidebar-states)
 
-;; Save state when resized
-(advice-add 'neotree-increase-width :after #'my-save-neotree-state)
-(advice-add 'neotree-decrease-width :after #'my-save-neotree-state)
-(advice-add 'neotree-reset-width :after #'my-save-neotree-state)
+;; Save state when neotree is resized
+(advice-add 'neotree-increase-width :after #'my-save-sidebar-states)
+(advice-add 'neotree-decrease-width :after #'my-save-sidebar-states)
+(advice-add 'neotree-reset-width :after #'my-save-sidebar-states)
+
+;; Save state when search-and-replace is opened, closed, or resized
+(advice-add 'search-and-replace :after #'my-save-sidebar-states)
+(advice-add 'my-close-search-and-replace :after #'my-save-sidebar-states)
+(advice-add 'search-and-replace-increase-width :after #'my-save-sidebar-states)
+(advice-add 'search-and-replace-decrease-width :after #'my-save-sidebar-states)
+(advice-add 'search-and-replace-reset-width :after #'my-save-sidebar-states)
 
 ;; Save state when Emacs is killed
-(add-hook 'kill-emacs-hook 'my-save-neotree-state)
+(add-hook 'kill-emacs-hook 'my-save-sidebar-states)
 
 ;; Load state after a short delay when Emacs starts
-(run-with-timer 1 nil 'my-load-neotree-state)
+(run-with-timer 1 nil 'my-load-sidebar-states)
 
 ;; =============== Search And Replace ===============
 (defvar search-and-replace-buffer "*search-and-replace*")
+(defvar search-and-replace-width 35 "Default width for search-and-replace sidebar")
+
+(defun search-and-replace-increase-width ()
+  "Increase search-and-replace window width by 5 columns."
+  (interactive)
+  (setq search-and-replace-width (+ search-and-replace-width 5))
+  (when (my-search-and-replace-is-open-p)
+    (my-close-search-and-replace)
+    (search-and-replace)))
+
+(defun search-and-replace-decrease-width ()
+  "Decrease search-and-replace window width by 5 columns (minimum 20)."
+  (interactive)
+  (setq search-and-replace-width (max 20 (- search-and-replace-width 5)))
+  (when (my-search-and-replace-is-open-p)
+    (my-close-search-and-replace)
+    (search-and-replace)))
+
+(defun search-and-replace-reset-width ()
+  "Reset search-and-replace window width to default 35 columns."
+  (interactive)
+  (setq search-and-replace-width 35)
+  (when (my-search-and-replace-is-open-p)
+    (my-close-search-and-replace)
+    (search-and-replace)))
 
 (defun my-close-search-and-replace ()
   "Close the search-and-replace sidebar."
@@ -260,7 +300,7 @@
     ;; Otherwise open it
     (when (get-buffer-window search-and-replace-buffer)
       (delete-window (get-buffer-window search-and-replace-buffer)))
-    (split-window-horizontally (round (* (window-width) 0.25)))
+    (split-window-horizontally search-and-replace-width)
     (with-current-buffer (get-buffer-create search-and-replace-buffer)
       (switch-to-buffer search-and-replace-buffer)
       (erase-buffer)
@@ -274,9 +314,16 @@
                        "Close")
         (widget-insert "\n")
         (widget-insert "=====================\n\n")
+        ;; Add resize instructions
+        (widget-insert "Resize: C-+ / C-- / C-0\n")
+        (widget-insert "Close: C-c C-c\n\n")
 
         (widget-insert "Add content here...\n\n")
         (use-local-map (let ((map (copy-keymap widget-keymap)))
+                         ;; Add resize keybindings
+                         (define-key map (kbd "C-+") 'search-and-replace-increase-width)
+                         (define-key map (kbd "C--") 'search-and-replace-decrease-width)
+                         (define-key map (kbd "C-0") 'search-and-replace-reset-width)
                          ;; Add close keybinding
                          (define-key map (kbd "C-c C-c") 'my-close-sidebars)
                          map))
