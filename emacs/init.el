@@ -252,23 +252,27 @@
 (run-with-timer 1 nil 'my-load-sidebar-states)
 
 (defun my-neotree-insert-header ()
-  "Insert Neotree header with close button."
-  (when neo-banner-message
-    (let ((start (point)))
-      (insert neo-banner-message)
-      (set-text-properties start (point) '(face neo-banner-face)))
-    (neo-buffer--newline-and-begin))
-
-  ;; Insert close button line
-  (insert (propertize "[X] Close" 
-                      'face 'neo-button-face
-                      'mouse-face 'highlight
-                      'help-echo "Close Neotree sidebar"
-                      'keymap (let ((map (make-sparse-keymap)))
-                                (define-key map [mouse-1] 'neotree-hide)
-                                map)))
-  (neo-buffer--newline-and-begin)
-  (neo-buffer--newline-and-begin))
+  "Insert Neotree header with close button on the right side."
+  (let ((header-line (if neo-banner-message
+                         neo-banner-message
+                       " NeoTree")))
+    
+    ;; Calculate padding to push close button to the right
+    (let* ((available-width (- (window-width) (length header-line) (length "[X] Close") 3))
+           (padding (make-string (max 1 available-width) ?\s)))
+      
+      ;; Insert the header line with close button on the right
+      (insert (propertize header-line 'face 'neo-banner-face))
+      (insert padding)
+      (insert (propertize "[X] Close" 
+                          'face 'neo-button-face
+                          'mouse-face 'highlight
+                          'help-echo "Close Neotree sidebar"
+                          'keymap (let ((map (make-sparse-keymap)))
+                                    (define-key map [mouse-1] 'neotree-hide)
+                                    map)))
+      (neo-buffer--newline-and-begin)
+      (neo-buffer--newline-and-begin))))
 
 ;; Override the default banner insertion
 (advice-add 'neo-buffer--insert-banner :override 'my-neotree-insert-header)
