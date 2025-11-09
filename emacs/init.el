@@ -129,6 +129,10 @@
 (setq neo-show-updir-line t) ; Show ".." for parent directory inside neotree
 (tab-bar-mode) ; Enable the line showing tabs at the top of the editor
 (setq tab-bar-new-tab-choice "*scratch*") ; Open an empty tab when the new tab button is pressed
+(menu-bar-mode -1) ; Remove menu bar
+(tool-bar-mode -1) ; Remove tool bar
+(setq-default mode-line-format nil) ; Remove the mode line
+(modify-all-frames-parameters '((mode-line-format . none))) ; Remove the mode line from all frames
 
 ;; =============== Neotree ===============
 (add-hook 'neotree-mode-hook
