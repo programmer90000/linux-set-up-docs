@@ -186,22 +186,6 @@ Add Bookmarks
     - Open [Masjid Sunnah](https://www.masjidsunnahnelson.org/)
     - Add it as a bookmark with the name `Masjid Sunnah`
 
-- ChatGPT
-    - Sign into [ChatGPT](https://chatgpt.com/)
-    - Add it as a bookmark with the name `ChatGPT`
-
-- DeepSeek
-    - Sign into [DeepSeek](https://chat.deepseek.com/)
-    - Add it as a bookmark with the name `DeepSeek`
-
-- Gemini
-    - Sign into [Gemini](https://gemini.google.com/app)
-    - Add it as a bookmark with the name `Gemini`
-
-- Copilot
-    - Sign into [Copilot](https://copilot.microsoft.com/chats/)
-    - Add it as a bookmark with the name `Copilot`
-
 - WhatsApp
     - Open the [WhatsApp website](https://web.whatsapp.com/)
     - Log into WhatsApp using your mobile phone
@@ -218,6 +202,48 @@ Add Bookmarks
 - Raindrop
     - Sign into [Raindrop.io](https://app.raindrop.io/my/0)
     - Add it as a bookmark with the name `Raindrop`
+
+- Make a new folder inside the bookmarks bar with the name `AI`
+    - Inside this folder, do the following:
+        - DeepSeek
+            - Sign into [DeepSeek](https://chat.deepseek.com/)
+            - Add it as a bookmark with the name `DeepSeek`
+
+        - Gemini
+            - Sign into [Gemini](https://gemini.google.com/app)
+            - Add it as a bookmark with the name `Gemini`
+
+        - Claude
+            - Sign into [Claude](https://claude.ai/)
+            - Add it as a bookmark with the name `Claude`
+
+        - ChatGPT
+            - Sign into [ChatGPT](https://chatgpt.com/)
+            - Add it as a bookmark with the name `ChatGPT`
+
+        - Copilot
+            - Sign into [Copilot](https://copilot.microsoft.com/chats/)
+            - Add it as a bookmark with the name `Copilot`
+
+        - Z AI
+            - Sign into [Z AI](https://chat.z.ai/)
+            - Add it as a bookmark with the name `Z AI`
+
+        - Kimi K2
+            - Sign into [Kimi K2](https://www.kimi.com/)
+            - Add it as a bookmark with the name `Kimi K2`
+
+        - Qwen AI
+            - Sign into [Qwen AI](https://chat.qwen.ai/)
+            - Add it as a bookmark with the name `Qwen AI`
+
+        - 1 Min AI
+            - Sign into [1 Min AI](https://app.1min.ai/)
+            - Add it as a bookmark with the name `1 Min AI`
+
+        - HotBot AI
+            - Sign into [HotBot AI](https://www.hotbot.com/all-chats)
+            - Add it as a bookmark with the name `HotBot AI`
 
 > Note: If a site on Brave isn't working, click on the Brave icon in the address bar and disable `scripts`, `fingerptinting` or `shields`
 
