@@ -133,6 +133,9 @@
 (tool-bar-mode -1) ; Remove tool bar
 (setq-default mode-line-format nil) ; Remove the mode line
 (modify-all-frames-parameters '((mode-line-format . none))) ; Remove the mode line from all frames
+(add-hook 'neo-after-create-hook
+          (lambda (&rest _)
+            (setq-local mode-line-format nil))) ; Remove mode line from Neotree
 
 ;; =============== Neotree ===============
 (add-hook 'neotree-mode-hook
