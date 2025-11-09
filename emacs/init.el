@@ -127,6 +127,7 @@
 (setq neotree-enable-arrow-and-mouse-support t) ; Enable mouse support inside neotree
 (setq neo-auto-indent-point t) ; Auto-indent neotree
 (setq neo-show-updir-line t) ; Show ".." for parent directory inside neotree
+(tab-bar-mode) ; Enable the line showing tabs at the top of the editor
 
 ;; =============== Neotree ===============
 (add-hook 'neotree-mode-hook
