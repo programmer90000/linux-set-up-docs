@@ -268,6 +268,9 @@ Add Bookmarks
         - Magic Loops AI
             - Sign into [Magic Loops AI](https://magicloops.dev/)
             - Add it as a bookmark with the name `Magic Loops AI`
+        - Freepik AI
+            - Sign into [Freepik AI](https://www.freepik.com/)
+            - Add it as a bookmark with the name `Freepik AI`
 
 > Note: If a site on Brave isn't working, click on the Brave icon in the address bar and disable `scripts`, `fingerptinting` or `shields`
 
