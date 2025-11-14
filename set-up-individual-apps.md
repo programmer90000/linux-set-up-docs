@@ -244,6 +244,18 @@ Add Bookmarks
         - HotBot AI
             - Sign into [HotBot AI](https://www.hotbot.com/all-chats)
             - Add it as a bookmark with the name `HotBot AI`
+        - Speechma AI
+            - Open [Speechma AI](https://speechma.com/)
+            - Add it as a bookmark with the name `Speechma AI`
+        - Kyutai TTS AI
+            - Open [Kyutai TTS AI](https://kyutai.org/next/tts)
+            - Add it as a bookmark with the name `Kyutai TTS AI`
+        - Hunyuan
+            - Open [Hunyuan Video AI](https://www.hunyuanvideo.org/)
+            - Add it as a bookmark with the name `Hunyuan Video AI`
+        - Dreamina
+            - Sign into [Dreamina AI](https://dreamina.capcut.com/)
+            - Add it as a bookmark with the name `Dreamina AI`
 
 > Note: If a site on Brave isn't working, click on the Brave icon in the address bar and disable `scripts`, `fingerptinting` or `shields`
 
