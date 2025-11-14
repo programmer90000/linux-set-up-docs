@@ -259,6 +259,9 @@ Add Bookmarks
         - Gamma AI
             - Sign into [Gamma AI](https://gamma.app/)
             - Add it as a bookmark with the name `Gamma AI`
+        - Leonardo AI
+            - Sign into [Leonardo AI](https://app.leonardo.ai/)
+            - Add it as a bookmark with the name `Leonardo AI`
 
 > Note: If a site on Brave isn't working, click on the Brave icon in the address bar and disable `scripts`, `fingerptinting` or `shields`
 
