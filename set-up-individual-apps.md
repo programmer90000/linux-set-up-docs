@@ -247,6 +247,9 @@ Add Bookmarks
         - Dreamina
             - Sign into [Dreamina AI](https://dreamina.capcut.com/)
             - Add it as a bookmark with the name `Dreamina AI`
+        - Seedream
+            - Sign into [Seeream](https://seedream.pro/)
+            - Add it as a bookmark with the name `Seedream AI`
         - Gamma AI
             - Sign into [Gamma AI](https://gamma.app/)
             - Add it as a bookmark with the name `Gamma AI`
