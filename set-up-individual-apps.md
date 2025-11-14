@@ -205,72 +205,84 @@ Add Bookmarks
 
 - Make a new folder inside the bookmarks bar with the name `AI`
     - Inside this folder, do the following:
-        - DeepSeek
-            - Sign into [DeepSeek](https://chat.deepseek.com/)
-            - Add it as a bookmark with the name `DeepSeek`
-        - Gemini
-            - Sign into [Gemini](https://gemini.google.com/app)
-            - Add it as a bookmark with the name `Gemini`
-        - Claude
-            - Sign into [Claude](https://claude.ai/)
-            - Add it as a bookmark with the name `Claude`
-        - ChatGPT
-            - Sign into [ChatGPT](https://chatgpt.com/)
-            - Add it as a bookmark with the name `ChatGPT`
-        - Copilot
-            - Sign into [Copilot](https://copilot.microsoft.com/chats/)
-            - Add it as a bookmark with the name `Copilot`
-        - Z AI
-            - Sign into [Z AI](https://chat.z.ai/)
-            - Add it as a bookmark with the name `Z AI`
-        - Kimi K2
-            - Sign into [Kimi K2](https://www.kimi.com/)
-            - Add it as a bookmark with the name `Kimi K2`
-        - Qwen AI
-            - Sign into [Qwen AI](https://chat.qwen.ai/)
-            - Add it as a bookmark with the name `Qwen AI`
-        - 1 Min AI
-            - Sign into [1 Min AI](https://app.1min.ai/)
-            - Add it as a bookmark with the name `1 Min AI`
-        - HotBot AI
-            - Sign into [HotBot AI](https://www.hotbot.com/all-chats)
-            - Add it as a bookmark with the name `HotBot AI`
-        - Speechma AI
-            - Open [Speechma AI](https://speechma.com/)
-            - Add it as a bookmark with the name `Speechma AI`
-        - Kyutai TTS AI
-            - Open [Kyutai TTS AI](https://kyutai.org/next/tts)
-            - Add it as a bookmark with the name `Kyutai TTS AI`
-        - Hunyuan
-            - Open [Hunyuan Video AI](https://www.hunyuanvideo.org/)
-            - Add it as a bookmark with the name `Hunyuan Video AI`
-        - Dreamina
-            - Sign into [Dreamina AI](https://dreamina.capcut.com/)
-            - Add it as a bookmark with the name `Dreamina AI`
-        - Seedream
-            - Sign into [Seeream](https://seedream.pro/)
-            - Add it as a bookmark with the name `Seedream AI`
-        - Gamma AI
-            - Sign into [Gamma AI](https://gamma.app/)
-            - Add it as a bookmark with the name `Gamma AI`
-        - Leonardo AI
-            - Sign into [Leonardo AI](https://app.leonardo.ai/)
-            - Add it as a bookmark with the name `Leonardo AI`
-        - Weavy AI
-            - Sign into [Weavy AI](https://www.weavy.ai/)
-            - Add it as a bookmark with the name `Weavy AI`
-        - Magic Loops AI
-            - Sign into [Magic Loops AI](https://magicloops.dev/)
-            - Add it as a bookmark with the name `Magic Loops AI`
-        - Freepik AI
-            - Sign into [Freepik AI](https://www.freepik.com/)
-            - Add it as a bookmark with the name `Freepik AI`
-        - SkyReels AI
-            - Sign into [SkyReels AI](https://www.skyreels.ai/)
-            - Add it as a bookmark with the name `SkyReels AI`
-        - ActivePieces AI
-            - Sign into [ActivePieces AI](https://cloud.activepieces.com/)
-            - Add it as a bookmark with the name `ActivePieces AI`
+        - Create a new folder titled `General`
+        - Add the following bookmarks to the `General` folder
+            - DeepSeek
+                - Sign into [DeepSeek](https://chat.deepseek.com/)
+                - Add it as a bookmark with the name `DeepSeek`
+            - Gemini
+                - Sign into [Gemini](https://gemini.google.com/app)
+                - Add it as a bookmark with the name `Gemini`
+            - Claude
+                - Sign into [Claude](https://claude.ai/)
+                - Add it as a bookmark with the name `Claude`
+            - ChatGPT
+                - Sign into [ChatGPT](https://chatgpt.com/)
+                - Add it as a bookmark with the name `ChatGPT`
+            - Copilot
+                - Sign into [Copilot](https://copilot.microsoft.com/chats/)
+                - Add it as a bookmark with the name `Copilot`
+            - Z AI
+                - Sign into [Z AI](https://chat.z.ai/)
+                - Add it as a bookmark with the name `Z AI`
+            - Kimi K2
+                - Sign into [Kimi K2](https://www.kimi.com/)
+                - Add it as a bookmark with the name `Kimi K2`
+            - Qwen AI
+                - Sign into [Qwen AI](https://chat.qwen.ai/)
+                - Add it as a bookmark with the name `Qwen AI`
+            - 1 Min AI
+                - Sign into [1 Min AI](https://app.1min.ai/)
+                - Add it as a bookmark with the name `1 Min AI`
+            - HotBot AI
+                - Sign into [HotBot AI](https://www.hotbot.com/all-chats)
+                - Add it as a bookmark with the name `HotBot AI`
+        - Create a new folder titled `Video/Audio`
+        - Add the following to the `Video/Audio` folder
+            - Create a new folder titled `Video`
+            - Add the following bookmarks to the `Video` folder
+                - Hunyuan Video AI
+                    - Open [Hunyuan Video AI](https://www.hunyuanvideo.org/)
+                    - Add it as a bookmark with the name `Hunyuan Video AI`
+                - Dreamina
+                    - Sign into [Dreamina AI](https://dreamina.capcut.com/)
+                    - Add it as a bookmark with the name `Dreamina AI`
+                - Seedream
+                    - Sign into [Seeream](https://seedream.pro/)
+                    - Add it as a bookmark with the name `Seedream AI`
+                - SkyReels AI
+                    - Sign into [SkyReels AI](https://www.skyreels.ai/)
+                    - Add it as a bookmark with the name `SkyReels AI`
+            - Create a new folder titled `Audio`
+            - Add the following bookmarks to the `Audio` folder
+                - Speechma AI
+                    - Open [Speechma AI](https://speechma.com/)
+                    - Add it as a bookmark with the name `Speechma AI`
+                - Kyutai TTS AI
+                    - Open [Kyutai TTS AI](https://kyutai.org/next/tts)
+                    - Add it as a bookmark with the name `Kyutai TTS AI`
+        - Create a new folder titled `Design`
+            - Add the following bookmarks to the `Design` folder
+            - Freepik AI
+                - Sign into [Freepik AI](https://www.freepik.com/)
+                - Add it as a bookmark with the name `Freepik AI`
+            - Gamma AI
+                - Sign into [Gamma AI](https://gamma.app/)
+                - Add it as a bookmark with the name `Gamma AI`
+            - Leonardo AI
+                - Sign into [Leonardo AI](https://app.leonardo.ai/)
+                - Add it as a bookmark with the name `Leonardo AI`
+        - Create a new folder titled `Productivity/Workflow`
+        - Add the following bookmarks to the `Productivity/Workflow` folder
+            - Weavy AI
+                - Sign into [Weavy AI](https://www.weavy.ai/)
+                - Add it as a bookmark with the name `Weavy AI`
+            - Magic Loops AI
+                - Sign into [Magic Loops AI](https://magicloops.dev/)
+                - Add it as a bookmark with the name `Magic Loops AI`
+            - ActivePieces AI
+                - Sign into [ActivePieces AI](https://cloud.activepieces.com/)
+                - Add it as a bookmark with the name `ActivePieces AI`
 
 > Note: If a site on Brave isn't working, click on the Brave icon in the address bar and disable `scripts`, `fingerptinting` or `shields`
 
