@@ -207,27 +207,27 @@ Add Bookmarks
     - Inside this folder, do the following:
         - Create a new folder titled `General`
         - Add the following bookmarks to the `General` folder
-            - DeepSeek
+            - DeepSeek AI
                 - Sign into [DeepSeek](https://chat.deepseek.com/)
-                - Add it as a bookmark with the name `DeepSeek`
-            - Gemini
+                - Add it as a bookmark with the name `DeepSeek AI`
+            - Gemini AI
                 - Sign into [Gemini](https://gemini.google.com/app)
-                - Add it as a bookmark with the name `Gemini`
-            - Claude
+                - Add it as a bookmark with the name `Gemini AI`
+            - Claude AI
                 - Sign into [Claude](https://claude.ai/)
-                - Add it as a bookmark with the name `Claude`
-            - ChatGPT
+                - Add it as a bookmark with the name `Claude AI`
+            - ChatGPT AI
                 - Sign into [ChatGPT](https://chatgpt.com/)
-                - Add it as a bookmark with the name `ChatGPT`
-            - Copilot
+                - Add it as a bookmark with the name `ChatGPT AI`
+            - Copilot AI
                 - Sign into [Copilot](https://copilot.microsoft.com/chats/)
-                - Add it as a bookmark with the name `Copilot`
+                - Add it as a bookmark with the name `Copilot AI`
             - Z AI
                 - Sign into [Z AI](https://chat.z.ai/)
                 - Add it as a bookmark with the name `Z AI`
-            - Kimi K2
+            - Kimi K2 AI
                 - Sign into [Kimi K2](https://www.kimi.com/)
-                - Add it as a bookmark with the name `Kimi K2`
+                - Add it as a bookmark with the name `Kimi K2 AI`
             - Qwen AI
                 - Sign into [Qwen AI](https://chat.qwen.ai/)
                 - Add it as a bookmark with the name `Qwen AI`
@@ -244,10 +244,10 @@ Add Bookmarks
                 - Hunyuan Video AI
                     - Open [Hunyuan Video AI](https://www.hunyuanvideo.org/)
                     - Add it as a bookmark with the name `Hunyuan Video AI`
-                - Dreamina
+                - Dreamina AI
                     - Sign into [Dreamina AI](https://dreamina.capcut.com/)
                     - Add it as a bookmark with the name `Dreamina AI`
-                - Seedream
+                - Seedream AI
                     - Sign into [Seeream](https://seedream.pro/)
                     - Add it as a bookmark with the name `Seedream AI`
                 - SkyReels AI
