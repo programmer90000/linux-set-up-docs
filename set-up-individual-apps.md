@@ -262,6 +262,12 @@ Add Bookmarks
         - Freepik AI
             - Sign into [Freepik AI](https://www.freepik.com/)
             - Add it as a bookmark with the name `Freepik AI`
+        - SkyReels AI
+            - Sign into [SkyReels AI](https://www.skyreels.ai/)
+            - Add it as a bookmark with the name `SkyReels AI`
+        - ActivePieces AI
+            - Sign into [ActivePieces AI](https://cloud.activepieces.com/)
+            - Add it as a bookmark with the name `ActivePieces AI`
 
 > Note: If a site on Brave isn't working, click on the Brave icon in the address bar and disable `scripts`, `fingerptinting` or `shields`
 
