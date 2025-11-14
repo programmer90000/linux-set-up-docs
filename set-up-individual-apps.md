@@ -256,6 +256,9 @@ Add Bookmarks
         - Dreamina
             - Sign into [Dreamina AI](https://dreamina.capcut.com/)
             - Add it as a bookmark with the name `Dreamina AI`
+        - Gamma AI
+            - Sign into [Gamma AI](https://gamma.app/)
+            - Add it as a bookmark with the name `Gamma AI`
 
 > Note: If a site on Brave isn't working, click on the Brave icon in the address bar and disable `scripts`, `fingerptinting` or `shields`
 
