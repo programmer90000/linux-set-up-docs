@@ -262,6 +262,9 @@ Add Bookmarks
         - Leonardo AI
             - Sign into [Leonardo AI](https://app.leonardo.ai/)
             - Add it as a bookmark with the name `Leonardo AI`
+        - Weavy AI
+            - Sign into [Weavy AI](https://www.weavy.ai/)
+            - Add it as a bookmark with the name `Weavy AI`
 
 > Note: If a site on Brave isn't working, click on the Brave icon in the address bar and disable `scripts`, `fingerptinting` or `shields`
 
