@@ -414,28 +414,25 @@
       (switch-to-buffer buffer))))
 
 (defun my-close-all-tabs ()
-  "Close all tabs and all buffers, leaving only one empty tab."
+  "Close all tabs and all buffers"
   (interactive)
   ;; Save any modified buffers first
   (save-some-buffers)
   
-  ;; Kill all buffers except special ones
+  ;; Kill all buffers
   (dolist (buffer (buffer-list))
-    (unless (or (string-match-p "^\\*" (buffer-name buffer))
-                (eq buffer (current-buffer)))
+    (unless (string-match-p "^\\*" (buffer-name buffer))
       (kill-buffer buffer)))
 
-  ;; Close all tabs except current one
+  ;; Close all tabs
   (while (> (length (tab-bar-tabs)) 1)
     (tab-bar-close-other-tabs))
 
-  ;; Switch to scratch buffer in the remaining tab
-  (switch-to-buffer "*scratch*")
+  ;; Create new empty buffer
+  (let ((new-buffer (generate-new-buffer "untitled")))
+    (switch-to-buffer new-buffer))
 
-  ;; Clear the scratch buffer
-  (erase-buffer)
-
-  (message "All tabs and buffers closed"))
+  (message "All tabs closed - new empty buffer created"))
 
 (defun my-file-menu ()
   "File menu dropdown."
