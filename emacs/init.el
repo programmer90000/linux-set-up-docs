@@ -38,7 +38,7 @@
 (setq recentf-max-menu-items 15) ; Number of recent files to remember
 (setq recentf-max-saved-items 30) ; Max recent files to save
 (tool-bar-mode 1) ; Enable toolbar
-(menu-bar-mode -1) ; Disable menu bar
+(menu-bar-mode 1) ; Enable menu bar
 (scroll-bar-mode 1) ; Enable scroll bars
 (setq frame-title-format "%b - Emacs") ; Window title format
 (setq icon-title-format frame-title-format) ; Icon title format
@@ -133,8 +133,6 @@
 (tool-bar-mode -1) ; Remove tool bar
 (setq-default mode-line-format nil) ; Remove the mode line
 (modify-all-frames-parameters '((mode-line-format . none))) ; Remove the mode line from all frames
-(setq use-dialog-box t) ; Use the systems default dialog box
-(setq use-file-dialog t) ; Use the systems default file dialog
 (add-hook 'neo-after-create-hook
           (lambda (&rest _)
             (setq-local mode-line-format nil))) ; Remove mode line from Neotree
@@ -366,22 +364,3 @@
         (setq-local truncate-lines t)
         (setq-local window-size-fixed 'width)
         (read-only-mode 1)))))
-
-;; Create a custom menu bar
-(setq header-line-format
-  '(""
-    ;; File menu button
-    (:eval
-     (propertize " File "
-       'face '(:background "#264f78" :foreground "white" :weight bold)
-       'mouse-face '(:background "#1e3a5f")
-       'local-map (let ((map (make-sparse-keymap)))
-                    (define-key map [header-line mouse-1]
-                      (lambda () (interactive)
-                        (popup-menu
-                         (list nil
-                               ["New File" find-file]))))
-                    map)))
-    ))
-
-(setq-default header-line-format header-line-format)
