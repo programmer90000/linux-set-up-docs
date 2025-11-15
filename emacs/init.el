@@ -379,7 +379,7 @@
                     (define-key map [header-line mouse-1]
                       (lambda () (interactive)
                         (popup-menu
-                         (list ""
+                         (list nil
                                ["New File" find-file]))))
                     map)))
     ))
