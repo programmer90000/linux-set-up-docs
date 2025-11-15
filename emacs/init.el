@@ -382,15 +382,46 @@
               (y-pos 35))
           (list (list x-pos y-pos) (selected-frame)))))))
 
+(defun my-open-file-dialog ()
+  "Open KDE Plasma file dialog to select a file."
+  (interactive)
+  (if (display-graphic-p)
+      (let ((file (x-file-dialog "Open File" default-directory)))
+        (when file
+          (find-file file)))
+    ;; Fallback for terminal
+    (call-interactively 'find-file)))
+
+(defun my-save-as-dialog ()
+  "Open KDE Plasma save dialog to save a file."
+  (interactive)
+  (if (display-graphic-p)
+      (let ((file (x-file-dialog "Save File As" default-directory nil nil 'write-file)))
+        (when file
+          (write-file file)))
+    ;; Fallback for terminal
+    (call-interactively 'write-file)))
+
+(defun my-create-file-dialog ()
+  "Open KDE Plasma file dialog to create a new file."
+  (interactive)
+  (if (display-graphic-p)
+      (let ((file (x-file-dialog "Create New File" default-directory)))
+        (when file
+          (write-file file)))
+    ;; Fallback for terminal - create empty buffer
+    (let ((buffer (generate-new-buffer "untitled")))
+      (switch-to-buffer buffer))))
+
 (defun my-file-menu ()
   "File menu dropdown."
   (interactive)
   (popup-menu
    '(
-     ["New File" find-file]
-     ["Open File..." find-file]
+     ["New File" my-create-file-dialog]
+     ["Open File..." my-open-file-dialog]
      ["Save" save-buffer]
-     ["Save As..." write-file]
+     ["Save As..." my-save-as-dialog]
      "--"
      ["Close File" kill-this-buffer]
      ["Close All" kill-some-buffers]
