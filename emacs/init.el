@@ -413,6 +413,11 @@
     (let ((buffer (generate-new-buffer "untitled")))
       (switch-to-buffer buffer))))
 
+(defun my-close-all-buffers ()
+  "Close all buffers without prompting."
+  (interactive)
+  (mapc 'kill-buffer (buffer-list)))
+
 (defun my-file-menu ()
   "File menu dropdown."
   (interactive)
@@ -424,7 +429,7 @@
      ["Save As..." my-save-as-dialog]
      "--"
      ["Close File" kill-this-buffer]
-     ["Close All" kill-some-buffers]
+     ["Close All" my-close-all-buffers]
      "--"
      ["New Tab" tab-new]
      ["Close Tab" tab-close]
