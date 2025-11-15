@@ -386,7 +386,7 @@
   "File menu dropdown."
   (interactive)
   (popup-menu
-   '("File"
+   '(
      ["New File" find-file]
      ["Open File..." find-file]
      ["Save" save-buffer]
@@ -405,7 +405,7 @@
   "Edit menu dropdown."
   (interactive)
   (popup-menu
-   '("Edit"
+   '(
      ["Undo" undo-only]
      ["Redo" undo-redo]
      "--"
@@ -425,7 +425,7 @@
   "View menu dropdown."
   (interactive)
   (popup-menu
-   '("View"
+   '(
      ["Toggle File Explorer" neotree-toggle]
      ["Toggle Search & Replace" search-and-replace]
      "--"
@@ -443,7 +443,7 @@
   "Tools menu dropdown."
   (interactive)
   (popup-menu
-   '("Tools"
+   '(
      ["File Explorer" neotree-toggle]
      ["Search & Replace" search-and-replace]
      "--"
@@ -460,7 +460,7 @@
   "Help menu dropdown."
   (interactive)
   (popup-menu
-   '("Help"
+   '(
      ["Emacs Manual" info-emacs-manual]
      ["Emacs Tutorial" help-with-tutorial]
      "--"
