@@ -133,6 +133,8 @@
 (tool-bar-mode -1) ; Remove tool bar
 (setq-default mode-line-format nil) ; Remove the mode line
 (modify-all-frames-parameters '((mode-line-format . none))) ; Remove the mode line from all frames
+(setq use-dialog-box t) ; Use the systems default dialog box
+(setq use-file-dialog t) ; Use the systems default file dialog
 (add-hook 'neo-after-create-hook
           (lambda (&rest _)
             (setq-local mode-line-format nil))) ; Remove mode line from Neotree
