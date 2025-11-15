@@ -364,3 +364,167 @@
         (setq-local truncate-lines t)
         (setq-local window-size-fixed 'width)
         (read-only-mode 1)))))
+
+;; =============== Menu Bar ===============
+(defun my-get-menu-position (menu-name)
+  "Calculate position for popup menu directly under the menu item."
+  (when (display-graphic-p)
+    (let* ((char-width (frame-char-width))
+           (header-height (frame-char-height))
+           (menu-positions '(("File" . 0)
+                             ("Edit" . 7)
+                             ("View" . 14)
+                             ("Tools" . 21)
+                             ("Help" . 29)))
+           (menu-pos (cdr (assoc menu-name menu-positions))))
+      (when menu-pos
+        (let ((x-pos (* char-width menu-pos))
+              (y-pos 35))
+          (list (list x-pos y-pos) (selected-frame)))))))
+
+(defun my-file-menu ()
+  "File menu dropdown."
+  (interactive)
+  (popup-menu
+   '("File"
+     ["New File" find-file]
+     ["Open File..." find-file]
+     ["Save" save-buffer]
+     ["Save As..." write-file]
+     "--"
+     ["Close File" kill-this-buffer]
+     ["Close All" kill-some-buffers]
+     "--"
+     ["New Tab" tab-new]
+     ["Close Tab" tab-close]
+     "--"
+     ["Quit Emacs" save-buffers-kill-terminal])
+   (my-get-menu-position "File")))
+
+(defun my-edit-menu ()
+  "Edit menu dropdown."
+  (interactive)
+  (popup-menu
+   '("Edit"
+     ["Undo" undo-only]
+     ["Redo" undo-redo]
+     "--"
+     ["Cut" kill-region]
+     ["Copy" kill-ring-save]
+     ["Paste" yank]
+     ["Select All" mark-whole-buffer]
+     "--"
+     ["Find" isearch-forward]
+     ["Find and Replace" query-replace]
+     "--"
+     ["Indent Region" indent-region]
+     ["Comment Region" comment-region])
+   (my-get-menu-position "Edit")))
+
+(defun my-view-menu ()
+  "View menu dropdown."
+  (interactive)
+  (popup-menu
+   '("View"
+     ["Toggle File Explorer" neotree-toggle]
+     ["Toggle Search & Replace" search-and-replace]
+     "--"
+     ["Toggle Line Numbers" global-display-line-numbers-mode]
+     ["Toggle Word Wrap" visual-line-mode]
+     ["Toggle Syntax Highlighting" global-font-lock-mode]
+     ["Highlight Current Line" global-hl-line-mode]
+     "--"
+     ["Zoom In" text-scale-increase]
+     ["Zoom Out" text-scale-decrease]
+     ["Reset Zoom" text-scale-adjust])
+   (my-get-menu-position "View")))
+
+(defun my-tools-menu ()
+  "Tools menu dropdown."
+  (interactive)
+  (popup-menu
+   '("Tools"
+     ["File Explorer" neotree-toggle]
+     ["Search & Replace" search-and-replace]
+     "--"
+     ["Compile" compile]
+     ["Debug" gdb]
+     "--"
+     ["Terminal" ansi-term]
+     ["Command Palette" execute-extended-command]
+     "--"
+     ["Customize Emacs" customize])
+   (my-get-menu-position "Tools")))
+
+(defun my-help-menu ()
+  "Help menu dropdown."
+  (interactive)
+  (popup-menu
+   '("Help"
+     ["Emacs Manual" info-emacs-manual]
+     ["Emacs Tutorial" help-with-tutorial]
+     "--"
+     ["Describe Key" describe-key]
+     ["Describe Function" describe-function]
+     ["Describe Variable" describe-variable]
+     "--"
+     ["Find File by Name" find-file]
+     ["Switch Buffer" switch-to-buffer]
+     "--"
+     ["About Emacs" about-emacs]
+     ["Emacs Version" emacs-version])
+   (my-get-menu-position "Help")))
+
+(defun my-create-menu-bar ()
+  "Create the custom menu bar."
+  (concat
+   "  "
+   (propertize "File"
+               'face '(:weight bold)
+               'mouse-face 'highlight
+               'help-echo "File menu"
+               'local-map (let ((map (make-sparse-keymap)))
+                            (define-key map [header-line mouse-1] 'my-file-menu)
+                            map))
+   " | "
+   (propertize "Edit"
+               'face '(:weight bold)
+               'mouse-face 'highlight
+               'help-echo "Edit menu"
+               'local-map (let ((map (make-sparse-keymap)))
+                            (define-key map [header-line mouse-1] 'my-edit-menu)
+                            map))
+   " | "
+   (propertize "View"
+               'face '(:weight bold)
+               'mouse-face 'highlight
+               'help-echo "View menu"
+               'local-map (let ((map (make-sparse-keymap)))
+                            (define-key map [header-line mouse-1] 'my-view-menu)
+                            map))
+   " | "
+   (propertize "Tools"
+               'face '(:weight bold)
+               'mouse-face 'highlight
+               'help-echo "Tools menu"
+               'local-map (let ((map (make-sparse-keymap)))
+                            (define-key map [header-line mouse-1] 'my-tools-menu)
+                            map))
+   " | "
+   (propertize "Help"
+               'face '(:weight bold)
+               'mouse-face 'highlight
+               'help-echo "Help menu"
+               'local-map (let ((map (make-sparse-keymap)))
+                            (define-key map [header-line mouse-1] 'my-help-menu)
+                            map))))
+
+;; Set the custom menu bar
+(setq-default header-line-format '(:eval (my-create-menu-bar)))
+
+;; Ensure proper header line appearance
+(set-face-attribute 'header-line nil
+                    :height 100
+                    :background "#2d2d30"
+                    :foreground "white"
+                    :box nil)
