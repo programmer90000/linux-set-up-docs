@@ -1,5 +1,5 @@
-(defun header-menu ()
-  "Show a dropdown menu when header is clicked."
+(defun file-menu ()
+  "Show file operations dropdown menu"
   (interactive)
   (let ((menu (easy-menu-create-menu
                nil
@@ -12,8 +12,8 @@
                        (selected-window))
                  menu)))
 
-(defun header2-menu ()
-  "Show a dropdown menu when header 2 is clicked."
+(defun edit-menu ()
+  "Show edit operations dropdown menu"
   (interactive)
   (let ((menu (easy-menu-create-menu
                nil
@@ -22,29 +22,29 @@
                  "---"
                  ["Reload Config" (load-file "~/.emacs.d/init.el")]
                  ["Exit Emacs" save-buffers-kill-emacs]))))
-    (x-popup-menu (list (list (* 11 (frame-char-width))
+    (x-popup-menu (list (list (* 7 (frame-char-width))
                             (frame-char-height))
                        (selected-window))
                  menu)))
 
 (setq header-line-format
     (list
-        (propertize "HEADER 1"
+        (propertize "File"
             'face '(:background "red" :foreground "white" :bold t :height 1.0)
             'local-map (let ((map (make-sparse-keymap)))
-                         (define-key map [header-line mouse-1] 'header-menu)
-                         (define-key map [header-line down-mouse-1] 'header-menu)
+                         (define-key map [header-line mouse-1] 'file-menu)
+                         (define-key map [header-line down-mouse-1] 'file-menu)
                          map)
-            'help-echo "Click for menu 1")
+            'help-echo "Click for file menu")
         (propertize "   "
             'face '(:background "red"))
-        (propertize "HEADER 2"
+        (propertize "Edit"
             'face '(:background "red" :foreground "white" :bold t :height 1.0)
             'local-map (let ((map (make-sparse-keymap)))
-                         (define-key map [header-line mouse-1] 'header2-menu)
-                         (define-key map [header-line down-mouse-1] 'header2-menu)
+                         (define-key map [header-line mouse-1] 'edit-menu)
+                         (define-key map [header-line down-mouse-1] 'edit-menu)
                          map)
-            'help-echo "Click for menu 2")
+            'help-echo "Click for edit menu")
         (propertize (make-string 1000 ? )
             'face '(:background "red"))))
 
