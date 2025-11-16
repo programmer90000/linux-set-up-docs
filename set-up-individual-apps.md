@@ -577,14 +577,22 @@ emacs ~/.emacs.d/init.el
 
 Paste the code from the [init.el](./emacs/init.el) file in this file
 
-### Install Neotree
+### Install The Menu Bar
 
 Run:
 ```
 mkdir -p ~/.emacs.d/lisp/
 ```
 
-Copy the files from the [neotree](./emacs/neotree/) directory into this directory:
+Copy the files from the [menu bar](./emacs/menu-bar/) directory into the `~/.emacs.d/lisp/` directory:
+```
+cp -r menu-bar ~/.emacs.d/lisp/menu-bar/
+```
+
+### Install Neotree
+
+
+Copy the files from the [neotree](./emacs/neotree/) directory into the `~/.emacs.d/lisp/` drectory:
 ```
 cp -r emacs-neotree/ ~/.emacs.d/lisp/neotree/
 ```
