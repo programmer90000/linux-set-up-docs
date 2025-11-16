@@ -22,7 +22,7 @@
                  "---"
                  ["Reload Config" (load-file "~/.emacs.d/init.el")]
                  ["Exit Emacs" save-buffers-kill-emacs]))))
-    (x-popup-menu (list (list (* 9 (frame-char-width))
+    (x-popup-menu (list (list (* 11 (frame-char-width))
                             (frame-char-height))
                        (selected-window))
                  menu)))
@@ -36,7 +36,7 @@
                          (define-key map [header-line down-mouse-1] 'header-menu)
                          map)
             'help-echo "Click for menu 1")
-        (propertize " "
+        (propertize "   "
             'face '(:background "red"))
         (propertize "HEADER 2"
             'face '(:background "red" :foreground "white" :bold t :height 1.0)
