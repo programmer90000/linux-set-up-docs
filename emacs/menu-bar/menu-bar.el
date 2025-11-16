@@ -8,7 +8,9 @@
                  "---"
                  ["Reload Config" (load-file "~/.emacs.d/init.el")]
                  ["Exit Emacs" save-buffers-kill-emacs]))))
-    (x-popup-menu (list (list 0 0) (selected-window)) menu)))
+    (x-popup-menu (list (list 0 (frame-char-height))
+                       (selected-window))
+                 menu)))
 
 (defun header2-menu ()
   "Show a dropdown menu when header 2 is clicked."
@@ -20,7 +22,8 @@
                  "---"
                  ["Reload Config" (load-file "~/.emacs.d/init.el")]
                  ["Exit Emacs" save-buffers-kill-emacs]))))
-    (x-popup-menu (list (list (* 9 (frame-char-width)) 0)
+    (x-popup-menu (list (list (* 9 (frame-char-width))
+                            (frame-char-height))
                        (selected-window))
                  menu)))
 
