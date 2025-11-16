@@ -1,9 +1,8 @@
 (setq header-line-format
-    '(:eval (propertize "HEADER"
-        'face '(:background "red" :foreground "white" :bold t
-            :height 0.8))))
+    (list
+        (propertize (concat "HEADER" (make-string 1000 ? ))
+            'face '(:background "red" :foreground "white" :bold t))))
 
-;; Force header line to be visible in all buffers
 (setq-default header-line-format header-line-format)
 
 (provide 'header)
