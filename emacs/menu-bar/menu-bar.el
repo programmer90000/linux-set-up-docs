@@ -40,9 +40,11 @@
          ;; Calculate pixel width of first button text
          (first-button-width (with-selected-window window
                                (string-width header-first-button-text)))
+         (gap-width (with-selected-window window
+                      (string-width header-button-gap)))
          ;; Convert character width to pixels (approximate)
          (char-width (frame-char-width))
-         (menu-x (* first-button-width char-width))
+         (menu-x (* (+ first-button-width gap-width) char-width))
          (menu-y (window-header-line-height window))
          (position (list (list menu-x menu-y) window)))
     (popup-menu
