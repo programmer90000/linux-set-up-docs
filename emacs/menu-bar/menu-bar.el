@@ -79,6 +79,11 @@
        ["Copy Path" (lambda () (interactive)
                       (kill-new (buffer-file-name))
                       (message "Copied: %s" (buffer-file-name)))]
+       ["Show File Info" (lambda () (interactive)
+                           (message "File: %s | Size: %d bytes | Mode: %s"
+                                    (buffer-file-name)
+                                    (buffer-size)
+                                    major-mode))])
      position)))
 
 (defun kde-new-file ()
