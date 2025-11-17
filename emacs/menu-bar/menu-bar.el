@@ -74,6 +74,7 @@
        "---"
        ["Save" save-buffer]
        ["Save As" kde-save-as]
+       ["Save All" (lambda () (interactive) (save-some-buffers t))]
      position)))
 
 (defun kde-new-file ()
