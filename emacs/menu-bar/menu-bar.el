@@ -1,53 +1,31 @@
-(defun file-menu ()
-  "Show file operations dropdown menu"
-  (interactive)
-  (let ((menu (easy-menu-create-menu
-               nil
-               '(["Option 1" (message "You chose Option 1")]
-                 ["Option 2" (message "You chose Option 2")]
-                 "---"
-                 ["Reload Config" (load-file "~/.emacs.d/init.el")]
-                 ["Exit Emacs" save-buffers-kill-emacs]))))
-    (x-popup-menu (list (list 0 (frame-char-height))
-                       (selected-window))
-                 menu)))
+(defvar header-line-content " ")
 
-(defun edit-menu ()
-  "Show edit operations dropdown menu"
-  (interactive)
-  (let ((menu (easy-menu-create-menu
-               nil
-               '(["Option 1" (message "Header 2 - Option 1")]
-                 ["Option 2" (message "Header 2 - Option 2")]
-                 "---"
-                 ["Reload Config" (load-file "~/.emacs.d/init.el")]
-                 ["Exit Emacs" save-buffers-kill-emacs]))))
-    (x-popup-menu (list (list (* 7 (frame-char-width))
-                            (frame-char-height))
-                       (selected-window))
-                 menu)))
+(defun initialize-header-line ()
+  (setq header-line-format '(:eval header-line-content)))
 
-(setq header-line-format
-    (list
-        (propertize "File"
-            'face '(:background "red" :foreground "white" :bold t :height 1.0)
-            'local-map (let ((map (make-sparse-keymap)))
-                         (define-key map [header-line mouse-1] 'file-menu)
-                         (define-key map [header-line down-mouse-1] 'file-menu)
-                         map)
-            'help-echo "Click for file menu")
-        (propertize "   "
-            'face '(:background "red"))
-        (propertize "Edit"
-            'face '(:background "red" :foreground "white" :bold t :height 1.0)
-            'local-map (let ((map (make-sparse-keymap)))
-                         (define-key map [header-line mouse-1] 'edit-menu)
-                         (define-key map [header-line down-mouse-1] 'edit-menu)
-                         map)
-            'help-echo "Click for edit menu")
-        (propertize (make-string 1000 ? )
-            'face '(:background "red"))))
+;; Create dropdown menu
+(defvar header-dropdown-map
+  (let ((map (make-sparse-keymap "Header Dropdown")))
+    (define-key map [header-line mouse-1] #'header-dropdown-show)
+    map))
 
-(setq-default header-line-format header-line-format)
+(defun header-dropdown-show (event)
+  "Show dropdown menu at mouse position."
+  (interactive "e")
+  (popup-menu
+   '(["Switch to Scratch" (switch-to-buffer "*scratch*")]
+     ["Open File" (call-interactively 'find-file)]
+     ["Show Buffer List" (list-buffers)]
+     ["Open Config" (find-file user-init-file)]
+     ["Reload Init" (load-file user-init-file)])
+   (if (listp event) (car (last event)) event)))
 
-(provide 'header)
+;; Set header content with dropdown trigger
+(setq header-line-content
+      (propertize " Menu "
+                  'face '(:background "blue" :foreground "white")
+                  'mouse-face '(:background "dark blue")
+                  'help-echo "Click for menu"
+                  'keymap header-dropdown-map))
+
+(add-hook 'emacs-startup-hook #'initialize-header-line)
