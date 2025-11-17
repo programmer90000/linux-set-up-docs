@@ -63,10 +63,12 @@
        header-initial-space
        (propertize "Menu"
                    'help-echo "Click for menu"
-                   'keymap header-dropdown-map)
+                   'keymap header-dropdown-map
+                   'mouse-face 'highlight)
        header-button-gap
        (propertize "Menu 2"
                    'help-echo "Click for menu 2"
-                   'keymap header-dropdown-map-2)))
+                   'keymap header-dropdown-map-2
+                   'mouse-face 'highlight)))
 
 (add-hook 'emacs-startup-hook #'initialize-header-line)
