@@ -1,5 +1,4 @@
 (defvar header-line-content " ")
-(defvar header-first-button-text "Menu")
 
 (defun initialize-header-line ()
   (setq header-line-format '(:eval header-line-content)))
@@ -40,7 +39,7 @@
          (window (posn-window posn))
          ;; Calculate pixel width of first button text
          (first-button-width (with-selected-window window
-                               (string-width header-first-button-text)))
+                               (string-width "Menu")))
          (gap-width (with-selected-window window
                       (string-width header-button-gap)))
          ;; Convert character width to pixels (approximate)
@@ -61,7 +60,7 @@
 
 (setq header-line-content
       (concat
-       (propertize header-first-button-text
+       (propertize "Menu"
                    'help-echo "Click for menu"
                    'keymap header-dropdown-map)
        header-button-gap
