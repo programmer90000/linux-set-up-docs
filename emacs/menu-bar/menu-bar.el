@@ -1,7 +1,6 @@
 (defvar header-line-content " ")
-
-(defun initialize-header-line ()
-  (setq header-line-format '(:eval header-line-content)))
+(defvar header-initial-space "  ")
+(defvar header-button-gap "  ")
 
 ;; Create dropdown menu for File button
 (defvar header-dropdown-map-file
@@ -36,11 +35,14 @@
                                "~/"))
         (filename nil))
     ;; Get filename from KDE file picker
-    (setq filename (shell-command-to-string "kdialog --getsavefilename ."))
-    ;; Remove trailing newline from the output
-    (setq filename (string-trim filename))
+    (condition-case err
+        (setq filename (string-trim
+                       (shell-command-to-string "kdialog --getsavefilename .")))
+      (error
+       (message "Error calling KDE file picker: %s" err)
+       (setq filename nil)))
 
-    ;; Check if user canceled the dialog (empty string)
+    ;; Check if user canceled the dialog (empty string or nil)
     (when (and filename (not (string-empty-p filename)))
       ;; Create the file if it doesn't exist
       (unless (file-exists-p filename)
@@ -113,9 +115,6 @@
      position)))
 
 ;; Set header content with all dropdown triggers
-(defvar header-initial-space "  ")
-(defvar header-button-gap "  ")
-
 (setq header-line-content
       (concat
        header-initial-space
@@ -134,4 +133,42 @@
                    'keymap header-dropdown-map-2
                    'mouse-face 'highlight)))
 
-(add-hook 'emacs-startup-hook #'initialize-header-line)
+(define-minor-mode custom-header-line-mode
+  "Toggle custom header line mode."
+  :global t
+  :init-value nil
+  :lighter ""
+  :keymap nil
+  (if custom-header-line-mode
+      (progn
+        (setq-default header-line-format '(:eval header-line-content))
+        (dolist (buffer (buffer-list))
+          (with-current-buffer buffer
+            (setq header-line-format '(:eval header-line-content))))
+        (message "Custom header line mode enabled"))
+    (setq-default header-line-format nil)
+    (dolist (buffer (buffer-list))
+      (with-current-buffer buffer
+        (setq header-line-format nil)))
+    (message "Custom header line mode disabled")))
+
+;; Enable the custom header line mode
+(custom-header-line-mode 1)
+
+;; Additional hook to ensure header line is set for new buffers
+(add-hook 'after-change-major-mode-hook
+          (lambda ()
+            (when custom-header-line-mode
+              (setq header-line-format '(:eval header-line-content)))))
+
+;; Hook for new buffers created via find-file
+(add-hook 'find-file-hook
+          (lambda ()
+            (when custom-header-line-mode
+              (setq header-line-format '(:eval header-line-content)))))
+
+;; Hook for tab-bar new tab creation
+(add-hook 'tab-bar-tab-post-open-functions
+          (lambda (tab)
+            (when custom-header-line-mode
+              (setq header-line-format '(:eval header-line-content)))))
