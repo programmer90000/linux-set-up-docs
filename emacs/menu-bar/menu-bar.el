@@ -60,14 +60,10 @@
 (setq header-line-content
       (concat
        (propertize header-first-button-text
-                   'face '(:background "blue" :foreground "white")
-                   'mouse-face '(:background "dark blue")
                    'help-echo "Click for menu"
                    'keymap header-dropdown-map)
        header-button-gap
        (propertize "Menu 2"
-                   'face '(:background "green" :foreground "white")
-                   'mouse-face '(:background "dark green")
                    'help-echo "Click for menu 2"
                    'keymap header-dropdown-map-2)))
 
