@@ -75,6 +75,10 @@
        ["Save" save-buffer]
        ["Save As" kde-save-as]
        ["Save All" (lambda () (interactive) (save-some-buffers t))]
+       "---"
+       ["Copy Path" (lambda () (interactive)
+                      (kill-new (buffer-file-name))
+                      (message "Copied: %s" (buffer-file-name)))]
      position)))
 
 (defun kde-new-file ()
