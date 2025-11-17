@@ -14,7 +14,12 @@
   (interactive "e")
   (let* ((posn (event-start event))
          (window (posn-window posn))
-         (menu-x 0)
+         ;; Calculate pixel width of initial space
+         (initial-space (with-selected-window window
+                          (string-width header-initial-space)))
+         ;; Convert character width to pixels
+         (char-width (frame-char-width))
+         (menu-x (* initial-space char-width))
          (menu-y (window-header-line-height window))
          (position (list (list menu-x menu-y) window)))
     (popup-menu
@@ -42,7 +47,7 @@
                                (string-width "Menu")))
          (gap-width (with-selected-window window
                       (string-width header-button-gap)))
-         ;; Convert character width to pixels (approximate)
+         ;; Convert character width to pixels
          (char-width (frame-char-width))
          (menu-x (* (+ initial-space first-button-width gap-width) char-width))
          (menu-y (window-header-line-height window))
