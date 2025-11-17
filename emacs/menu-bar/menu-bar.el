@@ -8,9 +8,24 @@
     (define-key map [header-line mouse-1] #'header-dropdown-show-file)
     map))
 
+(defun get-recent-files-list ()
+  "Get list of recent files."
+  (cond
+   ((fboundp 'recentf-list) (recentf-list))
+   ((fboundp 'recentf-get-list) (recentf-get-list))
+   ((boundp 'recentf-list) recentf-list)
+   (t nil)))
+
+(defun ensure-recentf-mode ()
+  "Safely enable recentf-mode if available."
+  (when (fboundp 'recentf-mode)
+    (unless recentf-mode
+      (recentf-mode 1))))
+
 (defun header-dropdown-show-file (event)
   "Show dropdown menu at bottom-left of File button."
   (interactive "e")
+  (ensure-recentf-mode)
   (let* ((posn (event-start event))
          (window (posn-window posn))
          ;; Calculate pixel width of initial space
@@ -20,11 +35,23 @@
          (char-width (frame-char-width))
          (menu-x (* initial-space char-width))
          (menu-y (window-header-line-height window))
-         (position (list (list menu-x menu-y) window)))
+         (position (list (list menu-x menu-y) window))
+         (recent-files (get-recent-files-list))
+         (recent-count (length recent-files)))
+    
     (popup-menu
-     '([]
+     `([]
        ["New File" (kde-new-file)]
        ["Open File" (kde-open-file-new-tab)]
+       ,(if (and recent-files (> recent-count 0))
+            `("Recent Files"
+              ,@(mapcar (lambda (file)
+                          (let ((display-name (abbreviate-file-name file)))
+                            `[,display-name
+                              (progn (tab-bar-new-tab) (find-file ,file))
+                              :help ,file]))
+                        (seq-take recent-files 10)))
+          ["Recent Files (none)" nil :active nil]))
      position)))
 
 (defun kde-new-file ()
