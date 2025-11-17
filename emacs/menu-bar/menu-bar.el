@@ -51,7 +51,9 @@
                               (progn (tab-bar-new-tab) (find-file ,file))
                               :help ,file]))
                         (seq-take recent-files 10)))
-          ["Recent Files (none)" nil :active nil]))
+          ["Recent Files (none)" nil :active nil])
+       "---"
+       ["Save" save-buffer]
      position)))
 
 (defun kde-new-file ()
@@ -142,7 +144,7 @@
   (interactive "e")
   (let* ((posn (event-start event))
          (window (posn-window posn))
-         ;; Calculate pixel position after both previous buttons
+         ;; Calculate pixel position after all previous buttons
          (initial-space (with-selected-window window
                           (string-width header-initial-space)))
          (file-width (with-selected-window window
