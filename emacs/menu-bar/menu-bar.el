@@ -53,6 +53,8 @@
      position)))
 
 ;; Set header content with both dropdown triggers
+(defvar header-button-gap "  ")
+
 (setq header-line-content
       (concat
        (propertize header-first-button-text
@@ -60,6 +62,7 @@
                    'mouse-face '(:background "dark blue")
                    'help-echo "Click for menu"
                    'keymap header-dropdown-map)
+       header-button-gap
        (propertize "Menu 2"
                    'face '(:background "green" :foreground "white")
                    'mouse-face '(:background "dark green")
