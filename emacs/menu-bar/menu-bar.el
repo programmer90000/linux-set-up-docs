@@ -57,6 +57,7 @@
 
 (setq header-line-content
       (concat
+      "  "
        (propertize "Menu"
                    'help-echo "Click for menu"
                    'keymap header-dropdown-map)
