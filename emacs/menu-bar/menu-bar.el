@@ -19,7 +19,8 @@
          (menu-y (window-header-line-height window))
          (position (list (list menu-x menu-y) window)))
     (popup-menu
-     '(["Switch to Scratch" (switch-to-buffer "*scratch*")]
+     '([]
+       ["Switch to Scratch" (switch-to-buffer "*scratch*")]
        ["Open File" (call-interactively 'find-file)]
        ["Show Buffer List" (list-buffers)]
        ["Open Config" (find-file user-init-file)]
@@ -48,7 +49,8 @@
          (menu-y (window-header-line-height window))
          (position (list (list menu-x menu-y) window)))
     (popup-menu
-     '(["New Buffer" (switch-to-buffer (generate-new-buffer "untitled"))]
+     '([]
+       ["New Buffer" (switch-to-buffer (generate-new-buffer "untitled"))]
        ["Save File" (save-buffer)]
        ["Close Buffer" (kill-buffer)]
        ["Quit Emacs" (save-buffers-kill-terminal)])
