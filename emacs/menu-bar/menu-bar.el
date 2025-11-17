@@ -36,13 +36,15 @@
   (let* ((posn (event-start event))
          (window (posn-window posn))
          ;; Calculate pixel width of first button text
+         (initial-space (with-selected-window window
+                          (string-width header-initial-space)))
          (first-button-width (with-selected-window window
                                (string-width "Menu")))
          (gap-width (with-selected-window window
                       (string-width header-button-gap)))
          ;; Convert character width to pixels (approximate)
          (char-width (frame-char-width))
-         (menu-x (* (+ first-button-width gap-width) char-width))
+         (menu-x (* (+ initial-space first-button-width gap-width) char-width))
          (menu-y (window-header-line-height window))
          (position (list (list menu-x menu-y) window)))
     (popup-menu
@@ -53,11 +55,12 @@
      position)))
 
 ;; Set header content with both dropdown triggers
+(defvar header-initial-space "  ")
 (defvar header-button-gap "  ")
 
 (setq header-line-content
       (concat
-      "  "
+       header-initial-space
        (propertize "Menu"
                    'help-echo "Click for menu"
                    'keymap header-dropdown-map)
