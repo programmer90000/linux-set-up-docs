@@ -23,7 +23,8 @@
          (position (list (list menu-x menu-y) window)))
     (popup-menu
      '([]
-       ["New File" (kde-new-file)])
+       ["New File" (kde-new-file)]
+       ["Open File" (kde-open-file-new-tab)]
      position)))
 
 (defun kde-new-file ()
@@ -51,6 +52,27 @@
       (tab-bar-new-tab)
       (find-file filename)
       (message "Created and opened in new tab: %s" filename))))
+
+(defun kde-open-file-new-tab ()
+  "Open KDE Plasma file picker to select and open a file in new tab."
+  (interactive)
+  (let ((default-directory (or (when (buffer-file-name)
+                                 (file-name-directory (buffer-file-name)))
+                               default-directory
+                               "~/"))
+        (filename nil))
+    (condition-case err
+        (setq filename (string-trim
+                       (shell-command-to-string "kdialog --getopenfilename .")))
+      (error
+       (message "Error calling KDE file picker: %s" err)
+       (setq filename nil)))
+
+    (when (and filename (not (string-empty-p filename)))
+      ;; Open in new tab
+      (tab-bar-new-tab)
+      (find-file filename)
+      (message "Opened in new tab: %s" filename))))
 
 ;; Create dropdown menu for first button
 (defvar header-dropdown-map
