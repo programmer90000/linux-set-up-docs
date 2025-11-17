@@ -19,11 +19,9 @@
          (position (list (list menu-x menu-y) window)))
     (popup-menu
      '([]
-       ["Switch to Scratch" (switch-to-buffer "*scratch*")]
-       ["Open File" (call-interactively 'find-file)]
-       ["Show Buffer List" (list-buffers)]
-       ["Open Config" (find-file user-init-file)]
-       ["Reload Init" (load-file user-init-file)])
+       ["Option 1" (message "Option 1 selected from first menu")]
+       ["Option 2" (message "Option 2 selected from first menu")] 
+       ["Option 3" (message "Option 3 selected from first menu")])
      position)))
 
 ;; Create dropdown menu for second button
@@ -49,10 +47,9 @@
          (position (list (list menu-x menu-y) window)))
     (popup-menu
      '([]
-       ["New Buffer" (switch-to-buffer (generate-new-buffer "untitled"))]
-       ["Save File" (save-buffer)]
-       ["Close Buffer" (kill-buffer)]
-       ["Quit Emacs" (save-buffers-kill-terminal)])
+       ["Option 1" (message "Option 1 selected from second menu")]
+       ["Option 2" (message "Option 2 selected from second menu")]
+       ["Option 3" (message "Option 3 selected from second menu")])
      position)))
 
 ;; Set header content with both dropdown triggers
