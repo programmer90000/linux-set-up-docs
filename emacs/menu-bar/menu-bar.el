@@ -62,6 +62,7 @@
      `([]
        ["New File" (kde-new-file)]
        ["Open File" (kde-open-file-new-tab)]
+       ["Open Directory" (call-interactively 'neotree-dir)]
        ,(if (and recent-files (> recent-count 0))
             `("Recent Files"
               ,@(mapcar (lambda (file)
