@@ -28,7 +28,7 @@
      position)))
 
 (defun kde-new-file ()
-  "Open KDE Plasma file picker to create a new file and open it in Emacs."
+  "Open KDE Plasma file picker to create a new file and open it in a new tab."
   (interactive)
   (let ((default-directory (or (when (buffer-file-name)
                                  (file-name-directory (buffer-file-name)))
@@ -45,9 +45,10 @@
       ;; Create the file if it doesn't exist
       (unless (file-exists-p filename)
         (write-region "" nil filename))
-      ;; Open the file in Emacs
+      ;; Open the file in a new tab
+      (tab-bar-new-tab)
       (find-file filename)
-      (message "Created and opened: %s" filename))))
+      (message "Created and opened in new tab: %s" filename))))
 
 ;; Create dropdown menu for first button
 (defvar header-dropdown-map
