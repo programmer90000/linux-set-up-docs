@@ -22,6 +22,25 @@
     (unless recentf-mode
       (recentf-mode 1))))
 
+(defun kde-save-as ()
+  "Open KDE Plasma file picker to save current buffer with a new name."
+  (interactive)
+  (let ((default-directory (or (when (buffer-file-name)
+                                 (file-name-directory (buffer-file-name)))
+                               default-directory
+                               "~/"))
+        (filename nil))
+    (condition-case err
+        (setq filename (string-trim
+                       (shell-command-to-string "kdialog --getsavefilename .")))
+      (error
+       (message "Error calling KDE file picker: %s" err)
+       (setq filename nil)))
+
+    (when (and filename (not (string-empty-p filename)))
+      (write-file filename)
+      (message "Saved as: %s" filename))))
+
 (defun header-dropdown-show-file (event)
   "Show dropdown menu at bottom-left of File button."
   (interactive "e")
@@ -54,6 +73,7 @@
           ["Recent Files (none)" nil :active nil])
        "---"
        ["Save" save-buffer]
+       ["Save As" kde-save-as]
      position)))
 
 (defun kde-new-file ()
