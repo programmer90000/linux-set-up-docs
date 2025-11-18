@@ -95,6 +95,12 @@
                                     major-mode))])
      position)))
 
+(defun header-undo-only ()
+  "Undo without breaking undo chain."
+  (interactive)
+  (let ((last-command 'undo))
+    (undo-only)))
+
 (defun header-dropdown-show-edit (event)
   "Show dropdown menu at bottom-left of Edit button."
   (interactive "e")
@@ -111,8 +117,8 @@
          (menu-y (window-header-line-height window))
          (position (list (list menu-x menu-y) window)))
     (popup-menu
-     '([]
-       ["Undo" undo-only :help "Undo last change"]
+     `([]
+       ["Undo" header-undo-only :help "Undo last change"]
        ["Redo" undo-redo :help "Redo last undone change"])
      position)))
 
