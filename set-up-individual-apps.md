@@ -577,12 +577,19 @@ emacs ~/.emacs.d/init.el
 
 Paste the code from the [init.el](./emacs/init.el) file in this file
 
-### Install The Menu Bar
+### Add Undo Redo functionality
 
 Run:
 ```
 mkdir -p ~/.emacs.d/lisp/
 ```
+
+Copy the [undo-redo.el](./emacs/undo-redo/undo-redo.el) file into `~/.emacs.d/lisp/undo-redo/`:
+```
+cp undo-redo.el ~/.emacs.d/lisp/undo-redo/
+```
+
+### Install The Menu Bar
 
 Copy the files from the [menu bar](./emacs/menu-bar/) directory into the `~/.emacs.d/lisp/` directory:
 ```
