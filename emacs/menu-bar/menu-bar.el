@@ -8,6 +8,12 @@
     (define-key map [header-line mouse-1] #'header-dropdown-show-file)
     map))
 
+;; Create dropdown menu for Edit button
+(defvar header-dropdown-map-edit
+  (let ((map (make-sparse-keymap "Edit Dropdown")))
+    (define-key map [header-line mouse-1] #'header-dropdown-show-edit)
+    map))
+
 (defun get-recent-files-list ()
   "Get list of recent files."
   (cond
@@ -87,6 +93,26 @@
                                     (buffer-file-name)
                                     (buffer-size)
                                     major-mode))])
+     position)))
+
+(defun header-dropdown-show-edit (event)
+  "Show dropdown menu at bottom-left of Edit button."
+  (interactive "e")
+  (let* ((posn (event-start event))
+         (window (posn-window posn))
+         (initial-space (with-selected-window window
+                          (string-width header-initial-space)))
+         (file-width (with-selected-window window
+                       (string-width "File")))
+         (gap-width (with-selected-window window
+                      (string-width header-button-gap)))
+         (char-width (frame-char-width))
+         (menu-x (* (+ initial-space file-width gap-width) char-width))
+         (menu-y (window-header-line-height window))
+         (position (list (list menu-x menu-y) window)))
+    (popup-menu
+     '([]
+       ["Undo" undo :help "Undo last change"])
      position)))
 
 (defun kde-new-file ()
@@ -205,6 +231,11 @@
        (propertize "File"
                    'help-echo "Click for file operations"
                    'keymap header-dropdown-map-file
+                   'mouse-face 'highlight)
+       header-button-gap
+       (propertize "Edit"
+                   'help-echo "Click for edit operations"
+                   'keymap header-dropdown-map-edit
                    'mouse-face 'highlight)
        header-button-gap
        (propertize "Menu"
