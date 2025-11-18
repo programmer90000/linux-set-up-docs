@@ -118,7 +118,7 @@
          (position (list (list menu-x menu-y) window)))
     (popup-menu
      `([]
-       ["Undo" header-undo-only :help "Undo last change"]
+       ["Undo" header-undo-only :help "Undo last change" :active (and buffer-undo-list (not (eq buffer-undo-list t)))]
        ["Redo" undo-redo :help "Redo last undone change"])
      position)))
 
