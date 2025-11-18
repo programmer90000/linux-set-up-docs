@@ -112,7 +112,8 @@
          (position (list (list menu-x menu-y) window)))
     (popup-menu
      '([]
-       ["Undo" undo-only :help "Undo last change"])
+       ["Undo" undo-only :help "Undo last change"]
+       ["Redo" undo-redo :help "Redo last undone change"])
      position)))
 
 (defun kde-new-file ()
