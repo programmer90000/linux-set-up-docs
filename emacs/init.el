@@ -134,6 +134,7 @@
 (setq-default mode-line-format nil) ; Remove the mode line
 (modify-all-frames-parameters '((mode-line-format . none))) ; Remove the mode line from all frames
 (load "~/.emacs.d/lisp/menu-bar/menu-bar") ; Add menu bar
+(load "~/.emacs.d/lisp/undo-redo/undo-redo") ; Add undo/ redo functionality
 (add-hook 'neo-after-create-hook
           (lambda (&rest _)
             (setq-local mode-line-format nil))) ; Remove mode line from Neotree
