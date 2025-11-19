@@ -133,6 +133,7 @@
        ["Uppercase Highlighted Code" upcase-region]
        ["Lowercase Highlighted Code" downcase-region]
        ["Capitalize Highlighted Code" capitalize-region]
+       ["Delete Trailing Whitespace" delete-trailing-whitespace]
      position)))
 
 (defun kde-new-file ()
