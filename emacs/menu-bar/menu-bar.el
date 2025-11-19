@@ -128,6 +128,7 @@
        "---"
        ["Select All" mark-whole-buffer :help "Select all text in buffer"]
        ["Comment Highlighted Code" comment-region])
+       ["Uncomment Highlighted Code" uncomment-region]
      position)))
 
 (defun kde-new-file ()
