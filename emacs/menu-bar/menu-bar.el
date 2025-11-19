@@ -131,6 +131,7 @@
        ["Uncomment Highlighted Code" uncomment-region]
        "---"
        ["Uppercase Highlighted Code" upcase-region]
+       ["Lowercase Highlighted Code" downcase-region]
      position)))
 
 (defun kde-new-file ()
