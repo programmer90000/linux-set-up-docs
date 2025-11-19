@@ -161,7 +161,9 @@
          (position (list (list menu-x menu-y) window)))
     (popup-menu
      '([]
-       ["Show Whitespace" whitespace-mode])
+       ["Show Whitespace" whitespace-mode]
+       "---"
+       ["Line Numbers" display-line-numbers-mode])
      position)))
 
 (defun kde-new-file ()
