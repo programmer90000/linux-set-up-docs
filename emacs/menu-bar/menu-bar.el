@@ -125,6 +125,8 @@
        ["Cut" kill-region :help "Cut selected text" :active ,region-active-p]
        ["Copy" kill-ring-save :help "Copy selected text" :active ,region-active-p]
        ["Paste" yank :help "Paste from clipboard"]
+       "---"
+       ["Select All" mark-whole-buffer :help "Select all text in buffer"])
      position)))
 
 (defun kde-new-file ()
