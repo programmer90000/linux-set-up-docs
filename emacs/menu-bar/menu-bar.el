@@ -124,6 +124,7 @@
        "---"
        ["Cut" kill-region :help "Cut selected text" :active ,region-active-p]
        ["Copy" kill-ring-save :help "Copy selected text" :active ,region-active-p]
+       ["Paste" yank :help "Paste from clipboard"]
      position)))
 
 (defun kde-new-file ()
