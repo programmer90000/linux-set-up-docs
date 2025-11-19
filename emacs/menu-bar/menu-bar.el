@@ -132,6 +132,7 @@
        "---"
        ["Uppercase Highlighted Code" upcase-region]
        ["Lowercase Highlighted Code" downcase-region]
+       ["Capitalize Highlighted Code" capitalize-region]
      position)))
 
 (defun kde-new-file ()
