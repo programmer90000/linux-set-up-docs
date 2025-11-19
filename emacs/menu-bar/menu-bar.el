@@ -26,6 +26,12 @@
     (define-key map [header-line mouse-1] #'header-dropdown-show-navigate)
     map))
 
+;; Create dropdown menu for Help button
+(defvar header-dropdown-map-help
+  (let ((map (make-sparse-keymap "Help Dropdown")))
+    (define-key map [header-line mouse-1] #'header-dropdown-show-help)
+    map))
+
 (defun get-recent-files-list ()
   "Get list of recent files."
   (cond
@@ -198,6 +204,31 @@
        ["Go To End Of File" end-of-buffer])
      position)))
 
+(defun header-dropdown-show-help (event)
+  "Show dropdown menu at bottom-left of Help button."
+  (interactive "e")
+  (let* ((posn (event-start event))
+         (window (posn-window posn))
+         (initial-space (with-selected-window window
+                          (string-width header-initial-space)))
+         (file-width (with-selected-window window
+                       (string-width "File")))
+         (edit-width (with-selected-window window
+                       (string-width "Edit")))
+         (view-width (with-selected-window window
+                       (string-width "View")))
+         (navigate-width (with-selected-window window
+                           (string-width "Navigate")))
+         (gap-width (with-selected-window window
+                      (string-width header-button-gap)))
+         (char-width (frame-char-width))
+         (menu-x (* (+ initial-space file-width gap-width edit-width gap-width view-width gap-width navigate-width gap-width git-width gap-width tools-width gap-width window-width gap-width) char-width))
+         (menu-y (window-header-line-height window))
+         (position (list (list menu-x menu-y) window)))
+    (popup-menu
+     '(["Emacs Manual" info-emacs-manual])
+     position)))
+
 (defun kde-new-file ()
   "Open KDE Plasma file picker to create a new file and open it in a new tab."
   (interactive)
@@ -329,6 +360,11 @@
        (propertize "Navigate"
                    'help-echo "Click for navigation options"
                    'keymap header-dropdown-map-navigate
+                   'mouse-face 'highlight)
+       header-button-gap
+       (propertize "Help"
+                   'help-echo "Click for help"
+                   'keymap header-dropdown-map-help
                    'mouse-face 'highlight)
        header-button-gap
        (propertize "Menu"
