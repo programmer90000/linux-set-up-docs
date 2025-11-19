@@ -194,7 +194,8 @@
     (popup-menu
      '([]
        ["Go To Line" goto-line]
-       ["Go To Beginning Of File" beginning-of-buffer])
+       ["Go To Beginning Of File" beginning-of-buffer]
+       ["Go To End Of File" end-of-buffer])
      position)))
 
 (defun kde-new-file ()
