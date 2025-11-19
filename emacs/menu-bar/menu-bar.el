@@ -127,13 +127,13 @@
        ["Paste" yank :help "Paste from clipboard"]
        "---"
        ["Select All" mark-whole-buffer :help "Select all text in buffer"]
-       ["Comment Highlighted Code" comment-region])
+       ["Comment Highlighted Code" comment-region]
        ["Uncomment Highlighted Code" uncomment-region]
        "---"
        ["Uppercase Highlighted Code" upcase-region]
        ["Lowercase Highlighted Code" downcase-region]
        ["Capitalize Highlighted Code" capitalize-region]
-       ["Delete Trailing Whitespace" delete-trailing-whitespace]
+       ["Delete Trailing Whitespace" delete-trailing-whitespace])
      position)))
 
 (defun kde-new-file ()
