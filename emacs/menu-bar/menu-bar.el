@@ -14,6 +14,12 @@
     (define-key map [header-line mouse-1] #'header-dropdown-show-edit)
     map))
 
+;; Create dropdown menu for View button
+(defvar header-dropdown-map-view
+  (let ((map (make-sparse-keymap "View Dropdown")))
+    (define-key map [header-line mouse-1] #'header-dropdown-show-view)
+    map))
+
 (defun get-recent-files-list ()
   "Get list of recent files."
   (cond
@@ -134,6 +140,28 @@
        ["Lowercase Highlighted Code" downcase-region]
        ["Capitalize Highlighted Code" capitalize-region]
        ["Delete Trailing Whitespace" delete-trailing-whitespace])
+     position)))
+
+(defun header-dropdown-show-view (event)
+  "Show dropdown menu at bottom-left of View button."
+  (interactive "e")
+  (let* ((posn (event-start event))
+         (window (posn-window posn))
+         (initial-space (with-selected-window window
+                          (string-width header-initial-space)))
+         (file-width (with-selected-window window
+                       (string-width "File")))
+         (edit-width (with-selected-window window
+                       (string-width "Edit")))
+         (gap-width (with-selected-window window
+                      (string-width header-button-gap)))
+         (char-width (frame-char-width))
+         (menu-x (* (+ initial-space file-width gap-width edit-width gap-width) char-width))
+         (menu-y (window-header-line-height window))
+         (position (list (list menu-x menu-y) window)))
+    (popup-menu
+     '([]
+       ["Show Whitespace" whitespace-mode])
      position)))
 
 (defun kde-new-file ()
@@ -257,6 +285,11 @@
        (propertize "Edit"
                    'help-echo "Click for edit operations"
                    'keymap header-dropdown-map-edit
+                   'mouse-face 'highlight)
+       header-button-gap
+       (propertize "View"
+                   'help-echo "Click for view options"
+                   'keymap header-dropdown-map-view
                    'mouse-face 'highlight)
        header-button-gap
        (propertize "Menu"
