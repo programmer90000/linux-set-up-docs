@@ -115,11 +115,14 @@
          (char-width (frame-char-width))
          (menu-x (* (+ initial-space file-width gap-width) char-width))
          (menu-y (window-header-line-height window))
-         (position (list (list menu-x menu-y) window)))
+         (position (list (list menu-x menu-y) window))
+         (region-active-p (region-active-p))) ;; Check if there is a selection for cut
     (popup-menu
      `([]
        ["Undo" header-undo-only :help "Undo last change" :active (and buffer-undo-list (not (eq buffer-undo-list t)))]
-       ["Redo" undo-redo :help "Redo last undone change"])
+       ["Redo" undo-redo :help "Redo last undone change"]
+       "---"
+       ["Cut" kill-region :help "Cut selected text" :active ,region-active-p]
      position)))
 
 (defun kde-new-file ()
