@@ -226,7 +226,8 @@
          (menu-y (window-header-line-height window))
          (position (list (list menu-x menu-y) window)))
     (popup-menu
-     '(["Emacs Manual" info-emacs-manual])
+     '(["Emacs Manual" info-emacs-manual]
+       ["Describe Key" describe-key])
      position)))
 
 (defun kde-new-file ()
