@@ -193,7 +193,8 @@
          (position (list (list menu-x menu-y) window)))
     (popup-menu
      '([]
-       ["Go To Line" goto-line])
+       ["Go To Line" goto-line]
+       ["Go To Beginning Of File" beginning-of-buffer])
      position)))
 
 (defun kde-new-file ()
