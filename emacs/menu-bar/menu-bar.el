@@ -126,7 +126,8 @@
        ["Copy" kill-ring-save :help "Copy selected text" :active ,region-active-p]
        ["Paste" yank :help "Paste from clipboard"]
        "---"
-       ["Select All" mark-whole-buffer :help "Select all text in buffer"])
+       ["Select All" mark-whole-buffer :help "Select all text in buffer"]
+       ["Comment Highlighted Code" comment-region])
      position)))
 
 (defun kde-new-file ()
