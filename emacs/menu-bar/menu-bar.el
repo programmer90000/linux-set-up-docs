@@ -20,6 +20,12 @@
     (define-key map [header-line mouse-1] #'header-dropdown-show-view)
     map))
 
+;; Create dropdown menu for Navigate button
+(defvar header-dropdown-map-navigate
+  (let ((map (make-sparse-keymap "Navigate Dropdown")))
+    (define-key map [header-line mouse-1] #'header-dropdown-show-navigate)
+    map))
+
 (defun get-recent-files-list ()
   "Get list of recent files."
   (cond
@@ -166,6 +172,30 @@
        ["Line Numbers" display-line-numbers-mode])
      position)))
 
+(defun header-dropdown-show-navigate (event)
+  "Show dropdown menu at bottom-left of Navigate button."
+  (interactive "e")
+  (let* ((posn (event-start event))
+         (window (posn-window posn))
+         (initial-space (with-selected-window window
+                          (string-width header-initial-space)))
+         (file-width (with-selected-window window
+                       (string-width "File")))
+         (edit-width (with-selected-window window
+                       (string-width "Edit")))
+         (view-width (with-selected-window window
+                       (string-width "View")))
+         (gap-width (with-selected-window window
+                      (string-width header-button-gap)))
+         (char-width (frame-char-width))
+         (menu-x (* (+ initial-space file-width gap-width edit-width gap-width view-width gap-width) char-width))
+         (menu-y (window-header-line-height window))
+         (position (list (list menu-x menu-y) window)))
+    (popup-menu
+     '([]
+       ["Go To Line" goto-line])
+     position)))
+
 (defun kde-new-file ()
   "Open KDE Plasma file picker to create a new file and open it in a new tab."
   (interactive)
@@ -292,6 +322,11 @@
        (propertize "View"
                    'help-echo "Click for view options"
                    'keymap header-dropdown-map-view
+                   'mouse-face 'highlight)
+       header-button-gap
+       (propertize "Navigate"
+                   'help-echo "Click for navigation options"
+                   'keymap header-dropdown-map-navigate
                    'mouse-face 'highlight)
        header-button-gap
        (propertize "Menu"
