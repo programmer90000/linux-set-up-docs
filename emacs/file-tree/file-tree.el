@@ -38,8 +38,7 @@
   (let ((inhibit-read-only t)
         (header-width (1- file-explorer--sidebar-width))) ; Account for margins
 
-    (insert (propertize "📁 " 'face 'font-lock-constant-face)
-            (propertize (file-explorer--truncate-filename
+    (insert (propertize (file-explorer--truncate-filename
                         (abbreviate-file-name file-explorer--root-directory)
                         header-width)
                        'face 'bold
