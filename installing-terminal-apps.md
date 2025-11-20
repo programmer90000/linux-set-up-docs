@@ -157,3 +157,21 @@ Run:
 ```
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
+
+## Install ftdv
+
+### Prerequisites
+
+- Cargo must be installed
+
+### Installation
+
+Run:
+```
+cargo install ftdv
+```
+
+To use ftdv, run the following command inside a Git repository:
+```
+ftdv
+```
