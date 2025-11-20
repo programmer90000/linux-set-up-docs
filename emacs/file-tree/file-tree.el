@@ -42,8 +42,7 @@
                         (abbreviate-file-name file-explorer--root-directory)
                         header-width)
                        'face 'bold
-                       'help-echo file-explorer--root-directory)
-            "\n")
+                       'help-echo file-explorer--root-directory))
     
     ;; Action buttons
     (insert (propertize " 📄"
