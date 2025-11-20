@@ -81,7 +81,7 @@
                        'help-echo "Collapse all directories"
                        'action 'file-explorer--collapse-all)
             "\n")
-    (insert (make-string header-width ?─) "\n\n")))
+    (insert "\n")))
 
 (defun file-explorer--truncate-filename (filename max-width)
   "Truncate FILENAME to fit within MAX-WIDTH."
