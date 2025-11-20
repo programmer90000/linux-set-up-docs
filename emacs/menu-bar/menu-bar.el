@@ -214,10 +214,13 @@
                        (string-width "View")))
          (navigate-width (with-selected-window window
                            (string-width "Navigate")))
+         (help-width (with-selected-window window
+                       (string-width "Help")))  ;; Add this
          (gap-width (with-selected-window window
                       (string-width header-button-gap)))
          (char-width (frame-char-width))
-         (menu-x (* (+ initial-space file-width gap-width edit-width gap-width view-width gap-width navigate-width gap-width git-width gap-width tools-width gap-width window-width gap-width) char-width))
+         ;; Fixed calculation - only include buttons that actually exist
+         (menu-x (* (+ initial-space file-width gap-width edit-width gap-width view-width gap-width navigate-width gap-width help-width) char-width))
          (menu-y (window-header-line-height window))
          (position (list (list menu-x menu-y) window)))
     (popup-menu
