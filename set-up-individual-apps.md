@@ -563,13 +563,6 @@ emacs ~/.emacs.d/theme.el
 
 Paste the code from the [theme.el](./emacs/theme.el) file in this file
 
-Run:
-```
-emacs ~/.emacs.d/init.el
-```
-
-Paste the code from the [init.el](./emacs/init.el) file in this file
-
 ### Add Undo Redo functionality
 
 Run:
@@ -596,7 +589,14 @@ Copy the [file-tree.el](./emacs/file-tree/file-tree.el) file into `~/.emacs.d/li
 cp file-tree.el ~/.emacs.d/lisp/file-tree/
 ```
 
-### Add the Emacs configuration file
+### Add the Emacs configuration files
+
+Run:
+```
+emacs ~/.emacs.d/init.el
+```
+
+Paste the code from the [init.el](./emacs/init.el) file in this file
 
 Run:
 ```
