@@ -144,3 +144,16 @@ Run:
 ```
 sudo apt install curl
 ```
+
+## Install Cargo
+
+### Prerequisites
+
+- Curl must be installed
+
+### Installation
+
+Run:
+```
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```
