@@ -589,6 +589,20 @@ Copy the [file-tree.el](./emacs/file-tree/file-tree.el) file into `~/.emacs.d/li
 cp file-tree.el ~/.emacs.d/lisp/file-tree/
 ```
 
+Open Emacs
+
+Inside Emacs, click `Alt + X`
+
+Type:
+```
+load-file
+```
+
+The explorer can now be opened by typing:
+```
+file-explorer
+```
+
 ### Add the Emacs configuration files
 
 Run:
