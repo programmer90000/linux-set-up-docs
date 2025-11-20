@@ -65,16 +65,6 @@
       (write-file filename)
       (message "Saved as: %s" filename))))
 
-(defun kde-open-directory ()
-  "Open a directory selection dialog using KDE Dolphin.
-The selected directory is opened in Neotree file tree."
-  (interactive)
-  (let ((directory (string-trim
-                   (shell-command-to-string
-                    "kdialog --getexistingdirectory ."))))
-    (when (and directory (not (string-empty-p directory)))
-      (neotree-dir directory))))
-
 (defun header-dropdown-show-file (event)
   "Show dropdown menu at bottom-left of File button."
   (interactive "e")
@@ -96,7 +86,7 @@ The selected directory is opened in Neotree file tree."
      `([]
        ["New File" (kde-new-file)]
        ["Open File" (kde-open-file-new-tab)]
-       ["Open Directory" (kde-open-directory)]
+       ["Open Directory" ()]
        ,(if (and recent-files (> recent-count 0))
             `("Recent Files"
               ,@(mapcar (lambda (file)

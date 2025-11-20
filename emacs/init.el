@@ -118,15 +118,6 @@
 (global-set-key (kbd "C-x") 'kill-region) ; Shortcut to cut text using Ctrl + X
 (global-set-key (kbd "C-z") 'undo-only) ; Shortcut to undo using Ctrl + Z
 (global-set-key (kbd "C-y") 'undo-redo) ; Shortcut to redo using Ctrl + Y
-(add-to-list 'load-path "~/.emacs.d/lisp/neotree") ; Add neotree to load path
-(require 'neotree) ; Require neotree
-(global-set-key (kbd "<f8>") 'neotree-toggle) ; Set F8 key to toggle neotree
-(setq neo-window-width 35) ; Initial width of neotree
-(setq neo-smart-open t) ; Smart file opening inside neotree
-(setq neo-show-hidden-files t) ; Show hidden files inside neotree
-(setq neotree-enable-arrow-and-mouse-support t) ; Enable mouse support inside neotree
-(setq neo-auto-indent-point t) ; Auto-indent neotree
-(setq neo-show-updir-line t) ; Show ".." for parent directory inside neotree
 (tab-bar-mode) ; Enable the line showing tabs at the top of the editor
 (setq tab-bar-new-tab-choice "*scratch*") ; Open an empty tab when the new tab button is pressed
 (menu-bar-mode -1) ; Remove menu bar
@@ -135,155 +126,6 @@
 (modify-all-frames-parameters '((mode-line-format . none))) ; Remove the mode line from all frames
 (load "~/.emacs.d/lisp/menu-bar/menu-bar") ; Add menu bar
 (load "~/.emacs.d/lisp/undo-redo/undo-redo") ; Add undo/ redo functionality
-(add-hook 'neo-after-create-hook
-          (lambda (&rest _)
-            (setq-local mode-line-format nil))) ; Remove mode line from Neotree
-
-;; =============== Neotree ===============
-(add-hook 'neotree-mode-hook
-          (lambda ()
-            (define-key neotree-mode-map (kbd "C-+") 'neotree-increase-width)
-            (define-key neotree-mode-map (kbd "C--") 'neotree-decrease-width)
-            (define-key neotree-mode-map (kbd "C-0") 'neotree-reset-width)
-            ;; Add close button to neotree
-            (define-key neotree-mode-map (kbd "C-c C-c") 'my-close-sidebars)))
-
-(defun neotree-increase-width ()
-  "Increase neotree window width by 5 columns."
-  (interactive)
-  (setq neo-window-width (+ neo-window-width 5))
-  (let ((current-dir (if (and (boundp 'neo-buffer--start-node) neo-buffer--start-node)
-                         neo-buffer--start-node
-                       default-directory)))
-    (neotree-hide)
-    (neotree-dir current-dir)))
-(defun neotree-decrease-width ()
-  "Decrease neotree window width by 5 columns (minimum 20)."
-  (interactive)
-  (setq neo-window-width (max 20 (- neo-window-width 5)))
-  (let ((current-dir (if (and (boundp 'neo-buffer--start-node) neo-buffer--start-node)
-                         neo-buffer--start-node
-                       default-directory)))
-    (neotree-hide)
-    (neotree-dir current-dir)))
-(defun neotree-reset-width ()
-  "Reset neotree window width to default 35 columns."
-  (interactive)
-  (setq neo-window-width 35)
-  (let ((current-dir (if (and (boundp 'neo-buffer--start-node) neo-buffer--start-node)
-                         neo-buffer--start-node
-                       default-directory)))
-    (neotree-hide)
-    (neotree-dir current-dir)))
-
-;; Function to check if neotree is open
-(defun my-neotree-is-open-p ()
-  "Return t if neotree is currently open and visible."
-  (catch 'found
-    (dolist (frame (frame-list))
-      (dolist (window (window-list frame))
-        (let ((buffer (window-buffer window)))
-          (when (and (buffer-live-p buffer)
-                     (string-match "\\*NeoTree\\*" (buffer-name buffer)))
-            (throw 'found t)))))
-    nil))
-
-;; Function to check if search-and-replace is open
-(defun my-search-and-replace-is-open-p ()
-  "Return t if search-and-replace sidebar is currently open and visible."
-  (catch 'found
-    (dolist (frame (frame-list))
-      (dolist (window (window-list frame))
-        (let ((buffer (window-buffer window)))
-          (when (and (buffer-live-p buffer)
-                     (string= (buffer-name buffer) search-and-replace-buffer))
-            (throw 'found t)))))
-    nil))
-
-;; Function to close both sidebars
-(defun my-close-sidebars ()
-  "Close both neotree and search-and-replace sidebars."
-  (interactive)
-  (when (my-neotree-is-open-p)
-    (neotree-hide))
-  (when (my-search-and-replace-is-open-p)
-    (my-close-search-and-replace)))
-
-;; Function to save sidebar states
-(defun my-save-sidebar-states ()
-  "Save neotree and search-and-replace sidebar states."
-  (let ((state-file "~/.emacs.d/sidebar-states.el")
-        (neotree-open (my-neotree-is-open-p))
-        (search-replace-open (my-search-and-replace-is-open-p)))
-    (with-temp-file state-file
-      (insert ";; Sidebar states - auto-generated\n")
-      (insert (format "(setq my-neotree-last-width %d)\n" neo-window-width))
-      (insert (format "(setq my-search-replace-last-width %d)\n" search-and-replace-width))
-      (insert (format "(setq my-neotree-was-open %s)\n" 
-                      (if neotree-open "t" "nil")))
-      (insert (format "(setq my-search-replace-was-open %s)\n"
-                      (if search-replace-open "t" "nil"))))))
-
-;; Function to load sidebar states  
-(defun my-load-sidebar-states ()
-  "Load sidebar states and restore if they were open."
-  (let ((state-file "~/.emacs.d/sidebar-states.el"))
-    (when (file-exists-p state-file)
-      (load-file state-file)
-      (when (and (boundp 'my-neotree-last-width) my-neotree-last-width)
-        (setq neo-window-width my-neotree-last-width))
-      (when (and (boundp 'my-search-replace-last-width) my-search-replace-last-width)
-        (setq search-and-replace-width my-search-replace-last-width))
-      (when (and (boundp 'my-neotree-was-open) my-neotree-was-open)
-        (neotree-show))
-      (when (and (boundp 'my-search-replace-was-open) my-search-replace-was-open)
-        (search-and-replace)))))
-
-;; Save state when neotree is toggled, shown, or hidden
-(advice-add 'neotree-toggle :after #'my-save-sidebar-states)
-(advice-add 'neotree-show :after #'my-save-sidebar-states)
-(advice-add 'neotree-hide :after #'my-save-sidebar-states)
-
-;; Save state when neotree is resized
-(advice-add 'neotree-increase-width :after #'my-save-sidebar-states)
-(advice-add 'neotree-decrease-width :after #'my-save-sidebar-states)
-(advice-add 'neotree-reset-width :after #'my-save-sidebar-states)
-
-;; Save state when search-and-replace is opened, closed, or resized
-(advice-add 'search-and-replace :after #'my-save-sidebar-states)
-(advice-add 'my-close-search-and-replace :after #'my-save-sidebar-states)
-(advice-add 'search-and-replace-increase-width :after #'my-save-sidebar-states)
-(advice-add 'search-and-replace-decrease-width :after #'my-save-sidebar-states)
-(advice-add 'search-and-replace-reset-width :after #'my-save-sidebar-states)
-
-;; Save state when Emacs is killed
-(add-hook 'kill-emacs-hook 'my-save-sidebar-states)
-
-;; Load state after a short delay when Emacs starts
-(run-with-timer 1 nil 'my-load-sidebar-states)
-
-(defun my-neotree-insert-header ()
-  "Insert Neotree header with close button on the right side."
-  (let ((header-line (if neo-banner-message
-                         neo-banner-message
-                       " NeoTree")))
-    
-    ;; Calculate padding to push close button to the right
-    (let* ((available-width (- (window-width) (length header-line) 1))
-           (padding (make-string (max 1 available-width) ?\s)))
-      
-      ;; Insert the header line with close button on the right
-      (insert (propertize header-line 'face 'neo-banner-face))
-      (insert padding)
-      (insert (propertize "X" 
-                          'face '(:foreground "red" :weight bold)
-                          'mouse-face 'highlight
-                          'help-echo "Close Neotree sidebar"
-                          'keymap (let ((map (make-sparse-keymap)))
-                                    (define-key map [mouse-1] 'neotree-hide)
-                                    map)))
-      (neo-buffer--newline-and-begin)
-      (neo-buffer--newline-and-begin))))
 
 ;; =============== Search And Replace ===============
 (defvar search-and-replace-buffer "*search-and-replace*")
@@ -322,11 +164,8 @@
     (kill-buffer search-and-replace-buffer)))
 
 (defun search-and-replace ()
-  "Open search-and-replace sidebar, closing neotree if open."
+  "Open search-and-replace sidebar"
   (interactive)
-  ;; Close neotree if open
-  (when (my-neotree-is-open-p)
-    (neotree-hide))
 
   ;; If already open, just close it (toggle behavior)
   (if (my-search-and-replace-is-open-p)

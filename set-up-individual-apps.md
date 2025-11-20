@@ -589,14 +589,6 @@ Copy the files from the [menu bar](./emacs/menu-bar/) directory into the `~/.ema
 cp -r menu-bar ~/.emacs.d/lisp/menu-bar/
 ```
 
-### Install Neotree
-
-
-Copy the files from the [neotree](./emacs/neotree/) directory into the `~/.emacs.d/lisp/` drectory:
-```
-cp -r emacs-neotree/ ~/.emacs.d/lisp/neotree/
-```
-
 ### Add the Emacs configuration file
 
 Run:
