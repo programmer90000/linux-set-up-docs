@@ -137,3 +137,10 @@ Login with Google
 ```
 
 Login with your Google account
+
+## Install Curl
+
+Run:
+```
+sudo apt install curl
+```
