@@ -113,11 +113,6 @@
                                     major-mode))])
      position)))
 
-(defun header-undo-only ()
-  "Undo without breaking undo chain."
-  (interactive)
-  (let ((last-command 'undo))
-    (undo-only)))
 
 (defun header-dropdown-show-edit (event)
   "Show dropdown menu at bottom-left of Edit button."
@@ -137,8 +132,8 @@
          (region-active-p (region-active-p))) ;; Check if there is a selection for cut/copy
     (popup-menu
      `([]
-       ["Undo" header-undo-only :help "Undo last change" :active (and buffer-undo-list (not (eq buffer-undo-list t)))]
-       ["Redo" undo-redo :help "Redo last undone change"]
+       ["Undo" undo-fu-only-undo :help "Undo last change" :active (and buffer-undo-list (not (eq buffer-undo-list t)))]
+       ["Redo" undo-fu-only-redo :help "Redo last undone change" :active (undo-fu--backport-undo--last-change-was-undo-p buffer-undo-list)]
        "---"
        ["Cut" kill-region :help "Cut selected text" :active ,region-active-p]
        ["Copy" kill-ring-save :help "Copy selected text" :active ,region-active-p]
