@@ -46,7 +46,7 @@
 (defun file-explorer--insert-header ()
   "Insert the file explorer header with action buttons."
   (let ((inhibit-read-only t)
-        (header-width (1- file-explorer--sidebar-width))) ; Account for margins
+        (header-width (1- file-explorer--sidebar-width)))
 
     (let ((dir-name (file-name-nondirectory 
                      (directory-file-name file-explorer--root-directory))))
@@ -56,23 +56,27 @@
                          'face 'bold
                          'help-echo file-explorer--root-directory)))
     
-    ;; Action buttons
-    (insert (propertize " 📄"
+    ;; Action buttons with spacing on both sides
+    (insert " "  ; Space before first icon
+            (propertize "📄"
                        'mouse-face 'highlight
                        'help-echo "Create new file"
                        'action 'file-explorer--create-file)
-            " ")
-    (insert (propertize " 📁"
+            "  ")  ; Two spaces after
+    
+    (insert (propertize "📁"
                        'mouse-face 'highlight
                        'help-echo "Create new folder"
                        'action 'file-explorer--create-folder)
-            " ")
-    (insert (propertize " 🔄"
+            "  ")  ; Two spaces after
+    
+    (insert (propertize "🔄"
                        'mouse-face 'highlight
                        'help-echo "Refresh view"
                        'action 'file-explorer-refresh)
-            " ")
-    (insert (propertize " 📂"
+            "  ")  ; Two spaces after
+    
+    (insert (propertize "📂"
                        'mouse-face 'highlight
                        'help-echo "Collapse all directories"
                        'action 'file-explorer--collapse-all)
