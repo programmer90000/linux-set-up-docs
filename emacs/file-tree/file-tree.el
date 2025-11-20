@@ -49,11 +49,12 @@
         (header-width (1- file-explorer--sidebar-width))) ; Account for margins
 
     (let ((dir-name (file-name-nondirectory 
-                 (directory-file-name file-explorer--root-directory))))
-  (insert (propertize (file-explorer--truncate-filename
-                      dir-name
-                      header-width)
-                     'face 'bold)))
+                     (directory-file-name file-explorer--root-directory))))
+      (insert (propertize (file-explorer--truncate-filename
+                          dir-name
+                          header-width)
+                         'face 'bold
+                         'help-echo file-explorer--root-directory)))
     
     ;; Action buttons
     (insert (propertize " 📄"
