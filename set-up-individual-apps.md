@@ -557,13 +557,6 @@ If opening Brave browser causes the System Settings app to open, disable/ delete
 
 In the terminal, run:
 ```
-emacs ~/.emacs
-```
-
-Inside the file, write the code from the [.emacs](./emacs/.emacs) file to load the configuration file when Emacs is opened from the application dashboard
-
-Run:
-```
 mkdir -p ~/.emacs.d
 emacs ~/.emacs.d/theme.el
 ```
@@ -603,6 +596,15 @@ Copy the files from the [neotree](./emacs/neotree/) directory into the `~/.emacs
 ```
 cp -r emacs-neotree/ ~/.emacs.d/lisp/neotree/
 ```
+
+### Add the Emacs configuration file
+
+Run:
+```
+emacs ~/.emacs
+```
+
+Inside the file, write the code from the [.emacs](./emacs/.emacs) file to load the configuration file when Emacs is opened from the application dashboard
 
 ## Visual Studio Code
 - Sign in using my programming Outlook account
