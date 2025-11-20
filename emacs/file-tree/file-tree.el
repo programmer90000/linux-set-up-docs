@@ -136,6 +136,39 @@
           (push (cons file-path t) file-explorer--expanded-nodes)))
       (file-explorer-refresh))))
 
+;; Window resize functions
+(defun file-explorer-increase-width ()
+  "Increase the file explorer sidebar window width."
+  (interactive)
+  (let ((window (get-buffer-window file-explorer--buffer-name)))
+    (when window
+      (window-resize window 5 t) ; Increase by 5 columns, horizontally
+      (setq file-explorer--sidebar-width (window-width window))
+      (file-explorer-refresh)
+      (message "File explorer width: %d" (window-width window)))))
+
+(defun file-explorer-decrease-width ()
+  "Decrease the file explorer sidebar window width."
+  (interactive)
+  (let ((window (get-buffer-window file-explorer--buffer-name)))
+    (when window
+      (window-resize window -5 t) ; Decrease by 5 columns, horizontally
+      (setq file-explorer--sidebar-width (window-width window))
+      (file-explorer-refresh)
+      (message "File explorer width: %d" (window-width window)))))
+
+(defun file-explorer-reset-width ()
+  "Reset file explorer sidebar window width to default."
+  (interactive)
+  (let ((window (get-buffer-window file-explorer--buffer-name)))
+    (when window
+      (let ((current-width (window-width window))
+            (target-width 40))
+        (window-resize window (- target-width current-width) t)
+        (setq file-explorer--sidebar-width target-width)
+        (file-explorer-refresh)
+        (message "File explorer width reset to %d" target-width)))))
+
 ;; Context menu system
 (defun file-explorer--context-menu (pos)
   "Show context menu for file/directory at POS."
@@ -335,7 +368,7 @@
     (kill-new (file-relative-name path file-explorer--root-directory))
     (message "Copied relative path")))
 
-;; Major mode and keybindings
+;; Keymaps
 (defvar file-explorer-mode-map
   (let ((map (make-sparse-keymap)))
     (define-key map (kbd "RET") 'file-explorer--open-file)
@@ -347,11 +380,16 @@
     (define-key map (kbd "D") 'file-explorer--delete-file)
     (define-key map (kbd "g") 'file-explorer-refresh)
     (define-key map (kbd "q") 'file-explorer-quit)
+    ;; Resize keys
+    (define-key map (kbd "M-+") 'file-explorer-increase-width)
+    (define-key map (kbd "M--") 'file-explorer-decrease-width)
+    (define-key map (kbd "M-=") 'file-explorer-reset-width)
     (define-key map [mouse-1] 'file-explorer--handle-click)
     (define-key map [mouse-3] 'file-explorer--context-menu)
     map)
   "Keymap for file-explorer-mode.")
 
+;; Major mode
 (define-derived-mode file-explorer-mode special-mode "File Explorer"
   "Major mode for the file explorer."
   (setq-local widget-keymap nil)
@@ -375,13 +413,14 @@
   "Setup BUFFER as sidebar window."
   (let ((window (display-buffer-in-side-window
                  buffer
-                 `((side . left)
+                 '((side . left)
                    (slot . 0)
-                   (window-width . ,file-explorer--sidebar-width)
                    (window-parameters . ((no-delete-other-windows . t)))))))
     (with-selected-window window
-      (setq mode-line-format nil) ; Hide mode line for cleaner look
-      (set-window-dedicated-p window t) ; Prevent accidental deletion
+      (setq mode-line-format nil)
+      (set-window-dedicated-p window t)
+      ;; Set the initial width
+      (window-resize window (- file-explorer--sidebar-width (window-width window)) t)
       window)))
 
 ;; Main interface functions
@@ -437,6 +476,11 @@
   (let ((buffer (file-explorer--create-buffer)))
     (file-explorer--setup-sidebar-window buffer)
     (file-explorer-refresh)))
+
+;; Global keybindings for resize (optional)
+(global-set-key (kbd "M-+") 'file-explorer-increase-width)
+(global-set-key (kbd "M--") 'file-explorer-decrease-width)
+(global-set-key (kbd "M-=") 'file-explorer-reset-width)
 
 (provide 'file-explorer)
 ;;; file-explorer.el ends here
