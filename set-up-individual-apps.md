@@ -589,6 +589,13 @@ Copy the files from the [menu bar](./emacs/menu-bar/) directory into the `~/.ema
 cp -r menu-bar ~/.emacs.d/lisp/menu-bar/
 ```
 
+### Install The File Tree
+
+Copy the [file-tree.el](./emacs/file-tree/file-tree.el) file into `~/.emacs.d/lisp/file-tree/`:
+```
+cp file-tree.el ~/.emacs.d/lisp/file-tree/
+```
+
 ### Add the Emacs configuration file
 
 Run:
