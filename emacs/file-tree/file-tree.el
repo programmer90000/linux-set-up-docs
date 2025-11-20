@@ -33,16 +33,27 @@
     buffer))
 
 ;; Header implementation
+(defun file-explorer--create-buffer ()
+  "Create and setup the file explorer buffer."
+  (let ((buffer (get-buffer-create file-explorer--buffer-name)))
+    (with-current-buffer buffer
+      (read-only-mode -1)
+      (erase-buffer)
+      (file-explorer-mode))
+    buffer))
+
+;; Header implementation
 (defun file-explorer--insert-header ()
   "Insert the file explorer header with action buttons."
   (let ((inhibit-read-only t)
         (header-width (1- file-explorer--sidebar-width))) ; Account for margins
 
-    (insert (propertize (file-explorer--truncate-filename
-                        (abbreviate-file-name file-explorer--root-directory)
-                        header-width)
-                       'face 'bold
-                       'help-echo file-explorer--root-directory))
+    (let ((dir-name (file-name-nondirectory 
+                 (directory-file-name file-explorer--root-directory))))
+  (insert (propertize (file-explorer--truncate-filename
+                      dir-name
+                      header-width)
+                     'face 'bold)))
     
     ;; Action buttons
     (insert (propertize " 📄"
