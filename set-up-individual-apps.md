@@ -1562,26 +1562,28 @@ Make a snapshot of the virtual machine
 1. Go to the `Oracle VM VirtualBox Manager`
 2. Select your cloned VM
 3. Select `Settings`
-4. Select `Storage`
-5. Right-click on the `Controller:IDE`
-6. Select `+ Optical Drive`
-7. Select `Add`
-8. Select the `Gparted Live` `ISO` file you downloaded
-9. Start the machine
-10. Select `GParted Live (Default Settings)`
-11. Select `Don't touch keymap`
-12. Select your language by typing in the correct number
-13. Select `Continue to start X to use GParted automatically` by typing `0`
-14. Right-click and delete all partitions except `/dev/sda1`
-15. Right-click the `/dev/sda1` partition
-16. Select `Resize/ Move`
-17. Drag the arrow icons to fill in the space, or manually resize the partitions
-18. Click the green tick icon
-19. Select `Apply`
-20. Close the window
-21. Double-click the `Exit` button
-22. Select `Reboot`
-23. Press `Enter` when prompted
+4. Select `System`
+5. Set the `Boot Device Order` to `Optical` first
+6. Select `Storage`
+7. Right-click on the `Controller:IDE`
+8. Select `+ Optical Drive`
+9. Select `Add`
+10. Select the `Gparted Live` `ISO` file you downloaded
+11. Start the machine
+12. Select `GParted Live (Default Settings)`
+13. Select `Don't touch keymap`
+14. Select your language by typing in the correct number
+15. Select `Continue to start X to use GParted automatically` by typing `0`
+16. Right-click and delete all partitions except `/dev/sda1`
+17. Right-click the `/dev/sda1` partition
+18. Select `Resize/ Move`
+19. Drag the arrow icons to fill in the space, or manually resize the partitions
+20. Click the green tick icon
+21. Select `Apply`
+22. Close the window
+23. Double-click the `Exit` button
+24. Select `Reboot`
+25. Press `Enter` when prompted
 > It may take a while for the VM to boot up
 
 ## ClamAV
