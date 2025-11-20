@@ -58,25 +58,21 @@
     
     ;; Action buttons
     (insert (propertize " 📄"
-                       'face '(:underline t)
                        'mouse-face 'highlight
                        'help-echo "Create new file"
                        'action 'file-explorer--create-file)
             " ")
     (insert (propertize " 📁"
-                       'face '(:underline t)
                        'mouse-face 'highlight
                        'help-echo "Create new folder"
                        'action 'file-explorer--create-folder)
             " ")
     (insert (propertize " 🔄"
-                       'face '(:underline t)
                        'mouse-face 'highlight
                        'help-echo "Refresh view"
                        'action 'file-explorer-refresh)
             " ")
     (insert (propertize " 📂"
-                       'face '(:underline t)
                        'mouse-face 'highlight
                        'help-echo "Collapse all directories"
                        'action 'file-explorer--collapse-all)
