@@ -50,15 +50,12 @@
 
     (let ((dir-name (file-name-nondirectory 
                      (directory-file-name file-explorer--root-directory))))
-      (insert (propertize (file-explorer--truncate-filename
-                          dir-name
-                          header-width)
+      (insert (propertize dir-name
                          'face 'bold
                          'help-echo file-explorer--root-directory)))
     
-    ;; Action buttons with spacing on both sides
-    (insert " "  ; Space before first icon
-            (propertize "📄"
+    ;; Action buttons
+    (insert (propertize "📄"
                        'mouse-face 'highlight
                        'help-echo "Create new file"
                        'action 'file-explorer--create-file)
@@ -79,10 +76,9 @@
     (insert (propertize "📂"
                        'mouse-face 'highlight
                        'help-echo "Collapse all directories"
-                       'action 'file-explorer--collapse-all)
-            "\n")
-    (insert "\n")))
-
+                       'action 'file-explorer--collapse-all))
+    (insert "\n\n")))
+  
 (defun file-explorer--truncate-filename (filename max-width)
   "Truncate FILENAME to fit within MAX-WIDTH."
   (if (> (length filename) max-width)
