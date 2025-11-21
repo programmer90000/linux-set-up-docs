@@ -48,19 +48,11 @@
   (let ((inhibit-read-only t)
         (header-width (1- file-explorer--sidebar-width)))
 
-    (let* ((button-text "  📄  📁  🔄  📂")
-           (button-length (length button-text))
-           (max-title-length (- header-width button-length))
-           (dir-name (file-name-nondirectory
-                      (directory-file-name file-explorer--root-directory)))
-           (display-name (if (> (length dir-name) max-title-length)
-                             (concat (substring dir-name 0 (- max-title-length 1)) "…")
-                           dir-name)))
-
-      (insert (propertize display-name
+    (let ((dir-name (file-name-nondirectory 
+                     (directory-file-name file-explorer--root-directory))))
+      (insert (propertize dir-name
                          'face 'bold
-                         'help-echo file-explorer--root-directory))
-      "  ")  ; Spacing after title
+                         'help-echo file-explorer--root-directory)))
     
     ;; Action buttons
     (insert (propertize "📄"
