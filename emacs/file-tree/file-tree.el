@@ -199,32 +199,38 @@
         (message "File explorer width reset to %d" target-width)))))
 
 ;; Context menu system
-(defun file-explorer--context-menu (pos)
-  "Show context menu for file/directory at POS."
-  (let ((file-path (get-text-property pos 'file-path))
-        (is-dir (get-text-property pos 'directory-p))
-        (name (get-text-property pos 'filename)))
-    (when file-path
-      (let ((menu (easy-menu-create-menu
-                   nil
-                   `([,(format "Open: %s" name) 
-                      file-explorer--open-file
-                      :enable ,(not is-dir)]
-                     [,(format "Open Directory: %s" name)
-                      file-explorer--open-directory
-                      :enable ,is-dir]
-                     "---"
-                     ["Cut" file-explorer--cut-file]
-                     ["Copy" file-explorer--copy-file]
-                     ["Paste" file-explorer--paste-file
-                      :enable file-explorer--clipboard]
-                     "---"
-                     ["Rename" file-explorer--start-rename]
-                     ["Copy Path" file-explorer--copy-path]
-                     ["Copy Relative Path" file-explorer--copy-relative-path]
-                     "---"
-                     ["Delete" file-explorer--delete-file]))))
-        (easy-menu-popup menu)))))
+(defun file-explorer--context-menu (event)
+  "Show context menu for mouse event."
+  (interactive "e")
+  (let ((pos (posn-point (event-end event)))
+        (file-path)
+        (is-dir)
+        (name))
+    (when pos
+      (save-excursion
+        (goto-char pos)
+        (setq file-path (get-text-property pos 'file-path))
+        (setq is-dir (get-text-property pos 'directory-p))
+        (setq name (get-text-property pos 'filename))
+
+        (when file-path
+          (let ((menu (make-sparse-keymap "File Actions")))
+            ;; Build the menu
+            (define-key menu [open] 
+              `(menu-item ,(if is-dir "Open Directory" "Open") file-explorer--open-file))
+            (define-key menu [sep1] '(menu-item "--"))
+            (define-key menu [cut] '(menu-item "Cut" file-explorer--cut-file))
+            (define-key menu [copy] '(menu-item "Copy" file-explorer--copy-file))
+            (define-key menu [sep2] '(menu-item "--"))
+            (define-key menu [rename] '(menu-item "Rename" file-explorer--start-rename))
+            (define-key menu [sep3] '(menu-item "--"))
+            (define-key menu [delete] '(menu-item "Delete" file-explorer--delete-file))
+            (define-key menu [sep4] '(menu-item "--"))
+            (define-key menu [abs-path] '(menu-item "Copy Absolute Path" file-explorer--copy-path))
+            (define-key menu [rel-path] '(menu-item "Copy Relative Path" file-explorer--copy-relative-path))
+
+            ;; Show the menu
+            (popup-menu menu event)))))))
 
 (defun file-explorer--get-file-at-point ()
   "Get file properties at current point."
