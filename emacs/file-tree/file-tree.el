@@ -272,7 +272,9 @@
     (write-region "" nil file-name)
     ;; Refresh file explorer to show the new file
     (file-explorer-refresh)
-    ;; Open the file for editing
+    ;; Switch to main window and open file
+    (select-window (window-main-window))
+    (tab-bar-new-tab)
     (find-file file-name)))
 
 (defun file-explorer--create-folder ()
