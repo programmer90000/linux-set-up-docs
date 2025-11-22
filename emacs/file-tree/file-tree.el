@@ -200,7 +200,7 @@
 
 ;; Context menu system
 (defun file-explorer--context-menu (event)
-  "Show context menu for mouse event."
+  "Show context menu for mouse EVENT."
   (interactive "e")
   (let ((pos (posn-point (event-end event)))
         (file-path)
@@ -217,20 +217,69 @@
           (let ((menu (make-sparse-keymap "File Actions")))
             ;; Build the menu
             (define-key menu [open] 
-              `(menu-item ,(if is-dir "Open Directory" "Open") file-explorer--open-file))
+              `(menu-item ,(if is-dir "Open Directory" "Open")
+                         file-explorer--menu-open
+                         :keys ""))
             (define-key menu [sep1] '(menu-item "--"))
-            (define-key menu [cut] '(menu-item "Cut" file-explorer--cut-file))
-            (define-key menu [copy] '(menu-item "Copy" file-explorer--copy-file))
+            (define-key menu [cut] '(menu-item "Cut"
+                                              file-explorer--menu-cut
+                                              :keys ""))
+            (define-key menu [copy] '(menu-item "Copy"
+                                               file-explorer--menu-copy
+                                               :keys ""))
             (define-key menu [sep2] '(menu-item "--"))
-            (define-key menu [rename] '(menu-item "Rename" file-explorer--start-rename))
+            (define-key menu [rename] '(menu-item "Rename"
+                                                 file-explorer--menu-rename
+                                                 :keys ""))
             (define-key menu [sep3] '(menu-item "--"))
-            (define-key menu [delete] '(menu-item "Delete" file-explorer--delete-file))
+            (define-key menu [delete] '(menu-item "Delete"
+                                                 file-explorer--menu-delete
+                                                 :keys ""))
             (define-key menu [sep4] '(menu-item "--"))
-            (define-key menu [abs-path] '(menu-item "Copy Absolute Path" file-explorer--copy-path))
-            (define-key menu [rel-path] '(menu-item "Copy Relative Path" file-explorer--copy-relative-path))
+            (define-key menu [abs-path] '(menu-item "Copy Absolute Path"
+                                                   file-explorer--menu-copy-path
+                                                   :keys ""))
+            (define-key menu [rel-path] '(menu-item "Copy Relative Path"
+                                                   file-explorer--menu-copy-relative-path
+                                                   :keys ""))
 
             ;; Show the menu
             (popup-menu menu event)))))))
+
+(defun file-explorer--menu-open ()
+  "Open file/directory from context menu."
+  (interactive)
+  (file-explorer--open-file))
+
+(defun file-explorer--menu-cut ()
+  "Cut file from context menu."
+  (interactive)
+  (file-explorer--cut-file))
+
+(defun file-explorer--menu-copy ()
+  "Copy file from context menu."
+  (interactive)
+  (file-explorer--copy-file))
+
+(defun file-explorer--menu-rename ()
+  "Rename file from context menu."
+  (interactive)
+  (file-explorer--start-rename))
+
+(defun file-explorer--menu-delete ()
+  "Delete file from context menu."
+  (interactive)
+  (file-explorer--delete-file))
+
+(defun file-explorer--menu-copy-path ()
+  "Copy absolute path from context menu."
+  (interactive)
+  (file-explorer--copy-path))
+
+(defun file-explorer--menu-copy-relative-path ()
+  "Copy relative path from context menu."
+  (interactive)
+  (file-explorer--copy-relative-path))
 
 (defun file-explorer--get-file-at-point ()
   "Get file properties at current point."
