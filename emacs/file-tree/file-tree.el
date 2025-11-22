@@ -99,7 +99,7 @@
 (defun file-explorer--truncate-filename (filename max-width)
   "Truncate FILENAME to fit within MAX-WIDTH."
   (if (> (length filename) max-width)
-      (concat (substring filename 0 (- max-width 3)) "...")
+      (concat (substring filename 0 (- max-width 7)) "...")
     filename))
 
 (defun file-explorer--header-action (pos)
