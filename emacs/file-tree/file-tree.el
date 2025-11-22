@@ -278,9 +278,20 @@
     (find-file file-name)))
 
 (defun file-explorer--create-folder ()
-  "Create a new folder using widget input."
+  "Create a new folder."
   (interactive)
-  (file-explorer--create-item t))
+  (let ((default-directory file-explorer--root-directory)
+        (folder-name (read-string "Create folder: ")))
+    (when (and folder-name (not (string-empty-p folder-name)))
+      (let ((folder-path (expand-file-name folder-name)))
+        (condition-case err
+            (progn
+              (make-directory folder-path t)
+              (file-explorer-refresh)
+              (message "Created folder: %s" folder-name))
+          (error
+           (message "Folder creation failed: %s" (error-message-string err))
+           (file-explorer-refresh)))))))
 
 (defun file-explorer--create-item (is-dir)
   "Create a new file or folder using widget input."
