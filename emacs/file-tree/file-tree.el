@@ -266,7 +266,8 @@
 (defun file-explorer--create-file ()
   "Create a new file using widget input."
   (interactive)
-  (file-explorer--create-item nil))
+  (let ((default-directory file-explorer--root-directory))
+    (find-file (read-file-name "Create file: " default-directory))))
 
 (defun file-explorer--create-folder ()
   "Create a new folder using widget input."
@@ -433,9 +434,13 @@
   (interactive "e")
   (let ((pos (posn-point (event-end event))))
     (goto-char pos)
-    (if (get-text-property pos 'action)
-        (file-explorer--header-action pos)
-      (file-explorer--open-file))))
+    (cond
+     ;; Header button click
+     ((get-text-property pos 'action)
+      (funcall (get-text-property pos 'action)))
+     ;; File/directory click  
+     (t
+      (file-explorer--open-file)))))
 
 ;; Sidebar window management
 (defun file-explorer--setup-sidebar-window (buffer)
