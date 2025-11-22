@@ -65,9 +65,11 @@
 
     (let ((dir-name (file-name-nondirectory 
                      (directory-file-name file-explorer--root-directory))))
-      (insert (propertize (file-explorer--truncate-filename dir-name (- header-width 17))
+      (insert (propertize (file-explorer--truncate-filename dir-name (- header-width 18))
                          'face 'bold
                          'help-echo file-explorer--root-directory)))
+
+    (insert " ") ; Add space between the dir name and icons
     
     ;; Action buttons
     (insert (propertize "📄"
