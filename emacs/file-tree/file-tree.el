@@ -65,7 +65,7 @@
 
     (let ((dir-name (file-name-nondirectory 
                      (directory-file-name file-explorer--root-directory))))
-      (insert (propertize (file-explorer--truncate-filename dir-name header-width)
+      (insert (propertize (file-explorer--truncate-filename dir-name (- header-width 17))
                          'face 'bold
                          'help-echo file-explorer--root-directory)))
     
