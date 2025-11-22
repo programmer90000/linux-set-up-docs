@@ -249,7 +249,16 @@
 (defun file-explorer--menu-rename ()
   "Rename file from context menu."
   (interactive)
-  (file-explorer--start-rename))
+  (let ((file-path (get-text-property (point) 'file-path))
+        (inhibit-read-only t))  ; Temporarily disable read-only
+    (when file-path
+      (let ((new-name (read-string "New name: " (file-name-nondirectory file-path))))
+        (when (and new-name (not (string-blank-p new-name)))
+          (let ((new-path (expand-file-name new-name (file-name-directory file-path))))
+            ;; Perform the rename operation
+            (rename-file file-path new-path)
+            ;; Refresh the file explorer to show changes
+            (file-explorer-refresh)))))))
 
 (defun file-explorer--menu-delete ()
   "Delete file from context menu."
