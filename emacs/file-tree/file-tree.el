@@ -48,6 +48,21 @@
   (let ((inhibit-read-only t)
         (header-width (1- file-explorer--sidebar-width)))
 
+    ;; Log the display widths to a custom buffer
+    (with-current-buffer (get-buffer-create "*file-explorer-debug*")
+      (erase-buffer)
+      (insert (format "Header width: %d\n" header-width))
+      (insert (format "📄 width: %d\n" (string-width "📄")))
+      (insert (format "📁 width: %d\n" (string-width "📁")))
+      (insert (format "🔄 width: %d\n" (string-width "🔄")))
+      (insert (format "📂 width: %d\n" (string-width "📂")))
+      (insert (format "Space width: %d\n" (string-width " ")))
+      (insert (format "Two spaces width: %d\n" (string-width "  ")))
+      (insert (format "Directory name: %s\n" (file-name-nondirectory 
+                     (directory-file-name file-explorer--root-directory))))
+      (insert (format "Directory name width: %d\n" (string-width (file-name-nondirectory
+                     (directory-file-name file-explorer--root-directory))))))
+
     (let ((dir-name (file-name-nondirectory 
                      (directory-file-name file-explorer--root-directory))))
       (insert (propertize (file-explorer--truncate-filename dir-name header-width)
@@ -78,7 +93,7 @@
                        'help-echo "Collapse all directories"
                        'action 'file-explorer--collapse-all))
     (insert "\n\n")))
-  
+
 (defun file-explorer--truncate-filename (filename max-width)
   "Truncate FILENAME to fit within MAX-WIDTH."
   (if (> (length filename) max-width)
