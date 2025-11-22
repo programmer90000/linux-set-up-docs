@@ -50,7 +50,7 @@
 
     (let ((dir-name (file-name-nondirectory 
                      (directory-file-name file-explorer--root-directory))))
-      (insert (propertize dir-name
+      (insert (propertize (file-explorer--truncate-filename dir-name header-width)
                          'face 'bold
                          'help-echo file-explorer--root-directory)))
     
@@ -82,7 +82,7 @@
 (defun file-explorer--truncate-filename (filename max-width)
   "Truncate FILENAME to fit within MAX-WIDTH."
   (if (> (length filename) max-width)
-      (concat "..." (substring filename (- (length filename) (- max-width 3))))
+      (concat (substring filename 0 (- max-width 3)) "...")
     filename))
 
 (defun file-explorer--header-action (pos)
