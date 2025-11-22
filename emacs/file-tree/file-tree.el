@@ -457,9 +457,14 @@
      ;; Header button click
      ((get-text-property pos 'action)
       (funcall (get-text-property pos 'action)))
-     ;; File/directory click  
+     ;; Directory click - expand/collapse
+     ((get-text-property pos 'directory-p)
+      (file-explorer--toggle-expand pos))
+     ;; File click - open file
+     ((get-text-property pos 'file-path)
+      (file-explorer--open-file))
      (t
-      (file-explorer--open-file)))))
+      (message "Click not on a file or directory")))))
 
 ;; Sidebar window management
 (defun file-explorer--setup-sidebar-window (buffer)
