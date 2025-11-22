@@ -264,10 +264,16 @@
                       file-explorer--root-directory)))))
 
 (defun file-explorer--create-file ()
-  "Create a new file using widget input."
+  "Create a new file."
   (interactive)
-  (let ((default-directory file-explorer--root-directory))
-    (find-file (read-file-name "Create file: " default-directory))))
+  (let ((default-directory file-explorer--root-directory)
+        (file-name (read-file-name "Create file: " default-directory)))
+    ;; Create the file immediately with empty content
+    (write-region "" nil file-name)
+    ;; Refresh file explorer to show the new file
+    (file-explorer-refresh)
+    ;; Open the file for editing
+    (find-file file-name)))
 
 (defun file-explorer--create-folder ()
   "Create a new folder using widget input."
