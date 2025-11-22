@@ -65,7 +65,7 @@
 
     (let ((dir-name (file-name-nondirectory 
                      (directory-file-name file-explorer--root-directory))))
-      (insert (propertize (file-explorer--truncate-filename dir-name (- header-width 18))
+      (insert (propertize (file-explorer--truncate-dirname dir-name (- header-width 18))
                          'face 'bold
                          'help-echo file-explorer--root-directory)))
 
@@ -95,6 +95,12 @@
                        'help-echo "Collapse all directories"
                        'action 'file-explorer--collapse-all))
     (insert "\n\n")))
+
+(defun file-explorer--truncate-dirname (dirname max-width)
+  "Truncate DIRNAME to fit within MAX-WIDTH."
+  (if (> (length dirname) max-width)
+      (concat (substring dirname 0 (- max-width 3)) "...")
+    dirname))
 
 (defun file-explorer--truncate-filename (filename max-width)
   "Truncate FILENAME to fit within MAX-WIDTH."
