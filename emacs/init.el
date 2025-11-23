@@ -134,16 +134,28 @@
 (load "~/.emacs.d/lisp/undo-redo/undo-redo") ; Add undo/ redo functionality
 
 ;; =============== Mouse Actions ===============
+(defvar my-mouse--in-command nil
+  "Non-nil when we're currently executing a mouse command.")
+
 (defun my-mouse-focus-and-execute (event)
   "Focus window and execute mouse command in one click."
   (interactive "e")
-  (let ((window (posn-window (event-start event))))
+  (let ((window (posn-window (event-start event)))
+        (command (key-binding (vector event))))
     ;; Focus the window if it's different from current selection
     (when (and (windowp window)
                (not (eq (selected-window) window)))
       (select-window window))
     ;; Execute the original mouse command
-    (call-interactively (key-binding (vector event)))))
+    (when (and command (not my-mouse--in-command))
+      (let ((my-mouse--in-command t))
+        (cond
+         ;; For drag events, use the event directly
+         ((memq (car event) '(drag-mouse-1 mouse-movement))
+          (command-execute command nil (vector event)))
+         ;; For other events, call interactively
+         (t
+          (call-interactively command)))))))
 
 (defun my-mouse-wheel-focus-and-scroll (event)
   "Focus window and scroll with mouse wheel in one action."
@@ -154,15 +166,15 @@
       (select-window window))
     (mwheel-scroll event)))
 
-(global-set-key [mouse-1] 'my-mouse-focus-and-execute) ; Left click - focus and execute
-(global-set-key [drag-mouse-1] 'my-mouse-focus-and-execute) ; Left drag - focus and execute
-(global-set-key [double-mouse-1] 'my-mouse-focus-and-execute) ; Double click - focus and execute
-(global-set-key [triple-mouse-1] 'my-mouse-focus-and-execute) ; Triple click - focus and execute
-(global-set-key [mouse-2] 'my-mouse-focus-and-execute) ; Middle click - focus and execute
-(global-set-key [mouse-3] 'my-mouse-focus-and-execute) ; Right click - focus and execute
-(global-set-key [mouse-wheel] 'my-mouse-wheel-focus-and-scroll) ; Mouse wheel - focus and scroll
-(global-set-key [double-mouse-wheel] 'my-mouse-wheel-focus-and-scroll) ; Double Mouse wheel - focus and scroll
-(global-set-key [triple-mouse-wheel] 'my-mouse-wheel-focus-and-scroll) ; Triple Mouse wheel - focus and scroll
+(global-set-key [mouse-1] 'my-mouse-focus-and-execute) ; Left click - Focus And Execute
+(global-set-key [drag-mouse-1] 'my-mouse-focus-and-execute) ; Left drag - Focus And Execute
+(global-set-key [double-mouse-1] 'my-mouse-focus-and-execute) ; Double click - Focus And Execute
+(global-set-key [triple-mouse-1] 'my-mouse-focus-and-execute) ; Triple click - Focus And Execute
+(global-set-key [mouse-2] 'my-mouse-focus-and-execute) ; Middle click - Focus And Execute
+(global-set-key [mouse-3] 'my-mouse-focus-and-execute) ; Right click - Focus And Execute
+(global-set-key [mouse-wheel] 'my-mouse-wheel-focus-and-scroll) ; Mouse wheel - Focus And Scroll
+(global-set-key [double-mouse-wheel] 'my-mouse-wheel-focus-and-scroll) ; Double Mouse Wheel - Focus And Scroll
+(global-set-key [triple-mouse-wheel] 'my-mouse-wheel-focus-and-scroll) ; Triple Mouse Wheel - Focus And Scroll
 
 (setq mouse-autoselect-window t) ; Auto-select window under mouse
 (setq focus-follows-mouse t) ; Focus follows mouse movement
