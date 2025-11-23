@@ -386,10 +386,11 @@
 (defun file-explorer--open-file ()
   "Open the file at point."
   (interactive)
-  (let ((props (file-explorer--get-file-at-point))
-        (path (plist-get props :path))
-        (is-dir (plist-get props :is-dir)))
-    (cond (is-dir (file-explorer--toggle-expand (plist-get props :pos)))
+  (let* ((props (file-explorer--get-file-at-point))
+         (path (plist-get props :path))
+         (is-dir (plist-get props :is-dir))
+         (pos (plist-get props :pos)))
+    (cond (is-dir (file-explorer--toggle-expand pos))
           (path 
            (find-file path)))))
 
