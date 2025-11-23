@@ -392,7 +392,11 @@
          (pos (plist-get props :pos)))
     (cond (is-dir (file-explorer--toggle-expand pos))
           (path 
-           (find-file path)))))
+           (progn
+             ;; Switch to main window and open in new tab
+             (select-window (window-main-window))
+             (tab-bar-new-tab)
+             (find-file path))))))
 
 (defun file-explorer--open-directory ()
   "Open the directory at point in file explorer."
