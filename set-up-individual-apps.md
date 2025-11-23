@@ -598,9 +598,9 @@ Type:
 load-file
 ```
 
-The explorer can now be opened by typing:
+The tree can now be opened by typing:
 ```
-file-explorer
+file-tree
 ```
 
 ### Add the Emacs configuration files
