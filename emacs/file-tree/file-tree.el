@@ -391,8 +391,7 @@
         (is-dir (plist-get props :is-dir)))
     (cond (is-dir (file-explorer--toggle-expand (plist-get props :pos)))
           (path 
-           (find-file path)
-           (file-explorer--maybe-switch-back)))))
+           (find-file path)))))
 
 (defun file-explorer--open-directory ()
   "Open the directory at point in file explorer."
@@ -401,12 +400,6 @@
     (when path
       (setq file-explorer--root-directory path)
       (file-explorer-refresh))))
-
-(defun file-explorer--maybe-switch-back ()
-  "Switch back to file explorer buffer if it's the only window."
-  (when (and (get-buffer file-explorer--buffer-name)
-             (= (length (window-list)) 1))
-    (switch-to-buffer file-explorer--buffer-name)))
 
 (defun file-explorer--copy-file ()
   "Copy file at point to clipboard."
