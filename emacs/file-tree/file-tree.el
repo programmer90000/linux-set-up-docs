@@ -467,41 +467,6 @@
           (message "Pasted %d files" pasted-count)
         (message "Paste failed")))))
 
-(defun file-explorer--paste-file ()
-  "Paste clipboard files to current directory."
-  (interactive)
-  (when file-explorer--clipboard
-    (let ((action (plist-get file-explorer--clipboard :action))
-          (files (plist-get file-explorer--clipboard :files))
-          (pasted-count 0))
-
-      (dolist (file files)
-        (let* ((original-name (file-name-nondirectory file))
-               (new-name (file-explorer--generate-unique-filename
-                         original-name
-                         file-explorer--root-directory)))
-          (cond ((eq action 'copy)
-                 (condition-case err
-                     (progn
-                       (copy-file file new-name)
-                       (setq pasted-count (1+ pasted-count)))
-                   (error
-                    (message "Copy failed: %s" (error-message-string err)))))
-
-                ((eq action 'cut)
-                 (condition-case err
-                     (progn
-                       (rename-file file new-name)
-                       (setq pasted-count (1+ pasted-count))
-                       (setq file-explorer--clipboard nil)) ; Clear clipboard after successful move
-                   (error
-                    (message "Move failed: %s" (error-message-string err))
-                    (setq file-explorer--clipboard nil)))))))
-
-      (file-explorer-refresh)
-      (if (> pasted-count 0)
-          (message "Pasted %d files" pasted-count)
-        (message "Paste failed")))))
 
 (defun file-explorer--generate-unique-filename (filename directory)
   "Generate a unique filename in DIRECTORY based on FILENAME by appending -COPY.
