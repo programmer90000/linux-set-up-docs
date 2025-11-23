@@ -139,6 +139,15 @@
     ;; Execute the original mouse command
     (call-interactively (key-binding (vector event)))))
 
+(defun my-mouse-wheel-focus-and-scroll (event)
+  "Focus window and scroll with mouse wheel in one action."
+  (interactive "e")
+  (let ((window (posn-window (event-start event))))
+    (when (and (windowp window)
+               (not (eq (selected-window) window)))
+      (select-window window))
+    (mwheel-scroll event)))
+
 ;; =============== Search And Replace ===============
 (defvar search-and-replace-buffer "*search-and-replace*")
 (defvar search-and-replace-width 35 "Default width for search-and-replace sidebar")
