@@ -127,6 +127,18 @@
 (load "~/.emacs.d/lisp/menu-bar/menu-bar") ; Add menu bar
 (load "~/.emacs.d/lisp/undo-redo/undo-redo") ; Add undo/ redo functionality
 
+;; =============== Mouse Actions ===============
+(defun my-mouse-focus-and-execute (event)
+  "Focus window and execute mouse command in one click."
+  (interactive "e")
+  (let ((window (posn-window (event-start event))))
+    ;; Focus the window if it's different from current selection
+    (when (and (windowp window)
+               (not (eq (selected-window) window)))
+      (select-window window))
+    ;; Execute the original mouse command
+    (call-interactively (key-binding (vector event)))))
+
 ;; =============== Search And Replace ===============
 (defvar search-and-replace-buffer "*search-and-replace*")
 (defvar search-and-replace-width 35 "Default width for search-and-replace sidebar")
