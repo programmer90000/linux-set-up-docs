@@ -436,18 +436,60 @@
   (interactive)
   (when file-explorer--clipboard
     (let ((action (plist-get file-explorer--clipboard :action))
-          (files (plist-get file-explorer--clipboard :files)))
+          (files (plist-get file-explorer--clipboard :files))
+          (pasted-count 0))
+
       (dolist (file files)
-        (let ((new-name (expand-file-name 
-                        (file-name-nondirectory file) 
-                        file-explorer--root-directory)))
+        (let* ((original-name (file-name-nondirectory file))
+               (new-name (file-explorer--generate-unique-filename
+                         original-name
+                         file-explorer--root-directory)))
           (cond ((eq action 'copy)
-                 (copy-file file new-name))
+                 (condition-case err
+                     (progn
+                       (copy-file file new-name)
+                       (setq pasted-count (1+ pasted-count)))
+                   (error
+                    (message "Copy failed: %s" (error-message-string err)))))
+
                 ((eq action 'cut)
-                 (rename-file file new-name)
-                 (setq file-explorer--clipboard nil)))))
+                 (condition-case err
+                     (progn
+                       (rename-file file new-name)
+                       (setq pasted-count (1+ pasted-count))
+                       (setq file-explorer--clipboard nil)) ; Clear clipboard after successful move
+                   (error
+                    (message "Move failed: %s" (error-message-string err))
+                    (setq file-explorer--clipboard nil)))))))
+
       (file-explorer-refresh)
-      (message "Pasted %d files" (length files)))))
+      (if (> pasted-count 0)
+          (message "Pasted %d files" pasted-count)
+        (message "Paste failed")))))
+
+(defun file-explorer--generate-unique-filename (filename directory)
+  "Generate a unique filename in DIRECTORY based on FILENAME by appending -COPY.
+If the filename already exists, appends -COPY before the extension.
+If that also exists, appends -COPY-2, -COPY-3, etc."
+  (let* ((base (file-name-sans-extension filename))
+         (extension (file-name-extension filename))
+         (counter 1)
+         (new-filename filename)
+         (full-path))
+
+    (while (file-exists-p (setq full-path (expand-file-name new-filename directory)))
+      (if (string= new-filename filename)
+          ;; First conflict - try filename-COPY.extension
+          (setq new-filename (if extension
+                               (format "%s-COPY.%s" base extension)
+                             (format "%s-COPY" base)))
+        ;; Subsequent conflicts - try filename-COPY-2.extension, etc.
+        (setq new-filename (if extension
+                             (format "%s-COPY-%d.%s" base counter extension)
+                           (format "%s-COPY-%d" base counter)))
+        (setq counter (1+ counter))))
+
+    full-path))
 
 (defun file-explorer--delete-file ()
   "Delete file at point after confirmation."
