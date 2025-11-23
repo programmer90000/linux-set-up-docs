@@ -124,6 +124,12 @@
 (tool-bar-mode -1) ; Remove tool bar
 (setq-default mode-line-format nil) ; Remove the mode line
 (modify-all-frames-parameters '((mode-line-format . none))) ; Remove the mode line from all frames
+;; Customize tab faces
+(custom-set-faces
+ '(tab-bar ((t :background "#1976d2" :foreground "#ffffff"))) ; Dark blue
+ '(tab-bar-tab-current ((t :background "#0078d4" :foreground "white" :weight bold)))
+ '(tab-bar-tab-inactive ((t :background "#1565c0" :foreground "#e3f2fd")))
+ '(tab-bar-tab ((t :background "#1565c0" :foreground "#ffffff"))))
 (load "~/.emacs.d/lisp/menu-bar/menu-bar") ; Add menu bar
 (load "~/.emacs.d/lisp/undo-redo/undo-redo") ; Add undo/ redo functionality
 
