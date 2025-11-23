@@ -148,6 +148,25 @@
       (select-window window))
     (mwheel-scroll event)))
 
+(global-set-key [mouse-1] 'my-mouse-focus-and-execute) ; Left click - focus and execute
+(global-set-key [drag-mouse-1] 'my-mouse-focus-and-execute) ; Left drag - focus and execute
+(global-set-key [double-mouse-1] 'my-mouse-focus-and-execute) ; Double click - focus and execute
+(global-set-key [triple-mouse-1] 'my-mouse-focus-and-execute) ; Triple click - focus and execute
+(global-set-key [mouse-2] 'my-mouse-focus-and-execute) ; Middle click - focus and execute
+(global-set-key [mouse-3] 'my-mouse-focus-and-execute) ; Right click - focus and execute
+(global-set-key [mouse-wheel] 'my-mouse-wheel-focus-and-scroll) ; Mouse wheel - focus and scroll
+(global-set-key [double-mouse-wheel] 'my-mouse-wheel-focus-and-scroll) ; Double Mouse wheel - focus and scroll
+(global-set-key [triple-mouse-wheel] 'my-mouse-wheel-focus-and-scroll) ; Triple Mouse wheel - focus and scroll
+
+(setq mouse-autoselect-window t) ; Auto-select window under mouse
+(setq focus-follows-mouse t) ; Focus follows mouse movement
+(setq mouse-wheel-follow-mouse nil) ; Keep wheel actions focused on window
+
+(advice-add 'widget-button-click :before
+            (lambda (&rest args)
+              (unless (eq (selected-window) (get-buffer-window (current-buffer)))
+                (select-window (get-buffer-window (current-buffer)))))) ; Ensure widgets work properly with focus
+
 ;; =============== Search And Replace ===============
 (defvar search-and-replace-buffer "*search-and-replace*")
 (defvar search-and-replace-width 35 "Default width for search-and-replace sidebar")
