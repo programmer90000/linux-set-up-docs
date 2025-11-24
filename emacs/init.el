@@ -134,8 +134,20 @@
 (load "~/.emacs.d/lisp/undo-redo/undo-redo") ; Add undo/ redo functionality
 
 ;; =============== Mouse Actions ===============
-(global-set-key [mouse-1] 'mouse-set-point) ; Move cursor to click location
+(defun my-select-entire-word ()
+  "Select the entire word at point, regardless of cursor position."
+  (interactive)
+  (let (p1 p2)
+    (save-excursion
+      (skip-chars-backward "[:alnum:]_-")
+      (setq p1 (point))
+      (skip-chars-forward "[:alnum:]_-")
+      (setq p2 (point)))
+    (set-mark p1)
+    (goto-char p2)))
 
+(global-set-key [mouse-1] 'mouse-set-point) ; Move cursor to click location
+(global-set-key [double-mouse-1] (lambda (event) (interactive "e") (mouse-set-point event) (my-select-entire-word)))
 ;; =============== Search And Replace ===============
 (defvar search-and-replace-buffer "*search-and-replace*")
 (defvar search-and-replace-width 35 "Default width for search-and-replace sidebar")
