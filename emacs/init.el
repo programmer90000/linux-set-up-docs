@@ -146,8 +146,17 @@
     (set-mark p1)
     (goto-char p2)))
 
+(defun mouse-set-point-and-select-line (event)
+  "Move cursor to click position and select the line."
+  (interactive "e")
+  (mouse-set-point event)
+  (mouse-set-region event)
+  (activate-mark))
+
 (global-set-key [mouse-1] 'mouse-set-point) ; Move cursor to click location
 (global-set-key [double-mouse-1] (lambda (event) (interactive "e") (mouse-set-point event) (my-select-entire-word)))
+(global-set-key [triple-mouse-1] 'mouse-set-point-and-select-line)
+
 ;; =============== Search And Replace ===============
 (defvar search-and-replace-buffer "*search-and-replace*")
 (defvar search-and-replace-width 35 "Default width for search-and-replace sidebar")
