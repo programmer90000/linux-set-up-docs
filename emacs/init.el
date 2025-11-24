@@ -162,6 +162,9 @@
 (global-set-key [double-mouse-1] (lambda (event) (interactive "e") (mouse-set-point event) (my-select-entire-word)))
 (global-set-key [triple-mouse-1] 'mouse-set-point-and-select-line)
 (global-set-key [down-mouse-1] 'my-drag-region)
+(setq window-divider-default-places t) ; Enable window dividers
+(setq window-divider-default-bottom-width 1) ; Set bottom divider width
+(setq window-divider-default-right-width 1) ; Set right divider width
 
 ;; =============== Search And Replace ===============
 (defvar search-and-replace-buffer "*search-and-replace*")
