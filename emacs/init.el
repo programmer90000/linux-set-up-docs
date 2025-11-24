@@ -135,7 +135,7 @@
 
 ;; =============== Mouse Actions ===============
 (defun my-select-entire-word ()
-  "Select the entire word at point, regardless of cursor position."
+  "Select the entire word at cursor."
   (interactive)
   (let (p1 p2)
     (save-excursion
