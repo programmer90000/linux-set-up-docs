@@ -133,6 +133,9 @@
 (load "~/.emacs.d/lisp/menu-bar/menu-bar") ; Add menu bar
 (load "~/.emacs.d/lisp/undo-redo/undo-redo") ; Add undo/ redo functionality
 
+;; =============== Mouse Actions ===============
+(global-set-key [mouse-1] 'mouse-set-point) ; Move cursor to click location
+
 ;; =============== Search And Replace ===============
 (defvar search-and-replace-buffer "*search-and-replace*")
 (defvar search-and-replace-width 35 "Default width for search-and-replace sidebar")
