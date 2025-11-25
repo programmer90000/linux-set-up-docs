@@ -130,6 +130,10 @@
 (set-face-attribute 'tab-bar nil :background "#1976d2") ; Set tab bar properties
 (set-face-attribute 'tab-bar-tab nil :background "#bbdefb" :foreground "#0d47a1" :height 1.0) ; Set active tab properties
 (set-face-attribute 'tab-bar-tab-inactive nil :background "#1565c0" :foreground "#e3f2fd" :height 1.0) ; Set inactive tab properties
+(defun my/tab-bar-tab-name-with-padding ()
+  "Return a tab name composed of the current buffer's name with padding spaces."
+  (concat (buffer-name) "   "))
+(setq tab-bar-tab-name-function #'my/tab-bar-tab-name-with-padding)
 (load "~/.emacs.d/lisp/menu-bar/menu-bar") ; Add menu bar
 (load "~/.emacs.d/lisp/undo-redo/undo-redo") ; Add undo/ redo functionality
 
