@@ -165,6 +165,7 @@
 (global-set-key [double-mouse-1] (lambda (event) (interactive "e") (mouse-set-point event) (my-select-entire-word)))
 (global-set-key [triple-mouse-1] 'mouse-set-point-and-select-line)
 (global-set-key [down-mouse-1] 'my-drag-region)
+(define-key global-map [menu-bar mouse-1] nil)
 
 ;; =============== Search And Replace ===============
 (defvar search-and-replace-buffer "*search-and-replace*")
