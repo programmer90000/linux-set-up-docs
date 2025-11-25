@@ -127,12 +127,9 @@
 (setq window-divider-default-places t) ; Enable window dividers
 (setq window-divider-default-bottom-width 1) ; Set bottom divider width
 (setq window-divider-default-right-width 1) ; Set right divider width
-;; Customize tab faces
-(custom-set-faces
- '(tab-bar ((t :background "#1976d2" :foreground "#ffffff" :height 1.0)))
- '(tab-bar-tab-current ((t :background "#0078d4" :foreground "white" :weight bold :height 1.0)))
- '(tab-bar-tab-inactive ((t :background "#1565c0" :foreground "#e3f2fd" :height 1.0)))
- '(tab-bar-tab ((t :background "#1565c0" :foreground "#ffffff" :height 1.0))))
+(set-face-attribute 'tab-bar nil :background "#1976d2") ; Set tab bar properties
+(set-face-attribute 'tab-bar-tab nil :background "#1976d2" :foreground "#ffffff" :height 1.0) ; Set active tab properties
+(set-face-attribute 'tab-bar-tab-inactive nil :background "#1565c0" :foreground "#ffffff" :height 1.0) ; Set inactive tab properties
 (load "~/.emacs.d/lisp/menu-bar/menu-bar") ; Add menu bar
 (load "~/.emacs.d/lisp/undo-redo/undo-redo") ; Add undo/ redo functionality
 
