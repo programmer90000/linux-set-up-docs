@@ -167,6 +167,7 @@
 (global-set-key [down-mouse-1] 'my-drag-region)
 (define-key global-map [menu-bar mouse-1] nil)
 (define-key global-map [tool-bar mouse-1] 'ignore)
+(with-eval-after-load 'dired (define-key dired-mode-map [mouse-1] 'dired-find-file))
 
 ;; =============== Search And Replace ===============
 (defvar search-and-replace-buffer "*search-and-replace*")
