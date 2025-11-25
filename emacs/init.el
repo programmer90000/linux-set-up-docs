@@ -172,6 +172,7 @@
 (global-set-key [drag-mouse-2] 'ignore)
 (global-set-key [down-mouse-2] 'ignore)
 (with-eval-after-load 'compile (define-key compilation-mode-map [mouse-2] 'ignore))
+(global-unset-key [mouse-3])
 
 ;; =============== Search And Replace ===============
 (defvar search-and-replace-buffer "*search-and-replace*")
