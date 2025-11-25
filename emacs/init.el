@@ -166,6 +166,7 @@
 (global-set-key [triple-mouse-1] 'mouse-set-point-and-select-line)
 (global-set-key [down-mouse-1] 'my-drag-region)
 (define-key global-map [menu-bar mouse-1] nil)
+(define-key global-map [tool-bar mouse-1] 'ignore)
 
 ;; =============== Search And Replace ===============
 (defvar search-and-replace-buffer "*search-and-replace*")
