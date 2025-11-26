@@ -140,6 +140,7 @@
       (if (file-exists-p file-name)
           (puthash file-name nil my/tab-file-deleted-status)
         (puthash file-name t my/tab-file-deleted-status))
+      (run-hooks 'my/check-file-existence-hook)
       ;; Only update the tab bar if the function is available
       (when (fboundp 'tab-bar-update)
         (tab-bar-update)))))
@@ -150,11 +151,26 @@
          (buffer-name (buffer-name buffer))
          (deleted (and file-name (gethash file-name my/tab-file-deleted-status))))
     (if deleted
-        (propertize (concat buffer-name " ✗")
-                    'face '(:background "#d32f2f" :foreground "white" :weight bold))
+        (propertize buffer-name 'face 'tab-bar-tab-inactive)
       buffer-name)))
 ;; Use the custom tab name function
 (setq tab-bar-tab-name-function #'my/tab-bar-tab-name-custom)
+
+;; Custom face for deleted files
+(defface my/tab-deleted-face
+  '((t :background "#d32f2f" :foreground "white" :weight bold))
+  "Face for tabs with deleted files.")
+(custom-set-faces
+ '(tab-bar-tab ((t :inherit variable-pitch :background "#1e1e1e" :foreground "white" :height 0.9)))
+ '(tab-bar-tab-inactive ((t :inherit tab-bar-tab :background "#d32f2f" :foreground "white" :weight bold))))
+
+(defun my/update-tab-bar-faces ()
+  "Update tab bar faces based on file status."
+  (when (and (buffer-file-name)
+             (gethash (buffer-file-name) my/tab-file-deleted-status))
+    (face-remap-add-relative 'tab-bar-tab 'my/tab-deleted-face)))
+
+(add-hook 'my/check-file-existence-hook 'my/update-tab-bar-faces)
 ;; Monitor file changes
 (defun my/file-change-monitor ()
   "Monitor file system changes for current buffer's file."
