@@ -130,10 +130,59 @@
 (set-face-attribute 'tab-bar nil :background "#1976d2") ; Set tab bar properties
 (set-face-attribute 'tab-bar-tab nil :background "#bbdefb" :foreground "#0d47a1" :height 1.0) ; Set active tab properties
 (set-face-attribute 'tab-bar-tab-inactive nil :background "#1565c0" :foreground "#e3f2fd" :height 1.0) ; Set inactive tab properties
-(defun my/tab-bar-tab-name-with-padding ()
-  "Return a tab name composed of the current buffer's name with padding spaces."
-  (concat (buffer-name) "   "))
-(setq tab-bar-tab-name-function #'my/tab-bar-tab-name-with-padding)
+;; File deletion tracking for tabs
+(defvar my/tab-file-deleted-status (make-hash-table :test 'equal)
+  "Hash table to track deleted status of files.")
+(defun my/check-file-existence ()
+  "Check if current buffer's file exists and update tab appearance."
+  (let ((file-name (buffer-file-name)))
+    (when file-name
+      (if (file-exists-p file-name)
+          (puthash file-name nil my/tab-file-deleted-status)
+        (puthash file-name t my/tab-file-deleted-status))
+      ;; Only update the tab bar if the function is available
+      (when (fboundp 'tab-bar-update)
+        (tab-bar-update)))))
+(defun my/tab-bar-tab-name-custom ()
+  "Return tab name with special styling for deleted files."
+  (let* ((buffer (current-buffer))
+         (file-name (buffer-file-name buffer))
+         (buffer-name (buffer-name buffer))
+         (deleted (and file-name (gethash file-name my/tab-file-deleted-status))))
+    (if deleted
+        (propertize (concat buffer-name " ✗")
+                    'face '(:background "#d32f2f" :foreground "white" :weight bold))
+      buffer-name)))
+;; Use the custom tab name function
+(setq tab-bar-tab-name-function #'my/tab-bar-tab-name-custom)
+;; Monitor file changes
+(defun my/file-change-monitor ()
+  "Monitor file system changes for current buffer's file."
+  (dolist (frame (frame-list))
+    (dolist (buffer (buffer-list))
+      (with-current-buffer buffer
+        (when (buffer-file-name)
+          (my/check-file-existence))))))
+;; Check file existence periodically and after events
+(run-with-timer 0 2 'my/file-change-monitor) ; Check every 2 seconds
+(add-hook 'focus-in-hook 'my/check-file-existence)
+(add-hook 'after-save-hook 'my/check-file-existence)
+(add-hook 'find-file-hook 'my/check-file-existence)
+;; Initialize for all existing buffers
+(defun my/initialize-file-status-all-buffers ()
+  "Initialize file status for all existing file buffers."
+  (dolist (buffer (buffer-list))
+    (with-current-buffer buffer
+      (my/check-file-existence))))
+;; Run initialization after a short delay to ensure tab-bar is loaded
+(run-with-timer 1 nil 'my/initialize-file-status-all-buffers)
+;; Ensure tab bar is visible
+(defun my/ensure-tab-bar-visible ()
+  "Ensure tab bar is visible."
+  (when (display-graphic-p)
+    (tab-bar-mode 1)
+    (force-mode-line-update)))
+(add-hook 'after-init-hook 'my/ensure-tab-bar-visible)
 (load "~/.emacs.d/lisp/menu-bar/menu-bar") ; Add menu bar
 (load "~/.emacs.d/lisp/undo-redo/undo-redo") ; Add undo/ redo functionality
 
@@ -179,6 +228,10 @@
 (defvar search-and-replace-buffer "*search-and-replace*")
 (defvar search-and-replace-width 35 "Default width for search-and-replace sidebar")
 
+(defun my-search-and-replace-is-open-p ()
+  "Check if search-and-replace sidebar is open."
+  (get-buffer-window search-and-replace-buffer))
+
 (defun search-and-replace-increase-width ()
   "Increase search-and-replace window width by 5 columns."
   (interactive)
@@ -210,6 +263,11 @@
     (delete-window (get-buffer-window search-and-replace-buffer)))
   (when (get-buffer search-and-replace-buffer)
     (kill-buffer search-and-replace-buffer)))
+
+(defun my-close-sidebars ()
+  "Close all sidebars."
+  (interactive)
+  (my-close-search-and-replace))
 
 (defun search-and-replace ()
   "Open search-and-replace sidebar"
