@@ -199,6 +199,19 @@
     (tab-bar-mode 1)
     (force-mode-line-update)))
 (add-hook 'after-init-hook 'my/ensure-tab-bar-visible)
+;; Display file save status on every key press
+(defun my/show-save-status ()
+  "Display a message indicating if the current file is saved or not."
+  (let ((file-name (buffer-file-name))
+        (modified (buffer-modified-p)))
+    (if file-name
+        (if modified
+            (message "File NOT SAVED: %s has unsaved changes" (buffer-name))
+          (message "File SAVED: %s is up to date" (buffer-name)))
+      (message "No file associated with buffer: %s" (buffer-name)))))
+
+;; Add to post-command-hook to run after every command
+(add-hook 'post-command-hook 'my/show-save-status)
 (load "~/.emacs.d/lisp/menu-bar/menu-bar") ; Add menu bar
 (load "~/.emacs.d/lisp/undo-redo/undo-redo") ; Add undo/ redo functionality
 
