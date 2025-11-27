@@ -127,28 +127,107 @@
 (setq window-divider-default-places t) ; Enable window dividers
 (setq window-divider-default-bottom-width 1) ; Set bottom divider width
 (setq window-divider-default-right-width 1) ; Set right divider width
-;; Auto-save when buffer content matches file content on disk
-(defun my/buffer-matches-file-p ()
-  "Check if buffer content matches the file content on disk."
-  (let ((file-name (buffer-file-name)))
-    (and file-name
-         (file-exists-p file-name)
-         (not (buffer-modified-p))
-         (with-temp-buffer
-           (insert-file-contents file-name)
-           (string= (buffer-string)
-                    (with-current-buffer (get-buffer (buffer-name))
-                      (buffer-string)))))))
-
-(defun my/auto-save-if-matches-file ()
-  "Automatically save buffer if it matches file content on disk."
+;; =============== Save File If It Matches Saved State ===============
+(defvar my-change-log-buffer "*File Change Log*"
+  "Name of the change log buffer.")
+(defvar my-pending-deletion nil
+  "Store deleted text before it's removed.")
+(defun my-get-change-log-buffer ()
+  "Get or create the change log buffer."
+  (get-buffer-create my-change-log-buffer))
+(defun my-log-change (type text position &optional old-text)
+  "Log a change to the change log buffer."
+  (let ((buffer (my-get-change-log-buffer))
+        (time-str (format-time-string "%H:%M:%S"))
+        (file-name (buffer-name)))
+    (with-current-buffer buffer
+      (goto-char (point-max))
+      (insert (format "[%s] %s: %s at position %d"
+                      time-str file-name type position))
+      (when old-text
+        (insert (format " (replaced '%s')" (my-escape-text old-text))))
+      (insert (format " -> '%s'\n" (my-escape-text text)))
+      (set-buffer-modified-p nil)))) ; Keep log buffer clean
+(defun my-escape-text (text)
+  "Escape special characters for display."
+  (if (string= text "")
+      "[empty]"
+    (replace-regexp-in-string
+     "\n" "\\\\n"
+     (replace-regexp-in-string
+      "\t" "\\\\t" text))))
+(defun my-capture-deletion (beg end)
+  "Capture text about to be deleted."
   (when (and (buffer-file-name)
-             (my/buffer-matches-file-p)
-             (buffer-modified-p))
-    (save-buffer)))
+             (not (minibufferp))
+             (> (- end beg) 0))
+    (setq my-pending-deletion (buffer-substring beg end))))
 
-;; Auto-save when content matches file on disk
-(add-hook 'post-command-hook 'my/auto-save-if-matches-file)
+(defun my-track-all-changes (beg end &optional pre-change-length)
+  "Track all changes made to a file buffer."
+  (when (and (buffer-file-name)
+             (not (minibufferp)))
+
+    ;; Handle deletions (text being removed)
+    (when (and pre-change-length (> pre-change-length 0) my-pending-deletion)
+      (my-log-change "DELETE" my-pending-deletion beg)
+      (setq my-pending-deletion nil))
+
+    ;; Handle insertions (text being added)
+    (when (> (- end beg) 0)
+      (let ((inserted-text (buffer-substring beg end)))
+        (if (and pre-change-length (> pre-change-length 0) my-pending-deletion)
+            ;; This was a replacement
+            (progn
+              (my-log-change "REPLACE" inserted-text beg my-pending-deletion)
+              (setq my-pending-deletion nil))
+          ;; Regular insertion
+          (my-log-change "INSERT" inserted-text beg))))))
+
+(defun my-reset-change-log ()
+  "Reset change tracking when a file is saved."
+  (when (buffer-file-name)
+    (my-log-change "SAVE" "File saved - tracking reset" 0)))
+
+(defun my-log-file-open ()
+  "Log when a file is opened."
+  (when (buffer-file-name)
+    (my-log-change "OPEN" (format "Started tracking %s" (buffer-file-name)) 0)))
+(defun my-show-change-log ()
+  "Display the change log buffer."
+  (interactive)
+  (let ((buffer (my-get-change-log-buffer)))
+    (display-buffer buffer)
+    (with-current-buffer buffer
+      (goto-char (point-max))
+      (recenter -1))))
+
+(defun my-clear-change-log ()
+  "Clear the change log buffer."
+  (interactive)
+  (let ((buffer (my-get-change-log-buffer)))
+    (with-current-buffer buffer
+      (erase-buffer)
+      (insert "=== File Change Log ===\n")
+      (insert "All file changes will be logged here.\n\n")
+      (set-buffer-modified-p nil))))
+(defun my-setup-change-tracking ()
+  "Setup change tracking for file buffer."
+  (when (and (buffer-file-name)
+             (not (minibufferp)))
+    ;; Add hooks
+    (add-hook 'before-change-functions #'my-capture-deletion nil t)
+    (add-hook 'after-change-functions #'my-track-all-changes nil t)
+    (add-hook 'after-save-hook #'my-reset-change-log nil t)
+    ;; Log file opening
+    (my-log-file-open)))
+(defun my-initialize-change-log ()
+  "Initialize the change log system."
+  (my-clear-change-log) ; Start with clean log
+  (add-hook 'find-file-hook #'my-setup-change-tracking))
+;; Initialize the system
+(my-initialize-change-log)
+(message "File change logger loaded. Use M-x my-show-change-log to view changes.")
 (set-face-attribute 'tab-bar nil :background "#1976d2") ; Set tab bar properties
 (set-face-attribute 'tab-bar-tab nil :background "#bbdefb" :foreground "#0d47a1" :height 1.0) ; Set active tab properties
 (set-face-attribute 'tab-bar-tab-inactive nil :background "#1565c0" :foreground "#e3f2fd" :height 1.0) ; Set inactive tab properties
