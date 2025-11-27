@@ -132,6 +132,8 @@
   "Name of the change log buffer.")
 (defvar my-pending-deletion nil
   "Store deleted text before it's removed.")
+(defvar my-edit-counter 0
+  "Counter for edit numbers. Resets on file open/save.")
 (defun my-get-change-log-buffer ()
   "Get or create the change log buffer."
   (get-buffer-create my-change-log-buffer))
@@ -142,8 +144,8 @@
         (file-name (buffer-name)))
     (with-current-buffer buffer
       (goto-char (point-max))
-      (insert (format "[%s] %s: %s at position %d"
-                      time-str file-name type position))
+      (insert (format "%3d. [%s] %s: %s at position %d" 
+                      my-edit-counter time-str file-name type position))
       (when old-text
         (insert (format " (replaced '%s')" (my-escape-text old-text))))
       (insert (format " -> '%s'\n" (my-escape-text text)))
@@ -152,47 +154,51 @@
   "Escape special characters for display."
   (if (string= text "")
       "[empty]"
-    (replace-regexp-in-string
+    (replace-regexp-in-string 
      "\n" "\\\\n"
      (replace-regexp-in-string
       "\t" "\\\\t" text))))
 (defun my-capture-deletion (beg end)
   "Capture text about to be deleted."
-  (when (and (buffer-file-name)
+  (when (and (buffer-file-name) 
              (not (minibufferp))
              (> (- end beg) 0))
     (setq my-pending-deletion (buffer-substring beg end))))
 
 (defun my-track-all-changes (beg end &optional pre-change-length)
   "Track all changes made to a file buffer."
-  (when (and (buffer-file-name)
+  (when (and (buffer-file-name) 
              (not (minibufferp)))
-
     ;; Handle deletions (text being removed)
     (when (and pre-change-length (> pre-change-length 0) my-pending-deletion)
+      (setq my-edit-counter (1+ my-edit-counter))
       (my-log-change "DELETE" my-pending-deletion beg)
       (setq my-pending-deletion nil))
-
     ;; Handle insertions (text being added)
     (when (> (- end beg) 0)
       (let ((inserted-text (buffer-substring beg end)))
         (if (and pre-change-length (> pre-change-length 0) my-pending-deletion)
             ;; This was a replacement
             (progn
+              (setq my-edit-counter (1+ my-edit-counter))
               (my-log-change "REPLACE" inserted-text beg my-pending-deletion)
               (setq my-pending-deletion nil))
           ;; Regular insertion
+          (setq my-edit-counter (1+ my-edit-counter))
           (my-log-change "INSERT" inserted-text beg))))))
 
 (defun my-reset-change-log ()
   "Reset change tracking when a file is saved."
   (when (buffer-file-name)
+    (setq my-edit-counter 0)
     (my-log-change "SAVE" "File saved - tracking reset" 0)))
 
 (defun my-log-file-open ()
   "Log when a file is opened."
   (when (buffer-file-name)
+    (setq my-edit-counter 0)
     (my-log-change "OPEN" (format "Started tracking %s" (buffer-file-name)) 0)))
+
 (defun my-show-change-log ()
   "Display the change log buffer."
   (interactive)
@@ -209,12 +215,15 @@
     (with-current-buffer buffer
       (erase-buffer)
       (insert "=== File Change Log ===\n")
-      (insert "All file changes will be logged here.\n\n")
+      (insert "All file changes will be logged here.\n")
+      (insert "Edit numbers reset on file open/save.\n\n")
+      (setq my-edit-counter 0)
       (set-buffer-modified-p nil))))
 (defun my-setup-change-tracking ()
   "Setup change tracking for file buffer."
   (when (and (buffer-file-name)
              (not (minibufferp)))
+    (setq my-edit-counter 0)
     ;; Add hooks
     (add-hook 'before-change-functions #'my-capture-deletion nil t)
     (add-hook 'after-change-functions #'my-track-all-changes nil t)
