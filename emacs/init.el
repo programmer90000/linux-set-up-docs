@@ -217,8 +217,7 @@
   "Trigger verification after changes, but only when useful."
   (ignore beg end pre-change-length)
   (when (and (buffer-file-name)
-             (buffer-modified-p)
-             (> my-edit-counter 2))
+             (buffer-modified-p))
 
     ;; Cancel previous pending verification
     (when my-verification-timer
