@@ -210,6 +210,7 @@
     (if (equal (buffer-string) my-original-content)
         (progn
           (message "✓ Buffer content now matches original file")
+          (set-buffer-modified-p nil)
           (my-log-change-with-marker "MATCH" "All changes cancelled out - matches original" (point-min)))
       )))
 
