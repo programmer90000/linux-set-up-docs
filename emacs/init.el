@@ -127,6 +127,28 @@
 (setq window-divider-default-places t) ; Enable window dividers
 (setq window-divider-default-bottom-width 1) ; Set bottom divider width
 (setq window-divider-default-right-width 1) ; Set right divider width
+;; Auto-save when buffer content matches file content on disk
+(defun my/buffer-matches-file-p ()
+  "Check if buffer content matches the file content on disk."
+  (let ((file-name (buffer-file-name)))
+    (and file-name
+         (file-exists-p file-name)
+         (not (buffer-modified-p))
+         (with-temp-buffer
+           (insert-file-contents file-name)
+           (string= (buffer-string)
+                    (with-current-buffer (get-buffer (buffer-name))
+                      (buffer-string)))))))
+
+(defun my/auto-save-if-matches-file ()
+  "Automatically save buffer if it matches file content on disk."
+  (when (and (buffer-file-name)
+             (my/buffer-matches-file-p)
+             (buffer-modified-p))
+    (save-buffer)))
+
+;; Auto-save when content matches file on disk
+(add-hook 'post-command-hook 'my/auto-save-if-matches-file)
 (set-face-attribute 'tab-bar nil :background "#1976d2") ; Set tab bar properties
 (set-face-attribute 'tab-bar-tab nil :background "#bbdefb" :foreground "#0d47a1" :height 1.0) ; Set active tab properties
 (set-face-attribute 'tab-bar-tab-inactive nil :background "#1565c0" :foreground "#e3f2fd" :height 1.0) ; Set inactive tab properties
