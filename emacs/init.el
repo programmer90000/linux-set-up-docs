@@ -134,18 +134,30 @@
   "Store deleted text before it's removed.")
 (defvar my-edit-counter 0
   "Counter for edit numbers. Resets on file open/save.")
+(defvar my-change-history nil
+  "List of changes stored with markers. Each element is (TYPE MARKER TEXT OLD-TEXT).")
+(defvar my-original-content nil
+  "Store original buffer content when file is opened.")
+(defvar my-verification-timer nil
+  "Timer for delayed content verification.")
 (defun my-get-change-log-buffer ()
   "Get or create the change log buffer."
   (get-buffer-create my-change-log-buffer))
-(defun my-log-change (type text position &optional old-text)
-  "Log a change to the change log buffer."
+(defun my-log-change-with-marker (type text position &optional old-text)
+  "Log change using a marker that auto-adjusts."
+  (let ((marker (copy-marker position))) ; Create a new marker at this position
+    (push (list type marker text old-text) my-change-history)
+    (my-display-change-in-log type marker text old-text)))
+(defun my-display-change-in-log (type marker text old-text)
+  "Display the change in your log buffer using the marker's current position."
   (let ((buffer (my-get-change-log-buffer))
         (time-str (format-time-string "%H:%M:%S"))
-        (file-name (buffer-name)))
+        (file-name (buffer-name))
+        (current-pos (marker-position marker)))
     (with-current-buffer buffer
       (goto-char (point-max))
       (insert (format "%3d. [%s] %s: %s at position %d" 
-                      my-edit-counter time-str file-name type position))
+                      my-edit-counter time-str file-name type current-pos))
       (when old-text
         (insert (format " (replaced '%s')" (my-escape-text old-text))))
       (insert (format " -> '%s'\n" (my-escape-text text)))
@@ -166,13 +178,13 @@
     (setq my-pending-deletion (buffer-substring beg end))))
 
 (defun my-track-all-changes (beg end &optional pre-change-length)
-  "Track all changes made to a file buffer."
+  "Track all changes made to a file buffer using markers."
   (when (and (buffer-file-name) 
              (not (minibufferp)))
     ;; Handle deletions (text being removed)
     (when (and pre-change-length (> pre-change-length 0) my-pending-deletion)
       (setq my-edit-counter (1+ my-edit-counter))
-      (my-log-change "DELETE" my-pending-deletion beg)
+      (my-log-change-with-marker "DELETE" my-pending-deletion beg)
       (setq my-pending-deletion nil))
     ;; Handle insertions (text being added)
     (when (> (- end beg) 0)
@@ -181,23 +193,59 @@
             ;; This was a replacement
             (progn
               (setq my-edit-counter (1+ my-edit-counter))
-              (my-log-change "REPLACE" inserted-text beg my-pending-deletion)
+              (my-log-change-with-marker "REPLACE" inserted-text beg my-pending-deletion)
               (setq my-pending-deletion nil))
           ;; Regular insertion
           (setq my-edit-counter (1+ my-edit-counter))
-          (my-log-change "INSERT" inserted-text beg))))))
+          (my-log-change-with-marker "INSERT" inserted-text beg))))))
+(defun my/store-original-content ()
+  "Store the original buffer content when file is opened."
+  (when (buffer-file-name)
+    (setq my-original-content (buffer-string))))
+(defun my/verify-content-match ()
+  "Check if current buffer matches original content."
+  (when (and my-original-content
+             (buffer-file-name)
+             (buffer-modified-p))
+    (if (equal (buffer-string) my-original-content)
+        (progn
+          (message "✓ Buffer content now matches original file")
+          (my-log-change-with-marker "MATCH" "All changes cancelled out - matches original" (point-min)))
+      )))
+
+(defun my/smart-verify-trigger (beg end &optional pre-change-length)
+  "Trigger verification after changes, but only when useful."
+  (ignore beg end pre-change-length)
+  (when (and (buffer-file-name)
+             (buffer-modified-p)
+             (> my-edit-counter 2))
+
+    ;; Cancel previous pending verification
+    (when my-verification-timer
+      (cancel-timer my-verification-timer))
+
+    ;; Schedule verification for when user stops typing
+    (setq my-verification-timer
+          (run-with-idle-timer 0.5 nil #'my/verify-content-match))))
 
 (defun my-reset-change-log ()
   "Reset change tracking when a file is saved."
   (when (buffer-file-name)
     (setq my-edit-counter 0)
-    (my-log-change "SAVE" "File saved - tracking reset" 0)))
+    ;; Store the new original content (the saved state)
+    (my/store-original-content)
+    ;; Clear old markers to prevent memory leaks
+    (setq my-change-history nil)
+    (my-log-change-with-marker "SAVE" "File saved - tracking reset" (point-min))
+    (message "File saved and change tracking reset")))
 
 (defun my-log-file-open ()
   "Log when a file is opened."
   (when (buffer-file-name)
     (setq my-edit-counter 0)
-    (my-log-change "OPEN" (format "Started tracking %s" (buffer-file-name)) 0)))
+    (setq my-change-history nil) ; Clear any old markers
+    (my/store-original-content) ; Store original content when opening
+    (my-log-change-with-marker "OPEN" (format "Started tracking %s" (buffer-file-name)) (point-min))))
 
 (defun my-show-change-log ()
   "Display the change log buffer."
@@ -209,25 +257,43 @@
       (recenter -1))))
 
 (defun my-clear-change-log ()
-  "Clear the change log buffer."
+  "Clear the change log buffer and all markers."
   (interactive)
   (let ((buffer (my-get-change-log-buffer)))
     (with-current-buffer buffer
       (erase-buffer)
       (insert "=== File Change Log ===\n")
       (insert "All file changes will be logged here.\n")
-      (insert "Edit numbers reset on file open/save.\n\n")
-      (setq my-edit-counter 0)
-      (set-buffer-modified-p nil))))
+      (insert "Edit numbers reset on file open/save.\n")
+      (insert "Positions auto-adjust using markers.\n\n")
+      (set-buffer-modified-p nil)))
+  ;; Clear all markers to prevent memory leaks
+  (setq my-change-history nil)
+  (setq my-edit-counter 0)
+  (setq my-original-content nil))
+
+(defun my-cleanup-buffer-markers ()
+  "Clean up markers when a buffer is killed."
+  (when (buffer-file-name)
+    ;; Remove all markers associated with this buffer
+    (setq my-change-history
+          (cl-remove-if (lambda (change)
+                         (and (markerp (nth 1 change))
+                              (eq (marker-buffer (nth 1 change)) (current-buffer))))
+                       my-change-history))
+    (setq my-original-content nil)))
 (defun my-setup-change-tracking ()
   "Setup change tracking for file buffer."
   (when (and (buffer-file-name)
              (not (minibufferp)))
     (setq my-edit-counter 0)
+    (setq my-change-history nil)
     ;; Add hooks
     (add-hook 'before-change-functions #'my-capture-deletion nil t)
     (add-hook 'after-change-functions #'my-track-all-changes nil t)
+    (add-hook 'after-change-functions #'my/smart-verify-trigger nil t)
     (add-hook 'after-save-hook #'my-reset-change-log nil t)
+    (add-hook 'kill-buffer-hook #'my-cleanup-buffer-markers nil t)
     ;; Log file opening
     (my-log-file-open)))
 (defun my-initialize-change-log ()
@@ -236,7 +302,7 @@
   (add-hook 'find-file-hook #'my-setup-change-tracking))
 ;; Initialize the system
 (my-initialize-change-log)
-(message "File change logger loaded. Use M-x my-show-change-log to view changes.")
+(message "File change logger with markers loaded. Use M-x my-show-change-log to view changes.")
 (set-face-attribute 'tab-bar nil :background "#1976d2") ; Set tab bar properties
 (set-face-attribute 'tab-bar-tab nil :background "#bbdefb" :foreground "#0d47a1" :height 1.0) ; Set active tab properties
 (set-face-attribute 'tab-bar-tab-inactive nil :background "#1565c0" :foreground "#e3f2fd" :height 1.0) ; Set inactive tab properties
