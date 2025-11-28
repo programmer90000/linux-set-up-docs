@@ -118,8 +118,6 @@
 (global-set-key (kbd "C-x") 'kill-region) ; Shortcut to cut text using Ctrl + X
 (global-set-key (kbd "C-z") 'undo-only) ; Shortcut to undo using Ctrl + Z
 (global-set-key (kbd "C-y") 'undo-redo) ; Shortcut to redo using Ctrl + Y
-(tab-bar-mode) ; Enable the line showing tabs at the top of the editor
-(setq tab-bar-new-tab-choice "*scratch*") ; Open an empty tab when the new tab button is pressed
 (menu-bar-mode -1) ; Remove menu bar
 (tool-bar-mode -1) ; Remove tool bar
 (setq-default mode-line-format nil) ; Remove the mode line
@@ -303,17 +301,6 @@
 ;; Initialize the system
 (my-initialize-change-log)
 (message "File change logger with markers loaded. Use M-x my-show-change-log to view changes.")
-(set-face-attribute 'tab-bar nil :background "#1976d2") ; Set tab bar properties
-(set-face-attribute 'tab-bar-tab nil :background "#bbdefb" :foreground "#0d47a1" :height 1.0) ; Set active tab properties
-(set-face-attribute 'tab-bar-tab-inactive nil :background "#1565c0" :foreground "#e3f2fd" :height 1.0) ; Set inactive tab properties
-;; File deletion tracking for tabs
-;; Ensure tab bar is visible
-(defun my/ensure-tab-bar-visible ()
-  "Ensure tab bar is visible."
-  (when (display-graphic-p)
-    (tab-bar-mode 1)
-    (force-mode-line-update)))
-(add-hook 'after-init-hook 'my/ensure-tab-bar-visible)
 ;; Display file save status on every key press
 (defun my/show-save-status ()
   "Display a message indicating if the current file is saved or not."
@@ -324,104 +311,6 @@
             (message "File NOT SAVED: %s has unsaved changes" (buffer-name))
           (message "File SAVED: %s is up to date" (buffer-name)))
       (message "No file associated with buffer: %s" (buffer-name)))))
-;; File status tracking for tabs
-(defvar my/tab-file-deleted-status (make-hash-table :test 'equal)
-  "Hash table to track deleted status of files.")
-(defvar my/tab-file-unsaved-status (make-hash-table :test 'equal)
-  "Hash table to track unsaved status of files.")
-(defun my/check-file-existence (&rest _)
-  "Check if current buffer's file exists and update tab appearance.
-Accepts optional arguments for compatibility with hooks."
-  (let ((file-name (buffer-file-name)))
-    (when file-name
-      ;; Check file existence
-      (if (file-exists-p file-name)
-          (puthash file-name nil my/tab-file-deleted-status)
-        (puthash file-name t my/tab-file-deleted-status))
-      ;; Check if buffer has unsaved changes
-      (if (buffer-modified-p)
-          (puthash file-name t my/tab-file-unsaved-status)
-        (puthash file-name nil my/tab-file-unsaved-status))
-      (run-hooks 'my/check-file-existence-hook)
-      ;; Only update the tab bar if the function is available
-      (when (fboundp 'tab-bar-update)
-        (tab-bar-update)))))
-(defun my/tab-bar-tab-name-custom ()
-  "Return tab name with special styling for deleted and unsaved files."
-  (let* ((buffer (current-buffer))
-         (file-name (buffer-file-name buffer))
-         (buffer-name (buffer-name buffer))
-         (deleted (and file-name (gethash file-name my/tab-file-deleted-status)))
-         (unsaved (and file-name (gethash file-name my/tab-file-unsaved-status))))
-    (cond
-     (deleted
-      (propertize buffer-name 'face 'tab-bar-tab-inactive))
-     (unsaved
-      (propertize buffer-name 'face 'my/tab-unsaved-face))
-     (t
-      buffer-name))))
-;; Use the custom tab name function
-(setq tab-bar-tab-name-function #'my/tab-bar-tab-name-custom)
-;; Custom faces for different file statuses
-(defface my/tab-deleted-face
-  '((t :background "#d32f2f" :foreground "white" :weight bold))
-  "Face for tabs with deleted files.")
-(defface my/tab-unsaved-face
-  '((t :background "#ffa000" :foreground "black" :weight bold))
-  "Face for tabs with unsaved changes.")
-(custom-set-faces
- '(tab-bar-tab ((t :inherit variable-pitch :background "#1e1e1e" :foreground "white" :height 0.9)))
- '(tab-bar-tab-inactive ((t :inherit my/tab-deleted-face)))
- '(my/tab-unsaved-face ((t :background "#ffa000" :foreground "black" :weight bold))))
-(defvar my/tab-face-remapping-cookie nil
-  "Storage for face remapping cookie.")
-(defun my/update-tab-bar-faces ()
-  "Update tab bar faces based on file status."
-  (let ((file-name (buffer-file-name)))
-    (when file-name
-      ;; Clear previous face remapping
-      (when my/tab-face-remapping-cookie
-        (face-remap-remove-relative my/tab-face-remapping-cookie)
-        (setq my/tab-face-remapping-cookie nil))
-      ;; Apply new face remapping only if needed
-      (cond
-       ((gethash file-name my/tab-file-deleted-status)
-        (setq my/tab-face-remapping-cookie 
-              (face-remap-add-relative 'tab-bar-tab 'my/tab-deleted-face)))
-       ((gethash file-name my/tab-file-unsaved-status)
-        (setq my/tab-face-remapping-cookie
-              (face-remap-add-relative 'tab-bar-tab 'my/tab-unsaved-face)))))))
-(add-hook 'my/check-file-existence-hook 'my/update-tab-bar-faces)
-;; Monitor file changes and buffer modifications
-(defun my/file-change-monitor ()
-  "Monitor file system changes and buffer modifications."
-  (dolist (frame (frame-list))
-    (dolist (buffer (buffer-list))
-      (with-current-buffer buffer
-        (when (buffer-file-name)
-          (my/check-file-existence))))))
-;; Check file existence periodically and after events
-(run-with-timer 0 2 'my/file-change-monitor) ; Check every 2 seconds
-(add-hook 'focus-in-hook 'my/check-file-existence)
-(add-hook 'after-save-hook 'my/check-file-existence)
-(add-hook 'find-file-hook 'my/check-file-existence)
-(add-hook 'first-change-hook 'my/check-file-existence) ; When buffer becomes modified
-;; Initialize for all existing buffers
-(defun my/initialize-file-status-all-buffers ()
-  "Initialize file status for all existing file buffers."
-  (dolist (buffer (buffer-list))
-    (with-current-buffer buffer
-      (my/check-file-existence))))
-;; Run initialization after a short delay to ensure tab-bar is loaded
-(run-with-timer 1 nil 'my/initialize-file-status-all-buffers)
-;; Ensure tab bar is visible
-(defun my/ensure-tab-bar-visible ()
-  "Ensure tab bar is visible."
-  (when (display-graphic-p)
-    (tab-bar-mode 1)
-    (force-mode-line-update)))
-(add-hook 'after-init-hook 'my/ensure-tab-bar-visible)
-
 ;; Add to post-command-hook to run after every command
 (add-hook 'post-command-hook 'my/show-save-status)
 (load "~/.emacs.d/lisp/menu-bar/menu-bar") ; Add menu bar
