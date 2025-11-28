@@ -373,15 +373,24 @@ Accepts optional arguments for compatibility with hooks."
  '(tab-bar-tab ((t :inherit variable-pitch :background "#1e1e1e" :foreground "white" :height 0.9)))
  '(tab-bar-tab-inactive ((t :inherit my/tab-deleted-face)))
  '(my/tab-unsaved-face ((t :background "#ffa000" :foreground "black" :weight bold))))
+(defvar my/tab-face-remapping-cookie nil
+  "Storage for face remapping cookie.")
 (defun my/update-tab-bar-faces ()
   "Update tab bar faces based on file status."
   (let ((file-name (buffer-file-name)))
     (when file-name
+      ;; Clear previous face remapping
+      (when my/tab-face-remapping-cookie
+        (face-remap-remove-relative my/tab-face-remapping-cookie)
+        (setq my/tab-face-remapping-cookie nil))
+      ;; Apply new face remapping only if needed
       (cond
        ((gethash file-name my/tab-file-deleted-status)
-        (face-remap-add-relative 'tab-bar-tab 'my/tab-deleted-face))
+        (setq my/tab-face-remapping-cookie 
+              (face-remap-add-relative 'tab-bar-tab 'my/tab-deleted-face)))
        ((gethash file-name my/tab-file-unsaved-status)
-        (face-remap-add-relative 'tab-bar-tab 'my/tab-unsaved-face))))))
+        (setq my/tab-face-remapping-cookie
+              (face-remap-add-relative 'tab-bar-tab 'my/tab-unsaved-face)))))))
 (add-hook 'my/check-file-existence-hook 'my/update-tab-bar-faces)
 ;; Monitor file changes and buffer modifications
 (defun my/file-change-monitor ()
