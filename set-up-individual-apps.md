@@ -577,7 +577,7 @@ cp undo-redo.el ~/.emacs.d/lisp/undo-redo/
 
 ### Install The Menu Bar
 
-Copy the files from the [menu bar](./emacs/menu-bar/) directory into the `~/.emacs.d/lisp/` directory:
+Copy the files from the [menu bar](./emacs/menu-bar/menu-bar.el) directory into the `~/.emacs.d/lisp/` directory:
 ```
 cp -r menu-bar ~/.emacs.d/lisp/menu-bar/
 ```
