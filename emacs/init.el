@@ -313,7 +313,7 @@
       (message "No file associated with buffer: %s" (buffer-name)))))
 ;; Add to post-command-hook to run after every command
 (add-hook 'post-command-hook 'my/show-save-status)
-(load "~/.emacs.d/lisp/menu-bar/menu-bar") ; Add menu bar
+(load "~/.emacs.d/lisp/menu/menu") ; Add menu
 (load "~/.emacs.d/lisp/undo-redo/undo-redo") ; Add undo/ redo functionality
 
 ;; =============== Mouse Actions ===============
