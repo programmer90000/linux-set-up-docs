@@ -1,3 +1,3 @@
-(load ~/.emacs.d/lisp/menu/menu.el)
+(load "~/.emacs.d/lisp/menu/menu.el")
 
 (provide 'menu-bar)
