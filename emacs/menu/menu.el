@@ -77,8 +77,8 @@
          ;; Convert character width to pixels
          (char-width (frame-char-width))
          (menu-x (* initial-space char-width))
-         (menu-y (window-header-line-height window))
-         (position (list (list menu-x menu-y) window))
+         (menu-y (frame-char-height))
+         (position (list (list menu-x menu-y) (selected-frame)))
          (recent-files (get-recent-files-list))
          (recent-count (length recent-files)))
     
@@ -127,9 +127,9 @@
                       (string-width header-button-gap)))
          (char-width (frame-char-width))
          (menu-x (* (+ initial-space file-width gap-width) char-width))
-         (menu-y (window-header-line-height window))
-         (position (list (list menu-x menu-y) window))
-         (region-active-p (region-active-p))) ;; Check if there is a selection for cut/copy
+         (menu-y (frame-char-height))
+         (position (list (list menu-x menu-y) (selected-frame)))
+         (region-active-p (region-active-p)))
     (popup-menu
      `([]
        ["Undo" undo-fu-only-undo :help "Undo last change" :active (and buffer-undo-list (not (eq buffer-undo-list t)))]
@@ -164,8 +164,8 @@
                       (string-width header-button-gap)))
          (char-width (frame-char-width))
          (menu-x (* (+ initial-space file-width gap-width edit-width gap-width) char-width))
-         (menu-y (window-header-line-height window))
-         (position (list (list menu-x menu-y) window)))
+         (menu-y (frame-char-height))
+         (position (list (list menu-x menu-y) (selected-frame))))
     (popup-menu
      '([]
        ["Show Whitespace" whitespace-mode]
@@ -190,8 +190,8 @@
                       (string-width header-button-gap)))
          (char-width (frame-char-width))
          (menu-x (* (+ initial-space file-width gap-width edit-width gap-width view-width gap-width) char-width))
-         (menu-y (window-header-line-height window))
-         (position (list (list menu-x menu-y) window)))
+         (menu-y (frame-char-height))
+         (position (list (list menu-x menu-y) (selected-frame))))
     (popup-menu
      '([]
        ["Go To Line" goto-line]
@@ -215,14 +215,13 @@
          (navigate-width (with-selected-window window
                            (string-width "Navigate")))
          (help-width (with-selected-window window
-                       (string-width "Help")))  ;; Add this
+                       (string-width "Help")))
          (gap-width (with-selected-window window
                       (string-width header-button-gap)))
          (char-width (frame-char-width))
-         ;; Fixed calculation - only include buttons that actually exist
          (menu-x (* (+ initial-space file-width gap-width edit-width gap-width view-width gap-width navigate-width gap-width help-width) char-width))
-         (menu-y (window-header-line-height window))
-         (position (list (list menu-x menu-y) window)))
+         (menu-y (frame-char-height))
+         (position (list (list menu-x menu-y) (selected-frame))))
     (popup-menu
      '(["Emacs Manual" info-emacs-manual]
        ["Describe Key" describe-key]
@@ -237,7 +236,6 @@
                                default-directory
                                "~/"))
         (filename nil))
-    ;; Get filename from KDE file picker
     (condition-case err
         (setq filename (string-trim
                        (shell-command-to-string "kdialog --getsavefilename .")))
@@ -245,12 +243,9 @@
        (message "Error calling KDE file picker: %s" err)
        (setq filename nil)))
 
-    ;; Check if user canceled the dialog (empty string or nil)
     (when (and filename (not (string-empty-p filename)))
-      ;; Create the file if it doesn't exist
       (unless (file-exists-p filename)
         (write-region "" nil filename))
-      ;; Open the file in a new tab
       (tab-bar-new-tab)
       (find-file filename)
       (message "Created and opened in new tab: %s" filename))))
@@ -271,7 +266,6 @@
        (setq filename nil)))
 
     (when (and filename (not (string-empty-p filename)))
-      ;; Open in new tab
       (tab-bar-new-tab)
       (find-file filename)
       (message "Opened in new tab: %s" filename))))
@@ -287,18 +281,16 @@
   (interactive "e")
   (let* ((posn (event-start event))
          (window (posn-window posn))
-         ;; Calculate pixel position after File button
          (initial-space (with-selected-window window
                           (string-width header-initial-space)))
          (file-width (with-selected-window window
                            (string-width "File")))
          (gap-width (with-selected-window window
                       (string-width header-button-gap)))
-         ;; Convert character width to pixels
          (char-width (frame-char-width))
          (menu-x (* (+ initial-space file-width gap-width) char-width))
-         (menu-y (window-header-line-height window))
-         (position (list (list menu-x menu-y) window)))
+         (menu-y (frame-char-height))
+         (position (list (list menu-x menu-y) (selected-frame))))
     (popup-menu
      '([]
        ["Option 1" (message "Option 1 selected from first menu")]
@@ -317,7 +309,6 @@
   (interactive "e")
   (let* ((posn (event-start event))
          (window (posn-window posn))
-         ;; Calculate pixel position after all previous buttons
          (initial-space (with-selected-window window
                           (string-width header-initial-space)))
          (file-width (with-selected-window window
@@ -326,11 +317,10 @@
                                (string-width "Menu")))
          (gap-width (with-selected-window window
                       (string-width header-button-gap)))
-         ;; Convert character width to pixels
          (char-width (frame-char-width))
          (menu-x (* (+ initial-space file-width gap-width first-button-width gap-width) char-width))
-         (menu-y (window-header-line-height window))
-         (position (list (list menu-x menu-y) window)))
+         (menu-y (frame-char-height))
+         (position (list (list menu-x menu-y) (selected-frame))))
     (popup-menu
      '([]
        ["Option 1" (message "Option 1 selected from second menu")]
@@ -338,8 +328,8 @@
        ["Option 3" (message "Option 3 selected from second menu")])
      position)))
 
-;; Set header content with all dropdown triggers
-(setq header-line-content
+;; Create the frame-level header line format
+(setq header-line-format
       (concat
        header-initial-space
        (propertize "File"
@@ -377,42 +367,27 @@
                    'keymap header-dropdown-map-2
                    'mouse-face 'highlight)))
 
-(define-minor-mode custom-header-line-mode
-  "Toggle custom header line mode."
-  :global t
-  :init-value nil
-  :lighter ""
-  :keymap nil
-  (if custom-header-line-mode
-      (progn
-        (setq-default header-line-format '(:eval header-line-content))
-        (dolist (buffer (buffer-list))
-          (with-current-buffer buffer
-            (setq header-line-format '(:eval header-line-content))))
-        (message "Custom header line mode enabled"))
-    (setq-default header-line-format nil)
-    (dolist (buffer (buffer-list))
-      (with-current-buffer buffer
-        (setq header-line-format nil)))
-    (message "Custom header line mode disabled")))
+;; Set as the default header line format for all frames
+(setq-default header-line-format header-line-format)
 
-;; Enable the custom header line mode
-(custom-header-line-mode 1)
+;; Enable menu bar and set our custom header (menu bar is frame-level in Emacs)
+(menu-bar-mode 1)
+(setq menu-bar-final-items '(file edit view navigate help))
 
-;; Additional hook to ensure header line is set for new buffers
-(add-hook 'after-change-major-mode-hook
-          (lambda ()
-            (when custom-header-line-mode
-              (setq header-line-format '(:eval header-line-content)))))
+;; Remove the custom header line mode since we're using frame-level menu bar now
+;; and replace with function to ensure header line is set
+(defun ensure-frame-header-line ()
+  "Ensure the frame has our custom header line."
+  (setq header-line-format header-line-format))
 
-;; Hook for new buffers created via find-file
-(add-hook 'find-file-hook
-          (lambda ()
-            (when custom-header-line-mode
-              (setq header-line-format '(:eval header-line-content)))))
+;; Apply to current frame and all future frames
+(ensure-frame-header-line)
+(add-hook 'after-make-frame-functions 
+          (lambda (frame)
+            (with-selected-frame frame
+              (ensure-frame-header-line))))
 
-;; Hook for tab-bar new tab creation
-(add-hook 'tab-bar-tab-post-open-functions
-          (lambda (tab)
-            (when custom-header-line-mode
-              (setq header-line-format '(:eval header-line-content)))))
+;; Remove the old custom-header-line-mode and its hooks since we're using frame-level approach
+;; The original custom-header-line-mode definition and hooks are no longer needed
+
+(message "Custom frame-level menu bar enabled")
