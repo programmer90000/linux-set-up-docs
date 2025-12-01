@@ -328,35 +328,45 @@
        ["Option 3" (message "Option 3 selected from second menu")])
      position)))
 
-;; Create the frame-level header line format
-(setq header-line-format
-      (concat
-       header-initial-space
-       (propertize "File"
-                   'help-echo "Click for file operations"
-                   'keymap header-dropdown-map-file
-                   'mouse-face 'highlight)
-       header-button-gap
-       (propertize "Edit"
-                   'help-echo "Click for edit operations"
-                   'keymap header-dropdown-map-edit
-                   'mouse-face 'highlight)
-       header-button-gap
-       (propertize "View"
-                   'help-echo "Click for view options"
-                   'keymap header-dropdown-map-view
-                   'mouse-face 'highlight)
-       header-button-gap
-       (propertize "Navigate"
-                   'help-echo "Click for navigation options"
-                   'keymap header-dropdown-map-navigate
-                   'mouse-face 'highlight)
-       header-button-gap
-       (propertize "Help"
-                   'help-echo "Click for help"
-                   'keymap header-dropdown-map-help
-                   'mouse-face 'highlight)
-       header-button-gap
+(defvar *global-menu-window* nil
+  "Window displaying the global menu bar.")
+
+(defun create-global-menu-window ()
+  "Create a single global menu window at the top of the frame."
+  (unless (and *global-menu-window* (window-live-p *global-menu-window*))
+    ;; Create a special buffer for the menu
+    (let ((menu-buffer (get-buffer-create "*Global Menu*")))
+      (with-current-buffer menu-buffer
+        (let ((inhibit-read-only t))
+          (erase-buffer)
+          ;; Insert the menu bar content
+          (insert (concat
+                   header-initial-space
+                   (propertize "File"
+                               'help-echo "Click for file operations"
+                               'keymap header-dropdown-map-file
+                               'mouse-face 'highlight)
+                   header-button-gap
+                   (propertize "Edit"
+                               'help-echo "Click for edit operations"
+                               'keymap header-dropdown-map-edit
+                               'mouse-face 'highlight)
+                   header-button-gap
+                   (propertize "View"
+                               'help-echo "Click for view options"
+                               'keymap header-dropdown-map-view
+                               'mouse-face 'highlight)
+                   header-button-gap
+                   (propertize "Navigate"
+                               'help-echo "Click for navigation options"
+                               'keymap header-dropdown-map-navigate
+                               'mouse-face 'highlight)
+                   header-button-gap
+                   (propertize "Help"
+                               'help-echo "Click for help"
+                               'keymap header-dropdown-map-help
+                               'mouse-face 'highlight)
+                       header-button-gap
        (propertize "Menu"
                    'help-echo "Click for menu"
                    'keymap header-dropdown-map
@@ -365,27 +375,41 @@
        (propertize "Menu 2"
                    'help-echo "Click for menu 2"
                    'keymap header-dropdown-map-2
-                   'mouse-face 'highlight)))
+                   'mouse-face 'highlight))))
+        ;; Configure the buffer
+        (setq-local cursor-type nil)
+        (setq-local mode-line-format nil)
+        (setq-local header-line-format nil)
+        (setq-local truncate-lines t)
+        (setq-local window-size-fixed 'height)
+        (read-only-mode 1))
 
-;; Set as the default header line format for all frames
-(setq-default header-line-format header-line-format)
+      (setq *global-menu-window*
+            (display-buffer-in-side-window
+             menu-buffer
+             '((side . top)
+               (slot . 0)
+               (window-height . 1)
+               (preserve-size . (nil . t)))))
+      (set-window-dedicated-p *global-menu-window* t))))
 
-;; Enable menu bar and set our custom header (menu bar is frame-level in Emacs)
-(menu-bar-mode 1)
-(setq menu-bar-final-items '(file edit view navigate help))
+(defun remove-all-header-lines ()
+  "Remove header lines from all buffers."
+  (setq-default header-line-format nil)
+  (dolist (buf (buffer-list))
+    (with-current-buffer buf
+      (setq-local header-line-format nil))))
 
-;; Remove the custom header line mode since we're using frame-level menu bar now
-;; and replace with function to ensure header line is set
-(defun ensure-frame-header-line ()
-  "Ensure the frame has our custom header line."
-  (setq header-line-format header-line-format))
+(remove-all-header-lines)
+(create-global-menu-window)
 
-;; Apply to current frame and all future frames
-(ensure-frame-header-line)
-(add-hook 'after-make-frame-functions 
-          (lambda (frame)
-            (with-selected-frame frame
-              (ensure-frame-header-line))))
+;; Ensure new buffers don't get header lines
+(add-hook 'find-file-hook
+          (lambda () (setq-local header-line-format nil)))
+(add-hook 'after-change-major-mode-hook
+          (lambda () (setq-local header-line-format nil)))
+
+(message "Single global menu bar created. No per-buffer menus.")
 
 ;; Remove the old custom-header-line-mode and its hooks since we're using frame-level approach
 ;; The original custom-header-line-mode definition and hooks are no longer needed
