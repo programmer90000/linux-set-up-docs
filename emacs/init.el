@@ -307,9 +307,6 @@
   (let ((file-name (buffer-file-name))
         (modified (buffer-modified-p)))
     (if file-name
-        (if modified
-            (message "File NOT SAVED: %s has unsaved changes" (buffer-name))
-          (message "File SAVED: %s is up to date" (buffer-name)))
       (message "No file associated with buffer: %s" (buffer-name)))))
 ;; Add to post-command-hook to run after every command
 (add-hook 'post-command-hook 'my/show-save-status)
