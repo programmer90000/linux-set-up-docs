@@ -75,9 +75,7 @@
         (insert "--- Debug Log Started ---\n\n"))
 
       (goto-char (point-max))
-      (insert (format "[%s] %s\n"
-                      (format-time-string "%H:%M:%S")
-                      message)))
+      (insert (format "%s\n" message)))
     ;; Always display at bottom
     (display-buffer-at-bottom buffer '((window-height . 10)))
     buffer))
