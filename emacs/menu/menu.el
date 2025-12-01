@@ -65,6 +65,31 @@
       (write-file filename)
       (message "Saved as: %s" filename))))
 
+(defun menu-debug-logger (message)
+  "Log MESSAGE to debug buffer and display at bottom."
+  (let ((buffer (get-buffer-create "*debug-log*")))
+    ;; Insert the message into the buffer
+    (with-current-buffer buffer
+      ;; Initialize buffer with just a simple separator if empty
+      (when (zerop (buffer-size))
+        (insert "--- Debug Log Started ---\n\n"))
+
+      (goto-char (point-max))
+      (insert (format "[%s] %s\n"
+                      (format-time-string "%H:%M:%S")
+                      message)))
+    ;; Always display at bottom
+    (display-buffer-at-bottom buffer '((window-height . 10)))
+    buffer))
+
+(defun menu-debug-log ()
+  "Demonstrate the debug log functionality."
+  (interactive)
+  (menu-debug-logger "Debug system initialized"))
+
+(when (called-interactively-p 'any)
+  (menu-debug-log))
+
 (defun header-dropdown-show-file (event)
   "Show dropdown menu at bottom-left of File button."
   (interactive "e")
