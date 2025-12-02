@@ -134,16 +134,49 @@
 (defvar *global-menu-window* nil
   "Window displaying the global menu bar.")
 
-;; Update the post-command-hook
+(defun is-menu-button-click (posn)
+  "Return t if click at POSN is on a menu button (has keymap property)."
+  (let* ((window (posn-window posn))
+         (buffer (when (windowp window) (window-buffer window)))
+         (pos (posn-point posn)))
+    (when (and buffer pos *global-menu-window*
+               (eq window *global-menu-window*))
+      (with-current-buffer buffer
+        (get-text-property pos 'keymap)))))
+
 (add-hook 'post-command-hook
           (lambda ()
             (when (eq menu--last-command 'mouse-set-point)
               (let* ((event last-command-event)
                      (posn (event-start event))
                      (window (posn-window posn)))
-                ;; Only log if clicked in the global menu window
-                (when (eq window *global-menu-window*)
-                  (menu-debug-logger (menu--get-click-details posn)))))))
+                ;; Only log if clicked on a button in menu bar window
+                (when (and *global-menu-window*
+                           (window-live-p *global-menu-window*)
+                           (eq window *global-menu-window*)
+                           (is-menu-button-click posn))
+                  ;; Get button text for logging
+                  (let* ((buffer (window-buffer window))
+                         (pos (posn-point posn))
+                         (button-text
+                          (when (and buffer pos)
+                            (with-current-buffer buffer
+                              (save-excursion
+                                (goto-char pos)
+                                (let ((keymap (get-text-property pos 'keymap)))
+                                  (when keymap
+                                    ;; Find start of button
+                                    (while (and (> (point) (point-min))
+                                                (eq (get-text-property (1- (point)) 'keymap) keymap))
+                                      (backward-char 1))
+                                    (let ((start (point)))
+                                      ;; Find end of button
+                                      (while (and (< (point) (point-max))
+                                                  (eq (get-text-property (point) 'keymap) keymap))
+                                        (forward-char 1))
+                                      (buffer-substring start (point))))))))))
+                    (when button-text
+                      (menu-debug-logger (format "Menu button clicked: '%s'" button-text)))))))))
 
 (when (called-interactively-p 'any)
   (menu-debug-log))
