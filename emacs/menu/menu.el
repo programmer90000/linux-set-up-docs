@@ -89,7 +89,45 @@
 (defvar menu--last-command nil
   "Store the last command executed.")
 
-(add-hook 'pre-command-hook
+(defun menu--get-click-details (posn)
+  "Extract detailed information about what was clicked at POSN."
+  (let* ((window (posn-window posn))
+         (buffer (when (windowp window) (window-buffer window)))
+         (pos (posn-point posn))
+         (area (posn-area posn))
+         (details nil))
+
+    ;; Determine what area was clicked
+    (setq details
+          (cond
+           ((eq area 'mode-line) "mode-line")
+           ((eq area 'vertical-line) "vertical scrollbar")
+           ((eq area 'header-line) "header-line")
+           ((eq area 'left-margin) "left margin")
+           ((eq area 'right-margin) "right margin")
+           ((eq area 'left-fringe) "left fringe")
+           ((eq area 'right-fringe) "right fringe")
+           (t "text area")))
+
+    ;; Get text context for text area clicks
+    (when (and buffer pos (eq details "text area"))
+      (with-current-buffer buffer
+        (when (and (>= pos (point-min)) (<= pos (point-max)))
+          (let* ((char (char-after pos))
+                 (text (buffer-substring (max (point-min) (- pos 10))
+                                         (min (point-max) (+ pos 10))))
+                 (face (get-text-property pos 'face)))
+            (setq details (format "%s near: \"%s\" (char: '%s', face: %s)"
+                                  details
+                                  text
+                                  (if char (string char) "none")
+                                  (if face (format "%s" face) "default")))))))
+
+    (format "Clicked in %s buffer: %s"
+            (if buffer (buffer-name buffer) "unknown")
+            details)))
+
+(add-hook 'pre-command-hook 
           (lambda ()
             (setq menu--last-command this-command)))
 
@@ -97,14 +135,8 @@
           (lambda ()
             (when (eq menu--last-command 'mouse-set-point)
               (let* ((event last-command-event)
-                     (posn (event-start event))
-                     (window (posn-window posn))
-                     (buffer (when (windowp window) (window-buffer window)))
-                     (pos (posn-point posn)))
-                (menu-debug-logger
-                 (format "Left mouse click in buffer: %s at position: %d"
-                         (if buffer (buffer-name buffer) "unknown")
-                         (or pos 0)))))))
+                     (posn (event-start event)))
+                (menu-debug-logger (menu--get-click-details posn))))))
 
 (when (called-interactively-p 'any)
   (menu-debug-log))
