@@ -131,12 +131,19 @@
           (lambda ()
             (setq menu--last-command this-command)))
 
+(defvar *global-menu-window* nil
+  "Window displaying the global menu bar.")
+
+;; Update the post-command-hook
 (add-hook 'post-command-hook
           (lambda ()
             (when (eq menu--last-command 'mouse-set-point)
               (let* ((event last-command-event)
-                     (posn (event-start event)))
-                (menu-debug-logger (menu--get-click-details posn))))))
+                     (posn (event-start event))
+                     (window (posn-window posn)))
+                ;; Only log if clicked in the global menu window
+                (when (eq window *global-menu-window*)
+                  (menu-debug-logger (menu--get-click-details posn)))))))
 
 (when (called-interactively-p 'any)
   (menu-debug-log))
