@@ -283,6 +283,21 @@ Add Bookmarks
             - ActivePieces AI
                 - Sign into [ActivePieces AI](https://cloud.activepieces.com/)
                 - Add it as a bookmark with the name `ActivePieces AI`
+        - Create a new folder titled `Prompt Optimisation`
+        - Add the following bookmarks to the `Prompt Optimisation` folder
+            - Feedough Prompt Generator
+                - Open [Feedough Prompt Generator](https://www.feedough.com/ai-prompt-generator/)
+                - Add it as a bookmark with the name `Feedough Prompt Generator`
+            - Feedough Prompt Optimiser
+                - Open [Feedough Prompt Optimiser](https://www.feedough.com/ai-prompt-optimiser/)
+                - Add it as a bookmark with the name `Feedough Prompt Optimiser`
+            - MusePrompt
+                - Open [MusePrompt](https://www.museprompts.com/)
+                - Add it as a bookmark with the name `MusePrompt`
+            - GeneratePrompt Prompt Checker
+                - Open [GeneratePrompt Prompt Checker](https://generateprompt.net/ai/ai-prompt-checker)
+                - Add it as a bookmark with the name `Prompt Checker`
+
 
 > Note: If a site on Brave isn't working, click on the Brave icon in the address bar and disable `scripts`, `fingerptinting` or `shields`
 
