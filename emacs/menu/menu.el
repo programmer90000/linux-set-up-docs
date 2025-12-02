@@ -176,7 +176,16 @@
                                         (forward-char 1))
                                       (buffer-substring start (point))))))))))
                     (when button-text
-                      (menu-debug-logger (format "Menu button clicked: '%s'" button-text)))))))))
+                      (menu-debug-logger (format "Menu button clicked: '%s'" button-text))
+
+                      (let ((keymap (get-text-property pos 'keymap)))
+                        (when (keymapp keymap)
+                          (let ((function (lookup-key keymap [header-line mouse-1])))
+                            (menu-debug-logger 
+                             (format "  Next: Should call function: %S" 
+                                     (if (symbolp function) 
+                                         function 
+                                       (type-of function))))))))))))))
 
 (when (called-interactively-p 'any)
   (menu-debug-log))
