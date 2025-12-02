@@ -85,6 +85,27 @@
   (interactive)
   (menu-debug-logger "Debug system initialized"))
 
+;; Intercept mouse clicks using post-command-hook
+(defvar menu--last-command nil
+  "Store the last command executed.")
+
+(add-hook 'pre-command-hook
+          (lambda ()
+            (setq menu--last-command this-command)))
+
+(add-hook 'post-command-hook
+          (lambda ()
+            (when (eq menu--last-command 'mouse-set-point)
+              (let* ((event last-command-event)
+                     (posn (event-start event))
+                     (window (posn-window posn))
+                     (buffer (when (windowp window) (window-buffer window)))
+                     (pos (posn-point posn)))
+                (menu-debug-logger
+                 (format "Left mouse click in buffer: %s at position: %d"
+                         (if buffer (buffer-name buffer) "unknown")
+                         (or pos 0)))))))
+
 (when (called-interactively-p 'any)
   (menu-debug-log))
 
