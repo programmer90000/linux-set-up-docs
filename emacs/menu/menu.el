@@ -6,30 +6,35 @@
 (defvar header-dropdown-map-file
   (let ((map (make-sparse-keymap "File Dropdown")))
     (define-key map [header-line mouse-1] #'header-dropdown-show-file)
+    (define-key map [mouse-1] #'header-dropdown-show-file)
     map))
 
 ;; Create dropdown menu for Edit button
 (defvar header-dropdown-map-edit
   (let ((map (make-sparse-keymap "Edit Dropdown")))
     (define-key map [header-line mouse-1] #'header-dropdown-show-edit)
+    (define-key map [mouse-1] #'header-dropdown-show-edit)
     map))
 
 ;; Create dropdown menu for View button
 (defvar header-dropdown-map-view
   (let ((map (make-sparse-keymap "View Dropdown")))
     (define-key map [header-line mouse-1] #'header-dropdown-show-view)
+    (define-key map [mouse-1] #'header-dropdown-show-view)
     map))
 
 ;; Create dropdown menu for Navigate button
 (defvar header-dropdown-map-navigate
   (let ((map (make-sparse-keymap "Navigate Dropdown")))
     (define-key map [header-line mouse-1] #'header-dropdown-show-navigate)
+    (define-key map [mouse-1] #'header-dropdown-show-navigate)
     map))
 
 ;; Create dropdown menu for Help button
 (defvar header-dropdown-map-help
   (let ((map (make-sparse-keymap "Help Dropdown")))
     (define-key map [header-line mouse-1] #'header-dropdown-show-help)
+    (define-key map [mouse-1] #'header-dropdown-show-help)
     map))
 
 (defun get-recent-files-list ()
@@ -415,6 +420,7 @@
 (defvar header-dropdown-map
   (let ((map (make-sparse-keymap "Header Dropdown")))
     (define-key map [header-line mouse-1] #'header-dropdown-show)
+    (define-key map [mouse-1] #'header-dropdown-show)
     map))
 
 (defun header-dropdown-show (event)
@@ -443,6 +449,7 @@
 (defvar header-dropdown-map-2
   (let ((map (make-sparse-keymap "Header Dropdown 2")))
     (define-key map [header-line mouse-1] #'header-dropdown-show-2)
+    (define-key map [mouse-1] #'header-dropdown-show-2)
     map))
 
 (defun header-dropdown-show-2 (event)
