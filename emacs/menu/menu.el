@@ -144,6 +144,22 @@
       (with-current-buffer buffer
         (get-text-property pos 'keymap)))))
 
+;; Track what menu functions actually get executed
+(add-hook 'pre-command-hook 
+          (lambda ()
+            ;; Log when any of our menu functions is about to run
+            (when (memq this-command 
+                        '(header-dropdown-show-file
+                          header-dropdown-show-edit
+                          header-dropdown-show-view
+                          header-dropdown-show-navigate
+                          header-dropdown-show-help
+                          header-dropdown-show
+                          header-dropdown-show-2))
+              (menu-debug-logger 
+               (format "  >>> Actually running: %s" this-command)))
+            (setq menu--last-command this-command)))
+
 (add-hook 'post-command-hook
           (lambda ()
             (when (eq menu--last-command 'mouse-set-point)
