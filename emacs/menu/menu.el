@@ -113,13 +113,17 @@
 (defun menu-safe-click-handler (event function)
   "Execute FUNCTION with EVENT while preserving window focus."
   (interactive "e")
-  (let ((original-window (selected-window)))
+  (let ((original-window (selected-window))
+        (original-buffer (current-buffer)))
     ;; Temporarily allow window selection for the click
     (when (and *global-menu-window* (window-live-p *global-menu-window*))
       (set-window-parameter *global-menu-window* 'no-other-window nil))
 
     ;; Execute the menu function
     (funcall function event)
+
+    ;; Before executing command, switch back to original buffer
+    (set-buffer original-buffer)
 
     ;; Restore focus to original window
     (when (window-live-p original-window)
@@ -128,7 +132,6 @@
     ;; Re-enable focus prevention
     (when (and *global-menu-window* (window-live-p *global-menu-window*))
       (set-window-parameter *global-menu-window* 'no-other-window t))))
-
 ;; Intercept mouse clicks using post-command-hook
 (defvar menu--last-command nil
   "Store the last command executed.")
