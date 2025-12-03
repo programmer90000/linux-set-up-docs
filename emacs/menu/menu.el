@@ -5,36 +5,56 @@
 ;; Create dropdown menu for File button
 (defvar header-dropdown-map-file
   (let ((map (make-sparse-keymap "File Dropdown")))
-    (define-key map [header-line mouse-1] #'header-dropdown-show-file)
-    (define-key map [mouse-1] #'header-dropdown-show-file)
+    (define-key map [header-line mouse-1] 
+      (lambda (event) (interactive "e") 
+        (menu-safe-click-handler event #'header-dropdown-show-file)))
+    (define-key map [mouse-1] 
+      (lambda (event) (interactive "e") 
+        (menu-safe-click-handler event #'header-dropdown-show-file)))
     map))
 
 ;; Create dropdown menu for Edit button
 (defvar header-dropdown-map-edit
   (let ((map (make-sparse-keymap "Edit Dropdown")))
-    (define-key map [header-line mouse-1] #'header-dropdown-show-edit)
-    (define-key map [mouse-1] #'header-dropdown-show-edit)
+    (define-key map [header-line mouse-1] 
+      (lambda (event) (interactive "e") 
+        (menu-safe-click-handler event #'header-dropdown-show-edit)))
+    (define-key map [mouse-1] 
+      (lambda (event) (interactive "e") 
+        (menu-safe-click-handler event #'header-dropdown-show-edit)))
     map))
 
 ;; Create dropdown menu for View button
 (defvar header-dropdown-map-view
   (let ((map (make-sparse-keymap "View Dropdown")))
-    (define-key map [header-line mouse-1] #'header-dropdown-show-view)
-    (define-key map [mouse-1] #'header-dropdown-show-view)
+    (define-key map [header-line mouse-1] 
+      (lambda (event) (interactive "e") 
+        (menu-safe-click-handler event #'header-dropdown-show-view)))
+    (define-key map [mouse-1] 
+      (lambda (event) (interactive "e") 
+        (menu-safe-click-handler event #'header-dropdown-show-view)))
     map))
 
 ;; Create dropdown menu for Navigate button
 (defvar header-dropdown-map-navigate
   (let ((map (make-sparse-keymap "Navigate Dropdown")))
-    (define-key map [header-line mouse-1] #'header-dropdown-show-navigate)
-    (define-key map [mouse-1] #'header-dropdown-show-navigate)
+    (define-key map [header-line mouse-1] 
+      (lambda (event) (interactive "e") 
+        (menu-safe-click-handler event #'header-dropdown-show-navigate)))
+    (define-key map [mouse-1] 
+      (lambda (event) (interactive "e") 
+        (menu-safe-click-handler event #'header-dropdown-show-navigate)))
     map))
 
 ;; Create dropdown menu for Help button
 (defvar header-dropdown-map-help
   (let ((map (make-sparse-keymap "Help Dropdown")))
-    (define-key map [header-line mouse-1] #'header-dropdown-show-help)
-    (define-key map [mouse-1] #'header-dropdown-show-help)
+    (define-key map [header-line mouse-1] 
+      (lambda (event) (interactive "e") 
+        (menu-safe-click-handler event #'header-dropdown-show-help)))
+    (define-key map [mouse-1] 
+      (lambda (event) (interactive "e") 
+        (menu-safe-click-handler event #'header-dropdown-show-help)))
     map))
 
 (defun get-recent-files-list ()
@@ -89,6 +109,25 @@
   "Demonstrate the debug log functionality."
   (interactive)
   (menu-debug-logger "Debug system initialized"))
+
+(defun menu-safe-click-handler (event function)
+  "Execute FUNCTION with EVENT while preserving window focus."
+  (interactive "e")
+  (let ((original-window (selected-window)))
+    ;; Temporarily allow window selection for the click
+    (when (and *global-menu-window* (window-live-p *global-menu-window*))
+      (set-window-parameter *global-menu-window* 'no-other-window nil))
+
+    ;; Execute the menu function
+    (funcall function event)
+
+    ;; Restore focus to original window
+    (when (window-live-p original-window)
+      (select-window original-window))
+
+    ;; Re-enable focus prevention
+    (when (and *global-menu-window* (window-live-p *global-menu-window*))
+      (set-window-parameter *global-menu-window* 'no-other-window t))))
 
 ;; Intercept mouse clicks using post-command-hook
 (defvar menu--last-command nil
@@ -419,8 +458,12 @@
 ;; Create dropdown menu for first button
 (defvar header-dropdown-map
   (let ((map (make-sparse-keymap "Header Dropdown")))
-    (define-key map [header-line mouse-1] #'header-dropdown-show)
-    (define-key map [mouse-1] #'header-dropdown-show)
+    (define-key map [header-line mouse-1]
+      (lambda (event) (interactive "e")
+        (menu-safe-click-handler event #'header-dropdown-show)))
+    (define-key map [mouse-1]
+      (lambda (event) (interactive "e")
+        (menu-safe-click-handler event #'header-dropdown-show)))
     map))
 
 (defun header-dropdown-show (event)
@@ -448,8 +491,12 @@
 ;; Create dropdown menu for second button
 (defvar header-dropdown-map-2
   (let ((map (make-sparse-keymap "Header Dropdown 2")))
-    (define-key map [header-line mouse-1] #'header-dropdown-show-2)
-    (define-key map [mouse-1] #'header-dropdown-show-2)
+    (define-key map [header-line mouse-1]
+      (lambda (event) (interactive "e")
+        (menu-safe-click-handler event #'header-dropdown-show-2)))
+    (define-key map [mouse-1]
+      (lambda (event) (interactive "e")
+        (menu-safe-click-handler event #'header-dropdown-show-2)))
     map))
 
 (defun header-dropdown-show-2 (event)
@@ -539,7 +586,13 @@
                (slot . 0)
                (window-height . 1)
                (preserve-size . (nil . t)))))
-      (set-window-dedicated-p *global-menu-window* t))))
+      (set-window-dedicated-p *global-menu-window* t))
+
+    ;; Prevent menu window from stealing focus
+    (when *global-menu-window*
+      (set-window-parameter *global-menu-window* 'no-other-window t)
+      (set-window-parameter *global-menu-window* 'no-delete-other-windows t)
+      (set-window-parameter *global-menu-window* 'no-focus-on-map t))))
 
 (defun remove-all-header-lines ()
   "Remove header lines from all buffers."
@@ -561,5 +614,27 @@
 
 ;; Remove the old custom-header-line-mode and its hooks since we're using frame-level approach
 ;; The original custom-header-line-mode definition and hooks are no longer needed
+
+;; Emergency focus restoration hook
+(add-hook 'post-command-hook
+          (lambda ()
+            (when (and *global-menu-window*
+                       (window-live-p *global-menu-window*)
+                       (eq (selected-window) *global-menu-window*)
+                       ;; Only restore if click wasn't a menu
+                       (not (memq last-command
+                                  '(header-dropdown-show-file
+                                    header-dropdown-show-edit
+                                    header-dropdown-show-view
+                                    header-dropdown-show-navigate
+                                    header-dropdown-show-help
+                                    header-dropdown-show
+                                    header-dropdown-show-2))))
+              ;; Find another window to focus
+              (let ((other-window (next-window *global-menu-window*)))
+                (when (window-live-p other-window)
+                  (select-window other-window))))))
+
+(message "Global menu bar with focus protection enabled")
 
 (message "Custom frame-level menu bar enabled")
