@@ -1594,6 +1594,12 @@ chmod +x ~/.shared-vm-data/clipboard-monitor-guest.sh
 
 Run:
 ```
+sudo apt update
+sudo apt install xclip
+```
+
+Run:
+```
 ssh-keygen -t ed25519 -f ~/.ssh/vm_guest -N ""
 ssh-copy-id -i ~/.ssh/vm_guest.pub password-is-admin@192.168.1.150
 ```
