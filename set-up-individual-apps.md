@@ -1683,8 +1683,8 @@ Open a new terminal
 
 Run:
 ```
-echo "Manual test from Host - $(date)" > ~/shared-clipboard/host-clip.txt
-scp ~/shared-clipboard/host-clip.txt vm:~/shared-clipboard/
+echo "Manual test from Host - $(date)" > ~/shared-vm-data/host-clip.txt
+scp ~/shared-vm-data/host-clip.txt vm:~/shared-vm-data/
 ```
 
 ###### On The Guest Machine
@@ -1695,7 +1695,7 @@ Open a new terminal
 
 Run:
 ```
-cat ~/shared-clipboard/host-clip.txt | qdbus org.kde.klipper /klipper setClipboardContents "$(cat ~/shared-clipboard/host-clip.txt)"
+cat ~/shared-vm-data/host-clip.txt | qdbus org.kde.klipper /klipper setClipboardContents "$(cat ~/shared-vm-data/host-clip.txt)"
 ```
 
 Check if the text `Manual test from Host - DATE` is in the clipboard
@@ -1710,8 +1710,8 @@ Open a new terminal
 
 Run:
 ```
-echo "Manual test from Guest - $(date)" > ~/shared-clipboard/guest-clip.txt
-qdbus org.kde.klipper /klipper setClipboardContents "$(cat ~/shared-clipboard/guest-clip.txt)"
+echo "Manual test from Guest - $(date)" > ~/shared-vm-data/guest-clip.txt
+qdbus org.kde.klipper /klipper setClipboardContents "$(cat ~/shared-vm-data/guest-clip.txt)"
 ```
 
 ###### On The Host Machine
@@ -1722,8 +1722,8 @@ Open a new terminal
 
 Run:
 ```
-scp vm:~/shared-clipboard/guest-clip.txt ~/shared-clipboard/
-cat ~/shared-clipboard/guest-clip.txt | xclip -selection clipboard
+scp vm:~/shared-vm-data/guest-clip.txt ~/shared-vm-data/
+cat ~/shared-vm-data/guest-clip.txt | xclip -selection clipboard
 ```
 
 Check if the text `Manual test from Guest - DATE` is in the clipboard
