@@ -1677,6 +1677,23 @@ mkdir ~/.shared-vm-data/clipboard/
 mkdir ~/.shared-vm-data/files/
 ```
 
+Run:
+```
+nano ~/.shared-vm-data/clipboard-monitor-host.sh
+```
+
+Paste the code from [clipboard-monitor-host.sh](./virtualbox/clipboard-monitor-host.sh) into this file
+
+Run:
+```
+chmod +x ~/.shared-vm-data/clipboard-monitor-host.sh
+```
+
+# Test connection
+ssh vm "echo SSH connection successful"
+
+> This message should appear in the terminal on your host OS (The one you typed the command into)
+
 Close the current terminal
 
 Open a new terminal
@@ -1751,23 +1768,6 @@ Host vm
 Run:
 ```
 chmod 600 ~/.ssh/config
-```
-
-# Test connection
-ssh vm "echo SSH connection successful"
-
-> This message should appear in the terminal on your host OS (The one you typed the command into)
-
-Run:
-```
-nano ~/.shared-vm-data/clipboard-monitor-host.sh
-```
-
-Paste the code from [clipboard-monitor-host.sh](./virtualbox/clipboard-monitor-host.sh) into this file
-
-Run:
-```
-chmod +x ~/.shared-vm-data/clipboard-monitor-host.sh
 ```
 
 Make a snapshot of the virtual machine
