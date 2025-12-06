@@ -1683,7 +1683,7 @@ Open a new terminal
 
 Run:
 ```
-echo "Manual test from Host - $(date)" > ~/shared-vm-data/host-clip.txt
+echo "Manual test from Host - $(date)" > ~/.shared-vm-data/host-clip.txt
 scp ~/shared-vm-data/host-clip.txt vm:~/shared-vm-data/
 ```
 
