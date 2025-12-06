@@ -1759,6 +1759,26 @@ cat ~/.shared-vm-data/guest-clip.txt | xclip -selection clipboard
 
 Check if the text `Manual test from Guest - DATE` is in the clipboard
 
+###### Test By Running Files
+
+####### On The Guest Machine
+
+Run:
+```
+~/.shared-vm-data/clipboard-monitor-guest.sh
+```
+
+####### On The Host Machine
+
+Run:
+```
+~/.shared-vm-data/clipboard-monitor-host.sh
+```
+
+Copy text from the guest machine. Check if it appears in the host machine clipboard
+
+Copy text from the host machine. Check if it appears in the guest machine clipboard
+
 Make a snapshot of the virtual machine
 
 ### Setup A VM For Usage
