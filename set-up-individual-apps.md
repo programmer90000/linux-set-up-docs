@@ -1553,6 +1553,15 @@ ip addr show | grep "inet " | grep -v "127.0.0.1"
 
 Run:
 ```
+sudo nano /etc/network/interfaces.d/virtualbox
+```
+
+Paste the code from [virtualbox](./virtualbox/virtualbox) into this file
+
+> *Note: For the IP, choose an IP which is not listed in the first numbers column of the command: `ip addr show | grep "inet " | grep -v "127.0.0.1"`*
+
+Run:
+```
 mkdir ~/.shared-vm-data/
 mkdir ~/.shared-vm-data/clipboard/
 mkdir ~/.shared-vm-data/files/
