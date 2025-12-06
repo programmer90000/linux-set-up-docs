@@ -1605,6 +1605,63 @@ ssh-copy-id -i ~/.ssh/vm_guest.pub password-is-admin@192.168.1.150
 ```
 > *Note: Use the same IP as the one used in `/etc/network/interfaces.d/virtualbox`*
 
+#### Testing
+
+##### Test From Host To Guest
+
+###### On The Host Machine
+
+Close the current terminal
+
+Open a new terminal
+
+Run:
+```
+echo "Manual test from Host - $(date)" > ~/shared-clipboard/host-clip.txt
+scp ~/shared-clipboard/host-clip.txt vm:~/shared-clipboard/
+```
+
+###### On The Guest Machine
+
+Close the current terminal
+
+Open a new terminal
+
+Run:
+```
+cat ~/shared-clipboard/host-clip.txt | qdbus org.kde.klipper /klipper setClipboardContents "$(cat ~/shared-clipboard/host-clip.txt)"
+```
+
+Check if the text `Manual test from Host - DATE` is in the clipboard
+
+##### Test From Guest To Host
+
+###### On The Guest Machine
+
+Close the current terminal
+
+Open a new terminal
+
+Run:
+```
+echo "Manual test from Guest - $(date)" > ~/shared-clipboard/guest-clip.txt
+qdbus org.kde.klipper /klipper setClipboardContents "$(cat ~/shared-clipboard/guest-clip.txt)"
+```
+
+###### On The Host Machine
+
+Close the current terminal
+
+Open a new terminal
+
+Run:
+```
+scp vm:~/shared-clipboard/guest-clip.txt ~/shared-clipboard/
+cat ~/shared-clipboard/guest-clip.txt | xclip -selection clipboard
+```
+
+Check if the text `Manual test from Guest - DATE` is in the clipboard
+
 # Create SSH config
 
 Run:
