@@ -1567,6 +1567,12 @@ sudo systemctl restart networking
 
 Run:
 ```
+sudo systemctl enable --now ssh
+sudo systemctl status ssh
+```
+
+Run:
+```
 mkdir ~/.shared-vm-data/
 mkdir ~/.shared-vm-data/clipboard/
 mkdir ~/.shared-vm-data/files/
