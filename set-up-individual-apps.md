@@ -1556,6 +1556,11 @@ nano ~/.shared-vm-data/clipboard-monitor-guest.sh
 
 Paste the code from [clipboard-monitor-guest.sh](./virtualbox/clipboard-monitor-guest.sh) into this file
 
+Run:
+```
+chmod +x ~/.shared-vm-data/clipboard-monitor-guest.sh
+```
+
 #### On The Host Machine
 
 Run:
