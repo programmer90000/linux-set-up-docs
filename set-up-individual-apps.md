@@ -1664,6 +1664,13 @@ ssh-copy-id -i ~/.ssh/vm_guest.pub password-is-admin@192.168.1.150
 ```
 > *Note: Use the same IP as the one used in `/etc/network/interfaces.d/virtualbox`*
 
+Run:
+```
+nano ~/.ssh/config
+```
+
+Paste the code from [config](./virtualbox/config) into this file
+
 #### Testing
 
 ##### Test From Host To Guest

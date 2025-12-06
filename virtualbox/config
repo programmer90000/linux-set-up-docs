@@ -1,0 +1,6 @@
+Host vm
+    HostName 192.168.1.150
+    User password-is-admin
+    IdentityFile ~/.ssh/vm_guest
+    StrictHostKeyChecking no
+    ConnectTimeout 5
