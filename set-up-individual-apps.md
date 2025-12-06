@@ -1537,6 +1537,65 @@ Select `Display Configuration`
 Set it to the correct resolution
 
 Set the `Scale` value to `100%`
+**First, on Guest VM:**
+```bash
+# Run in terminal (will show real-time logs)
+~/clipboard-monitor-guest.sh
+```
+
+**Then, on Host (new terminal):**
+```bash
+# Run in terminal (will show real-time logs)
+~/clipboard-monitor-host.sh
+```
+
+### **Step 9: Real-time Testing**
+
+1. **Copy text on Host** (Ctrl+C any text)
+   - Host terminal shows: `📤 TO GUEST`
+   - Guest terminal shows: `📥 FROM HOST`
+   - Paste in KDE application (should work)
+
+2. **Copy text on Guest** (Ctrl+C in KDE)
+   - Guest terminal shows: `📤 TO HOST`
+   - Host terminal shows: `📥 FROM GUEST`
+   - Paste on Host (should work, appears in CopyQ)
+
+---
+
+## **PHASE 5: AUTOSTART SETUP**
+
+### **Step 10: Configure Autostart**
+
+**On Guest VM:**
+```bash
+cat > ~/.config/autostart/clipboard-monitor.desktop << EOF
+[Desktop Entry]
+Type=Application
+Name=Clipboard Monitor
+Exec=/home/$(whoami)/clipboard-monitor-guest.sh
+Icon=edit-paste
+Comment=Sync clipboard with host VM
+Terminal=true
+Hidden=false
+X-GNOME-Autostart-enabled=true
+EOF
+```
+
+**On Host:**
+```bash
+cat > ~/.config/autostart/clipboard-monitor.desktop << EOF
+[Desktop Entry]
+Type=Application
+Name=Clipboard Monitor
+Exec=/home/$(whoami)/clipboard-monitor-host.sh
+Icon=edit-paste
+Comment=Sync clipboard with VM guest
+Terminal=true
+Hidden=false
+X-GNOME-Autostart-enabled=true
+EOF
+```
 
 ### Setup Clipboard And File Sharing
 
@@ -1610,6 +1669,13 @@ ssh-copy-id -i ~/.ssh/vm_guest.pub password-is-admin@192.168.1.150
 ##### Test From Host To Guest
 
 ###### On The Host Machine
+
+Run:
+```
+mkdir ~/.shared-vm-data/
+mkdir ~/.shared-vm-data/clipboard/
+mkdir ~/.shared-vm-data/files/
+```
 
 Close the current terminal
 
@@ -1691,13 +1757,6 @@ chmod 600 ~/.ssh/config
 ssh vm "echo SSH connection successful"
 
 > This message should appear in the terminal on your host OS (The one you typed the command into)
-
-Run:
-```
-mkdir ~/.shared-vm-data/
-mkdir ~/.shared-vm-data/clipboard/
-mkdir ~/.shared-vm-data/files/
-```
 
 Run:
 ```
