@@ -1546,7 +1546,10 @@ Run:
 ```
 sudo apt update
 sudo apt install net-tools openssh-server xclip
+ip addr show | grep "inet " | grep -v "127.0.0.1"
 ```
+
+> Take note of the IP Address shown (in the second column)
 
 Run:
 ```
