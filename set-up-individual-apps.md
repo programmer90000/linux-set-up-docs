@@ -1678,12 +1678,6 @@ Run:
 chmod 600 ~/.ssh/config
 ```
 
-#### Testing
-
-##### Test From Host To Guest
-
-###### On The Host Machine
-
 Run:
 ```
 mkdir ~/.shared-vm-data/
@@ -1707,6 +1701,12 @@ chmod +x ~/.shared-vm-data/clipboard-monitor-host.sh
 ssh vm "echo SSH connection successful"
 
 > This message should appear in the terminal on your host OS (The one you typed the command into)
+
+#### Testing
+
+##### Test From Host To Guest
+
+###### On The Host Machine
 
 Close the current terminal
 
