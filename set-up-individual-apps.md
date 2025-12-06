@@ -1545,8 +1545,8 @@ Set the `Scale` value to `100%`
 Run:
 ```
 mkdir ~/.shared-vm-data/
-mkdir ~/.shared-vm-data/clipboard
-mkdir ~/.shared-vm-data/files
+mkdir ~/.shared-vm-data/clipboard/
+mkdir ~/.shared-vm-data/files/
 ```
 
 Run:
@@ -1566,8 +1566,8 @@ chmod +x ~/.shared-vm-data/clipboard-monitor-guest.sh
 Run:
 ```
 mkdir ~/.shared-vm-data/
-mkdir ~/.shared-vm-data/clipboard
-mkdir ~/.shared-vm-data/files
+mkdir ~/.shared-vm-data/clipboard/
+mkdir ~/.shared-vm-data/files/
 ```
 
 Run:
