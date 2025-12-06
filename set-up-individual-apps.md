@@ -1549,6 +1549,13 @@ mkdir ~/.shared-vm-data/clipboard
 mkdir ~/.shared-vm-data/files
 ```
 
+Run:
+```
+nano ~/.shared-vm-data/clipboard-monitor-guest.sh
+```
+
+Paste the code from [clipboard-monitor-guest.sh](./virtualbox/clipboard-monitor-guest.sh) into this file
+
 #### On The Host Machine
 
 Run:
