@@ -1538,6 +1538,26 @@ Set it to the correct resolution
 
 Set the `Scale` value to `100%`
 
+### Setup Clipboard And File Sharing
+
+#### On The Virtual Machine
+
+Run:
+```
+mkdir ~/.shared-vm-data/
+mkdir ~/.shared-vm-data/clipboard
+mkdir ~/.shared-vm-data/files
+```
+
+#### On The Host Machine
+
+Run:
+```
+mkdir ~/.shared-vm-data/
+mkdir ~/.shared-vm-data/clipboard
+mkdir ~/.shared-vm-data/files
+```
+
 Make a snapshot of the virtual machine
 
 ### Setup A VM For Usage
