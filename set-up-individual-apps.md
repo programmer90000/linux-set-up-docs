@@ -1710,8 +1710,8 @@ Open a new terminal
 
 Run:
 ```
-echo "Manual test from Guest - $(date)" > ~/shared-vm-data/guest-clip.txt
-qdbus org.kde.klipper /klipper setClipboardContents "$(cat ~/shared-vm-data/guest-clip.txt)"
+echo "Manual test from Guest - $(date)" > ~/.shared-vm-data/guest-clip.txt
+qdbus org.kde.klipper /klipper setClipboardContents "$(cat ~/.shared-vm-data/guest-clip.txt)"
 ```
 
 ###### On The Host Machine
@@ -1722,8 +1722,8 @@ Open a new terminal
 
 Run:
 ```
-scp vm:~/shared-vm-data/guest-clip.txt ~/shared-vm-data/
-cat ~/shared-vm-data/guest-clip.txt | xclip -selection clipboard
+scp vm:~/.shared-vm-data/guest-clip.txt ~/.shared-vm-data/
+cat ~/.shared-vm-data/guest-clip.txt | xclip -selection clipboard
 ```
 
 Check if the text `Manual test from Guest - DATE` is in the clipboard
