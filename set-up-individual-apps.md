@@ -1577,6 +1577,11 @@ nano ~/.shared-vm-data/clipboard-monitor-host.sh
 
 Paste the code from [clipboard-monitor-host.sh](./virtualbox/clipboard-monitor-host.sh) into this file
 
+Run:
+```
+chmod +x ~/.shared-vm-data/clipboard-monitor-host.sh
+```
+
 Make a snapshot of the virtual machine
 
 ### Setup A VM For Usage
