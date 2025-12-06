@@ -1544,6 +1544,12 @@ Set the `Scale` value to `100%`
 
 Run:
 ```
+sudo apt update
+sudo apt install net-tools openssh-server xclip
+```
+
+Run:
+```
 mkdir ~/.shared-vm-data/
 mkdir ~/.shared-vm-data/clipboard/
 mkdir ~/.shared-vm-data/files/
