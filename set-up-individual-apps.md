@@ -1624,6 +1624,11 @@ Run:
 chmod 600 ~/.ssh/config
 ```
 
+# Test connection
+ssh vm "echo SSH connection successful"
+
+> This message should appear in the terminal on your host OS (The one you typed the command into)
+
 Run:
 ```
 mkdir ~/.shared-vm-data/
