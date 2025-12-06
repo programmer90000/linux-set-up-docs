@@ -1671,6 +1671,13 @@ nano ~/.ssh/config
 
 Paste the code from [config](./virtualbox/config) into this file
 
+> *Note: Use the same IP as the one used in `/etc/network/interfaces.d/virtualbox`*
+
+Run:
+```
+chmod 600 ~/.ssh/config
+```
+
 #### Testing
 
 ##### Test From Host To Guest
@@ -1751,31 +1758,6 @@ cat ~/.shared-vm-data/guest-clip.txt | xclip -selection clipboard
 ```
 
 Check if the text `Manual test from Guest - DATE` is in the clipboard
-
-# Create SSH config
-
-Run:
-```
-mkdir ~/.ssh/
-nano ~/.ssh/config
-```
-
-Paste the following code:
-```
-Host vm
-  HostName 192.168.1.150
-  User password-is-admin
-  IdentityFile ~/.ssh/vm_guest
-  StrictHostKeyChecking no
-  ConnectTimeout 5
-```
-
-> *Note: Use the same IP as the one used in `/etc/network/interfaces.d/virtualbox`*
-
-Run:
-```
-chmod 600 ~/.ssh/config
-```
 
 Make a snapshot of the virtual machine
 
