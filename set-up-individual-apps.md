@@ -1562,6 +1562,11 @@ Paste the code from [virtualbox](./virtualbox/virtualbox) into this file
 
 Run:
 ```
+sudo systemctl restart networking
+```
+
+Run:
+```
 mkdir ~/.shared-vm-data/
 mkdir ~/.shared-vm-data/clipboard/
 mkdir ~/.shared-vm-data/files/
