@@ -1594,6 +1594,13 @@ chmod +x ~/.shared-vm-data/clipboard-monitor-guest.sh
 
 Run:
 ```
+ssh-keygen -t ed25519 -f ~/.ssh/vm_guest -N ""
+ssh-copy-id -i ~/.ssh/vm_guest.pub password-is-admin@192.168.1.150
+```
+> *Note: Use the same IP as the one used in `/etc/network/interfaces.d/virtualbox`*
+
+Run:
+```
 mkdir ~/.shared-vm-data/
 mkdir ~/.shared-vm-data/clipboard/
 mkdir ~/.shared-vm-data/files/
