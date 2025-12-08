@@ -30,7 +30,7 @@ sync_file_to_host() {
     local filename=$(basename "$file")
 
     echo "→ Host: $filename"
-    scp -q "$file" "vm-host:~/.shared-vm-data/files/$filename" 2>/dev/null
+    scp -q "$file" "are-debian:~/.shared-vm-data/files/$filename" 2>/dev/null
     if [[ $? -eq 0 ]]; then
         GUEST_FILE_HASHES["$filename"]=$(md5sum "$file" | cut -d' ' -f1)
     else
@@ -41,12 +41,12 @@ sync_file_to_host() {
 # Check and sync files from host
 sync_files_from_host() {
     # Get list of files from host
-    ssh vm-host "find ~/.shared-vm-data/files/ -maxdepth 1 -type f -exec basename {} \;" 2>/dev/null | while read filename; do
+    ssh are-debian "find ~/.shared-vm-data/files/ -maxdepth 1 -type f -exec basename {} \;" 2>/dev/null | while read filename; do
         if [[ -n "$filename" ]]; then
             local host_file="/tmp/host_$filename"
 
             # Download file from host
-            scp -q "vm-host:~/.shared-vm-data/files/$filename" "$host_file" 2>/dev/null
+            scp -q "are-debian:~/.shared-vm-data/files/$filename" "$host_file" 2>/dev/null
             if [[ $? -eq 0 ]]; then
                 local host_hash=$(md5sum "$host_file" | cut -d' ' -f1)
                 local guest_file="$FILES_DIR/$filename"
