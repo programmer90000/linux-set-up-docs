@@ -4,8 +4,6 @@ FILES_DIR="$HOME/.shared-vm-data/files"
 mkdir -p "$SHARED_DIR"
 mkdir -p "$FILES_DIR"
 
-echo "Host monitor starting (CopyQ compatible) - Now with file sync"
-
 # Clipboard tracking
 LAST_HASH=""
 LAST_GUEST_HASH=""
@@ -29,12 +27,9 @@ sync_file_to_guest() {
     local file="$1"
     local filename=$(basename "$file")
     
-    echo "📁 → Guest: $filename"
     scp -q "$file" "vm:~/.shared-vm-data/files/$filename" 2>/dev/null
     if [[ $? -eq 0 ]]; then
         HOST_FILE_HASHES["$filename"]=$(md5sum "$file" | cut -d' ' -f1)
-    else
-        echo "  Failed to send $filename to guest"
     fi
 }
 
@@ -67,7 +62,6 @@ sync_files_from_guest() {
                     
                     # Copy to host files directory
                     cp "$guest_file" "$host_file"
-                    echo "📁 ← Guest: $filename"
                     GUEST_FILE_HASHES["$filename"]="$guest_hash"
                     HOST_FILE_HASHES["$filename"]="$guest_hash"
                 fi
@@ -89,7 +83,6 @@ while true; do
         echo "$CURRENT" > "$SHARED_DIR/to-guest.txt"
         scp -q "$SHARED_DIR/to-guest.txt" vm:~/.shared-vm-data/clipboard/ 2>/dev/null
         LAST_HASH="$CURRENT_HASH"
-        echo "📋 → Guest: $(echo "$CURRENT" | head -c 30)..."
     fi
 
     # 2. CLIPBOARD: Guest -> Host
@@ -98,10 +91,8 @@ while true; do
         GUEST_HASH=$(echo -n "$GUEST_CONTENT" | md5sum | cut -d' ' -f1)
 
         if [[ -n "$GUEST_CONTENT" && "$GUEST_HASH" != "$LAST_GUEST_HASH" ]]; then
-            echo "📋 ← Guest: $(echo "$GUEST_CONTENT" | head -c 30)..."
-    
             # CRITICAL: Add to CopyQ FIRST using stdin method
-            echo "$GUEST_CONTENT" | copyq copy - 2>/dev/null || echo "CopyQ add failed"
+            echo "$GUEST_CONTENT" | copyq copy - 2>/dev/null
 
             # Also set system clipboard (for non-CopyQ apps)
             echo "$GUEST_CONTENT" | xclip -selection clipboard 2>/dev/null
@@ -138,4 +129,4 @@ while true; do
     done
 
     sleep 0.5
-done
+done >/dev/null 2>&1
