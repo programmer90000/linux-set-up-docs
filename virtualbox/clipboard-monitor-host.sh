@@ -1,4 +1,8 @@
 #!/bin/bash
+
+# Handle Ctrl+C correctly
+trap 'exit 0' SIGINT
+
 SHARED_DIR="$HOME/.shared-vm-data/clipboard"
 FILES_DIR="$HOME/.shared-vm-data/files"
 mkdir -p "$SHARED_DIR"
