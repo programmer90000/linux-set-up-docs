@@ -86,16 +86,10 @@ while true; do
     CURRENT_HASH=$(echo -n "$CURRENT" | md5sum | cut -d' ' -f1)
 
     if [[ -n "$CURRENT" && "$CURRENT_HASH" != "$LAST_HASH" ]]; then
-        # Skip if it contains script patterns
-        if echo "$CURRENT" | grep -q -E "(#!/bin/bash|SHARED_DIR=|log_msg|CYCLE=|LAST_)" || \
-           [[ $(echo "$CURRENT" | wc -l) -gt 10 ]]; then
-            LAST_HASH="$CURRENT_HASH"
-        else
-            echo "$CURRENT" > "$SHARED_DIR/to-guest.txt"
-            scp -q "$SHARED_DIR/to-guest.txt" vm:~/.shared-vm-data/clipboard/ 2>/dev/null
-            LAST_HASH="$CURRENT_HASH"
-            echo "📋 → Guest: $(echo "$CURRENT" | head -c 30)..."
-        fi
+        echo "$CURRENT" > "$SHARED_DIR/to-guest.txt"
+        scp -q "$SHARED_DIR/to-guest.txt" vm:~/.shared-vm-data/clipboard/ 2>/dev/null
+        LAST_HASH="$CURRENT_HASH"
+        echo "📋 → Guest: $(echo "$CURRENT" | head -c 30)..."
     fi
 
     # 2. CLIPBOARD: Guest -> Host
