@@ -1704,13 +1704,17 @@ ssh vm "echo SSH connection successful"
 
 #### Testing
 
+Close the current terminal on both the host and guest OS
+
+Open a new terminal on both the host and guest OS
+
+Run the `clipboard-monitor-host.sh` and `clipboard-monitor-guest.sh` files
+
 ##### Test From Host To Guest
 
 ###### On The Host Machine
 
-Close the current terminal
 
-Open a new terminal
 
 Run:
 ```
@@ -1719,10 +1723,6 @@ scp ~/.shared-vm-data/host-clip.txt vm:~/.shared-vm-data/
 ```
 
 ###### On The Guest Machine
-
-Close the current terminal
-
-Open a new terminal
 
 Run:
 ```
@@ -1735,10 +1735,6 @@ Check if the text `Manual test from Host - DATE` is in the clipboard
 
 ###### On The Guest Machine
 
-Close the current terminal
-
-Open a new terminal
-
 Run:
 ```
 echo "Manual test from Guest - $(date)" > ~/.shared-vm-data/guest-clip.txt
@@ -1746,10 +1742,6 @@ qdbus org.kde.klipper /klipper setClipboardContents "$(cat ~/.shared-vm-data/gue
 ```
 
 ###### On The Host Machine
-
-Close the current terminal
-
-Open a new terminal
 
 Run:
 ```
@@ -1759,7 +1751,7 @@ cat ~/.shared-vm-data/guest-clip.txt | xclip -selection clipboard
 
 Check if the text `Manual test from Guest - DATE` is in the clipboard
 
-###### Test By Running Files
+###### Test By Copying Text
 
 ####### On The Guest Machine
 
@@ -1778,6 +1770,25 @@ Run:
 Copy text from the guest machine. Check if it appears in the host machine clipboard
 
 Copy text from the host machine. Check if it appears in the guest machine clipboard
+
+## **PHASE 5: AUTOSTART SETUP**
+
+### **Step 10: Configure Autostart**
+
+**On Guest VM:**
+```bash
+cat > ~/.config/autostart/clipboard-monitor.desktop << EOF
+[Desktop Entry]
+Type=Application
+Name=Clipboard Monitor
+Exec=/home/$(whoami)/clipboard-monitor-guest.sh
+Icon=edit-paste
+Comment=Sync clipboard with host VM
+Terminal=true
+Hidden=false
+X-GNOME-Autostart-enabled=true
+EOF
+```
 
 Make a snapshot of the virtual machine
 
