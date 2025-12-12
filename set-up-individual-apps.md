@@ -1569,6 +1569,23 @@ Keep the `MAC Address` as the default
 
 Enable `Virtual Cable Connected`
 
+On virtual machine:
+```
+sudo apt update
+sudo apt install avahi-daemon avahi-utils
+sudo hostnamectl set-hostname are-debian-vm
+```
+
+Check if the hostname is correct by running:
+```
+hostname
+```
+
+This should output
+```
+are-debian-vm
+```
+
 ### Make a snapshot of the virtual machine
 
 Make a snapshot of the virtual machine
