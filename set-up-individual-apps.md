@@ -1632,6 +1632,13 @@ Run:
 ping are-debian-vm.local
 ```
 
+This should successfully send and recieve packets from the virtual machine
+
+Run:
+```
+ping are-debian.local
+```
+
 This should successfully send and recieve packets from the machine
 
 #### On host:
@@ -1640,6 +1647,13 @@ Run:
 ```
 sudo systemctl enable --now avahi-daemon
 ping are-debian-vm.local
+```
+
+This should successfully send and recieve packets from the virtual machine
+
+Run:
+```
+ping are-debian.local
 ```
 
 This should successfully send and recieve packets from the machine
