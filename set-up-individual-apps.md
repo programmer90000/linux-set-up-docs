@@ -1600,6 +1600,40 @@ Update the file to the following:
 ::1     localhost ip6-localhost ip6-loopback
 ```
 
+Run:
+```
+ip addr show
+```
+
+This should display at least a network interface for the host-only adapter. For example:
+```
+enp0s3 (NAT adapter for internet)
+enp0s8 or similar (host-only adapter) ← THIS IS YOUR HOST-ONLY INTERFACE
+```
+
+Run the following commands, replacing `enp0s8` with your host-only interface:
+```
+sudo dhclient enp0s8
+ip addr show enp0s8
+```
+
+This should show the `enp0s8` interface, or the equivalent for your computer
+
+Run:
+```
+sudo systemctl enable --now avahi-daemon
+sudo systemctl status avahi-daemon
+```
+
+This should display the `avahi-daemon.service` as running
+
+Run:
+```
+ping are-debian-vm.local
+```
+
+This should successfully send and recieve packets from the machine
+
 ### Make a snapshot of the virtual machine
 
 Make a snapshot of the virtual machine
