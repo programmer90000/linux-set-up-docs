@@ -1543,7 +1543,7 @@ Set the `Scale` value to `100%`
 #### On host:
 ```
 sudo apt update
-sudo apt install avahi-daemon avahi-utils virtualbox-guest-utils
+sudo apt install avahi-daemon avahi-utils
 sudo VBoxManage hostonlyif create
 ```
 
