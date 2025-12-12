@@ -1540,7 +1540,7 @@ Set the `Scale` value to `100%`
 
 ### Setup Clipboard And File Sharing
 
-On host:
+#### On host:
 ```
 sudo apt update
 sudo apt install avahi-daemon avahi-utils virtualbox-guest-utils
@@ -1569,7 +1569,7 @@ Keep the `MAC Address` as the default
 
 Enable `Virtual Cable Connected`
 
-On virtual machine:
+#### On virtual machine:
 ```
 sudo apt update
 sudo apt install avahi-daemon avahi-utils
@@ -1586,7 +1586,7 @@ This should output
 are-debian-vm
 ```
 
-On the virtual machine, run:
+Run:
 ```
 sudo nano /etc/hosts
 ```
