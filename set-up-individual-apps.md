@@ -1538,6 +1538,16 @@ Set it to the correct resolution
 
 Set the `Scale` value to `100%`
 
+### Setup Clipboard And File Sharing
+
+On host:
+```
+sudo apt update
+sudo apt install avahi-daemon avahi-utils virtualbox-guest-utils
+```
+
+### Make a snapshot of the virtual machine
+
 Make a snapshot of the virtual machine
 
 ### Setup A VM For Usage
