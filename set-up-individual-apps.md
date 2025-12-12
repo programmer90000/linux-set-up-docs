@@ -1544,7 +1544,30 @@ On host:
 ```
 sudo apt update
 sudo apt install avahi-daemon avahi-utils virtualbox-guest-utils
+sudo VBoxManage hostonlyif create
 ```
+
+Right click on the virtual machine on VirtualBox
+
+Click `Settings`
+
+Go to `Network`
+
+Select `Adapter 2`
+
+Enable `Network Adapter`
+
+Set `Attatched to` `Host-only Adapter`
+
+Set `Name` to `vboxnet0`
+
+Set `Adapter Type` to `Intel PRO/1000 MT Desktop (82540EM)`
+
+Set `Promiscuous Mode` to `Deny`
+
+Keep the `MAC Address` as the default
+
+Enable `Virtual Cable Connected`
 
 ### Make a snapshot of the virtual machine
 
