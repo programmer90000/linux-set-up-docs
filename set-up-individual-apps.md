@@ -1586,6 +1586,20 @@ This should output
 are-debian-vm
 ```
 
+On the virtual machine, run:
+```
+sudo nano /etc/hosts
+```
+
+Update the file to the following:
+```
+127.0.0.1       localhost
+127.0.1.1       are-debian-vm
+
+# IPv6
+::1     localhost ip6-localhost ip6-loopback
+```
+
 ### Make a snapshot of the virtual machine
 
 Make a snapshot of the virtual machine
