@@ -798,6 +798,21 @@ Inside the file, write the code from the [.emacs](./emacs/.emacs) file to load t
         - Select `Unicode`
             - Select `UTF-8`
 
+## Midnight Commander
+
+### Create the skin file
+
+Run:
+```
+mkdir ~/.local/share/mc/
+mkdir ~/.local/share/mc/skins
+mkdir ~/.config/mc/
+```
+
+Copy the [skin.ini](./midnight-commander/skin.ini) file into the `skins` directory
+
+Copy the [ini](./midnight-commander/ini) file into the `mc` directory
+
 ## Libre Office
 
 - Select `Tools > Options`
