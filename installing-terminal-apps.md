@@ -175,3 +175,15 @@ To use ftdv, run the following command inside a Git repository:
 ```
 ftdv
 ```
+
+## Install Midnight Commander
+
+Run:
+```
+sudo apt install mc
+```
+
+To use Midnight Commander, run:
+```
+mc
+```
