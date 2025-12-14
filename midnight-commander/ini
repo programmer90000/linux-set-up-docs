@@ -105,6 +105,7 @@ autodetect_codeset=
 spell_language=en
 clipboard_store=
 clipboard_paste=
+numeric_sort=true
 
 [Colors]
 base_color=
