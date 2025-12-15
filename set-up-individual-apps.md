@@ -1569,8 +1569,6 @@ Select `Features`
 
 Set `Shared Clipboard` to `Bidirectional`
 
-Set `Drag-and-Drop` to `Bidirectional`
-
 ### Make a snapshot of the virtual machine
 
 Make a snapshot of the virtual machine
