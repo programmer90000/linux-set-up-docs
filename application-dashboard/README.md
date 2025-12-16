@@ -309,6 +309,14 @@
     - Enable `Enable launch feedback`
     - Disable `Only show when logged into a Plasma session`
 
+- Create a new item with the name `CopyQ`
+    - `Name`: `CopyQ`
+    - `Program`: `copyq`
+    - `Command-Line Arguments`: `show`
+    - `Icon`: `copyq`
+    - Enable `Enable launch feedback`
+    - Disable `Only show when logged into a Plasma session`
+
 ### Settings
 
 - Create a new item with the name `System Settings`
