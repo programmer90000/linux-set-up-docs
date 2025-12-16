@@ -1577,6 +1577,48 @@ sudo systemctl enable --now avahi-daemon
 sudo hostnamectl set-hostname are-debian-vm
 ```
 
+##### On host:
+
+Run:
+```
+sudo nano /etc/avahi/avahi-daemon.conf
+```
+
+Ensure the following lines in this file are set:
+```
+[server]
+host-name=are-debian
+domain-name=local
+use-ipv4=yes
+use-ipv6=yes
+```
+
+Run:
+```
+sudo systemctl restart avahi-daemon
+```
+
+##### On guest:
+
+Run:
+```
+sudo nano /etc/avahi/avahi-daemon.conf
+```
+
+Ensure the following lines in this file are set:
+```
+[server]
+host-name=are-debian-vm
+domain-name=local
+use-ipv4=yes
+use-ipv6=yes
+```
+
+Run:
+```
+sudo systemctl restart avahi-daemon
+```
+
 ### Make a snapshot of the virtual machine
 
 Make a snapshot of the virtual machine
