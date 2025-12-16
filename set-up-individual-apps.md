@@ -1553,22 +1553,6 @@ Set it to the correct resolution
 
 Set the `Scale` value to `100%`
 
-### Enable Shared Clipbaord and Drag-and-Drop
-
-Shut down the VM
-
-Open VirtualBox
-
-Select the `debian-base` VM
-
-Select `Settings`
-
-Select `General`
-
-Select `Features`
-
-Set `Shared Clipboard` to `Bidirectional`
-
 ### Make a snapshot of the virtual machine
 
 Make a snapshot of the virtual machine
