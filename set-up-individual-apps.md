@@ -1561,6 +1561,14 @@ Set the `Scale` value to `100%`
 
 Run:
 ```
+VBoxManage modifyvm "debian-base" --nic1 bridged
+VBoxManage modifyvm "debian-base" --bridgeadapter1 $(ip -o -4 route show to default | awk '{print $5}' | head -1)
+```
+
+##### On host
+
+Run:
+```
 sudo apt update
 sudo apt install avahi-daemon libnss-mdns
 sudo systemctl enable --now avahi-daemon
