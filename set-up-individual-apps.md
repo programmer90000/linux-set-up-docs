@@ -1627,6 +1627,24 @@ Run:
 sudo systemctl restart avahi-daemon
 ```
 
+##### Test mDNS network from host to guest
+
+###### On host
+
+Run:
+```
+ping debian-guest.local
+```
+
+##### Test mDNS network from guest to host
+
+###### On guest
+
+Run:
+```
+ping debian-host.local
+```
+
 ### Make a snapshot of the virtual machine
 
 Make a snapshot of the virtual machine
