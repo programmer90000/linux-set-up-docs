@@ -1553,6 +1553,30 @@ Set it to the correct resolution
 
 Set the `Scale` value to `100%`
 
+### Setup Shared Clipboard And Shared Folders
+
+#### Setup mDNS network
+
+##### On host
+
+Run:
+```
+sudo apt update
+sudo apt install avahi-daemon libnss-mdns
+sudo systemctl enable --now avahi-daemon
+sudo hostnamectl set-hostname are-debian
+```
+
+##### On Guest
+
+Run:
+```
+sudo apt update
+sudo apt install avahi-daemon libnss-mdns
+sudo systemctl enable --now avahi-daemon
+sudo hostnamectl set-hostname are-debian-vm
+```
+
 ### Make a snapshot of the virtual machine
 
 Make a snapshot of the virtual machine
