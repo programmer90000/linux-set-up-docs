@@ -1647,6 +1647,78 @@ Run:
 ping are-debian.local
 ```
 
+##### On host
+
+Generate a key pair by running:
+```
+ssh-keygen -t ed25519 -C "sync-from-host-to-guest" -f ~/.ssh/vbox_sync
+```
+
+When prompted for a password, keep it empty, to enable automatic sync
+
+##### On guest
+
+Run:
+```
+sudo apt install openssh-server
+sudo systemctl enable --now ssh
+```
+
+##### On host
+
+Run:
+```
+ssh-copy-id -i ~/.ssh/vbox_sync password-is-admin@are-debian-vm.local
+```
+
+When prompted for a password, enter the password for the VM
+
+Test the connection by running:
+```
+ssh -i ~/.ssh/vbox_sync password-is-admin@are-debian-vm.local
+```
+
+This should allow you to work in the vm terminal from the host, without a password
+
+##### On guest
+
+Run:
+```
+ssh-keygen -t ed25519 -C "sync-from-guest-to-host" -f ~/.ssh/vbox_sync
+ssh-copy-id -i ~/.ssh/vbox_sync abdul@are-debian.local
+
+##### On host
+
+Run:
+```
+nano ~/.ssh/config
+```
+
+Paste the following code into this file:
+```
+Host are-debian-vm
+    HostName are-debian-vm.local
+    User password-is-admin
+    IdentityFile ~/.ssh/vbox_sync
+    IdentitiesOnly yes
+```
+
+##### On guest
+
+Run:
+```
+nano ~/.ssh/config
+```
+
+Paste the following code into this file:
+```
+Host are-debian
+    HostName are-debian.local
+    User abdul
+    IdentityFile ~/.ssh/vbox_sync
+    IdentitiesOnly yes
+```
+
 ### Make a snapshot of the virtual machine
 
 Make a snapshot of the virtual machine
