@@ -1557,6 +1557,8 @@ Set the `Scale` value to `100%`
 
 #### Setup mDNS network
 
+Switch off the virtual machine
+
 ##### On host
 
 Run:
