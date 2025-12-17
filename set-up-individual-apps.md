@@ -1635,7 +1635,7 @@ sudo systemctl restart avahi-daemon
 
 Run:
 ```
-ping debian-guest.local
+ping are-debian-vm.local
 ```
 
 ##### Test mDNS network from guest to host
@@ -1644,7 +1644,7 @@ ping debian-guest.local
 
 Run:
 ```
-ping debian-host.local
+ping are-debian.local
 ```
 
 ### Make a snapshot of the virtual machine
