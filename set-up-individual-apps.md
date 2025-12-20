@@ -261,6 +261,9 @@ Add Bookmarks
                 - Kyutai TTS AI
                     - Open [Kyutai TTS AI](https://kyutai.org/next/tts)
                     - Add it as a bookmark with the name `Kyutai TTS AI`
+            - ComfyUI
+                    - Open [ComfyUI](https://cloud.comfy.org}
+                    - Add it a a bookmark with the name `ComfyUI`
         - Create a new folder titled `Design`
             - Add the following bookmarks to the `Design` folder
             - Freepik AI
