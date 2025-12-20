@@ -1725,6 +1725,13 @@ Host are-debian
     IdentitiesOnly yes
 ```
 
+Run:
+```
+nano ~/bin/sync-clipboard-and-files.sh
+```
+
+Copy the [sync-clipboard-and-files.sh](./virtualbox/sync-clipboard-and-files.sh) file into this file
+
 ### Make a snapshot of the virtual machine
 
 Make a snapshot of the virtual machine
