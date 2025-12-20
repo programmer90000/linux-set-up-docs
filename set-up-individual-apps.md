@@ -1744,22 +1744,6 @@ chmod +x ~/bin/sync-clipboard-and-files.sh
 
 Copy the [sync-clipboard-and-files.sh](./virtualbox/sync-clipboard-and-files.sh) file into this file
 
-##### On host
-
-- Open CopyQ
-- Click `File > Commands/ Global Shortcuts`
-- Click `Add`
-- Select `New Command`
-- Set the `Name` to `Copy To Klipper`
-- Enable `Automatic` (It should say `On clipboard change` at the bottom of the window)
-- Set the `Command` to the following code:
-```
-bash:
-LOG_FILE="$HOME/copyq/copyq-clipboard-history.log"
-CLIPBOARD_TEXT="$(copyq clipboard text/plain 2>/dev/null || echo '[Non-text data]')"
-echo "$(date +'%Y-%m-%d %H:%M:%S') - $CLIPBOARD_TEXT" >> "$LOG_FILE"
-```
-
 ### Make a snapshot of the virtual machine
 
 Make a snapshot of the virtual machine
