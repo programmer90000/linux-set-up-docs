@@ -1725,9 +1725,20 @@ Host are-debian
     IdentitiesOnly yes
 ```
 
+##### On host
+
 Run:
 ```
 nano ~/bin/sync-clipboard-and-files.sh
+chmod +x ~/bin/sync-clipboard-and-files.sh
+```
+
+##### On guest
+
+Run:
+```
+nano ~/bin/sync-clipboard-and-files.sh
+chmod +x ~/bin/sync-clipboard-and-files.sh
 ```
 
 Copy the [sync-clipboard-and-files.sh](./virtualbox/sync-clipboard-and-files.sh) file into this file
