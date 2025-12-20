@@ -297,6 +297,9 @@ Add Bookmarks
             - GeneratePrompt Prompt Checker
                 - Open [GeneratePrompt Prompt Checker](https://generateprompt.net/ai/ai-prompt-checker)
                 - Add it as a bookmark with the name `Prompt Checker`
+        - HuggingFace
+                - Open [HuggingFace](https://huggingface.co)
+                - Add it as a bookmark with the name `HuggingFace`
 
 
 > Note: If a site on Brave isn't working, click on the Brave icon in the address bar and disable `scripts`, `fingerptinting` or `shields`
