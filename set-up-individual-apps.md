@@ -1692,6 +1692,7 @@ Run:
 ```
 ssh-keygen -t ed25519 -C "sync-from-guest-to-host" -f ~/.ssh/vbox_sync
 ssh-copy-id -i ~/.ssh/vbox_sync abdul@are-debian.local
+```
 
 ##### On host
 
