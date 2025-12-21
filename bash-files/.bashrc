@@ -134,3 +134,4 @@ export HSTR_CONFIG=hicolor
 bind '"\C-r": "\C-a hstr -- \C-j"'  # Better Ctrl+R history menu
 
 export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:/opt/superfile/

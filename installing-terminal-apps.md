@@ -187,3 +187,35 @@ To use Midnight Commander, run:
 ```
 mc
 ```
+
+## Install Superfile
+
+### Prerequisites
+
+- Go must be installed
+
+### Installation
+
+Go to the [Superfile GitHub page](https://github.com/yorukot/superfile)
+
+Click on `Releases`
+
+Download the latest correct Linux release
+
+Run:
+```
+tar -xzf superfile-linux-amd64.tar.gz
+sudo mkdir /opt/superfile/
+sudo mv dist/superfile-linux-v1.4.0-amd64/spf /opt/superfile/
+sudo chmod +x /opt/superfile/spf
+```
+
+Ensure this line is added to the `.bashrc` file:
+```
+export PATH=$PATH:/opt/superfile/
+```
+
+To use Superfile, run:
+```
+spf
+```
