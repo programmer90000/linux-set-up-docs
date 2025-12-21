@@ -132,3 +132,5 @@ PROMPT_COMMAND=set_prompt
 # Display history menu when pressing Ctrl + R
 export HSTR_CONFIG=hicolor
 bind '"\C-r": "\C-a hstr -- \C-j"'  # Better Ctrl+R history menu
+
+export PATH=$PATH:/usr/local/go/bin

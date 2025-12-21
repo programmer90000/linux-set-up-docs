@@ -343,3 +343,32 @@ Run:
 sudo apt update
 sudo apt install clamav clamtk clamav-daemon
 ```
+
+### Installing Go
+
+> `Go` is needed for `Superfile`
+
+- Go to the [Go website](https://go.dev/)
+- Click `Download`
+- Download the `Feautured Download` for `Linux`
+- If any existing versions of `Go` exist, remove them by deleting the `/usr/local/go` folder
+- Run:
+```
+tar -C /usr/local -xzf go1.25.5.linux-amd64.tar.gz
+```
+
+> Do not untar the archive into an existing `/usr/local/go` tree. This is known to produce broken Go installations.
+
+- Add `/usr/local/go/bin` to the PATH environment variable.
+You can do this by adding the following line to your $HOME/.profile or /etc/profile (for a system-wide installation):
+- Ensure this line is added to the `.bashrc` file:
+```
+export PATH=$PATH:/usr/local/go/bin
+```
+
+Run:
+```
+go version
+```
+
+> Note: If this doesn't work, log out and back in
