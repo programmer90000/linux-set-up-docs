@@ -354,7 +354,7 @@ sudo apt install clamav clamtk clamav-daemon
 - If any existing versions of `Go` exist, remove them by deleting the `/usr/local/go` folder
 - Run:
 ```
-tar -C /usr/local -xzf go1.25.5.linux-amd64.tar.gz
+sudo tar -C /usr/local -xzf go1.25.5.linux-amd64.tar.gz
 ```
 
 > Do not untar the archive into an existing `/usr/local/go` tree. This is known to produce broken Go installations.
