@@ -5,7 +5,7 @@ PartOf=graphical-session.target
 
 [Service]
 Type=simple
-ExecStart=/bin/bash /home/abdul/mouse-events.sh
+ExecStart=/bin/bash /home/abdul/.mouse/mouse-events.sh
 Restart=on-failure
 RestartSec=5
 Environment="DISPLAY=:0"
