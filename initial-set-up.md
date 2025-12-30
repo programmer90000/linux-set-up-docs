@@ -570,6 +570,18 @@ sudo evtest
 
 Find the path to the mouse you want to configure
 
+Run:
+```
+sudo nano /usr/local/bin/mouse-events.sh
+```
+
+Paste the code from [mouse-events.sh](./mouse/mouse-events.sh) into this file
+
+Run:
+```
+chmod +x /usr/local/bin/mouse-events.sh
+```
+
 ## Change Auto-Start programs
 Run:
 ```
