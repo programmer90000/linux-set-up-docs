@@ -608,6 +608,15 @@ With the file running, press the middle mouse button. You should see output simi
 Event: time 170000.000000, type 1 (EV_KEY), code 274 (BTN_MIDDLE), value 1
 ```
 
+### Configure Passwordless Sudo For Evtest
+
+Run:
+```
+sudo visudo -f /etc/sudoers.d/evtest
+```
+
+Add the code from [evtest](./mouse/evtest) into this file. Replace the `/dev/input/event5` path with the correct path
+
 ## Change Auto-Start programs
 Run:
 ```
