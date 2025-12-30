@@ -617,6 +617,20 @@ sudo visudo -f /etc/sudoers.d/evtest
 
 Add the code from [evtest](./mouse/evtest) into this file. Replace the `/dev/input/event5` path with the correct path
 
+### Test The Script
+
+In a terminal, run the following command, replacing the path with the correct path:
+```
+sudo evtest /dev/input/event7
+```
+
+With this command running, in another terminal, run:
+```
+sudo ~/middleclick-handler.sh
+```
+
+Press the middle mouse button. A notification should appear when you press the middle mouse button
+
 ## Change Auto-Start programs
 Run:
 ```
