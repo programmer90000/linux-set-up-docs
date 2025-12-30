@@ -555,6 +555,21 @@ Find the `Redo` command
 
 Set it to `Ctrl + Y` or a custom shortcut
 
+## Set Mouse Wheel To Auto-Scroll When Clicked
+
+Run:
+```
+sudo apt update
+sudo apt install evtest ydotool libinput-tools
+```
+
+Run:
+```
+sudo evtest
+```
+
+Find the path to the mouse you want to configure
+
 ## Change Auto-Start programs
 Run:
 ```
