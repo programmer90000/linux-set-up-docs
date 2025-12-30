@@ -11,4 +11,4 @@ export DISPLAY=:0
 export WAYLAND_DISPLAY=wayland-0
 
 # Start the monitor with sudo for evtest
-sudo ~/mouse-events.sh
+sudo ~/mouse/mouse-events.sh
