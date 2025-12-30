@@ -641,6 +641,15 @@ nano ~/.config/systemd/user/middleclick-handler.service
 
 Add the code from [mouse-events-handler.service](./mouse/mouse-events-handler.service) into this file
 
+Run the following commands to enable the files:
+```
+systemctl --user daemon-reload
+systemctl --user enable middleclick-handler.service
+systemctl --user start middleclick-handler.service
+systemctl --user status middleclick-handler.service
+journalctl --user -u middleclick-handler.service -f
+```
+
 ## Change Auto-Start programs
 Run:
 ```
