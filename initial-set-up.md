@@ -579,7 +579,7 @@ Paste the code from [mouse-events.sh](./mouse/mouse-events.sh) into this file
 
 Run:
 ```
-chmod +x /usr/local/bin/mouse-events.sh
+sudo chmod +x /usr/local/bin/mouse-events.sh
 ```
 
 Run:
