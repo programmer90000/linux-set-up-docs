@@ -631,6 +631,16 @@ sudo ~/middleclick-handler.sh
 
 Press the middle mouse button. A notification should appear when you press the middle mouse button
 
+### Create Systemd Service (Autostart)
+
+Run the following commands to create the service file:
+```
+mkdir ~/.config/systemd/user/
+nano ~/.config/systemd/user/middleclick-handler.service
+```
+
+Add the code from [mouse-events-handler.service](./mouse/mouse-events-handler.service) into this file
+
 ## Change Auto-Start programs
 Run:
 ```
