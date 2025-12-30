@@ -651,7 +651,7 @@ Press the middle mouse button. A notification should appear when you press the m
 Run the following commands to create the service file:
 ```
 mkdir ~/.config/systemd/user/
-nano ~/.config/systemd/user/middleclick-handler.service
+nano ~/.config/systemd/user/mouse-events-handler.service
 ```
 
 Add the code from [mouse-events-handler.service](./mouse/mouse-events-handler.service) into this file
@@ -659,10 +659,10 @@ Add the code from [mouse-events-handler.service](./mouse/mouse-events-handler.se
 Run the following commands to enable the files:
 ```
 systemctl --user daemon-reload
-systemctl --user enable middleclick-handler.service
-systemctl --user start middleclick-handler.service
-systemctl --user status middleclick-handler.service
-journalctl --user -u middleclick-handler.service -f
+systemctl --user enable mouse-events-handler.service
+systemctl --user start mouse-events-handler.service
+systemctl --user status mouse-events-handler.service
+journalctl --user -u mouse-events-handler.service -f
 ```
 
 ## Change Auto-Start programs
