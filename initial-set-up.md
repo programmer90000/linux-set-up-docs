@@ -596,6 +596,18 @@ Run:
 sudo chmod 440 /etc/sudoers.d/evtest-mouse
 ```
 
+### Test If The File Recognises The Middle Button Click
+
+Run:
+```
+sudo evtest /dev/input/event5
+```
+
+With the file running, press the middle mouse button. You should see output similar to:
+```
+Event: time 170000.000000, type 1 (EV_KEY), code 274 (BTN_MIDDLE), value 1
+```
+
 ## Change Auto-Start programs
 Run:
 ```
