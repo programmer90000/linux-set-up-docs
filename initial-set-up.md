@@ -640,7 +640,7 @@ sudo evtest /dev/input/event7
 
 With this command running, in another terminal, run:
 ```
-sudo ~/middleclick-handler.sh
+sudo mouse-events.sh
 ```
 
 Press the middle mouse button. A notification should appear when you press the middle mouse button
