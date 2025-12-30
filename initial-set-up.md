@@ -575,7 +575,7 @@ Run:
 sudo nano /usr/local/bin/mouse-events.sh
 ```
 
-Paste the code from [mouse-events.sh](./mouse/mouse-events.sh) into this file
+Paste the code from [mouse-events.sh](./mouse/mouse-events.sh) into this file. Replace the `MOUSE_DEVICE` variable with the correct path for your mouse
 
 Run:
 ```
