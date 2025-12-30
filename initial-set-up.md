@@ -582,6 +582,18 @@ Run:
 chmod +x /usr/local/bin/mouse-events.sh
 ```
 
+Run:
+```
+nano ~/start-mouse-events.sh
+```
+
+Paste the code from [start-mouse-events.sh](./mouse/start-mouse-events.sh) into this file
+
+Make executable:
+```bash
+chmod +x ~/start-mouse-events.sh
+```
+
 ### Create a sudoers rule for your mouse
 
 Run:
