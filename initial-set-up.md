@@ -582,6 +582,20 @@ Run:
 chmod +x /usr/local/bin/mouse-events.sh
 ```
 
+### Create a sudoers rule for your mouse
+
+Run:
+```
+sudo nano /etc/sudoers.d/evtest-mouse
+```
+
+Paste the code from [evtest-mouse](./mouse/evtest-mouse) into this file
+
+Run:
+```
+sudo chmod 440 /etc/sudoers.d/evtest-mouse
+```
+
 ## Change Auto-Start programs
 Run:
 ```
