@@ -1,1 +1,1 @@
-USERNAME ALL=(ALL) NOPASSWD: /usr/bin/evtest /dev/input/event5
+USERNAME ALL=(ALL) NOPASSWD: /usr/bin/evtest /dev/input/event7

@@ -612,8 +612,10 @@ sudo chmod 440 /etc/sudoers.d/evtest-mouse
 
 Run:
 ```
-sudo evtest /dev/input/event5
+sudo evtest /dev/input/event7
 ```
+
+Replace `event7` with the correct path
 
 With the file running, press the middle mouse button. You should see output similar to:
 ```
@@ -627,7 +629,7 @@ Run:
 sudo visudo -f /etc/sudoers.d/evtest
 ```
 
-Add the code from [evtest](./mouse/evtest) into this file. Replace the `/dev/input/event5` path with the correct path
+Add the code from [evtest](./mouse/evtest) into this file. Replace the `/dev/input/event7` path with the correct path
 
 ### Test The Script
 
