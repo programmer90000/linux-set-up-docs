@@ -1,2 +1,0 @@
-# Allow abdul to run evtest on specific mouse device
-abdul ALL=(ALL) NOPASSWD: /usr/bin/evtest /dev/input/event7
