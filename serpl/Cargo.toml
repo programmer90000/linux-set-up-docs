@@ -1,0 +1,63 @@
+[package]
+name = "serpl"
+version = "0.3.4"
+edition = "2021"
+description = "A simple terminal UI for search and replace, ala VS Code"
+repository = "https://github.com/programmer90000/linux-set-up-docs/serpl"
+authors = [""]
+build = "build.rs"
+license = "MIT"
+
+[features]
+ast_grep = []
+
+[dependencies]
+better-panic = "0.3.0"
+clap = { version = "4.5.7", features = [
+    "derive",
+    "cargo",
+    "wrap_help",
+    "unicode",
+    "string",
+    "unstable-styles",
+] }
+color-eyre = "0.6.3"
+config = "0.14.0"
+crossterm = { version = "0.28.1", features = ["serde", "event-stream"] }
+derive_deref = "1.1.1"
+etcetera = "0.8.0"
+futures = "0.3.30"
+human-panic = "1.2.3"
+json5 = "0.4.1"
+lazy_static = "1.4.0"
+libc = "0.2.155"
+log = "0.4.21"
+pretty_assertions = "1.4.0"
+ratatui = { version = "0.29.0", features = ["serde", "macros"] }
+serde = { version = "1.0.203", features = ["derive"] }
+serde_json = "1.0.117"
+signal-hook = "0.3.17"
+strip-ansi-escapes = "0.2.0"
+strum = { version = "0.26.2", features = ["derive"] }
+tokio = { version = "1.38.0", features = ["full"] }
+tokio-util = "0.7.11"
+tracing = "0.1.40"
+tracing-error = "0.2.0"
+tracing-subscriber = { version = "0.3.18", features = ["env-filter", "serde"] }
+tui-input = "^0.11.1"
+redux-rs = { version = "=0.3.3", features = ["middleware_thunk"] }
+simple-logging = "2.0.2"
+regex = "1.10.5"
+async-trait = "0.1.80"
+anyhow = "1.0.86"
+
+[target.'cfg(target_os = "macos")'.dependencies]
+crossterm = { version = "0.28.1", features = [
+  "serde",
+  "event-stream",
+  "use-dev-tty",
+  "libc",
+] }
+
+[build-dependencies]
+vergen = { version = "8.3.1", features = ["build", "git", "gitoxide", "cargo"] }
