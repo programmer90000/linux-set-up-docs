@@ -219,3 +219,11 @@ To use Superfile, run:
 ```
 spf
 ```
+
+## Install ripgrep
+
+Run:
+```
+sudo apt update
+sudo apt install ripgrep
+```
