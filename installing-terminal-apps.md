@@ -310,3 +310,12 @@ Run:
 cd linux-set-up-docs/
 cargo install --path .
 ```
+
+## Install pkgtop
+
+Run:
+```
+cd pkgtop
+go install cmd/pkgtop.go
+sudo mv pkgtop /usr/local/bin/
+```
