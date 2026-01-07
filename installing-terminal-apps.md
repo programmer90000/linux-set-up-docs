@@ -269,3 +269,13 @@ Run:
 cd pik
 cargo build --release
 ```
+
+## Install toolong
+
+Run:
+```
+sudo apt update
+sudo apt install pipx
+pipx ensurepath
+pipx install toolong
+```
