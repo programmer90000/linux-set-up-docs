@@ -234,4 +234,19 @@ Run:
 ```
 cd ast-grep/
 cargo install --path ./crates/cli --locked
+
+## Install Serpl
+
+### Prerequisites
+
+- Rust and cargo must be installed
+- ripgrep must be installed
+- ast-grep must be installed
+
+### Installation
+
+Run:
+```
+cd serpl
+cargo install serpl
 ```
