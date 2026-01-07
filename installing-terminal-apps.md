@@ -234,6 +234,7 @@ Run:
 ```
 cd ast-grep/
 cargo install --path ./crates/cli --locked
+```
 
 ## Install Serpl
 
