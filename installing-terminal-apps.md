@@ -261,3 +261,11 @@ cargo install igrep
 ```
 
 To use igrep, run `ig`
+
+## Install pik
+
+Run:
+```
+cd pik
+cargo build --release
+```
