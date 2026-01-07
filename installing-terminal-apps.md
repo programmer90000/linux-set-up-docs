@@ -227,3 +227,11 @@ Run:
 sudo apt update
 sudo apt install ripgrep
 ```
+
+## Install ast-grep
+
+Run:
+```
+cd ast-grep/
+cargo install --path ./crates/cli --locked
+```
