@@ -294,3 +294,11 @@ Run:
 cd repgrep
 cargo install --path .
 ```
+
+## Install riff
+
+Run:
+```
+cd linux-set-up-docs/
+cargo install --path .
+```
