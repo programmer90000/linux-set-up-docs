@@ -279,3 +279,18 @@ sudo apt install pipx
 pipx ensurepath
 pipx install toolong
 ```
+
+## Install repgrep
+
+### Prerequisites
+
+- Rust and cargo must be installed
+- ripgrep must be installed
+
+### Installation
+
+Run:
+```
+cd repgrep
+cargo install --path .
+```
