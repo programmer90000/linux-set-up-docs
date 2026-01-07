@@ -1,0 +1,90 @@
+rgr(1)
+=====
+
+Name
+----
+rgr - An interactive replacer for ripgrep that makes it easy to find and replace across files on the command line.
+
+USAGE
+-----
+
+**Normal Usage**
+
+Upon start all command line arguments are passed down to *rg* (adding *--json* and *--no-config*).
+The JSON output is then parsed, and you are presented with a terminal interface (described below).
+
+Note since we use the *--json* flag, a number of *rg*'s flags are unavailable.
+See *rgr --help* for a list of supported flags that will be sent through to *ripgrep*.
+
+**Capturing Groups**
+
+You may use capturing groups when using *rgr*, for example *rgr "foo (\w+)"*.
+When using these, the matches can be used when replacing by referring to them as either their name *$name* or index *$1*.
+This syntax is inherited from the regex crate, see: https://docs.rs/regex/1.8.4/regex/struct.Captures.html#method.expand
+
+Only one pattern may be passed at a time when capturing groups are used (i.e., multiple *-e <pat>* flags are not allowed).
+
+**Reading results from a file**
+
+This tool also supports reading results from a JSON file, with the following use case in mind:
+
+* The user runs "rg --json <args> > rg-results.json"
+* Now, this tool can be run with those results via "RGR_JSON_FILE=./rg-results.json rgr"
+
+INTERFACE
+---------
+To see a list of keybindings, press *?* while in the **SELECT** mode.
+There are a few different modes:
+
+**SELECT**
+
+* This mode is the first mode presented after *rgr* is started.
+* In this mode a list of matches is presented, and they can be toggled on or off.
+* Toggling a match off means that the match itself _will not be replaced_.
+
+**REPLACE**
+
+* In this mode the user types the desired replacement text and the matches are updated in real-time.
+* Note that this is a demo only, no changes are written to disk.
+* Non UTF-8 bytes in the matches are shown with the UTF-8 replacement character in this mode.
+* Pressing control+s will cause all selected matches to be replaced with the text entered.
+
+**CONFIRM**
+
+* Prompt the user to confirm before writing replacements to disk.
+* Replacements are written to disk, and all attempts to use the correct file encoding are made. (see FILE ENCODING.)
+* Note that *rgr* _will not replace_ a different slice of bytes than what *rg* reported in its output.  (see FILE ENCODING.)
+
+**HELP**
+
+* This mode provides information about *rgr* and its keybindings.
+
+CONTROL CHARACTERS
+------------------
+
+The user may change how control characters are rendered in the interface by pressing control+v.
+The different modes are:
+
+* C: show common control characters
+* c: show common control characters (one line)
+* A: show all control characters
+* a: show all control characters (one line)
+* H: show common control characters as spaces, and strip others (hidden)
+
+FILE ENCODING
+-------------
+
+Handling of file encoding happens in two places: the **SELECT** mode and when the replacements are written to disk.
+
+_In the **SELECT** mode_, non UTF-8 bytes are shown with the UTF-8 replacement character.
+This occurs because the files themselves have not yet been read (the information is directly from ripgrep) and thus the encoding of the file is unknown.
+
+_During replacement_ encoding is handled in the following manner:
+
+* If a BOM (Byte Order Mark) is found, then that encoding is used, otherwise
+* If an encoding was passed to ripgrep, then that encoding is used, otherwise
+* The *chardet* (https://github.com/thuleqaid/rust-chardet) library is used to detect the encoding
+* If that fails, then UTF8 is assumed
+
+Note that *rgr* _will never replace_ a match that it doesn't expect.
+If when replacing a match the bytes to replace do not match those matched by ripgrep, then the tool will bail out and the file will not be written. (Errors will be reported to STDERR.)
