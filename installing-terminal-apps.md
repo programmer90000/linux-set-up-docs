@@ -228,6 +228,14 @@ sudo apt update
 sudo apt install ripgrep
 ```
 
+## Install tig
+
+Run:
+```
+sudo apt update
+sudo apt-get install tig
+```
+
 ## Install ast-grep
 
 Run:
