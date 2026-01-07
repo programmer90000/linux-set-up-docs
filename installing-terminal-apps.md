@@ -250,3 +250,13 @@ Run:
 cd serpl
 cargo install serpl
 ```
+
+## Install igrep
+
+Run:
+```
+cd igrep
+cargo install igrep
+```
+
+To use igrep, run `ig`
