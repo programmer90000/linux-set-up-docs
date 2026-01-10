@@ -103,26 +103,65 @@ void writeLogEntry(std::ofstream& logFile, const std::string& homeDir,
     std::cout << "✓ Middle mouse button pressed! (Total: " << pressCount << " times)" << std::endl;
 }
 
-// Function to display status
-void displayStatus(int iteration, const std::string& logFilePath) {
-    std::string timestamp = getCurrentTimestamp();
-    std::cout << "[" << timestamp << "] ";
-    std::cout << "Iteration " << iteration << " completed." << std::endl;
-    std::cout << "[" << timestamp << "] ";
-    std::cout << "Total uptime: " << (iteration * 5) << " seconds" << std::endl;
-    std::cout << "[" << timestamp << "] ";
-    std::cout << "Log file: " << logFilePath << std::endl;
+// Structure to hold device information
+struct InputDevice {
+    int fd;
+    std::string path;
+    std::string name;
+};
 
-    // Show log file size every 5 iterations
-    if (iteration % 5 == 0) {
-        try {
-            auto size = std::filesystem::file_size(logFilePath);
-            std::cout << "[" << timestamp << "] ";
-            std::cout << "Log file size: " << size << " bytes" << std::endl;
-        } catch (...) {
-            // Ignore errors for file size
+// Function to check if a device is a mouse
+bool isMouseDevice(const std::string& path) {
+    int fd = open(path.c_str(), O_RDONLY);
+    if (fd < 0) {
+        return false;
+    }
+
+    // Read device capabilities
+    unsigned long evbit[EV_MAX/8/sizeof(unsigned long) + 1] = {0};
+    if (ioctl(fd, EVIOCGBIT(0, sizeof(evbit)), evbit) < 0) {
+        close(fd);
+        return false;
+    }
+
+    // Check if device supports EV_KEY (buttons)
+    if (!(evbit[0] & (1 << EV_KEY))) {
+        close(fd);
+        return false;
+    }
+
+    // Read key/button capabilities
+    unsigned long keybit[KEY_MAX/8/sizeof(unsigned long) + 1] = {0};
+    if (ioctl(fd, EVIOCGBIT(EV_KEY, sizeof(keybit)), keybit) < 0) {
+        close(fd);
+        return false;
+    }
+
+    // Check for mouse buttons (BTN_LEFT, BTN_RIGHT, BTN_MIDDLE)
+    bool hasMouseButtons = false;
+    if (keybit[BTN_LEFT/8/sizeof(unsigned long)] & (1 << (BTN_LEFT % (8*sizeof(unsigned long))))) {
+        hasMouseButtons = true;
+    }
+    if (keybit[BTN_RIGHT/8/sizeof(unsigned long)] & (1 << (BTN_RIGHT % (8*sizeof(unsigned long))))) {
+        hasMouseButtons = true;
+    }
+    if (keybit[BTN_MIDDLE/8/sizeof(unsigned long)] & (1 << (BTN_MIDDLE % (8*sizeof(unsigned long))))) {
+        hasMouseButtons = true;
+    }
+
+    // Get device name
+    char name[256] = "Unknown";
+    if (ioctl(fd, EVIOCGNAME(sizeof(name)), name) >= 0) {
+        // Check if name contains "mouse" (case insensitive)
+        std::string lowerName = name;
+        std::transform(lowerName.begin(), lowerName.end(), lowerName.begin(), ::tolower);
+        if (lowerName.find("mouse") != std::string::npos) {
+            hasMouseButtons = true;
         }
     }
+
+    close(fd);
+    return hasMouseButtons;
 }
 
 int main() {
@@ -134,12 +173,12 @@ int main() {
     std::string username = getUsername();
     std::string logFilePath = homeDir + "/c-plus-plus-logs.txt";
     
-    std::cout << "Starting continuous logging application..." << std::endl;
+    std::cout << "Starting mouse detection application..." << std::endl;
     std::cout << "Home directory: " << homeDir << std::endl;
     std::cout << "Username: " << username << std::endl;
     std::cout << "Log file path: " << logFilePath << std::endl;
     std::cout << "PID: " << getpid() << std::endl;
-    std::cout << "Logging every 5 seconds. Press Ctrl+C to stop." << std::endl;
+    std::cout << "Press Ctrl+C to stop." << std::endl;
     std::cout << "----------------------------------------" << std::endl;
 
     // Try to create the directory if needed
@@ -161,11 +200,9 @@ int main() {
     // Write initial log entry
     std::string timestamp = getCurrentTimestamp();
     logFile << "\n\n[" << timestamp << "] ";
-    logFile << "=== Application Started ===" << std::endl;
+    logFile << "=== Middle Mouse Logger Started ===" << std::endl;
     logFile << "[" << timestamp << "] ";
-    logFile << "Starting continuous logging" << std::endl;
-    logFile << "[" << timestamp << "] ";
-    logFile << "Log interval: 5 seconds" << std::endl;
+    logFile << "Monitoring middle mouse button presses" << std::endl;
     logFile << "[" << timestamp << "] ";
     logFile << "PID: " << getpid() << std::endl;
     logFile << "[" << timestamp << "] ";
@@ -176,39 +213,35 @@ int main() {
     logFile << "----------------------------------------" << std::endl;
     logFile.flush();
 
+    // TODO: Add device discovery and event handling
+    std::cout << "Device detection setup complete." << std::endl;
+    std::cout << "TODO: Implement mouse device discovery and event handling." << std::endl;
+
     int iteration = 0;
 
-    // Main loop
-    while (running) {
+    // Temporary main loop while we implement device detection
+    while (running && iteration < 10) {
         iteration++;
 
         // Simulate a middle button press for testing
-        // TODO: Replace with actual mouse detection
         static int simulatedPressCount = 0;
-        if (iteration % 3 == 0) { // Simulate a press every 3 iterations
+        if (iteration % 3 == 0) {
             simulatedPressCount++;
             writeLogEntry(logFile, homeDir, username, simulatedPressCount);
         }
 
-        // Display status on console
-        displayStatus(iteration, logFilePath);
-
-        // Wait for 5 seconds
-        if (running) {
-            for (int i = 0; i < 5 && running; i++) {
-                std::this_thread::sleep_for(std::chrono::seconds(1));
-            }
-        }
+        // Wait for 2 seconds
+        std::this_thread::sleep_for(std::chrono::seconds(2));
+        
+        if (!running) break;
     }
 
     // Write final log entry
     timestamp = getCurrentTimestamp();
     logFile << "\n[" << timestamp << "] ";
-    logFile << "=== Application Stopped ===" << std::endl;
+    logFile << "=== Middle Mouse Logger Stopped ===" << std::endl;
     logFile << "[" << timestamp << "] ";
-    logFile << "Total iterations: " << iteration << std::endl;
-    logFile << "[" << timestamp << "] ";
-    logFile << "Total runtime: " << (iteration * 5) << " seconds" << std::endl;
+    logFile << "Total middle button presses detected: " << middleButtonPressCount << std::endl;
     logFile << "[" << timestamp << "] ";
     logFile << "Shutdown reason: User interrupt" << std::endl;
     logFile << "[" << timestamp << "] ";
@@ -220,8 +253,7 @@ int main() {
     // Final console output
     std::cout << "\n----------------------------------------" << std::endl;
     std::cout << "Application stopped." << std::endl;
-    std::cout << "Total runtime: " << (iteration * 5) << " seconds" << std::endl;
-    std::cout << "Total log entries: " << iteration << std::endl;
+    std::cout << "Total simulated presses: " << middleButtonPressCount << std::endl;
     std::cout << "Log file: " << logFilePath << std::endl;
     
     return 0;
