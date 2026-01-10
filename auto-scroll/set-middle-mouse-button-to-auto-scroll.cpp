@@ -8,9 +8,19 @@
 #include <chrono>
 #include <atomic>
 #include <csignal>
+#include <cstring>
+#include <vector>
+#include <dirent.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <poll.h>
+#include <linux/input.h>
+#include <sys/ioctl.h>
+#include <algorithm>
 
 // Global atomic flag for signal handling
 std::atomic<bool> running(true);
+std::atomic<int> middleButtonPressCount(0);
 
 // Signal handler for graceful shutdown
 void signalHandler(int signal) {
