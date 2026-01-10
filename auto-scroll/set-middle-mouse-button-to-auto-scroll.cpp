@@ -77,30 +77,30 @@ bool createDirectoryIfNeeded(const std::string& path) {
     }
 }
 
-// Function to write log entry
-void writeLogEntry(std::ofstream& logFile, const std::string& homeDir,
-                   const std::string& username, int iteration) {
+// Function to write log entry for middle button press
+void writeLogEntry(std::ofstream& logFile, const std::string& homeDir, 
+                   const std::string& username, int pressCount) {
     std::string timestamp = getCurrentTimestamp();
 
     logFile << "[" << timestamp << "] ";
-    logFile << "Iteration: " << iteration << std::endl;
+    logFile << "MIDDLE MOUSE BUTTON PRESS DETECTED" << std::endl;
+    logFile << "[" << timestamp << "] ";
+    logFile << "Press count: " << pressCount << std::endl;
     logFile << "[" << timestamp << "] ";
     logFile << "User: " << username << std::endl;
     logFile << "[" << timestamp << "] ";
     logFile << "Home directory: " << homeDir << std::endl;
     logFile << "[" << timestamp << "] ";
-    logFile << "Program: set-middle-mouse-button-to-auto-scroll" << std::endl;
-    logFile << "[" << timestamp << "] ";
-    logFile << "Status: Running continuously" << std::endl;
-    logFile << "[" << timestamp << "] ";
-    logFile << "Uptime: " << (iteration * 5) << " seconds" << std::endl;
-    logFile << "[" << timestamp << "] ";
-    logFile << "PID: " << getpid() << std::endl;
+    logFile << "Timestamp (Unix): " << std::time(nullptr) << std::endl;
     logFile << "[" << timestamp << "] ";
     logFile << "----------------------------------------" << std::endl;
 
     // Flush to ensure data is written immediately
     logFile.flush();
+
+    // Print to console
+    std::cout << "[" << timestamp << "] ";
+    std::cout << "✓ Middle mouse button pressed! (Total: " << pressCount << " times)" << std::endl;
 }
 
 // Function to display status
@@ -182,8 +182,13 @@ int main() {
     while (running) {
         iteration++;
 
-        // Write log entry
-        writeLogEntry(logFile, homeDir, username, iteration);
+        // Simulate a middle button press for testing
+        // TODO: Replace with actual mouse detection
+        static int simulatedPressCount = 0;
+        if (iteration % 3 == 0) { // Simulate a press every 3 iterations
+            simulatedPressCount++;
+            writeLogEntry(logFile, homeDir, username, simulatedPressCount);
+        }
 
         // Display status on console
         displayStatus(iteration, logFilePath);
