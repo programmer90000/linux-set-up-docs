@@ -18,9 +18,11 @@
 #include <sys/ioctl.h>
 #include <algorithm>
 
-// Global atomic flag for signal handling
+// Global atomic flags for signal handling and toggle state
 std::atomic<bool> running(true);
 std::atomic<int> middleButtonPressCount(0);
+std::atomic<bool> toggleState(false);
+std::atomic<bool> buttonWasPressed(false);
 
 // Signal handler for graceful shutdown
 void signalHandler(int signal) {
@@ -77,15 +79,19 @@ bool createDirectoryIfNeeded(const std::string& path) {
     }
 }
 
-// Function to write log entry for middle button press
+// Function to write log entry for middle button toggle
 void writeLogEntry(std::ofstream& logFile, const std::string& homeDir, 
-                   const std::string& username, int pressCount) {
+                   const std::string& username, int pressCount, bool newState) {
     std::string timestamp = getCurrentTimestamp();
 
     logFile << "[" << timestamp << "] ";
-    logFile << "MIDDLE MOUSE BUTTON PRESS DETECTED" << std::endl;
+    logFile << "MIDDLE MOUSE BUTTON TOGGLE" << std::endl;
+    logFile << "[" << timestamp << "] ";
+    logFile << "Action: " << (newState ? "TURNED ON" : "TURNED OFF") << std::endl;
     logFile << "[" << timestamp << "] ";
     logFile << "Press count: " << pressCount << std::endl;
+    logFile << "[" << timestamp << "] ";
+    logFile << "Current state: " << (newState ? "ON" : "OFF") << std::endl;
     logFile << "[" << timestamp << "] ";
     logFile << "User: " << username << std::endl;
     logFile << "[" << timestamp << "] ";
@@ -98,9 +104,10 @@ void writeLogEntry(std::ofstream& logFile, const std::string& homeDir,
     // Flush to ensure data is written immediately
     logFile.flush();
 
-    // Print to console
+    // Print to console with visual indicator
     std::cout << "[" << timestamp << "] ";
-    std::cout << "✓ Middle mouse button pressed! (Total: " << pressCount << " times)" << std::endl;
+    std::cout << (newState ? "ON " : "OFF");
+    std::cout << " - Middle mouse toggled! (Total presses: " << pressCount << ")" << std::endl;
 }
 
 // Structure to hold device information
@@ -174,11 +181,12 @@ int main() {
     std::string logFilePath = homeDir + "/c-plus-plus-logs.txt";
     
     std::cout << "========================================" << std::endl;
-    std::cout << "Middle Mouse Button Logger" << std::endl;
+    std::cout << "Middle Mouse Button Toggle Logger" << std::endl;
     std::cout << "========================================" << std::endl;
     std::cout << "Home directory: " << homeDir << std::endl;
     std::cout << "Username: " << username << std::endl;
     std::cout << "Log file path: " << logFilePath << std::endl;
+    std::cout << "Initial state: " << (toggleState.load() ? "ON" : "OFF") << std::endl;
     std::cout << "PID: " << getpid() << std::endl;
     std::cout << "----------------------------------------" << std::endl;
     std::cout << "Listening for middle mouse button presses..." << std::endl;
@@ -204,9 +212,9 @@ int main() {
     // Write initial log entry
     std::string timestamp = getCurrentTimestamp();
     logFile << "\n\n[" << timestamp << "] ";
-    logFile << "=== Middle Mouse Logger Started ===" << std::endl;
+    logFile << "=== Middle Mouse Toggle Logger Started ===" << std::endl;
     logFile << "[" << timestamp << "] ";
-    logFile << "Monitoring middle mouse button presses" << std::endl;
+    logFile << "Initial state: " << (toggleState.load() ? "ON" : "OFF") << std::endl;
     logFile << "[" << timestamp << "] ";
     logFile << "PID: " << getpid() << std::endl;
     logFile << "[" << timestamp << "] ";
@@ -217,6 +225,8 @@ int main() {
     logFile << "Log file: " << logFilePath << std::endl;
     logFile << "[" << timestamp << "] ";
     logFile << "Method: Direct input device access" << std::endl;
+    logFile << "[" << timestamp << "] ";
+    logFile << "Behavior: Toggle ON/OFF with each press" << std::endl;
     logFile << "[" << timestamp << "] ";
     logFile << "----------------------------------------" << std::endl;
     logFile.flush();
@@ -297,13 +307,14 @@ int main() {
 
     std::cout << "Found " << devices.size() << " mouse device(s)" << std::endl;
     std::cout << "Now listening for middle mouse button presses..." << std::endl;
-    std::cout << "Click the middle mouse button (scroll wheel) anywhere to test." << std::endl;
-    std::cout << "DEBUG: Will show ALL button events to identify middle button code" << std::endl;
+    std::cout << "Click the middle mouse button (scroll wheel) to toggle ON/OFF." << std::endl;
+    std::cout << "Current state: " << (toggleState.load() ? "ON" : "OFF") << std::endl;
+    std::cout << "----------------------------------------" << std::endl;
 
     logFile << "[" << getCurrentTimestamp() << "] ";
     logFile << "Input monitoring initialized successfully" << std::endl;
     logFile << "[" << getCurrentTimestamp() << "] ";
-    logFile << "Ready to detect middle mouse button presses" << std::endl;
+    logFile << "Ready to detect middle mouse button toggle presses" << std::endl;
     logFile.flush();
 
     // Prepare for polling
@@ -354,44 +365,49 @@ int main() {
 
                     // Check for button events (EV_KEY type)
                     if (ev.type == EV_KEY) {
-                        // Debug: show ALL button events
-                        std::string state_str;
-                        if (ev.value == 1) {
-                            state_str = "PRESSED";
-                        } else if (ev.value == 0) {
-                            state_str = "RELEASED";
-                        } else {
-                            state_str = "REPEAT";
-                        }
-
-                        std::cout << "[" << getCurrentTimestamp() << "] ";
-                        std::cout << "DEBUG: Device '" << devices[i].name << "': ";
-                        std::cout << "Button " << ev.code << " (0x" << std::hex << ev.code << std::dec << ") " << state_str << std::endl;
-
                         // Check for middle mouse button
                         bool is_middle_button = false;
 
                         if (ev.code == BTN_MIDDLE) {
                             is_middle_button = true;
-                            std::cout << "[" << getCurrentTimestamp() << "] ";
-                            std::cout << "DEBUG: Detected as middle button (BTN_MIDDLE = " << BTN_MIDDLE << ")" << std::endl;
                         } else if (ev.code == 274) {
                             is_middle_button = true;
-                            std::cout << "[" << getCurrentTimestamp() << "] ";
-                            std::cout << "DEBUG: Detected as middle button (code 274/0x112)" << std::endl;
                         } else if (ev.code == 3) {
                             is_middle_button = true;
-                            std::cout << "[" << getCurrentTimestamp() << "] ";
-                            std::cout << "DEBUG: Detected as middle button (code 3)" << std::endl;
                         } else if (ev.code == 275) {
                             is_middle_button = true;
-                            std::cout << "[" << getCurrentTimestamp() << "] ";
-                            std::cout << "DEBUG: Detected as middle button (code 275)" << std::endl;
                         }
 
-                        if (is_middle_button && ev.value == 1) {  // Pressed
-                            middleButtonPressCount++;
-                            writeLogEntry(logFile, homeDir, username, middleButtonPressCount);
+                        if (is_middle_button) {
+                            // Only trigger on button press (value == 1). Make sure we don't trigger multiple times for the same press
+                            if (ev.value == 1 && !buttonWasPressed) {
+                                buttonWasPressed = true;
+
+                                // Toggle the state
+                                bool oldState = toggleState.load();
+                                bool newState = !oldState;
+                                toggleState.store(newState);
+
+                                // Increment press count
+                                middleButtonPressCount++;
+
+                                // Write to log
+                                writeLogEntry(logFile, homeDir, username, middleButtonPressCount, newState);
+
+                                // Update console status line
+                                std::cout << "\rCurrent state: " << (newState ? "ON" : "OFF")
+                                          << " | Total toggles: " << middleButtonPressCount
+                                          << " " << std::flush;
+                            }
+                            // Reset buttonWasPressed when button is released
+                            else if (ev.value == 0) {
+                                buttonWasPressed = false;
+                            }
+
+                            if (ev.value == 1) {
+                                std::cout << "\n[" << getCurrentTimestamp() << "] ";
+                                std::cout << "DEBUG: Middle button PRESSED - toggling state" << std::endl;
+                            }
                         }
                     }
                 }
@@ -405,9 +421,11 @@ int main() {
     // Write final log entry
     timestamp = getCurrentTimestamp();
     logFile << "\n[" << timestamp << "] ";
-    logFile << "=== Middle Mouse Logger Stopped ===" << std::endl;
+    logFile << "=== Middle Mouse Toggle Logger Stopped ===" << std::endl;
     logFile << "[" << timestamp << "] ";
-    logFile << "Total middle button presses detected: " << middleButtonPressCount << std::endl;
+    logFile << "Final state: " << (toggleState.load() ? "ON" : "OFF") << std::endl;
+    logFile << "[" << timestamp << "] ";
+    logFile << "Total toggle actions: " << middleButtonPressCount << std::endl;
     logFile << "[" << timestamp << "] ";
     logFile << "Shutdown reason: User interrupt" << std::endl;
     logFile << "[" << timestamp << "] ";
@@ -425,20 +443,15 @@ int main() {
     // Final console output
     std::cout << "\n========================================" << std::endl;
     std::cout << "Application stopped." << std::endl;
-    std::cout << "Total middle button presses detected: " << middleButtonPressCount << std::endl;
+    std::cout << "Final state: " << (toggleState.load() ? "ON" : "OFF") << std::endl;
+    std::cout << "Total toggle actions: " << middleButtonPressCount << std::endl;
     std::cout << "Log file: " << logFilePath << std::endl;
 
     if (middleButtonPressCount > 0) {
-        std::cout << "✓ Successfully detected middle mouse button presses!" << std::endl;
+        std::cout << "✓ Successfully detected " << middleButtonPressCount << " toggle action(s)!" << std::endl;
     } else {
         std::cout << "⚠ No middle button presses were detected." << std::endl;
-        std::cout << "   Check the debug output above for button codes." << std::endl;
-        std::cout << "   The button code might be different than expected." << std::endl;
-        std::cout << "\nTo find the correct button code:" << std::endl;
-        std::cout << "1. Run: sudo evtest /dev/input/event7" << std::endl;
-        std::cout << "2. Click middle mouse button" << std::endl;
-        std::cout << "3. Note the 'code' value shown" << std::endl;
-        std::cout << "4. Add that code to the detection logic in the C++ code" << std::endl;
+        std::cout << "   Try running with sudo: sudo ./middle-mouse-toggle" << std::endl;
     }
 
     std::cout << "========================================" << std::endl;
