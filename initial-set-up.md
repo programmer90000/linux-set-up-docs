@@ -555,6 +555,39 @@ Find the `Redo` command
 
 Set it to `Ctrl + Y` or a custom shortcut
 
+## Set Clicking The Middle Mouse Button To Auto-Scroll
+
+Run:
+```
+sudo apt update
+sudo apt install build-essential g++
+nano set-middle-mouse-button-to-auto-scroll.cpp
+```
+
+Copy the code from [set-middle-mouse-button-to-auto-scroll.cpp](./auto-scroll/set-middle-mouse-button-to-auto-scroll.cpp) into this file
+
+Run:
+```
+nano Makefile
+```
+
+Copy the code from [Makefile](./auto-scroll/Makefile) into this file
+
+To compile the app, run:
+```
+make
+```
+
+To run the app, run:
+```
+make run
+```
+
+To remove the app executable, run:
+```
+make clean
+```
+
 ## Change Auto-Start programs
 Run:
 ```
