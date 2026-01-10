@@ -173,13 +173,15 @@ int main() {
     std::string username = getUsername();
     std::string logFilePath = homeDir + "/c-plus-plus-logs.txt";
     
-    std::cout << "Starting mouse detection application..." << std::endl;
+    std::cout << "========================================" << std::endl;
+    std::cout << "Middle Mouse Button Logger" << std::endl;
+    std::cout << "========================================" << std::endl;
     std::cout << "Home directory: " << homeDir << std::endl;
     std::cout << "Username: " << username << std::endl;
     std::cout << "Log file path: " << logFilePath << std::endl;
     std::cout << "PID: " << getpid() << std::endl;
-    std::cout << "Press Ctrl+C to stop." << std::endl;
     std::cout << "----------------------------------------" << std::endl;
+    std::cout << "Searching for mouse devices..." << std::endl;
 
     // Try to create the directory if needed
     if (!createDirectoryIfNeeded(logFilePath)) {
@@ -210,30 +212,100 @@ int main() {
     logFile << "[" << timestamp << "] ";
     logFile << "Home: " << homeDir << std::endl;
     logFile << "[" << timestamp << "] ";
+    logFile << "Method: Direct input device access" << std::endl;
+    logFile << "[" << timestamp << "] ";
     logFile << "----------------------------------------" << std::endl;
     logFile.flush();
 
-    // TODO: Add device discovery and event handling
-    std::cout << "Device detection setup complete." << std::endl;
-    std::cout << "TODO: Implement mouse device discovery and event handling." << std::endl;
+    // Find all mouse devices
+    std::vector<InputDevice> devices;
 
+    DIR* dir = opendir("/dev/input");
+    if (!dir) {
+        std::cerr << "Cannot open /dev/input directory" << std::endl;
+        logFile << "[" << getCurrentTimestamp() << "] ";
+        logFile << "ERROR: Cannot open /dev/input directory" << std::endl;
+        logFile.close();
+        return 1;
+    }
+
+    struct dirent* entry;
+    while ((entry = readdir(dir)) != nullptr) {
+        std::string name = entry->d_name;
+
+        // Look for event devices (event*)
+        if (name.compare(0, 5, "event") == 0) {
+            std::string path = "/dev/input/" + name;
+
+            if (isMouseDevice(path)) {
+                // Get device name
+                int fd = open(path.c_str(), O_RDONLY);
+                if (fd >= 0) {
+                    char devName[256] = "Unknown";
+                    ioctl(fd, EVIOCGNAME(sizeof(devName)), devName);
+                    close(fd);
+
+                    // Try to open for reading events
+                    fd = open(path.c_str(), O_RDONLY | O_NONBLOCK);
+                    if (fd >= 0) {
+                        InputDevice device;
+                        device.fd = fd;
+                        device.path = path;
+                        device.name = devName;
+                        devices.push_back(device);
+
+                        std::cout << "✓ Found mouse: " << device.name 
+                                  << " at " << path << std::endl;
+
+                        logFile << "[" << getCurrentTimestamp() << "] ";
+                        logFile << "Found mouse device: " << device.name 
+                                << " at " << path << std::endl;
+                    }
+                }
+            }
+        }
+    }
+    closedir(dir);
+
+    if (devices.empty()) {
+        std::cout << "No mouse devices found automatically." << std::endl;
+        std::cout << "Press Ctrl+C to exit and try running with sudo." << std::endl;
+
+        logFile << "[" << getCurrentTimestamp() << "] ";
+        logFile << "WARNING: No mouse devices found automatically" << std::endl;
+    } else {
+        std::cout << "Found " << devices.size() << " mouse device(s)" << std::endl;
+        std::cout << "Press Ctrl+C to stop the application." << std::endl;
+
+        logFile << "[" << getCurrentTimestamp() << "] ";
+        logFile << "Input monitoring initialized successfully" << std::endl;
+    }
+
+    logFile.flush();
+
+    std::cout << "========================================" << std::endl;
+
+    // Simple test loop while we implement event handling
     int iteration = 0;
-
-    // Temporary main loop while we implement device detection
-    while (running && iteration < 10) {
+    while (running && iteration < 5) {
         iteration++;
 
+        std::cout << "[" << getCurrentTimestamp() << "] ";
+        std::cout << "Test iteration " << iteration << " (implementing event handling...)" << std::endl;
+
         // Simulate a middle button press for testing
-        static int simulatedPressCount = 0;
-        if (iteration % 3 == 0) {
-            simulatedPressCount++;
-            writeLogEntry(logFile, homeDir, username, simulatedPressCount);
+        if (iteration % 2 == 0 && !devices.empty()) {
+            middleButtonPressCount++;
+            writeLogEntry(logFile, homeDir, username, middleButtonPressCount);
         }
 
         // Wait for 2 seconds
         std::this_thread::sleep_for(std::chrono::seconds(2));
-        
-        if (!running) break;
+    }
+
+    // Cleanup devices
+    for (auto& device : devices) {
+        close(device.fd);
     }
 
     // Write final log entry
@@ -248,13 +320,21 @@ int main() {
     logFile << "----------------------------------------\n" << std::endl;
     logFile.flush();
 
+    // Close the log file
     logFile.close();
-    
+
     // Final console output
-    std::cout << "\n----------------------------------------" << std::endl;
+    std::cout << "\n========================================" << std::endl;
     std::cout << "Application stopped." << std::endl;
-    std::cout << "Total simulated presses: " << middleButtonPressCount << std::endl;
+    std::cout << "Total middle button presses detected: " << middleButtonPressCount << std::endl;
     std::cout << "Log file: " << logFilePath << std::endl;
-    
+
+    if (devices.empty()) {
+        std::cout << "⚠ No mouse devices were found." << std::endl;
+        std::cout << "Try running with sudo: sudo ./set-middle-mouse-button-to-auto-scroll" << std::endl;
+    }
+
+    std::cout << "========================================" << std::endl;
+
     return 0;
 }
