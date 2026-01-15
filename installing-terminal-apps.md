@@ -145,17 +145,24 @@ Run:
 sudo apt install curl
 ```
 
-## Install Cargo
-
-### Prerequisites
-
-- Curl must be installed
-
-### Installation
+## Install Rust
 
 Run:
 ```
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+uname -m
+```
+
+This will tell you your computers CPU architecture
+
+Go to the [Rust Standalone Installers](https://forge.rust-lang.org/infra/other-installation-methods.html) page
+
+Download the stable `tar.xz` installer for `-unknown-linux-gnu`. Download the correct architecture version for your computer
+
+Run:
+```
+tar xf rust-1.92.0-x86_64-unknown-linux-gnu.tar.xz
+cd rust-1.92.0-x86_64-unknown-linux-gnu/
+sudo ./install.sh
 ```
 
 ## Install ftdv
