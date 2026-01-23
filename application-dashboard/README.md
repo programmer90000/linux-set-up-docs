@@ -355,6 +355,7 @@ Run:
 ```
 mkdir ~/.config/microsoft-edge-personal/
 mkdir ~/.config/microsoft-edge-programming/
+mkdir ~/.config/microsoft-edge-quran/
 cd ~/.local/share/applications/
 nano 'Microsoft Edge (Personal).desktop'
 ```
@@ -400,7 +401,30 @@ StartupNotify=true
 
 Run:
 ```
+nano 'Microsoft Edge (Quran).desktop'
+```
+
+Paste the following code into this file:
+```
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Microsoft Edge Quran
+GenericName=Web Browser
+Comment=Microsoft Edge Quran
+Exec=/usr/bin/microsoft-edge-stable --user-data-dir="$HOME/.config/microsoft-edge-quran" --class=microsoft-edge-quran
+Icon=/usr/share/icons/hicolor/64x64/apps/microsoft-edge-logo-quran.png
+Terminal=false
+Categories=Network;WebBrowser;
+MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;
+StartupWMClass=microsoft-edge-quran
+StartupNotify=true
+```
+
+Run:
+```
 chmod +x '/home/abdul/.local/share/applications/Microsoft Edge (Personal).desktop' 
 chmod +x '/home/abdul/.local/share/applications/Microsoft Edge (Programming).desktop'
+chmod +x '/home/abdul/.local/share/applications/Microsoft Edge (Quran).desktop'
 kbuildsycoca5 2>/dev/null || true
 ```
