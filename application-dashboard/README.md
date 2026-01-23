@@ -124,7 +124,7 @@
 - Create a new item with the name `Android Studio`
     - `Name`: `Android Studio`
     - `Program`: `/opt/android-studio/bin/studio.sh`
-    - `Icon`: `android-studio`
+    - `Icon`: `/opt/android-studio/bin/studio.png`
     - Enable `Enable launch feedback`
     - Disable `Only show when logged into a Plasma session`
 
