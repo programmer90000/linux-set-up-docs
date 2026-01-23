@@ -24,30 +24,21 @@
     - `Icon`: `brave-browser`
     - Enable `Enable launch feedback`
     - Disable `Only show when logged into a Plasma session`
-    
+
+> Note: For the 3 Microsoft Edge profiles, set only the name and enable launch feedback. Do not set any other options
+
 - Create a new item with the name `Microsoft Edge (Personal)`
     - `Name`: `Microsoft Edge (Personal)`
-    - `Program`: `/bin/microsoft-edge-stable`
-    - `Command-Line Arguments`: `--profile-directory=Default --class=edge-personal %U`
-    - `Icon`: `microsoft-edge-logo-personal`
     - Enable `Enable launch feedback`
-    - Disable `Only show when logged into a Plasma session`
 
 - Create a new item with the name `Microsoft Edge (Programming)`
     - `Name`: `Microsoft Edge (Programming)`
-    - `Program`: `/bin/microsoft-edge-stable`
-    - `Command-Line Arguments`: `'--profile-directory=Profile 1' --class=edge-programming %U`
     - `Icon`: `microsoft-edge-logo-programming`
     - Enable `Enable launch feedback`
-    - Disable `Only show when logged into a Plasma session`
 
 - Create a new item with the name `Microsoft Edge (Quran)`
     - `Name`: `Microsoft Edge (Quran)`
-    - `Program`: `/bin/microsoft-edge-stable`
-    - `Command-Line Arguments`: `'--profile-directory=Profile 2' --class=edge-quran %U`
-    - `Icon`: `microsoft-edge-logo-quran`
     - Enable `Enable launch feedback`
-    - Disable `Only show when logged into a Plasma session`
 
 - Create a new item with the name `Google Chrome`
     - `Name`: `Google Chrome`
