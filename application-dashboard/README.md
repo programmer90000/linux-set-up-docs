@@ -428,3 +428,22 @@ chmod +x '/home/abdul/.local/share/applications/Microsoft Edge (Programming).des
 chmod +x '/home/abdul/.local/share/applications/Microsoft Edge (Quran).desktop'
 kbuildsycoca5 2>/dev/null || true
 ```
+
+Run:
+```
+nano '~/.local/share/applications/Android Studio.desktop'
+```
+
+Update this file to the following:
+```
+[Desktop Entry]
+Name=Android Studio
+Comment=Android Studio IDE
+Exec="/opt/android-studio/bin/studio"
+Icon=/opt/android-studio/bin/studio.png
+Type=Application
+Categories=Development;IDE;
+Terminal=false
+Version=1.0
+StartupWMClass=jetbrains-studio
+```
