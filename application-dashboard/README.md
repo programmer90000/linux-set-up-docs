@@ -350,3 +350,33 @@
 Save any icons in `/usr/share/icons/hicolor/64x64/apps/`
 
 Save the desktop files in `~/.local/share/applications/`
+
+Run:
+```
+mkdir ~/.config/microsoft-edge-personal/
+cd ~/.local/share/applications/
+nano 'Microsoft Edge (Personal).desktop'
+```
+
+Paste the following code into this file:
+```
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Microsoft Edge Personal
+GenericName=Web Browser
+Comment=Microsoft Edge Personal
+Exec=/usr/bin/microsoft-edge-stable --user-data-dir="$HOME/.config/microsoft-edge-personal" --class=microsoft-edge-personal
+Icon=/usr/share/icons/hicolor/64x64/apps/microsoft-edge-logo-personal.png
+Terminal=false
+Categories=Network;WebBrowser;
+MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;
+StartupWMClass=microsoft-edge-personal
+StartupNotify=true
+```
+
+Run:
+```
+chmod +x '/home/abdul/.local/share/applications/Microsoft Edge (Personal).desktop' 
+kbuildsycoca5 2>/dev/null || true
+```
