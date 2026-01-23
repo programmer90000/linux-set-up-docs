@@ -354,6 +354,7 @@ Save the desktop files in `~/.local/share/applications/`
 Run:
 ```
 mkdir ~/.config/microsoft-edge-personal/
+mkdir ~/.config/microsoft-edge-programming/
 cd ~/.local/share/applications/
 nano 'Microsoft Edge (Personal).desktop'
 ```
@@ -377,6 +378,29 @@ StartupNotify=true
 
 Run:
 ```
+nano 'Microsoft Edge (Programming).desktop'
+```
+
+Paste the following code into this file:
+```
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Microsoft Edge Programming
+GenericName=Web Browser
+Comment=Microsoft Edge Programming
+Exec=/usr/bin/microsoft-edge-stable --user-data-dir="$HOME/.config/microsoft-edge-programming" --class=microsoft-edge-programming
+Icon=/usr/share/icons/hicolor/64x64/apps/microsoft-edge-logo-programming.png
+Terminal=false
+Categories=Network;WebBrowser;
+MimeType=text/html;text/xml;application/xhtml+xml;x-scheme-handler/http;x-scheme-handler/https;
+StartupWMClass=microsoft-edge-programming
+StartupNotify=true
+```
+
+Run:
+```
 chmod +x '/home/abdul/.local/share/applications/Microsoft Edge (Personal).desktop' 
+chmod +x '/home/abdul/.local/share/applications/Microsoft Edge (Programming).desktop'
 kbuildsycoca5 2>/dev/null || true
 ```
