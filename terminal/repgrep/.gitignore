@@ -1,7 +1,0 @@
-.idea
-.vscode
-
-/target
-/benches/rg.json
-
-*.log

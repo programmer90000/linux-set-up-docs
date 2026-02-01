@@ -1,8 +1,0 @@
-[Desktop Entry]
-Type=Application
-Exec=krename -qwindowtitle "%c" %U
-Icon=krename
-Comment=A batch renamer
-Terminal=false
-Name=KRename
-Categories=Qt;KDE;Utility;

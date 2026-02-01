@@ -1,9 +1,0 @@
-[Desktop Entry]
-Name=Konsole
-Comment=Use the command line
-Exec=konsole
-Icon=utilities-terminal
-Type=Application
-Categories=System;TerminalEmulator;
-Terminal=false
-Version=1.0

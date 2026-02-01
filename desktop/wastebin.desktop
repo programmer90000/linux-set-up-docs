@@ -1,9 +1,0 @@
-[Desktop Entry]
-Name=Wastebin
-Comment=Open Trash folder
-Exec=dolphin trash:/
-Icon=user-trash
-Type=Application
-Categories=Qt;KDE;System;
-Terminal=false
-Keywords=trash;wastebin;deleted;files;restore;
