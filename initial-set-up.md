@@ -1,5 +1,15 @@
 # Installation Docs for Debian
 
+## Install Alacritty
+
+Run:
+```
+sudo apt update
+sudo apt install alacritty
+```
+
+> **Do this before installing a window manager**
+
 ## Install Openbox Window Manager
 
 Run:
