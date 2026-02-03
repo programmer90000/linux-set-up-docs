@@ -26,7 +26,7 @@ To open Alacritty, right-click, select `Applications > System > Alacritty`
 
 ## Correct Keyboard Layout
 
-Run:
+Open the terminal inside Openbox and run:
 ```
 setxkbmap gb
 ```
