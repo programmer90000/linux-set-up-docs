@@ -22,7 +22,7 @@ startx
 
 This should open a completely black screen with a mouse cursor
 
-To open Konsole, right-click, select `Applications > System > Konsole`
+To open Alacritty, right-click, select `Applications > System > Alacritty`
 
 ## Correct Keyboard Layout
 
