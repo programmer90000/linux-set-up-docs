@@ -1,15 +1,5 @@
 # Installation Docs for Debian
 
-## Install Konsole Terminal Emulator
-
-Run:
-```
-sudo apt update
-sudo apt install konsole
-```
-
-> **Do this before installing a window manager**
-
 ## Install Openbox Window Manager
 
 Run:
