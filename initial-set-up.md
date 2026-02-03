@@ -23,3 +23,10 @@ startx
 This should open a completely black screen with a mouse cursor
 
 To open Konsole, right-click, select `Applications > System > Konsole`
+
+## Correct Keyboard Layout
+
+Run:
+```
+setxkbmap gb
+```
