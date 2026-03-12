@@ -39,10 +39,3 @@ chmod +x labwc/labwc.sh
 This should open a completely black screen with a mouse cursor
 
 To open Alacritty, right-click, press `Super + Enter`
-
-## Correct Keyboard Layout
-
-Open the terminal inside Openbox and run:
-```
-setxkbmap gb
-```
