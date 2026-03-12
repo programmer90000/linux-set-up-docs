@@ -8,6 +8,16 @@ sudo apt update
 sudo apt install git
 ```
 
+## Clone and change directory into this repository
+
+Run:
+```
+git clone https://github.com/programmer90000/linux-set-up-docs.git
+cd linux-set-up-docs/
+```
+
+> All SH files in this repository should be run from the root of the Linux Set Up Docs directory
+
 ## Install Alacritty
 
 Run:
