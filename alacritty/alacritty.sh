@@ -7,7 +7,7 @@ echo "Installing Alacritty"
 sudo apt install alacritty
 
 echo "Making directory"
-mkdir ~/.config/alacritty/
+mkdir -p ~/.config/alacritty/
 
 echo "Installing Tmux"
 sudo apt install -y tmux
