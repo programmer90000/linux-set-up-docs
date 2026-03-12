@@ -4,7 +4,7 @@ echo "Refreshing package list"
 sudo apt update
 
 echo "Installing Labwc"
-sudo apt install labwc
+sudo apt install -y labwc
 
 echo "Starting Labwc"
 labwc
