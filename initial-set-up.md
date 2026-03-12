@@ -1,11 +1,19 @@
 # Installation Docs for Debian
 
-## Install Alacritty
+## Install Git
 
 Run:
 ```
 sudo apt update
-sudo apt install alacritty
+sudo apt install git
+```
+
+## Install Alacritty
+
+Run:
+```
+chmod +x alacritty/alacritty.sh
+./alacritty/alacritty.sh
 ```
 
 > **Do this before installing a window manager**

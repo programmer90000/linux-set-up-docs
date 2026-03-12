@@ -1,10 +1,13 @@
 #!/bin/bash
 
-echo "Making directory"
-mkdir ~/.config/alacritty/
-
 echo "Refreshing package list"
 sudo apt update
+
+echo "Installing Alacritty"
+sudo apt install alacritty
+
+echo "Making directory"
+mkdir ~/.config/alacritty/
 
 echo "Installing Tmux"
 sudo apt install -y tmux
