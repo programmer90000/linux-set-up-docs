@@ -4,7 +4,7 @@ echo "Refreshing package list"
 sudo apt update
 
 echo "Installing Alacritty"
-sudo apt install alacritty
+sudo apt install -y alacritty
 
 echo "Making directory"
 mkdir -p ~/.config/alacritty/
