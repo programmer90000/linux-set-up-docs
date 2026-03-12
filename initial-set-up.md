@@ -28,19 +28,17 @@ chmod +x alacritty/alacritty.sh
 
 > **Do this before installing a window manager**
 
-## Install Openbox Window Manager
+## Install Labwc Window Manager
 
 Run:
 ```
-sudo apt update
-sudo apt install openbox xserver-xorg xinit
-echo "exec openbox-session" > /home/abdul/.xinitrc
-startx
+chmod +x labwc/labwc.sh
+./labwc/labwc.sh
 ```
 
 This should open a completely black screen with a mouse cursor
 
-To open Alacritty, right-click, select `Applications > System > Alacritty`
+To open Alacritty, right-click, press `Super + Enter`
 
 ## Correct Keyboard Layout
 
