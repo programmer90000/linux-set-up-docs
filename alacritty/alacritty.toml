@@ -60,6 +60,10 @@ end = {foreground = "#000000", background = "#004400"}
 foreground = "#004400"
 background = "#000000"
 
+[footer_bar]
+foreground = "#00ff00"
+background = "#003300"
+
 [colors.normal]
 black = "#000000"
 red = "#FF0000"
