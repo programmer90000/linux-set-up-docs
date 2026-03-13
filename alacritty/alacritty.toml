@@ -48,7 +48,7 @@ cursor = "#00ff00"
 text = "#00ff00"
 background = "#1a4d1a"
 
-[colors.vi_mode_selection]
+[colors.vi_mode_cursor]
 text = "#000000"
 cursor = "#80ff80"
 
