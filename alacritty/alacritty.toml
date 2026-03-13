@@ -108,6 +108,7 @@ white = "#808080"
 animation = "Linear"
 duration = 150
 color = "#80ff80"
+command = "None"
 
 [selection]
 semantic_escape_chars = ",│`|:\"' ()[]{}<>\t"
