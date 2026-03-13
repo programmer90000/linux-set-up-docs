@@ -56,6 +56,10 @@ focused_match = {foreground = "#000000", background = "#00ff00"}
 start = {foreground = "#000000", background = "#80ff80"}
 end = {foreground = "#000000", background = "#004400"}
 
+[line_indicator]
+foreground = "#004400"
+background = "#000000"
+
 [colors.normal]
 black = "#000000"
 red = "#FF0000"
