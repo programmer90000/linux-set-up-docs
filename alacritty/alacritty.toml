@@ -121,3 +121,6 @@ blink_interval = 750
 blink_timeout = 0
 unfocused_hollow = true
 thickness = 0.15
+
+[mouse]
+hide_when_typing = false
