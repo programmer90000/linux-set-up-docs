@@ -41,3 +41,13 @@ cursor = "#00ff00"
 [colors.selection]
 text = "#00ff00"
 background = "#1a4d1a"
+
+[colors.normal]
+black = "#000000"
+red = "#FF0000"
+green = "#008000"
+yellow = "#FFFF00"
+blue = "#0000FF"
+magenta = "#FF00FF"
+cyan = "#00FFFF"
+white = "#FFFFFF"
