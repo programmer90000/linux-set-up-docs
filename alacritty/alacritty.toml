@@ -61,3 +61,13 @@ blue = "#8080FF"
 magenta = "#FF80FF"
 cyan = "#80FFFF"
 white = "#FFFFFF"
+
+[colors.dim]
+black = "#000000"
+red = "#800000"
+green = "#004000"
+yellow = "#808000"
+blue = "#000080"
+magenta = "#800080"
+cyan = "#008080"
+white = "#808080"
