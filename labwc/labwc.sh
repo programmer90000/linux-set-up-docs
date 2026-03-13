@@ -14,10 +14,7 @@ sudo apt install -y labwc
 
 echo "Setting keyboard layout"
 mkdir ~/.config/labwc/
-
-cat >> ~/.config/labwc/environment << 'EOF'
-XKB_DEFAULT_LAYOUT=gb
-EOF
+cp labwc/environment ~/.config/labwc/
 
 echo "Starting Labwc"
 labwc
