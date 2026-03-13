@@ -51,3 +51,13 @@ blue = "#0000FF"
 magenta = "#FF00FF"
 cyan = "#00FFFF"
 white = "#FFFFFF"
+
+[colors.bright]
+black = "#808080"
+red = "#FF8080"
+green = "#80C080"
+yellow = "#FFFF80"
+blue = "#8080FF"
+magenta = "#FF80FF"
+cyan = "#80FFFF"
+white = "#FFFFFF"
