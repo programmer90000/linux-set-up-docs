@@ -64,7 +64,7 @@ end = {foreground = "#000000", background = "#004400"}
 foreground = "#004400"
 background = "#000000"
 
-[footer_bar]
+[colors.footer_bar]
 foreground = "#00ff00"
 background = "#003300"
 
