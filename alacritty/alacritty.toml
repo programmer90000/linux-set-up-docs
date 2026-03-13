@@ -104,6 +104,7 @@ duration = 150
 color = "#80ff80"
 
 [selection]
+semantic_escape_chars = ",│`|:\"' ()[]{}<>\t"
 save_to_clipboard = false
 
 [cursor]
