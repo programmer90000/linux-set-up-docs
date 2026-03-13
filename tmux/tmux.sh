@@ -11,3 +11,7 @@ sudo apt update
 
 echo "Installing Tmux"
 sudo apt install -y tmux
+
+echo "Copying tmux.conf"
+mkdir -p ~/.config/tmux/
+cp tmux/tmux.conf ~/.config/tmux/
