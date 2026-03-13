@@ -32,9 +32,6 @@ style = "Bold"
 [font.italic]
 family = "Hack"
 style = "Italic"
-offset = {x = 0, y = 0}
-glyph_offset = {x = 0, y = 0}
-builtin_box_drawing = true
 
 [colors]
 transparent_background_colors = false
