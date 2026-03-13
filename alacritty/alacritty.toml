@@ -48,6 +48,10 @@ background = "#1a4d1a"
 text = "#000000"
 cursor = "#80ff80"
 
+[colors.search]
+matches = {foreground = "#000000", background = "#00aa00"}
+focused_match = {foreground = "#000000", background = "#00ff00"}
+
 [colors.normal]
 black = "#000000"
 red = "#FF0000"
