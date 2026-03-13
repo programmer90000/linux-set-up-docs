@@ -102,3 +102,11 @@ white = "#808080"
 animation = "Linear"
 duration = 150
 color = "#80ff80"
+
+[cursor]
+style = {shape = "Beam", blinking = "Always"}
+vi_mode_style = {shape = "Beam", blinking = "Always"}
+blink_interval = 750
+blink_timeout = 0
+unfocused_hollow = true
+thickness = 0.15
