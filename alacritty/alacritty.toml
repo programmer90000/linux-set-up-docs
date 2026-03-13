@@ -33,3 +33,7 @@ style = "Italic"
 [colors.primary]
 background = "#000000"
 foreground = "#00ff00"
+
+[colors.cursor]
+text = "#000000"
+cursor = "#00ff00"
