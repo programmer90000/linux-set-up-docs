@@ -39,3 +39,11 @@ chmod +x labwc/labwc.sh
 This should open a completely black screen with a mouse cursor
 
 To open Alacritty, right-click, press `Super + Enter`
+
+## Install Tmux
+
+Run:
+```
+chmod +x tmux/tmux.sh
+./tmux/tmux.sh
+```
