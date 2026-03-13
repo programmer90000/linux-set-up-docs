@@ -122,6 +122,10 @@ blink_timeout = 0
 unfocused_hollow = true
 thickness = 0.15
 
+[terminal]
+shell = "/usr/bin/bash"
+osc52 = "Disabled"
+
 [mouse]
 hide_when_typing = false
 
