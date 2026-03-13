@@ -103,6 +103,9 @@ animation = "Linear"
 duration = 150
 color = "#80ff80"
 
+[selection]
+save_to_clipboard = false
+
 [cursor]
 style = {shape = "Beam", blinking = "Always"}
 vi_mode_style = {shape = "Beam", blinking = "Always"}
