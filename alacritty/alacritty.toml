@@ -5,6 +5,8 @@ live_config_reload = false
 
 [window]
 dimensions = { columns = 0, lines = 0 }
+position = "None"
+decorations = "Full"
 padding = { x = 0, y = 0 }
 dynamic_padding = false
 opacity = 1.0
