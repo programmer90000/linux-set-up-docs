@@ -124,3 +124,12 @@ thickness = 0.15
 
 [mouse]
 hide_when_typing = false
+
+[debug]
+render_timer = false
+persistent_logging = false
+log_level = "Warn"
+renderer = "None"
+print_events = false
+highlight_damage = true
+prefer_egl = false
