@@ -29,3 +29,7 @@ style = "Bold"
 [font.italic]
 family = "Hack"
 style = "Italic"
+
+[colors.primary]
+background = "#000000"
+foreground = "#00ff00"
