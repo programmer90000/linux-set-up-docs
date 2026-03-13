@@ -52,6 +52,10 @@ cursor = "#80ff80"
 matches = {foreground = "#000000", background = "#00aa00"}
 focused_match = {foreground = "#000000", background = "#00ff00"}
 
+[colors.hints]
+start = {foreground = "#000000", background = "#80ff80"}
+end = {foreground = "#000000", background = "#004400"}
+
 [colors.normal]
 black = "#000000"
 red = "#FF0000"
