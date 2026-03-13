@@ -97,3 +97,8 @@ blue = "#000080"
 magenta = "#800080"
 cyan = "#008080"
 white = "#808080"
+
+[bell]
+animation = "Linear"
+duration = 150
+color = "#80ff80"
