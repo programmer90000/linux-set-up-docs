@@ -37,3 +37,7 @@ foreground = "#00ff00"
 [colors.cursor]
 text = "#000000"
 cursor = "#00ff00"
+
+[colors.selection]
+text = "#00ff00"
+background = "#1a4d1a"
