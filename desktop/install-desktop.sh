@@ -10,7 +10,7 @@ echo "Making directories"
 log-command-output.sh ["Making directories"] mkdir -p ~/.config/pcmanfm-qt/default/
 
 echo "Copying desktop wallpaper"
-log-command-output.sh ["Copying desktop wallpaper"] cp desktop/desktop-wallpaper.png ~/.config/pcmanfm-qt/default/
+log-command-output.sh ["Copying desktop wallpaper"] sudo cp desktop/desktop-wallpaper.png /usr/share/pixmaps/
 
 echo "Copying settings.conf file"
 log-command-output.sh ["Copying settings.conf file"] cp desktop/settings.conf ~/.config/pcmanfm-qt/default/
@@ -19,4 +19,4 @@ echo "Starting PCManFM-Qt"
 log-command-output.sh ["Starting PCManFM-Qt"] pcmanfm-qt --desktop &
 
 echo "Setting desktop wallpaper"
-log-command-output.sh ["Setting desktop wallpaper"] pcmanfm-qt --set-wallpaper="$HOME/.config/pcmanfm-qt/default/desktop-wallpaper.png"
+log-command-output.sh ["Setting desktop wallpaper"] pcmanfm-qt --set-wallpaper="/usr/share/pixmaps/desktop-wallpaper.png"
