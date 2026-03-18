@@ -17,3 +17,6 @@ log-command-output.sh ["Copying settings.conf file"] cp desktop/settings.conf ~/
 
 echo "Starting PCManFM-Qt"
 log-command-output.sh ["Starting PCManFM-Qt"] pcmanfm-qt --desktop &
+
+echo "Setting desktop wallpaper"
+log-command-output.sh ["Setting desktop wallpaper"] pcmanfm-qt --set-wallpaper="$HOME/.config/pcmanfm-qt/default/desktop-wallpaper.png"
