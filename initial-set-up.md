@@ -55,3 +55,11 @@ Run:
 chmod +x tmux/tmux.sh
 ./tmux/tmux.sh
 ```
+
+## Install Desktop
+
+Run:
+```
+chmod +x desktop/install-desktop.sh
+./desktop/install-desktop.sh
+```
