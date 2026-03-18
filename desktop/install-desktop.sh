@@ -10,7 +10,7 @@ echo "Making directories"
 log-command-output.sh ["Making directories"] mkdir -p ~/.config/pcmanfm-qt/default/
 
 echo "Copying desktop wallpaper"
-log-command-output.sh ["Copying desktop wallpaper"] desktop/desktop-wallpaper.png ~/.config/pcmanfm-qt/default/
+log-command-output.sh ["Copying desktop wallpaper"] cp desktop/desktop-wallpaper.png ~/.config/pcmanfm-qt/default/
 
 echo "Copying settings.conf file"
 log-command-output.sh ["Copying settings.conf file"] cp desktop/settings.conf ~/.config/pcmanfm-qt/default/
