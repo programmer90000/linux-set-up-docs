@@ -21,5 +21,5 @@ echo "Installing Tmux"
 log-command-output.sh ["Installing Tmux"] sudo apt install -y tmux
 
 echo "Copying tmux.conf"
-log-command-output.sh ["Making directory"] mkdir -p ~/.config/alacritty/
+log-command-output.sh ["Making directory"] mkdir -p ~/.config/tmux/
 log-command-output.sh ["Copying tmux.conf file"] cp $TMUX_CONF ~/.config/tmux/
