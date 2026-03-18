@@ -15,11 +15,11 @@ if [ ! -f "$TMUX_CONF" ]; then
 fi
 
 echo "Refreshing package list"
-sudo apt update
+log-command-output.sh ["Refreshing package list"] sudo apt update
 
 echo "Installing Tmux"
-sudo apt install -y tmux
+log-command-output.sh ["Installing Tmux"] sudo apt install -y tmux
 
 echo "Copying tmux.conf"
-mkdir -p ~/.config/tmux/
-cp $TMUX_CONF ~/.config/tmux/
+log-command-output.sh ["Making directory"] mkdir -p ~/.config/alacritty/
+log-command-output.sh ["Copying tmux.conf file"] cp $TMUX_CONF ~/.config/tmux/
