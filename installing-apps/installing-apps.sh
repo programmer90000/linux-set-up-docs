@@ -41,13 +41,13 @@ log-command-output.sh ["Copying config.yaml file"] sudo cp installing-apps/confi
 
 log-command-output.sh ["Enabling Brave Browser repository"] sudo extrepo enable brave_release
 log-command-output.sh ["Refreshing package list"] sudo apt update
-log-command-output.sh ["Installing Brave Browser"] sudo apt install brave-browser
+log-command-output.sh ["Installing Brave Browser"] sudo apt install -y brave-browser
 
 log-command-output.sh ["Enabling Google Chrome Browser repository"] sudo extrepo enable google_chrome
 log-command-output.sh ["Refreshing package list"] sudo apt update
-log-command-output.sh ["Installing Google Chrome"] sudo apt install google-chrome-stable
+log-command-output.sh ["Installing Google Chrome"] sudo apt install -y google-chrome-stable
 
 log-command-output.sh ["Install Microsoft GPG Key for authentication"] curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor | sudo tee /usr/share/keyrings/microsoft.gpg > /dev/null
 log-command-output.sh ["Add Microsoft Edge repository to the system's list of package sources"] echo "deb [arch=amd64 signed-by=/usr/share/keyrings/microsoft.gpg] https://packages.microsoft.com/repos/edge stable main" | sudo tee /etc/apt/sources.list.d/microsoft-edge.list
 log-command-output.sh ["Refreshing package list"] sudo apt update
-log-command-output.sh ["Installing Microsoft Edge"] sudo apt install microsoft-edge-stable
+log-command-output.sh ["Installing Microsoft Edge"] sudo apt install -y microsoft-edge-stable
