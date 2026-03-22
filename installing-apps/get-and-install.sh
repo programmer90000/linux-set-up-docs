@@ -135,6 +135,91 @@ if [[ "$install_target" == "Zoom" || "$install_target" == "zoom" ]]; then
         echo "You may need to log out and back in, or manually launch Zoom from the installed location."
     fi
     
+elif [[ "$install_target" == "Edge" || "$install_target" == "edge" ]]; then
+    read -p "Enter source for Edge (URL or local executable file path): " download_source
+    
+    while true; do
+        download_source=$(echo "$download_source" | xargs)
+        
+        if [[ -z "$download_source" ]]; then
+            echo "Error: No input provided."
+            read -p "Please enter a valid URL or executable file path: " download_source
+            continue
+        fi
+        
+        validation_result=$(validate_source "$download_source")
+        validation_status=$?
+        
+        if [[ $validation_status -eq 0 ]]; then
+            source_type=$(echo "$validation_result" | head -n 1)
+            if [[ "$source_type" == "URL" ]]; then
+                echo "URL found: $download_source"
+                break
+            elif [[ "$source_type" == "FILE" ]]; then
+                expanded_source="${download_source/#\~/$HOME}"
+                echo "Executable file found: $expanded_source"
+                download_source="$expanded_source"
+                break
+            fi
+        else
+            echo "Invalid input: '$download_source' is not a valid URL or existing executable file."
+            echo "Requirements for local files:"
+            echo "    - File must exist"
+            echo "    - File must have execute permissions (chmod +x)"
+            echo ""
+            read -p "Please enter a valid URL or executable file path: " download_source
+        fi
+    done
+    
+    echo ""
+    if [[ "$download_source" =~ ^https?:// ]]; then
+        echo "Downloading Edge from URL..."
+        
+        temp_dir=$(mktemp -d)
+        cd "$temp_dir" || exit 1
+        
+        if wget --show-progress "$download_source"; then
+            echo "Download completed successfully."
+            
+            downloaded_file=$(ls | head -n 1)
+            
+            if [[ "$downloaded_file" == *.deb ]]; then
+                echo "Installing Edge .deb package..."
+                sudo dpkg -i "$downloaded_file"
+                sudo apt-get install -f -y
+            else
+                echo "Unknown file type. Please install manually."
+                ls -la
+            fi
+        else
+            echo "Error: Failed to download from URL."
+            exit 1
+        fi
+        
+        cd /tmp || exit
+        rm -rf "$temp_dir"
+        
+    else
+        echo "Installing Edge from local file..."
+        
+        if [[ "$download_source" == *.deb ]]; then
+            echo "Installing .deb package..."
+            sudo dpkg -i "$download_source"
+            sudo apt-get install -f -y
+        else
+            echo "Running executable file..."
+            "$download_source"
+        fi
+    fi
+    
+    echo ""
+    if command -v microsoft-edge-stable &> /dev/null; then
+        echo "Microsoft Edge has been successfully installed! You can launch Edge by typing 'microsoft-edge' in the terminal"
+    else
+        echo "Installation completed, but 'microsoft-edge-stable' command not found in PATH."
+        echo "You may need to log out and back in, or manually launch Edge from the installed location."
+    fi
+    
 else
     echo "You entered an invalid app name to install"
     exit 1
