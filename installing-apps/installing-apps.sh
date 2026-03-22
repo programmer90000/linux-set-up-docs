@@ -10,6 +10,8 @@ log-command-output.sh ["Installing FileZilla"] sudo apt install -y filezilla
 
 log-command-output.sh ["Installing Mousepad Text Editor"] sudo apt install -y mousepad
 
+log-command-output.sh ["Installing VLC Media Player"] sudo apt install -y vlc
+
 log-command-output.sh ["Installing Brave Browser"] echo "Installing Brave Browser"
 log-command-output.sh ["========================"] echo "========================"
 log-command-output.sh ["Installing Curl"] sudo apt install -y curl
