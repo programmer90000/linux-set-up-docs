@@ -20,7 +20,7 @@ log-command-output.sh ["Installing Handbrake"] sudo apt install -y handbrake
 
 log-command-output.sh ["Installing CopyQ"] sudo apt install -y copyq
 
-log-command-output.sh ["Installing Viewnior"] sudo apt install viewnior
+log-command-output.sh ["Installing Viewnior"] sudo apt install -y viewnior
 
 log-command-output.sh ["Installing Gimp"] sudo apt install -y gimp
 
