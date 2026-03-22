@@ -28,3 +28,7 @@ log-command-output.sh ["Copying config.yaml file"] sudo cp installing-apps/confi
 log-command-output.sh ["Enabling Brave Browser repository"] sudo extrepo enable brave_release
 log-command-output.sh ["Refreshing package list"] sudo apt update
 log-command-output.sh ["Installing Brave Browser"] sudo apt install brave-browser
+
+log-command-output.sh ["Enabling Google Chrome Browser repository"] sudo extrepo enable google_chrome
+log-command-output.sh ["Refreshing package list"] sudo apt update
+log-command-output.sh ["Installing Google Chrome"] sudo apt install google-chrome-stable
