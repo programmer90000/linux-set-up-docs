@@ -18,6 +18,8 @@ log-command-output.sh ["Installing Qdirstat Disk Space Analyzer"] sudo apt insta
 
 log-command-output.sh ["Installing Thunderbird"] sudo apt install -y thunderbird
 
+log-command-output.sh ["Installing Hardinfo"] sudo apt install -y hardinfo
+
 log-command-output.sh ["Installing Brave Browser"] echo "Installing Brave Browser"
 log-command-output.sh ["========================"] echo "========================"
 log-command-output.sh ["Installing Curl"] sudo apt install -y curl
