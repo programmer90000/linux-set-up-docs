@@ -12,22 +12,21 @@ validate_source() {
             echo "URL"
             return 0
         else
-            echo "Error: URL is not accessible."
+            echo "Error: URL is not accessible." >&2
             return 1
         fi
     fi
     
     # Check if it's a local file
-    # Expand tilde to home directory
     local expanded_source="${source/#\~/$HOME}"
     
     if [[ ! -f "$expanded_source" ]]; then
-        echo "Error: File does not exist."
+        echo "Error: File does not exist." >&2
         return 1
     fi
     
     if [[ ! -x "$expanded_source" ]]; then
-        echo "Error: File is not executable."
+        echo "Error: File is not executable." >&2
         return 1
     fi
     
@@ -45,7 +44,7 @@ get_source() {
         download_source=$(echo "$download_source" | xargs)
         
         if [[ -z "$download_source" ]]; then
-            echo "Error: No input provided."
+            echo "Error: No input provided." >&2
             read -p "Please enter a valid URL or executable file path: " download_source
             continue
         fi
@@ -56,19 +55,21 @@ get_source() {
         if [[ $validation_status -eq 0 ]]; then
             source_type=$(echo "$validation_result" | head -n 1)
             if [[ "$source_type" == "URL" ]]; then
-                echo "URL found: $download_source"
+                echo "URL found: $download_source" >&2
+                echo "$download_source"
                 return 0
             elif [[ "$source_type" == "FILE" ]]; then
                 expanded_source="${download_source/#\~/$HOME}"
-                echo "Executable file found: $expanded_source"
+                echo "Executable file found: $expanded_source" >&2
+                echo "$expanded_source"
                 return 0
             fi
         else
-            echo "Invalid input: '$download_source' is not a valid URL or existing executable file."
-            echo "Requirements for local files:"
-            echo "    - File must exist"
-            echo "    - File must have execute permissions (chmod +x)"
-            echo ""
+            echo "Invalid input: '$download_source' is not a valid URL or existing executable file." >&2
+            echo "Requirements for local files:" >&2
+            echo "    - File must exist" >&2
+            echo "    - File must have execute permissions (chmod +x)" >&2
+            echo "" >&2
             read -p "Please enter a valid URL or executable file path: " download_source
         fi
     done
