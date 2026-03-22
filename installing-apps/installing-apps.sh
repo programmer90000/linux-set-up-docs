@@ -28,4 +28,5 @@ log-command-output.sh ["Installing Extrepo"] sudo apt install -y extrepo
 log-command-output.sh ["Copying config.yaml file"] sudo cp installing-apps/config.yaml /etc/extrepo/config.yaml
 
 log-command-output.sh ["Enabling Brave Browser repository"] sudo extrepo enable brave_release
+log-command-output.sh ["Refreshing package list"] sudo apt update
 log-command-output.sh ["Installing Brave Browser"] sudo apt install brave-browser
