@@ -1,6 +1,7 @@
 #!/bin/bash
 
 sudo apt update
+sudo apt install curl
 
 validate_source() {
     local source="$1"
