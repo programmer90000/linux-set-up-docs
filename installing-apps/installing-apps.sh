@@ -6,8 +6,6 @@ log-command-output.sh ["Installing Neovim"] sudo apt install -y neovim
 
 log-command-output.sh ["Installing FileZilla"] sudo apt install -y filezilla
 
-log-command-output.sh ["Installing Mousepad Text Editor"] sudo apt install -y mousepad
-
 log-command-output.sh ["Installing VLC Media Player"] sudo apt install -y vlc
 
 log-command-output.sh ["Installing Gimp Image Editor"] sudo apt install -y gimp
