@@ -25,6 +25,7 @@ log-command-output.sh ["Clear the pre-seeded value stopping debconf screen appea
 log-command-output.sh ["Installing ClamAV Malware Scanner"] sudo apt -y install clamav
 
 log-command-output.sh ["Installing Extrepo"] sudo apt install -y extrepo
+log-command-output.sh ["Copying config.yaml file"] sudo cp installing-apps/config.yaml /etc/extrepo/config.yaml
 
 log-command-output.sh ["Installing Brave Browser"] echo "Installing Brave Browser"
 log-command-output.sh ["========================"] echo "========================"
