@@ -1,7 +1,7 @@
 #!/bin/bash
 
 sudo apt update
-sudo apt install -y curl
+sudo apt install -y curl wget
 
 validate_source() {
     local source="$1"
