@@ -26,7 +26,7 @@ log-command-output.sh ["Installing Audacity"] sudo apt install -y audacity
 
 log-command-output.sh ["Installing LibreOffice"] sudo apt install -y libreoffice
 
-[log-command-output.sh] ["Installing Screen Ruler"] sudo apt install -y screenruler
+log-command-output.sh ["Installing Screen Ruler"] sudo apt install -y screenruler
 
 log-command-output.sh ["Disable starting Iperf3 on boot"] echo "iperf3 iperf3/start_daemon boolean false" | sudo debconf-set-selections
 log-command-output.sh ["Installing Hardinfo2"] sudo DEBIAN_FRONTEND=noninteractive apt install -y hardinfo2
