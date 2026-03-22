@@ -22,8 +22,6 @@ log-command-output.sh ["Installing CopyQ"] sudo apt install -y copyq
 
 log-command-output.sh ["Installing Viewnior"] sudo apt install -y viewnior
 
-log-command-output.sh ["Installing Gimp"] sudo apt install -y gimp
-
 log-command-output.sh ["Installing Audacity"] sudo apt install -y audacity
 
 log-command-output.sh ["Installing LibreOffice"] sudo apt install -y libreoffice
