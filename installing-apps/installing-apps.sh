@@ -2,6 +2,8 @@
 
 log-command-output.sh ["Refreshing package list"] sudo apt update
 
+log-command-output.sh ["Installing curl"] sudo apt install -y curl
+
 log-command-output.sh ["Installing Neovim"] sudo apt install -y neovim
 
 log-command-output.sh ["Installing Shotcut"] sudo apt install -y shotcut
