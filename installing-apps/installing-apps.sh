@@ -22,6 +22,8 @@ log-command-output.sh ["Disable starting Iperf3 on boot"] echo "iperf3 iperf3/st
 log-command-output.sh ["Installing Hardinfo2"] sudo DEBIAN_FRONTEND=noninteractive apt install -y hardinfo2
 log-command-output.sh ["Clear the pre-seeded value stopping debconf screen appearing"] echo "PURGE" | sudo debconf-communicate iperf3
 
+log-command-output.sh ["Installing ClamAV Malware Scanner"] sudo apt -y install clamav
+
 log-command-output.sh ["Installing Brave Browser"] echo "Installing Brave Browser"
 log-command-output.sh ["========================"] echo "========================"
 log-command-output.sh ["Installing Curl"] sudo apt install -y curl
