@@ -35,13 +35,7 @@ validate_source() {
     return 0
 }
 
-# First, ask what to install
-read -p "What would you like to install? " install_target
-
-# Trim whitespace
-install_target=$(echo "$install_target" | xargs)
-
-if [[ "$install_target" == "Zoom" || "$install_target" == "zoom" ]]; then
+install_zoom() {
     read -p "Enter source for Zoom (URL or local executable file path): " download_source
     
     while true; do
@@ -134,8 +128,9 @@ if [[ "$install_target" == "Zoom" || "$install_target" == "zoom" ]]; then
         echo "Installation completed, but 'zoom' command not found in PATH."
         echo "You may need to log out and back in, or manually launch Zoom from the installed location."
     fi
-    
-elif [[ "$install_target" == "Edge" || "$install_target" == "edge" ]]; then
+}
+
+install_edge() {
     read -p "Enter source for Edge (URL or local executable file path): " download_source
     
     while true; do
@@ -219,7 +214,16 @@ elif [[ "$install_target" == "Edge" || "$install_target" == "edge" ]]; then
         echo "Installation completed, but 'microsoft-edge-stable' command not found in PATH."
         echo "You may need to log out and back in, or manually launch Edge from the installed location."
     fi
-    
+}
+
+read -p "What would you like to install? " install_target
+
+install_target=$(echo "$install_target" | xargs)
+
+if [[ "$install_target" == "Zoom" || "$install_target" == "zoom" ]]; then
+    install_zoom
+elif [[ "$install_target" == "Edge" || "$install_target" == "edge" ]]; then
+    install_edge
 else
     echo "You entered an invalid app name to install"
     exit 1
