@@ -48,6 +48,7 @@ log-command-output.sh ["Installing Brave Browser"] sudo apt install -y brave-bro
 log-command-output.sh ["Enabling Google Chrome Browser repository"] sudo extrepo enable google_chrome
 log-command-output.sh ["Refreshing package list"] sudo apt update
 log-command-output.sh ["Installing Google Chrome"] sudo apt install -y google-chrome-stable
+log-command-output.sh ["Remove duplicate Chrome repository"] sudo rm -f /etc/apt/sources.list.d/google-chrome.list
 
 log-command-output.sh ["Install Microsoft GPG Key for authentication"] curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor | sudo tee /usr/share/keyrings/microsoft.gpg > /dev/null
 log-command-output.sh ["Add Microsoft Edge repository to the system's list of package sources"] echo "deb [arch=amd64 signed-by=/usr/share/keyrings/microsoft.gpg] https://packages.microsoft.com/repos/edge stable main" | sudo tee /etc/apt/sources.list.d/microsoft-edge.list
