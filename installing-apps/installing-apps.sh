@@ -22,6 +22,8 @@ log-command-output.sh ["Installing CopyQ"] sudo apt install -y copyq
 
 log-command-output.sh ["Installing Viewnior"] sudo apt install viewnior
 
+log-command-output.sh ["Installing Gimp"] sudo apt install -y gimp
+
 log-command-output.sh ["Disable starting Iperf3 on boot"] echo "iperf3 iperf3/start_daemon boolean false" | sudo debconf-set-selections
 log-command-output.sh ["Installing Hardinfo2"] sudo DEBIAN_FRONTEND=noninteractive apt install -y hardinfo2
 log-command-output.sh ["Clear the pre-seeded value stopping debconf screen appearing"] echo "PURGE" | sudo debconf-communicate iperf3
