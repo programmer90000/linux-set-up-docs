@@ -5,6 +5,7 @@ log-command-output.sh ["Refreshing package list"] sudo apt update
 log-command-output.sh ["Installing Neovim"] sudo apt install -y neovim
 
 log-command-output.sh ["Installing Kdenlive Video Editor"] sudo apt install -y kdenlive
+log-command-output.sh ["Removing kdeconnect package installed by Kdenlive"] sudo apt remove -y kdeconnect
 
 log-command-output.sh ["Installing FileZilla"] sudo apt install -y filezilla
 
