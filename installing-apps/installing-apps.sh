@@ -4,6 +4,8 @@ log-command-output.sh ["Refreshing package list"] sudo apt update
 
 log-command-output.sh ["Installing Neovim"] sudo apt install -y neovim
 
+log-command-output.sh ["Installing Kdenlive Video Editor"] sudo apt install -y kdenlive
+
 log-command-output.sh ["Installing Brave Browser"] echo "Installing Brave Browser"
 log-command-output.sh ["========================"] echo "========================"
 log-command-output.sh ["Installing Curl"] sudo apt install -y curl
