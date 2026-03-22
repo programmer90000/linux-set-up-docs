@@ -143,28 +143,12 @@ install_zoom() {
     fi
 }
 
-install_edge() {
-    local source
-    source=$(get_source "Edge")
-    install_from_source "$source" "Edge"
-    
-    echo ""
-    if command -v microsoft-edge-stable &> /dev/null; then
-        echo "Microsoft Edge has been successfully installed! You can launch Edge by typing 'microsoft-edge' in the terminal"
-    else
-        echo "Installation completed, but 'microsoft-edge-stable' command not found in PATH."
-        echo "You may need to log out and back in, or manually launch Edge from the installed location."
-    fi
-}
-
 read -p "What would you like to install? " install_target
 
 install_target=$(echo "$install_target" | xargs)
 
 if [[ "$install_target" == "Zoom" || "$install_target" == "zoom" ]]; then
     install_zoom
-elif [[ "$install_target" == "Edge" || "$install_target" == "edge" ]]; then
-    install_edge
 else
     echo "You entered an invalid app name to install"
     exit 1
