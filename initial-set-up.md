@@ -63,3 +63,12 @@ Run:
 chmod +x desktop/install-desktop.sh
 ./desktop/install-desktop.sh
 ```
+
+## Install Apps
+
+Run:
+```
+chmod +x installing-apps/installing-apps.sh installing-apps/get-and-install.sh
+./installing-apps/installing-apps.sh
+./installing-apps/get-and-install.sh
+```
