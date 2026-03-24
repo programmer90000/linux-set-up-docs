@@ -17,6 +17,8 @@ log-command-output.sh ["Creating ~/.config/vlc/ directory"] mkdir -p ~/.config/v
 log-command-output.sh ["Copying vlcrc file"] cp installing-apps/config/vlc/vlcrc ~/.config/vlc/
 
 log-command-output.sh ["Installing Gimp Image Editor"] sudo apt install -y gimp
+log-command-output.sh ["Creating ~/.config/GIMP/3.0/ directory"] mkdir -p ~/.config/GIMP/3.0/
+log-command-output.sh ["Copying gimprc file"] cp installing-apps/config/GIMP/3.0/gimprc ~/.config/GIMP/3.0/
 
 log-command-output.sh ["Installing Qdirstat Disk Space Analyzer"] sudo apt install -y qdirstat
 
