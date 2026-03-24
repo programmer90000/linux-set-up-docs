@@ -12,8 +12,6 @@ log-command-output.sh ["Installing Shotcut"] sudo apt install -y shotcut
 log-command-output.sh ["Creating ~/.config/Meltytech/ directory"] mkdir -p ~/.config/Meltytech/
 log-command-output.sh ["Copying Shotcut.conf file"] cp installing-apps/config/Meltytech/Shotcut.conf ~/.config/Meltytech/
 
-log-command-output.sh ["Installing FileZilla"] sudo apt install -y filezilla
-
 log-command-output.sh ["Installing VLC Media Player"] sudo apt install -y vlc
 
 log-command-output.sh ["Installing Gimp Image Editor"] sudo apt install -y gimp
