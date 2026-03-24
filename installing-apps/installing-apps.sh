@@ -13,6 +13,8 @@ log-command-output.sh ["Creating ~/.config/Meltytech/ directory"] mkdir -p ~/.co
 log-command-output.sh ["Copying Shotcut.conf file"] cp installing-apps/config/Meltytech/Shotcut.conf ~/.config/Meltytech/
 
 log-command-output.sh ["Installing VLC Media Player"] sudo apt install -y vlc
+mkdir -p ~/.config/vlc/
+cp installing-apps/config/vlc/vlcrc ~/.config/vlc/
 
 log-command-output.sh ["Installing Gimp Image Editor"] sudo apt install -y gimp
 
