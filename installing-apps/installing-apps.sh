@@ -22,8 +22,6 @@ log-command-output.sh ["Copying gimprc file"] cp installing-apps/config/GIMP/3.0
 
 log-command-output.sh ["Installing Thunderbird"] sudo apt install -y thunderbird
 
-log-command-output.sh ["Installing Handbrake"] sudo apt install -y handbrake
-
 log-command-output.sh ["Installing CopyQ"] sudo apt install -y copyq
 
 log-command-output.sh ["Installing Viewnior"] sudo apt install -y viewnior
