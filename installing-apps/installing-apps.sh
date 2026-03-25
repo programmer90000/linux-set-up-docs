@@ -29,6 +29,8 @@ log-command-output.sh ["Creating ~/.config/copyq/ directory"] mkdir -p ~/.config
 log-command-output.sh ["Copying copyq.conf file"] cp installing-apps/config/copyq/copyq.conf ~/.config/copyq/
 
 log-command-output.sh ["Installing Audacity"] sudo apt install -y audacity
+log-command-output.sh ["Creating ~/.config/audacity/ directory"] mkdir -p ~/.config/audacity/
+log-command-output.sh ["Copying audacity.cfg file"] cp installing-apps/config/audacity/audacity.cfg ~/.config/audacity/
 
 log-command-output.sh ["Installing LibreOffice"] sudo apt install -y libreoffice
 
