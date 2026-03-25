@@ -25,6 +25,8 @@ log-command-output.sh ["Creating ~/.config/thunderbird/ directory"] mkdir -p ~/.
 log-command-output.sh ["Creating symlink to mkdir -p ~/.thunderbird/ directory"] ln -s ~/.config/thunderbird/ ~/.thunderbird
 
 log-command-output.sh ["Installing CopyQ"] sudo apt install -y copyq
+log-command-output.sh ["Creating ~/.config/copyq/ directory"] mkdir -p ~/.config/copyq/
+log-command-output.sh ["Copying copyq.conf file"] cp installing-apps/config/copyq/copyq.conf ~/.config/copyq/
 
 log-command-output.sh ["Installing Viewnior"] sudo apt install -y viewnior
 
