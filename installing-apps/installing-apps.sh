@@ -28,8 +28,6 @@ log-command-output.sh ["Installing CopyQ"] sudo apt install -y copyq
 log-command-output.sh ["Creating ~/.config/copyq/ directory"] mkdir -p ~/.config/copyq/
 log-command-output.sh ["Copying copyq.conf file"] cp installing-apps/config/copyq/copyq.conf ~/.config/copyq/
 
-log-command-output.sh ["Installing Viewnior"] sudo apt install -y viewnior
-
 log-command-output.sh ["Installing Audacity"] sudo apt install -y audacity
 
 log-command-output.sh ["Installing LibreOffice"] sudo apt install -y libreoffice
