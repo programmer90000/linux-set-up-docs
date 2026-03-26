@@ -51,8 +51,6 @@ log-command-output.sh ["Clear the pre-seeded value stopping debconf screen appea
 log-command-output.sh ["Creating ~/.config/hardinfo2/ directory"] mkdir -p ~/.config/hardinfo2/
 log-command-output.sh ["Copying settings.ini file"] cp installing-apps/config/hardinfo2/settings.ini ~/.config/hardinfo2/
 
-log-command-output.sh ["Installing ClamAV Malware Scanner"] sudo apt -y install clamav clamtk clamav-daemon
-
 log-command-output.sh ["Installing Extrepo"] sudo apt install -y extrepo
 log-command-output.sh ["Copying config.yaml file"] sudo cp installing-apps/config.yaml /etc/extrepo/config.yaml
 
