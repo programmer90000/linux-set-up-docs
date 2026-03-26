@@ -37,6 +37,8 @@ log-command-output.sh ["Creating ~/.config/libreoffice/4/user/ directory"] mkdir
 log-command-output.sh ["Copying registrymodifications.xcu file"] cp installing-apps/config/libreoffice/registrymodifications.xcu ~/.config/libreoffice/4/user/
 
 log-command-output.sh ["Installing Screen Ruler"] sudo apt install -y screenruler
+log-command-output.sh ["Creating ~/.config/screenruler/ directory"] mkdir -p ~/.config/screenruler/
+log-command-output.sh ["Copying settings.yml file"] cp installing-apps/config/screenruler/settings.yml ~/.config/screenruler/
 
 log-command-output.sh ["Installing GPRename"] sudo apt install -y gprename
 
