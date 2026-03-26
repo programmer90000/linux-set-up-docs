@@ -1,0 +1,618 @@
+{
+    "checksum": "",
+    "roots": {
+        "bookmark_bar": {
+            "children": [
+                {
+                    "date_added": "13419020000000000",
+                    "date_last_used": "0",
+                    "guid": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+                    "id": "8",
+                    "meta_info": {
+                        "power_bookmark_meta": ""
+                    },
+                    "name": "F1",
+                    "type": "url",
+                    "url": "https://www.formula1.com/"
+                },
+                {
+                    "date_added": "13419020000000001",
+                    "date_last_used": "0",
+                    "guid": "b2c3d4e5-f6a7-8901-bcde-f23456789012",
+                    "id": "9",
+                    "meta_info": {
+                        "power_bookmark_meta": ""
+                    },
+                    "name": "YouTube",
+                    "type": "url",
+                    "url": "https://www.youtube.com/"
+                },
+                {
+                    "date_added": "13419020000000002",
+                    "date_last_used": "0",
+                    "guid": "c3d4e5f6-a7b8-9012-cdef-345678901234",
+                    "id": "10",
+                    "meta_info": {
+                        "power_bookmark_meta": ""
+                    },
+                    "name": "Ferrari",
+                    "type": "url",
+                    "url": "https://www.ferrari.com/en-EN/formula1"
+                },
+                {
+                    "date_added": "13419020000000003",
+                    "date_last_used": "0",
+                    "guid": "d4e5f6a7-b8c9-0123-defg-456789012345",
+                    "id": "11",
+                    "meta_info": {
+                        "power_bookmark_meta": ""
+                    },
+                    "name": "Manchester United",
+                    "type": "url",
+                    "url": "https://www.manutd.com/"
+                },
+                {
+                    "date_added": "13419020000000004",
+                    "date_last_used": "0",
+                    "guid": "e5f6a7b8-c9d0-1234-efgh-567890123456",
+                    "id": "12",
+                    "meta_info": {
+                        "power_bookmark_meta": ""
+                    },
+                    "name": "Outlook",
+                    "type": "url",
+                    "url": "https://outlook.live.com/mail/0/"
+                },
+                {
+                    "date_added": "13419020000000005",
+                    "date_last_used": "0",
+                    "guid": "f6a7b8c9-d0e1-2345-fghi-678901234567",
+                    "id": "13",
+                    "meta_info": {
+                        "power_bookmark_meta": ""
+                    },
+                    "name": "Quran",
+                    "type": "url",
+                    "url": "https://quran.com/1?startingVerse=1"
+                },
+                {
+                    "date_added": "13419010208540406",
+                    "date_last_used": "0",
+                    "guid": "7965fbb5-1b30-49c4-9380-79afd581690d",
+                    "id": "5",
+                    "meta_info": {
+                        "power_bookmark_meta": ""
+                    },
+                    "name": "Masjid Sunnah",
+                    "type": "url",
+                    "url": "https://www.masjidsunnahnelson.org/"
+                },
+                {
+                    "date_added": "13419020000000006",
+                    "date_last_used": "0",
+                    "date_modified": "13419020000000006",
+                    "guid": "f2a3b4c5-d6e7-8901-lmno-234567890123",
+                    "id": "19",
+                    "name": "AI",
+                    "type": "folder",
+                    "children": [
+                        {
+                            "date_added": "13419020000000007",
+                            "date_last_used": "0",
+                            "date_modified": "13419020000000007",
+                            "guid": "a3b4c5d6-e7f8-9012-mnop-345678901234",
+                            "id": "20",
+                            "name": "General",
+                            "type": "folder",
+                            "children": [
+                                {
+                                    "date_added": "13419020000000008",
+                                    "date_last_used": "0",
+                                    "guid": "b4c5d6e7-f8a9-0123-nopq-456789012345",
+                                    "id": "21",
+                                    "meta_info": {
+                                        "power_bookmark_meta": ""
+                                    },
+                                    "name": "DeepSeek AI",
+                                    "type": "url",
+                                    "url": "https://chat.deepseek.com/"
+                                },
+                                {
+                                    "date_added": "13419020000000009",
+                                    "date_last_used": "0",
+                                    "guid": "c5d6e7f8-a9b0-1234-opqr-567890123456",
+                                    "id": "22",
+                                    "meta_info": {
+                                        "power_bookmark_meta": ""
+                                    },
+                                    "name": "Gemini AI",
+                                    "type": "url",
+                                    "url": "https://gemini.google.com/app"
+                                },
+                                {
+                                    "date_added": "13419020000000010",
+                                    "date_last_used": "0",
+                                    "guid": "d6e7f8a9-b0c1-2345-pqrs-678901234567",
+                                    "id": "23",
+                                    "meta_info": {
+                                        "power_bookmark_meta": ""
+                                    },
+                                    "name": "Claude AI",
+                                    "type": "url",
+                                    "url": "https://claude.ai/"
+                                },
+                                {
+                                    "date_added": "13419020000000011",
+                                    "date_last_used": "0",
+                                    "guid": "e7f8a9b0-c1d2-3456-qrst-789012345678",
+                                    "id": "24",
+                                    "meta_info": {
+                                        "power_bookmark_meta": ""
+                                    },
+                                    "name": "HuggingFace",
+                                    "type": "url",
+                                    "url": "https://huggingface.co/"
+                                },
+                                {
+                                    "date_added": "13419020000000012",
+                                    "date_last_used": "0",
+                                    "guid": "f8a9b0c1-d2e3-4567-rstu-890123456789",
+                                    "id": "25",
+                                    "meta_info": {
+                                        "power_bookmark_meta": ""
+                                    },
+                                    "name": "ChatGPT",
+                                    "type": "url",
+                                    "url": "https://chatgpt.com/"
+                                },
+                                {
+                                    "date_added": "13419020000000013",
+                                    "date_last_used": "0",
+                                    "guid": "a9b0c1d2-e3f4-5678-stuv-901234567890",
+                                    "id": "26",
+                                    "meta_info": {
+                                        "power_bookmark_meta": ""
+                                    },
+                                    "name": "CoPilot",
+                                    "type": "url",
+                                    "url": "https://copilot.microsoft.com/chats/"
+                                },
+                                {
+                                    "date_added": "13419020000000014",
+                                    "date_last_used": "0",
+                                    "guid": "b0c1d2e3-f4a5-6789-tuvw-012345678901",
+                                    "id": "27",
+                                    "meta_info": {
+                                        "power_bookmark_meta": ""
+                                    },
+                                    "name": "Z AI",
+                                    "type": "url",
+                                    "url": "https://chat.z.ai/"
+                                },
+                                {
+                                    "date_added": "13419020000000015",
+                                    "date_last_used": "0",
+                                    "guid": "c1d2e3f4-a5b6-7890-uvwx-123456789012",
+                                    "id": "28",
+                                    "meta_info": {
+                                        "power_bookmark_meta": ""
+                                    },
+                                    "name": "Kimi K2",
+                                    "type": "url",
+                                    "url": "https://www.kimi.com/"
+                                },
+                                {
+                                    "date_added": "13419020000000016",
+                                    "date_last_used": "0",
+                                    "guid": "d2e3f4a5-b6c7-8901-vwxy-234567890123",
+                                    "id": "29",
+                                    "meta_info": {
+                                        "power_bookmark_meta": ""
+                                    },
+                                    "name": "Qwen AI",
+                                    "type": "url",
+                                    "url": "https://chat.qwen.ai/"
+                                },
+                                {
+                                    "date_added": "13419020000000017",
+                                    "date_last_used": "0",
+                                    "guid": "e3f4a5b6-c7d8-9012-wxyz-345678901234",
+                                    "id": "30",
+                                    "meta_info": {
+                                        "power_bookmark_meta": ""
+                                    },
+                                    "name": "1 Min AI",
+                                    "type": "url",
+                                    "url": "https://app.1min.ai/"
+                                },
+                                {
+                                    "date_added": "13419020000000018",
+                                    "date_last_used": "0",
+                                    "guid": "f4a5b6c7-d8e9-0123-xyza-456789012345",
+                                    "id": "31",
+                                    "meta_info": {
+                                        "power_bookmark_meta": ""
+                                    },
+                                    "name": "HotBot AI",
+                                    "type": "url",
+                                    "url": "https://www.hotbot.com/all-chats"
+                                }
+                            ]
+                        },
+                        {
+                            "date_added": "13419020000000019",
+                            "date_last_used": "0",
+                            "date_modified": "13419020000000019",
+                            "guid": "a5b6c7d8-e9f0-1234-yzab-567890123456",
+                            "id": "32",
+                            "name": "Video/Audio",
+                            "type": "folder",
+                            "children": [
+                                {
+                                    "date_added": "13419020000000020",
+                                    "date_last_used": "0",
+                                    "date_modified": "13419020000000020",
+                                    "guid": "b6c7d8e9-f0a1-2345-zabc-678901234567",
+                                    "id": "33",
+                                    "name": "Video",
+                                    "type": "folder",
+                                    "children": [
+                                        {
+                                            "date_added": "13419020000000021",
+                                            "date_last_used": "0",
+                                            "guid": "c7d8e9f0-a1b2-3456-abcd-789012345678",
+                                            "id": "34",
+                                            "meta_info": {
+                                                "power_bookmark_meta": ""
+                                            },
+                                            "name": "Hunyuan AI",
+                                            "type": "url",
+                                            "url": "https://www.hunyuanvideo.org/"
+                                        },
+                                        {
+                                            "date_added": "13419020000000022",
+                                            "date_last_used": "0",
+                                            "guid": "d8e9f0a1-b2c3-4567-bcde-890123456789",
+                                            "id": "35",
+                                            "meta_info": {
+                                                "power_bookmark_meta": ""
+                                            },
+                                            "name": "Dreamina AI",
+                                            "type": "url",
+                                            "url": "https://dreamina.capcut.com/"
+                                        },
+                                        {
+                                            "date_added": "13419020000000023",
+                                            "date_last_used": "0",
+                                            "guid": "e9f0a1b2-c3d4-5678-cdef-901234567890",
+                                            "id": "36",
+                                            "meta_info": {
+                                                "power_bookmark_meta": ""
+                                            },
+                                            "name": "Seedream AI",
+                                            "type": "url",
+                                            "url": "https://seedream.pro/"
+                                        },
+                                        {
+                                            "date_added": "13419020000000024",
+                                            "date_last_used": "0",
+                                            "guid": "f0a1b2c3-d4e5-6789-defg-012345678901",
+                                            "id": "37",
+                                            "meta_info": {
+                                                "power_bookmark_meta": ""
+                                            },
+                                            "name": "SkyReels AI",
+                                            "type": "url",
+                                            "url": "https://www.skyreels.ai/"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "date_added": "13419020000000025",
+                                    "date_last_used": "0",
+                                    "date_modified": "13419020000000025",
+                                    "guid": "a1b2c3d4-e5f6-7890-efgh-123456789abc",
+                                    "id": "38",
+                                    "name": "Audio",
+                                    "type": "folder",
+                                    "children": [
+                                        {
+                                            "date_added": "13419020000000026",
+                                            "date_last_used": "0",
+                                            "guid": "b2c3d4e5-f6a7-8901-fghi-234567890bcd",
+                                            "id": "39",
+                                            "meta_info": {
+                                                "power_bookmark_meta": ""
+                                            },
+                                            "name": "Speechma AI",
+                                            "type": "url",
+                                            "url": "https://speechma.com/"
+                                        },
+                                        {
+                                            "date_added": "13419020000000027",
+                                            "date_last_used": "0",
+                                            "guid": "c3d4e5f6-a7b8-9012-ghij-345678901cde",
+                                            "id": "40",
+                                            "meta_info": {
+                                                "power_bookmark_meta": ""
+                                            },
+                                            "name": "Kyutai TTS AI",
+                                            "type": "url",
+                                            "url": "https://kyutai.org/next/tts"
+                                        },
+                                        {
+                                            "date_added": "13419020000000028",
+                                            "date_last_used": "0",
+                                            "guid": "d4e5f6a7-b8c9-0123-hijk-456789012def",
+                                            "id": "41",
+                                            "meta_info": {
+                                                "power_bookmark_meta": ""
+                                            },
+                                            "name": "ComfyUI",
+                                            "type": "url",
+                                            "url": "https://cloud.comfy.org/"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "date_added": "13419020000000029",
+                            "date_last_used": "0",
+                            "date_modified": "13419020000000029",
+                            "guid": "e5f6a7b8-c9d0-1234-ijkl-567890123efg",
+                            "id": "42",
+                            "name": "Design",
+                            "type": "folder",
+                            "children": [
+                                {
+                                    "date_added": "13419020000000030",
+                                    "date_last_used": "0",
+                                    "guid": "f6a7b8c9-d0e1-2345-jklm-678901234fgh",
+                                    "id": "43",
+                                    "meta_info": {
+                                        "power_bookmark_meta": ""
+                                    },
+                                    "name": "Freepik AI",
+                                    "type": "url",
+                                    "url": "https://www.freepik.com/"
+                                },
+                                {
+                                    "date_added": "13419020000000031",
+                                    "date_last_used": "0",
+                                    "guid": "a7b8c9d0-e1f2-3456-klmn-789012345ghi",
+                                    "id": "44",
+                                    "meta_info": {
+                                        "power_bookmark_meta": ""
+                                    },
+                                    "name": "Gamma AI",
+                                    "type": "url",
+                                    "url": "https://gamma.app/"
+                                },
+                                {
+                                    "date_added": "13419020000000032",
+                                    "date_last_used": "0",
+                                    "guid": "b8c9d0e1-f2a3-4567-lmno-890123456hij",
+                                    "id": "45",
+                                    "meta_info": {
+                                        "power_bookmark_meta": ""
+                                    },
+                                    "name": "Leonardo AI",
+                                    "type": "url",
+                                    "url": "https://app.leonardo.ai/"
+                                }
+                            ]
+                        },
+                        {
+                            "date_added": "13419020000000033",
+                            "date_last_used": "0",
+                            "date_modified": "13419020000000033",
+                            "guid": "c9d0e1f2-a3b4-5678-mnop-901234567ijk",
+                            "id": "46",
+                            "name": "Productivity/Workflow",
+                            "type": "folder",
+                            "children": [
+                                {
+                                    "date_added": "13419020000000034",
+                                    "date_last_used": "0",
+                                    "guid": "d0e1f2a3-b4c5-6789-nopq-012345678jkl",
+                                    "id": "47",
+                                    "meta_info": {
+                                        "power_bookmark_meta": ""
+                                    },
+                                    "name": "Weavy AI",
+                                    "type": "url",
+                                    "url": "https://www.weavy.ai/"
+                                },
+                                {
+                                    "date_added": "13419020000000035",
+                                    "date_last_used": "0",
+                                    "guid": "e1f2a3b4-c5d6-7890-opqr-123456789klm",
+                                    "id": "48",
+                                    "meta_info": {
+                                        "power_bookmark_meta": ""
+                                    },
+                                    "name": "Magic Loops AI",
+                                    "type": "url",
+                                    "url": "https://magicloops.dev/"
+                                },
+                                {
+                                    "date_added": "13419020000000036",
+                                    "date_last_used": "0",
+                                    "guid": "f2a3b4c5-d6e7-8901-pqrs-234567890lmn",
+                                    "id": "49",
+                                    "meta_info": {
+                                        "power_bookmark_meta": ""
+                                    },
+                                    "name": "ActivePieces AI",
+                                    "type": "url",
+                                    "url": "https://cloud.activepieces.com/"
+                                }
+                            ]
+                        },
+                        {
+                            "date_added": "13419020000000037",
+                            "date_last_used": "0",
+                            "date_modified": "13419020000000037",
+                            "guid": "a3b4c5d6-e7f8-9012-qrst-345678901mno",
+                            "id": "50",
+                            "name": "Prompt Optimisation",
+                            "type": "folder",
+                            "children": [
+                                {
+                                    "date_added": "13419020000000038",
+                                    "date_last_used": "0",
+                                    "guid": "b4c5d6e7-f8a9-0123-rstu-456789012nop",
+                                    "id": "51",
+                                    "meta_info": {
+                                        "power_bookmark_meta": ""
+                                    },
+                                    "name": "Feedough Prompt Generator",
+                                    "type": "url",
+                                    "url": "https://www.feedough.com/ai-prompt-generator/"
+                                },
+                                {
+                                    "date_added": "13419020000000039",
+                                    "date_last_used": "0",
+                                    "guid": "c5d6e7f8-a9b0-1234-stuv-567890123opq",
+                                    "id": "52",
+                                    "meta_info": {
+                                        "power_bookmark_meta": ""
+                                    },
+                                    "name": "Feedough Prompt Optimiser",
+                                    "type": "url",
+                                    "url": "https://www.feedough.com/ai-prompt-optimiser/"
+                                },
+                                {
+                                    "date_added": "13419020000000040",
+                                    "date_last_used": "0",
+                                    "guid": "d6e7f8a9-b0c1-2345-tuvw-678901234pqr",
+                                    "id": "53",
+                                    "meta_info": {
+                                        "power_bookmark_meta": ""
+                                    },
+                                    "name": "MusePrompts",
+                                    "type": "url",
+                                    "url": "https://www.museprompts.com/"
+                                },
+                                {
+                                    "date_added": "13419020000000041",
+                                    "date_last_used": "0",
+                                    "guid": "e7f8a9b0-c1d2-3456-uvwx-789012345qrs",
+                                    "id": "54",
+                                    "meta_info": {
+                                        "power_bookmark_meta": ""
+                                    },
+                                    "name": "GeneratePrompt Prompt Checker",
+                                    "type": "url",
+                                    "url": "https://generateprompt.net/ai/ai-prompt-checker"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "date_added": "13419020000000042",
+                    "date_last_used": "0",
+                    "guid": "a7b8c9d0-e1f2-3456-ghij-789012345678",
+                    "id": "14",
+                    "meta_info": {
+                        "power_bookmark_meta": ""
+                    },
+                    "name": "WhatsApp",
+                    "type": "url",
+                    "url": "https://web.whatsapp.com/"
+                },
+                {
+                    "date_added": "13419020000000043",
+                    "date_last_used": "0",
+                    "guid": "b8c9d0e1-f2a3-4567-hijk-890123456789",
+                    "id": "15",
+                    "meta_info": {
+                        "power_bookmark_meta": ""
+                    },
+                    "name": "Flipboard",
+                    "type": "url",
+                    "url": "https://flipboard.com/"
+                },
+                {
+                    "date_added": "13419020000000044",
+                    "date_last_used": "0",
+                    "guid": "c9d0e1f2-a3b4-5678-ijkl-901234567890",
+                    "id": "16",
+                    "meta_info": {
+                        "power_bookmark_meta": ""
+                    },
+                    "name": "Advanced Search",
+                    "type": "url",
+                    "url": "https://www.google.co.uk/advanced_search"
+                },
+                {
+                    "date_added": "13419020000000045",
+                    "date_last_used": "0",
+                    "guid": "d0e1f2a3-b4c5-6789-jklm-012345678901",
+                    "id": "17",
+                    "meta_info": {
+                        "power_bookmark_meta": ""
+                    },
+                    "name": "Raindrop",
+                    "type": "url",
+                    "url": "https://app.raindrop.io/my/0"
+                },
+                {
+                    "date_added": "13419020000000046",
+                    "date_last_used": "0",
+                    "guid": "e1f2a3b4-c5d6-7890-klmn-123456789012",
+                    "id": "18",
+                    "meta_info": {
+                        "power_bookmark_meta": ""
+                    },
+                    "name": "GitHub",
+                    "type": "url",
+                    "url": "https://github.com/"
+                }
+            ],
+            "date_added": "13419010127219384",
+            "date_last_used": "0",
+            "date_modified": "13419020000000046",
+            "guid": "0bc5d13f-2cba-5d74-951f-3f233fe6c908",
+            "id": "1",
+            "name": "Bookmarks bar",
+            "type": "folder"
+        },
+        "other": {
+            "children": [
+                {
+                    "date_added": "13419020000000047",
+                    "date_last_used": "0",
+                    "guid": "f8a9b0c1-d2e3-4567-wxyz-890123456rst",
+                    "id": "55",
+                    "meta_info": {
+                        "power_bookmark_meta": ""
+                    },
+                    "name": "Collage",
+                    "type": "url",
+                    "url": "file:///home/abdul/Desktop/programming/.temp/index.html"
+                }
+            ],
+            "date_added": "13419010127219384",
+            "date_last_used": "0",
+            "date_modified": "13419020000000047",
+            "guid": "82b081ec-3dd3-529c-8475-ab6c344590dd",
+            "id": "2",
+            "name": "Other bookmarks",
+            "type": "folder"
+        },
+        "synced": {
+            "children": [],
+            "date_added": "13419010127219384",
+            "date_last_used": "0",
+            "date_modified": "0",
+            "guid": "4cf2e351-0e85-532b-bb37-df045d8f8d0f",
+            "id": "3",
+            "name": "Mobile bookmarks",
+            "type": "folder"
+        }
+    },
+    "version": 1
+}
