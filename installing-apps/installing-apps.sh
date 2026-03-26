@@ -33,6 +33,8 @@ log-command-output.sh ["Creating ~/.config/audacity/ directory"] mkdir -p ~/.con
 log-command-output.sh ["Copying audacity.cfg file"] cp installing-apps/config/audacity/audacity.cfg ~/.config/audacity/
 
 log-command-output.sh ["Installing LibreOffice"] sudo apt install -y libreoffice
+log-command-output.sh ["Creating ~/.config/libreoffice/4/user/ directory"] mkdir -p ~/.config/libreoffice/4/user/
+log-command-output.sh ["Copying registrymodifications.xcu file"] cp installing-apps/config/libreoffice/registrymodifications.xcu ~/.config/libreoffice/4/user/
 
 log-command-output.sh ["Installing Screen Ruler"] sudo apt install -y screenruler
 
