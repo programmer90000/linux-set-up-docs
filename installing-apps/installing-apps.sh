@@ -41,6 +41,8 @@ log-command-output.sh ["Creating ~/.config/screenruler/ directory"] mkdir -p ~/.
 log-command-output.sh ["Copying settings.yml file"] cp installing-apps/config/screenruler/settings.yml ~/.config/screenruler/
 
 log-command-output.sh ["Installing GPRename"] sudo apt install -y gprename
+log-command-output.sh ["Creating ~/.config/gprename/ directory"] mkdir -p ~/.config/gprename/
+log-command-output.sh ["Copying gprename file"] cp installing-apps/config/gprename/gprename ~/.config/gprename/
 
 log-command-output.sh ["Disable starting Iperf3 on boot"] bash -c 'echo "iperf3 iperf3/start_daemon boolean false" | sudo debconf-set-selections'
 log-command-output.sh ["Installing Hardinfo2"] sudo DEBIAN_FRONTEND=noninteractive apt install -y hardinfo2
