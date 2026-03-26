@@ -44,6 +44,7 @@ log-command-output.sh ["Installing GPRename"] sudo apt install -y gprename
 log-command-output.sh ["Creating ~/.config/gprename/ directory"] mkdir -p ~/.config/gprename/
 log-command-output.sh ["Copying gprename file"] cp installing-apps/config/gprename/gprename ~/.config/gprename/
 
+log-command-output.sh ["Installing packages for Hardinfo2"] sudo apt install lm-sensors sysbench lsscsi mesa-utils dmidecode udisks2 xdg-utils iperf3 vulkan-tools gawk
 log-command-output.sh ["Disable starting Iperf3 on boot"] bash -c 'echo "iperf3 iperf3/start_daemon boolean false" | sudo debconf-set-selections'
 log-command-output.sh ["Installing Hardinfo2"] sudo DEBIAN_FRONTEND=noninteractive apt install -y hardinfo2
 log-command-output.sh ["Clear the pre-seeded value stopping debconf screen appearing"] bash -c 'echo "PURGE" | sudo debconf-communicate iperf3'
