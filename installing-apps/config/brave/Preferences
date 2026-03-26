@@ -1,4 +1,9 @@
 {
+    "brave": {
+        "bookmarks": {
+            "show_all_bookmarks_button": false
+        }
+    },
     "browser": {
         "theme": {
             "color_variant2": 2,
