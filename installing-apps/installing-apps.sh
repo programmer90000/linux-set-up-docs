@@ -47,6 +47,8 @@ log-command-output.sh ["Copying gprename file"] cp installing-apps/config/gprena
 log-command-output.sh ["Disable starting Iperf3 on boot"] bash -c 'echo "iperf3 iperf3/start_daemon boolean false" | sudo debconf-set-selections'
 log-command-output.sh ["Installing Hardinfo2"] sudo DEBIAN_FRONTEND=noninteractive apt install -y hardinfo2
 log-command-output.sh ["Clear the pre-seeded value stopping debconf screen appearing"] bash -c 'echo "PURGE" | sudo debconf-communicate iperf3'
+log-command-output.sh ["Creating ~/.config/hardinfo2/ directory"] mkdir -p ~/.config/hardinfo2/
+log-command-output.sh ["Copying settings.ini file"] cp installing-apps/config/hardinfo2/settings.ini ~/.config/hardinfo2/
 
 log-command-output.sh ["Installing ClamAV Malware Scanner"] sudo apt -y install clamav clamtk clamav-daemon
 
