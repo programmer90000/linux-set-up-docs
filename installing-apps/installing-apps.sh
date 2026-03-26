@@ -60,6 +60,7 @@ log-command-output.sh ["Installing Brave Browser"] sudo apt install -y brave-bro
 log-command-output.sh ["Creating ~/.config/BraveSoftware/Brave-Browser/ directory"] mkdir -p ~/.config/BraveSoftware/Brave-Browser/Default/
 log-command-output.sh ["Copying Local State file"] cp "installing-apps/config/brave/Local State" ~/.config/BraveSoftware/Brave-Browser/
 log-command-output.sh ["Copying Prefrences file"] cp installing-apps/config/brave/Prefrences ~/.config/BraveSoftware/Brave-Browser/Default/
+log-command-output.sh ["Copying Bookmarks file"] cp installing-apps/config/brave/Bookmarks ~/.config/BraveSoftware/Brave-Browser/Default/
 
 log-command-output.sh ["Enabling Google Chrome Browser repository"] sudo extrepo enable google_chrome
 log-command-output.sh ["Refreshing package list"] sudo apt update
