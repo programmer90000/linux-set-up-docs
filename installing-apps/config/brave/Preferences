@@ -6,6 +6,7 @@
     },
     "browser": {
         "theme": {
+            "color_scheme2": 2,
             "color_variant2": 2,
             "user_color2": -8
         }
