@@ -30,3 +30,26 @@ fi
 if [ -f "$SSH_KEY_PATH" ]; then
     log-command-output.sh ["Add SSH key file to SSH agent"] ssh-add "$SSH_KEY_PATH"
 fi
+cat > "$OUTPUT_CONFIG" << EOF
+# GitHub
+Host github.com
+    HostName github.com
+    User git
+    IdentityFile $SSH_KEY_PATH
+    IdentitiesOnly yes
+
+# GitLab
+Host gitlab.com
+    HostName gitlab.com
+    User git
+    IdentityFile $SSH_KEY_PATH
+    IdentitiesOnly yes
+
+# BitBucket
+Host bitbucket.org
+    HostName bitbucket.org
+    User git
+    IdentityFile $SSH_KEY_PATH
+    IdentitiesOnly yes
+EOF
+log-command-output.sh ["Setting permissions for config file"] chmod 600 "$OUTPUT_CONFIG"
