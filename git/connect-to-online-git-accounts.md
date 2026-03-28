@@ -29,3 +29,16 @@ Hi programmer90000! You've successfully authenticated, but GitHub does not provi
 ```
 ssh -T git@gitlab.com
 ```
+
+# BitBucket:
+
+1. Go to `Settings > Security > SSH keys`
+2. Select `Add key`
+3. Set the `Name` to `debian`
+4. Paste your public key
+5. Set the `Expiry` to `No expiry`
+6. Select "Add key"
+7. Run the following command to test the connection:
+```
+ssh -T git@bitbucket.org
+```
