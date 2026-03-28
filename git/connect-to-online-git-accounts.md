@@ -13,3 +13,19 @@ You should recieve the message:
 ```
 Hi programmer90000! You've successfully authenticated, but GitHub does not provide shell access.
 ```
+
+# GitLab
+
+1. Click on your user profile icon
+2. Click `Preferences`
+3. Click `Access > SSH Keys`
+4. Select `Add new key`
+5. Paste your public key
+6. Set the `Title` to `debian`
+7. Set the `Usage type` to `Authentication & Signing`
+8. Remove the `Expiration date`
+9. Paste your public key
+10. Run the following command to test the connection:
+```
+ssh -T git@gitlab.com
+```
