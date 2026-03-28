@@ -7,3 +7,4 @@ log-command-output.sh ["Copying desktop wallpaper"] sudo cp desktop/desktop-wall
 log-command-output.sh ["Copying settings.conf file"] cp desktop/settings.conf ~/.config/pcmanfm-qt/default/
 log-command-output.sh ["Starting PCManFM-Qt"] pcmanfm-qt --desktop &
 log-command-output.sh ["Setting desktop wallpaper"] pcmanfm-qt --set-wallpaper="/usr/share/pixmaps/desktop-wallpaper.png"
+log-command-output.sh ["Creating ~/Desktop directory"] mkdir -p ~/Desktop/
