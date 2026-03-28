@@ -19,3 +19,11 @@ fi
 if [ -f "$SSH_PUB_PATH" ]; then
     log-command-output.sh ["Setting permissions for SSH pub file"] chmod 644 "$SSH_PUB_PATH"
 fi
+log-command-output.sh ["Starting SSH agent"] true
+eval "$(ssh-agent -s)"
+if [ $? -eq 0 ]; then
+    log-command-output.sh ["SSH agent started successfully"] true
+else
+    log-command-output.sh ["SSH agent failed to start"] true
+    exit 1
+fi
