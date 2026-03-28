@@ -53,3 +53,7 @@ Host bitbucket.org
     IdentitiesOnly yes
 EOF
 log-command-output.sh ["Setting permissions for config file"] chmod 600 "$OUTPUT_CONFIG"
+log-command-output.sh ["SSH Key Location:"] echo "$SSH_KEY_PATH"
+log-command-output.sh ["SSH Config Location:"] echo "$OUTPUT_CONFIG"
+log-command-output.sh ["Public Key"] cat "$SSH_PUB_PATH"
+cat "$SSH_PUB_PATH"
