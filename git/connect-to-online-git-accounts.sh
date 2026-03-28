@@ -27,3 +27,6 @@ else
     log-command-output.sh ["SSH agent failed to start"] true
     exit 1
 fi
+if [ -f "$SSH_KEY_PATH" ]; then
+    log-command-output.sh ["Add SSH key file to SSH agent"] ssh-add "$SSH_KEY_PATH"
+fi
