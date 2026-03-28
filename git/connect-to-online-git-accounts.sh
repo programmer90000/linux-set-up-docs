@@ -13,3 +13,9 @@ if ls ~/.ssh/${SSH_KEY_NAME}* 2>/dev/null >/dev/null; then
 else
     log-command-output.sh ["No SSH key files found. Generating new one"] ssh-keygen -t ed25519 -C "$SSH_EMAIL" -f "$SSH_KEY_PATH" -N ""
 fi
+if [ -f "$SSH_KEY_PATH" ]; then
+    log-command-output.sh ["Setting permissions for SSH key file"] chmod 600 "$SSH_KEY_PATH"
+fi
+if [ -f "$SSH_PUB_PATH" ]; then
+    log-command-output.sh ["Setting permissions for SSH pub file"] chmod 644 "$SSH_PUB_PATH"
+fi
