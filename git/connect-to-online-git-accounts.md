@@ -46,3 +46,9 @@ Welcome to GitLab, @programmer90000!
 ```
 ssh -T git@bitbucket.org
 ```
+You should recieve the message:
+```
+authenticated via ssh key.
+
+You can use git to connect to Bitbucket. Shell access is disabled
+```
