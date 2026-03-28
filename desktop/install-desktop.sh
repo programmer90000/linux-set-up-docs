@@ -8,3 +8,5 @@ log-command-output.sh ["Copying settings.conf file"] cp desktop/settings.conf ~/
 log-command-output.sh ["Starting PCManFM-Qt"] pcmanfm-qt --desktop &
 log-command-output.sh ["Setting desktop wallpaper"] pcmanfm-qt --set-wallpaper="/usr/share/pixmaps/desktop-wallpaper.png"
 log-command-output.sh ["Creating ~/Desktop directory"] mkdir -p ~/Desktop/
+log-command-output.sh ["Creating /usr/share/icons/custom-icon-theme/"] sudo mkdir -p /usr/share/icons/custom-icon-theme/
+log-command-output.sh ["Creating /usr/share/icons/custom-icon-theme/ subdirectories"] sudo mkdir -p /usr/share/icons/custom-icon-theme/{apps,mimetypes,actions,devices,emblems,places,status}/{16,22,24,32,48,64,128,256,512}
