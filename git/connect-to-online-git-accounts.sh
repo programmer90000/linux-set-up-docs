@@ -57,3 +57,4 @@ log-command-output.sh ["SSH Key Location:"] echo "$SSH_KEY_PATH"
 log-command-output.sh ["SSH Config Location:"] echo "$OUTPUT_CONFIG"
 log-command-output.sh ["Public Key"] cat "$SSH_PUB_PATH"
 cat "$SSH_PUB_PATH"
+log-command-output.sh ["Follow the docs in git/connect-to-online-git-accounts.md to connect to your Git accounts"] true
