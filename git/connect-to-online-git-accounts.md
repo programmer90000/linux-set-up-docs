@@ -29,6 +29,10 @@ Hi programmer90000! You've successfully authenticated, but GitHub does not provi
 ```
 ssh -T git@gitlab.com
 ```
+You should recieve the message:
+```
+Welcome to GitLab, @programmer90000!
+```
 
 # BitBucket:
 
