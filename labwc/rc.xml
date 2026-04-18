@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<labwc_config>
+    <core>
+        <decoration>server</decoration>
+        <gap>0</gap>
+        <adaptiveSync>yes</adaptiveSync>
+        <allowTearing>no</allowTearing>
+        <autoEnableOutputs>yes</autoEnableOutputs>
+        <reuseOutputMode>no</reuseOutputMode>
+        <xwaylandPersistence>no</xwaylandPersistence>
+        <primarySelection>no</primarySelection>
+    </core>
+</labwc_config>

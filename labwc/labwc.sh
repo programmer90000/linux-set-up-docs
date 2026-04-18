@@ -24,5 +24,8 @@ echo "Setting keyboard layout"
 log-command-output.sh ["Making directory"] mkdir ~/.config/labwc/
 log-command-output.sh ["Copying environment file"] cp $ENVIRONMENT ~/.config/labwc/
 
+echo "Copying rc.xml file"
+log-command-output.sh ["Copying rc.xml file"] cp labwc/rc.xml ~/.config/labwc/
+
 echo "Starting Labwc"
 log-command-output.sh ["Starting Labwc"] labwc
