@@ -10,4 +10,4 @@ log-command-output.sh ["Setting desktop wallpaper"] pcmanfm-qt --set-wallpaper="
 log-command-output.sh ["Creating ~/Desktop directory"] mkdir -p ~/Desktop/
 log-command-output.sh ["Creating /usr/share/icons/custom-icon-theme/"] sudo mkdir -p /usr/share/icons/custom-icon-theme/
 log-command-output.sh ["Creating /usr/share/icons/custom-icon-theme/ subdirectories"] sudo mkdir -p /usr/share/icons/custom-icon-theme/{apps,mimetypes,actions,devices,emblems,places,status}/{16,22,24,32,48,64,128,256,512}
-log-command-output.sh ["Copying index.theme file"] cp desktop/index.theme /usr/share/icons/custom-icon-theme/index.theme
+log-command-output.sh ["Copying index.theme file"] sudo cp desktop/index.theme /usr/share/icons/custom-icon-theme/index.theme
