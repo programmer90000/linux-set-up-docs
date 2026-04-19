@@ -22,7 +22,7 @@ log-command-output.sh ["Copying gimprc file"] cp installing-apps/config/GIMP/3.0
 
 log-command-output.sh ["Installing Thunderbird"] sudo apt install -y thunderbird
 log-command-output.sh ["Creating ~/.config/thunderbird/ directory"] mkdir -p ~/.config/thunderbird/
-log-command-output.sh ["Creating symlink to mkdir -p ~/.thunderbird/ directory"] ln -s ~/.config/thunderbird/ ~/.thunderbird
+log-command-output.sh ["Creating symlink to ~/.thunderbird/ directory"] ln -s ~/.config/thunderbird/ ~/.thunderbird
 
 log-command-output.sh ["Installing CopyQ"] sudo apt install -y copyq
 log-command-output.sh ["Creating ~/.config/copyq/ directory"] mkdir -p ~/.config/copyq/
