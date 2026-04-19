@@ -66,8 +66,3 @@ log-command-output.sh ["Enabling Google Chrome Browser repository"] sudo extrepo
 log-command-output.sh ["Refreshing package list"] sudo apt update
 log-command-output.sh ["Installing Google Chrome"] sudo apt install -y google-chrome-stable
 log-command-output.sh ["Remove duplicate Chrome repository"] sudo rm -f /etc/apt/sources.list.d/google-chrome.list
-
-log-command-output.sh ["Downloading Microsoft GPG key"] bash -c 'curl -fsSL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor | sudo tee /usr/share/keyrings/microsoft.gpg > /dev/null'
-log-command-output.sh ["Adding Microsoft Edge repository"] bash -c 'echo "deb [arch=amd64 signed-by=/usr/share/keyrings/microsoft.gpg] https://packages.microsoft.com/repos/edge stable main" | sudo tee /etc/apt/sources.list.d/microsoft-edge.list'
-log-command-output.sh ["Refreshing package list"] sudo apt update
-log-command-output.sh ["Installing Microsoft Edge"] sudo apt install microsoft-edge-stable
