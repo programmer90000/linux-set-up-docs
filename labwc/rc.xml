@@ -42,7 +42,14 @@
         <cornerRange>3</cornerRange>
         <minimumArea>8</minimumArea>
     </resize>
-    <keyboard>
+    <keyboard layoutScope="global">
         <numlock>off</numlock>
     </keyboard>
+    <mouse>
+        <doubleClickTime>300</doubleClickTime>
+    </mouse>
+    <menu>
+        <ignoreButtonReleasePeriod>250</ignoreButtonReleasePeriod>
+        <showIcons>no</showIcons>
+    </menu>
 </labwc_config>
