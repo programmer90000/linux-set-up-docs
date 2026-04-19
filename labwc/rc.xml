@@ -11,4 +11,38 @@
         <xwaylandPersistence>no</xwaylandPersistence>
         <primarySelection>no</primarySelection>
     </core>
+    <placement>
+        <policy>automatic</policy>
+    </placement>
+    <windowSwitcher preview="yes" outlines="yes" unshade="yes" order="focus">
+        <osd show="yes" style="thumbnail" output="cursor" thumbnailLabelFormat="" />
+    </windowSwitcher>
+    <resistance>
+        <screenEdgeStrength>30</screenEdgeStrength>
+        <windowEdgeStrength>30</windowEdgeStrength>
+        <unSnapThreshold>30</unSnapThreshold>
+        <unMaximizeThreshold>30</unMaximizeThreshold>
+    </resistance>
+    <focus>
+        <followMouse>no</followMouse>
+        <followMouseRequiresMovement>no</followMouseRequiresMovement>
+        <raiseOnFocus>yes</raiseOnFocus>
+    </focus>
+    <snapping>
+        <range>0</range>
+        <cornerRange>0</cornerRange>
+        <topMaximize>no</topMaximize>
+        <overlay enabled="no"></overlay>
+        <notifyClient>always</notifyClient>
+    </snapping>
+    <margin top="0" bottom="30" left="0" right="0" />
+    <resize>
+        <popupShow>Always</popupShow>
+        <drawContents>yes</drawContents>
+        <cornerRange>3</cornerRange>
+        <minimumArea>8</minimumArea>
+    </resize>
+    <keyboard>
+        <numlock>off</numlock>
+    </keyboard>
 </labwc_config>
