@@ -16,3 +16,7 @@ log-command-output.sh ["Changing directory into app-launcher/"] cd desktop/app-l
 log-command-output.sh ["Generate build files for app launcher"] meson setup builddir -Dbuildtype=release
 log-command-output.sh ["Build app launcher"] ninja -C builddir
 log-command-output.sh ["Install app launcher"] sudo ninja -C builddir install
+log-command-output.sh ["Changing directory into dash"] cd ../dash/
+log-command-output.sh ["Generate build files for dash"] meson setup build -Dauto_features=enabled -Dbuildtype=release
+log-command-output.sh ["Build dash"] ninja -C build
+log-command-output.sh ["Install dash"] sudo ninja -C build install
