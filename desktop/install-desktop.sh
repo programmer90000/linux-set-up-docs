@@ -12,3 +12,7 @@ log-command-output.sh ["Creating /usr/share/icons/custom-icon-theme/"] sudo mkdi
 log-command-output.sh ["Creating /usr/share/icons/custom-icon-theme/ subdirectories"] sudo mkdir -p /usr/share/icons/custom-icon-theme/{apps,mimetypes,actions,devices,emblems,places,status}/{16,22,24,32,48,64,128,256,512}
 log-command-output.sh ["Copying index.theme file"] sudo cp desktop/index.theme /usr/share/icons/custom-icon-theme/index.theme
 log-command-output.sh ["Installing packages for application launcher and dash"] sudo apt install -y build-essential cmake meson ninja-build pkg-config python3-docutils libgtk-3-dev libgtkmm-3.0-dev libgdk-pixbuf-2.0-dev libgtk-layer-shell-dev libcairo2-dev libglib2.0-dev libjson-c-dev nlohmann-json3-dev libwayland-dev libxkbregistry-dev libpulse-dev libasound2-dev libpipewire-0.3-dev libmpdclient-dev
+log-command-output.sh ["Changing directory into app-launcher/"] cd desktop/app-launcher/
+log-command-output.sh ["Generate build files for app launcher"] meson setup builddir -Dbuildtype=release
+log-command-output.sh ["Build app launcher"] ninja -C builddir
+log-command-output.sh ["Install app launcher"] sudo ninja -C builddir install
