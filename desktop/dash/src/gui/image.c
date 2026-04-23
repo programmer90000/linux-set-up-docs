@@ -1,0 +1,27 @@
+#include "gui/image.h"
+#include "gui/scaleimage.h"
+
+G_DEFINE_TYPE_WITH_CODE (Image, image, BASE_WIDGET_TYPE, G_ADD_PRIVATE (Image))
+
+static void image_update_value ( GtkWidget *self ) {
+    ImagePrivate *priv;
+    
+    g_return_if_fail(IS_IMAGE(self));
+    priv = image_get_instance_private(IMAGE(self));
+    
+    scale_image_set_image(GTK_WIDGET(priv->image),
+        base_widget_get_value(self),NULL);
+}
+
+static void image_class_init ( ImageClass *kclass ) {
+    BASE_WIDGET_CLASS(kclass)->update_value = image_update_value;
+}
+
+static void image_init ( Image *self ) {
+    ImagePrivate *priv;
+    
+    priv = image_get_instance_private(IMAGE(self));
+
+    priv->image = scale_image_new();
+    gtk_container_add(GTK_CONTAINER(self),priv->image);
+}
