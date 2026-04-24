@@ -20,3 +20,7 @@ cd ../dash/
 meson setup build -Dauto_features=enabled -Dbuildtype=release
 ninja -C build
 sudo ninja -C build install
+cd ../dash-config/
+mkdir -p ~/.config/sfwbar/scripts/
+cp init.sh ~/.config/sfwbar/scripts/init.sh
+chmod +x ~/.config/sfwbar/scripts/init.sh
