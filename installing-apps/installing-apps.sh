@@ -44,7 +44,7 @@ sudo apt install -y gprename
 mkdir -p ~/.config/gprename/
 cp installing-apps/config/gprename/gprename ~/.config/gprename/
 echo "Installing Hardinfo2"
-sudo apt install lm-sensors sysbench lsscsi mesa-utils dmidecode udisks2 xdg-utils iperf3 vulkan-tools gawk
+sudo apt install -y lm-sensors sysbench lsscsi mesa-utils dmidecode udisks2 xdg-utils iperf3 vulkan-tools gawk
 echo "iperf3 iperf3/start_daemon boolean false" | sudo debconf-set-selections
 sudo DEBIAN_FRONTEND=noninteractive apt install -y hardinfo2
 echo "PURGE" | sudo debconf-communicate iperf3
