@@ -18,14 +18,6 @@ cd linux-set-up-docs/
 
 > All SH files in this repository should be run from the root of the Linux Set Up Docs directory
 
-## Install Log Command Output Script
-
-Run:
-```
-chmod +x log-command-output/install-log-command-output.sh
-./log-command-output/install-log-command-output.sh
-```
-
 ## Install Alacritty
 
 Run:

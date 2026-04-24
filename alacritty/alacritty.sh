@@ -14,20 +14,9 @@ if [ ! -f "$ALACRITTY_CONFIG" ]; then
     exit 1
 fi
 
-echo "Refreshing package list"
-log-command-output.sh ["Refreshing package list"] sudo apt update
-
-echo "Installing Alacritty"
-log-command-output.sh ["Installing Alacritty"] sudo apt install -y alacritty
-
-echo "Making directory"
-log-command-output.sh ["Making directory"] mkdir -p ~/.config/alacritty/
-
-echo "Installing Tmux"
-log-command-output.sh ["Installing Tmux"] sudo apt install -y tmux
-
-echo "Installing fonts-hack"
-log-command-output.sh ["Installing fonts-hack"] sudo apt install -y fonts-hack
-
-echo "Copying alacritty.toml"
-log-command-output.sh ["Copying alacritty.toml"] cp $ALACRITTY_CONFIG ~/.config/alacritty/alacritty.toml
+sudo apt update
+sudo apt install -y alacritty
+mkdir -p ~/.config/alacritty/
+sudo apt install -y tmux
+sudo apt install -y fonts-hack
+cp $ALACRITTY_CONFIG ~/.config/alacritty/alacritty.toml

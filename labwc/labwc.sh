@@ -14,18 +14,13 @@ if [ ! -f "$ENVIRONMENT" ]; then
     exit 1
 fi
 
-echo "Refreshing package list"
-log-command-output.sh ["Refreshing package list"] sudo apt update
-
 echo "Installing Labwc"
-log-command-output.sh ["Installing Labwc"] sudo apt install -y labwc
-
+sudo apt update
+sudo apt install -y labwc
 echo "Setting keyboard layout"
-log-command-output.sh ["Making directory"] mkdir ~/.config/labwc/
-log-command-output.sh ["Copying environment file"] cp $ENVIRONMENT ~/.config/labwc/
-
+mkdir ~/.config/labwc/
+cp $ENVIRONMENT ~/.config/labwc/
 echo "Copying rc.xml file"
-log-command-output.sh ["Copying rc.xml file"] cp labwc/rc.xml ~/.config/labwc/
-
+cp labwc/rc.xml ~/.config/labwc/
 echo "Starting Labwc"
-log-command-output.sh ["Starting Labwc"] labwc
+labwc
