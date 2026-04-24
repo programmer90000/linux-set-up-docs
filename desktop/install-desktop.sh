@@ -23,5 +23,6 @@ sudo ninja -C build install
 cd ../dash-config/
 mkdir -p ~/.config/sfwbar/scripts/
 cp sfwbar.config ~/.config/sfwbar/sfwbar.config
+cp style.css ~/.config/sfwbar/style.css
 cp init.sh ~/.config/sfwbar/scripts/init.sh
 chmod +x ~/.config/sfwbar/scripts/init.sh

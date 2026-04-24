@@ -1,0 +1,14 @@
+* {
+    font-family: monospace;
+    font-size: 13px;
+    color: #ffffff;
+}
+
+#top, #bottom, #left, #right {
+    background: rgba(0, 0, 0, 0.85);
+    border: none;
+}
+
+button:hover {
+    background: #285577;
+}
