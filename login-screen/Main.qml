@@ -1,6 +1,6 @@
 import QtQuick
 import QtQuick.Controls
-import "UserList.qml"
+import "./"
 
 Rectangle {
     width: 1920
