@@ -4,7 +4,7 @@ import QtQuick.Controls
 Rectangle {
     id: userListRoot
     width: 200
-    height: 300
+    height: Math.min(listView.contentHeight + 20, 300)
     color: "transparent"
     
     property string selectedUsername: ""
