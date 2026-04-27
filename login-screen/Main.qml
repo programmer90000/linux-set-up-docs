@@ -18,7 +18,6 @@ Rectangle {
         anchors.centerIn: parent
         spacing: 15
         width: 300
-        anchors.horizontalCenterOffset: -100
 
         TextField {
             id: usernameInput
