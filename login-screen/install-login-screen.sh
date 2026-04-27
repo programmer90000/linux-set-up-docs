@@ -14,6 +14,7 @@ sudo apt install -y sddm
 sudo mkdir -p $THEME_DIR
 sudo cp login-screen/Main.qml $THEME_DIR
 sudo cp login-screen/UserList.qml $THEME_DIR
+sudo cp login-screen/LoginForm.qml $THEME_DIR
 sudo cp login-screen/theme.conf $THEME_DIR
 sudo chmod -R 755 "${THEME_DIR}"
 sudo cp login-screen/sddm.conf /etc/sddm.conf
