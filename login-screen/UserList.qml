@@ -37,22 +37,23 @@ Rectangle {
         anchors.horizontalCenter: parent.horizontalCenter
     }
     
-    ListView {
-        id: listView
-        anchors.fill: parent
-        spacing: 10
-        
-        model: sddm.users
-        
-        delegate: Rectangle {
+ListView {
+    id: listView
+    anchors.fill: parent
+    spacing: 10
+    
+    // Use test data during development
+    model: ["TestUser1", "TestUser2"]
+    
+    delegate: Rectangle {
             width: parent ? parent.width : 200
             height: 45
             color: mouseArea.containsMouse ? "#2a2a2a" : "#1e1e1e"
             radius: 5
             border.color: "#3a3a3a"
             border.width: 1
-            
-            Text {
+        
+        Text {
                 text: model.name
                 anchors.centerIn: parent
                 color: "white"
