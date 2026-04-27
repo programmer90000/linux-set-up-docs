@@ -25,9 +25,8 @@ Rectangle {
             border.color: "#3a3a3a"
             border.width: 1
             
-            Image {
-                id: userIcon
-                source: "/usr/share/sddm/themes/login-screen/profile-picture.jpg"
+            Item {
+                id: userIconContainer
                 width: 30
                 height: 30
                 anchors {
@@ -35,14 +34,62 @@ Rectangle {
                     leftMargin: 10
                     verticalCenter: parent.verticalCenter
                 }
-                fillMode: Image.PreserveAspectFit
                 
-                onStatusChanged: {
+                Image {
+                    id: userIcon
+                    source: {
+                        if (model && model.avatarPath) return model.avatarPath
+                        return "/usr/share/sddm/themes/login-screen/profile-picture.jpg"
+                    }
+                    width: parent.width
+                    height: parent.height
+                    fillMode: Image.PreserveAspectFit
+                    visible: false
+                    
+                    onStatusChanged: {
+                        if (status === Image.Ready) {
+                            visible = true
+                        } else if (status === Image.Error) {
+                            visible = false
+                            console.log("Failed to load image:", source)
+                        }
+                    }
+                }
+                
+                // Fallback to username initial
+                Rectangle {
+                    id: fallbackRect
+                    anchors.fill: parent
+                    radius: 15
+                    color: "#3a3a3a"
+                    visible: !userIcon.visible
+                    
+                    Text {
+                        anchors.centerIn: parent
+                        text: {
+                            // Extract first letter from username
+                            var username = ""
+                            if (typeof model === 'string') {
+                                username = model
+                            } else if (model && model.name) {
+                                username = model.name
+                            } else if (model && model.userName) {
+                                username = model.userName
+                            } else {
+                                username = "User " + index
+                            }
+                            return username ? username.charAt(0).toUpperCase() : "?"
+                        }
+                        color: "#cccccc"
+                        font.pixelSize: 16
+                        font.bold: true
+                    }
                 }
             }
             
             // Username text next to the image
             Text {
+                id: usernameText
                 text: {
                     if (typeof model === 'string') return model
                     if (model && model.name) return model.name
@@ -50,7 +97,7 @@ Rectangle {
                     return "User " + index
                 }
                 anchors {
-                    left: userIcon.right
+                    left: userIconContainer.right
                     leftMargin: 10
                     right: parent.right
                     rightMargin: 10
@@ -71,6 +118,7 @@ Rectangle {
                 onClicked: {
                     var username = (typeof model === 'string') ? model : 
                                   (model && model.name) ? model.name : 
+                                  (model && model.userName) ? model.userName :
                                   "user" + index
                     userListRoot.selectedUsername = username
                     userListRoot.userSelected(username)
