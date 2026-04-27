@@ -11,6 +11,15 @@ Rectangle {
     
     signal userSelected(string username)
     
+    // DEBUG: Show model count
+    Text {
+        text: "Users found: " + (sddm.users ? sddm.users.count : 0)
+        color: "red"
+        z: 10
+        anchors.top: parent.top
+        anchors.horizontalCenter: parent.horizontalCenter
+    }
+    
     ListView {
         id: listView
         anchors.fill: parent
