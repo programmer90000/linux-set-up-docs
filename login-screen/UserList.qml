@@ -11,6 +11,23 @@ Rectangle {
     
     signal userSelected(string username)
     
+    // DEBUG: Component initialization
+    Component.onCompleted: {
+        // Try to access the model directly
+        if (sddm.users) {
+            console.log("Model exists:", sddm.users)
+            console.log("Count in real-time:", sddm.users.count)
+            
+            // Try to read the first user as a backup verification
+            try {
+                var firstUser = sddm.users.data(sddm.users.index(0,0), 257)
+                console.log("First user data:", firstUser)
+            } catch(e) { console.log("Read error:", e) }
+        } else {
+            console.log("Model is null!")
+        }
+    }
+    
     // DEBUG: Show model count
     Text {
         text: "Users found: " + (sddm.users ? sddm.users.count : 0)
