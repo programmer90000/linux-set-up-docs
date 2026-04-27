@@ -15,7 +15,7 @@ Rectangle {
         anchors.fill: parent
         spacing: 10
         
-        model: userModel || sddm.userModel || sddm.users || sddm.model || []
+        model: userModel || []
         
         delegate: Rectangle {
             width: parent.width
