@@ -1,5 +1,11 @@
 #!/bin/bash
 
+if [ "$EUID" -eq 0 ]; then
+    echo "Error: This script should not be run as root or with sudo."
+    echo "Please run it as a regular user."
+    exit 1
+fi
+
 THEME_NAME=login-screen
 THEME_DIR="/usr/share/sddm/themes/${THEME_NAME}"
 
