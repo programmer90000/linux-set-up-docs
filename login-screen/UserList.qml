@@ -38,8 +38,22 @@ Rectangle {
                 Image {
                     id: userIcon
                     source: {
-                        if (model && model.avatarPath) return model.avatarPath
-                        return "/usr/share/sddm/themes/login-screen/profile-picture.jpg"
+                        if (model && model.avatarPath) {
+                            return model.avatarPath
+                        }
+                        
+                        var username = ""
+                        if (typeof model === 'string') {
+                            username = model
+                        } else if (model && model.name) {
+                            username = model.name
+                        } else if (model && model.userName) {
+                            username = model.userName
+                        } else {
+                            return "/usr/share/sddm/themes/login-screen/profile-picture.jpg"
+                        }
+                        
+                        return "/usr/share/sddm/themes/login-screen/" + username + "/profile-picture.jpg"
                     }
                     width: parent.width
                     height: parent.height
@@ -51,7 +65,7 @@ Rectangle {
                             visible = true
                         } else if (status === Image.Error) {
                             visible = false
-                            console.log("Failed to load image:", source)
+                            console.log("Failed to load image for user " + username + " from:", source)
                         }
                     }
                 }

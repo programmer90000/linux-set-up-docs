@@ -14,5 +14,6 @@ sudo cp login-screen/sddm.conf /etc/sddm.conf
 sudo mkdir -p /etc/sddm.conf.d/
 sudo cp login-screen/sddm.conf.d/theme.conf /etc/sddm.conf.d/
 sudo ln -s /usr/bin/sddm-greeter-qt6 /usr/bin/sddm-greeter
-sudo cp assets/profile-picture.jpg $THEME_DIR
+sudo mkdir -p $THEME_DIR/$(whoami)
+sudo cp assets/profile-picture.jpg $THEME_DIR/$(whoami)
 sudo systemctl restart sddm
