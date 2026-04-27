@@ -25,6 +25,23 @@ Rectangle {
             border.color: "#3a3a3a"
             border.width: 1
             
+            Image {
+                id: userIcon
+                source: "/usr/share/sddm/themes/login-screen/profile-picture.jpg"
+                width: 30
+                height: 30
+                anchors {
+                    left: parent.left
+                    leftMargin: 10
+                    verticalCenter: parent.verticalCenter
+                }
+                fillMode: Image.PreserveAspectFit
+                
+                onStatusChanged: {
+                }
+            }
+            
+            // Username text next to the image
             Text {
                 text: {
                     if (typeof model === 'string') return model
@@ -32,14 +49,21 @@ Rectangle {
                     if (model && model.userName) return model.userName
                     return "User " + index
                 }
-                anchors.centerIn: parent
+                anchors {
+                    left: userIcon.right
+                    leftMargin: 10
+                    right: parent.right
+                    rightMargin: 10
+                    verticalCenter: parent.verticalCenter
+                }
                 color: "white"
                 font.pixelSize: 12
-                horizontalAlignment: Text.AlignHCenter
-                width: parent.width - 10
+                horizontalAlignment: Text.AlignLeft
                 wrapMode: Text.WordWrap
+                elide: Text.ElideRight
             }
             
+            // Mouse area for click handling
             MouseArea {
                 id: mouseArea
                 anchors.fill: parent
