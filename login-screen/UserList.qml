@@ -7,8 +7,8 @@ Rectangle {
     height: Math.min(listView.contentHeight + 20, 300)
     color: "transparent"
     
-    property string selectedUsername: ""
-    signal userSelected(string username)
+    property string selectedUserName: ""
+    signal userSelected(string username, string avatarPath)
     
     ListView {
         id: listView
@@ -18,11 +18,15 @@ Rectangle {
         model: userModel || []
         
         delegate: Rectangle {
+            id: delegateRoot
             width: parent.width
             height: 45
+            
+            property bool isSelected: userListRoot.selectedUserName === getUsername()
+            
             color: {
-                if (userListRoot.selectedUsername === getUsername()) {
-                    return "#3a6ea5"  // Highlight selected user
+                if (isSelected) {
+                    return "#3a6ea5"
                 } else if (mouseArea.containsMouse) {
                     return "#2a2a2a"
                 } else {
@@ -30,13 +34,7 @@ Rectangle {
                 }
             }
             radius: 5
-            border.color: {
-                if (userListRoot.selectedUsername === getUsername()) {
-                    return "#5a8ec5"
-                } else {
-                    return "#3a3a3a"
-                }
-            }
+            border.color: isSelected ? "#5a8ec5" : "#3a3a3a"
             border.width: 1
             
             function getUsername() {
@@ -44,6 +42,12 @@ Rectangle {
                 if (model && model.name) return model.name
                 if (model && model.userName) return model.userName
                 return "User " + index
+            }
+            
+            function getAvatarPath() {
+                var username = getUsername()
+                var avatarPath = "/usr/share/sddm/themes/login-screen/" + username + "/profile-picture.jpg"
+                return avatarPath
             }
             
             Item {
@@ -58,14 +62,7 @@ Rectangle {
                 
                 Image {
                     id: userIcon
-                    source: {
-                        if (model && model.avatarPath) {
-                            return model.avatarPath
-                        }
-                        
-                        var username = getUsername()
-                        return "/usr/share/sddm/themes/login-screen/" + username + "/profile-picture.jpg"
-                    }
+                    source: getAvatarPath()
                     width: parent.width
                     height: parent.height
                     fillMode: Image.PreserveAspectFit
@@ -76,7 +73,7 @@ Rectangle {
                             visible = true
                         } else if (status === Image.Error) {
                             visible = false
-                            console.log("Failed to load image for user " + getUsername() + " from:", source)
+                            console.log("Avatar not found for:", getUsername(), "at:", source)
                         }
                     }
                 }
@@ -86,19 +83,13 @@ Rectangle {
                     id: fallbackRect
                     anchors.fill: parent
                     radius: 15
-                    color: {
-                        if (userListRoot.selectedUsername === getUsername()) {
-                            return "#5a8ec5"
-                        } else {
-                            return "#3a3a3a"
-                        }
-                    }
+                    color: isSelected ? "#5a8ec5" : "#3a3a3a"
                     visible: !userIcon.visible
                     
                     Text {
                         anchors.centerIn: parent
                         text: {
-                            var username = getUsername()
+                            var username = delegateRoot.getUsername()
                             return username ? username.charAt(0).toUpperCase() : "?"
                         }
                         color: "#ffffff"
@@ -111,7 +102,7 @@ Rectangle {
             // Username text next to the image
             Text {
                 id: usernameText
-                text: getUsername()
+                text: delegateRoot.getUsername()
                 anchors {
                     left: userIconContainer.right
                     leftMargin: 10
@@ -119,15 +110,9 @@ Rectangle {
                     rightMargin: 10
                     verticalCenter: parent.verticalCenter
                 }
-                color: {
-                    if (userListRoot.selectedUsername === getUsername()) {
-                        return "#ffffff"
-                    } else {
-                        return "#cccccc"
-                    }
-                }
+                color: isSelected ? "#ffffff" : "#cccccc"
                 font.pixelSize: 14
-                font.bold: userListRoot.selectedUsername === getUsername()
+                font.bold: isSelected
                 horizontalAlignment: Text.AlignLeft
                 wrapMode: Text.WordWrap
                 elide: Text.ElideRight
@@ -139,9 +124,10 @@ Rectangle {
                 anchors.fill: parent
                 hoverEnabled: true
                 onClicked: {
-                    var username = getUsername()
-                    userListRoot.selectedUsername = username
-                    userListRoot.userSelected(username)
+                    var username = delegateRoot.getUsername()
+                    var avatarPath = delegateRoot.getAvatarPath()
+                    userListRoot.selectedUserName = username
+                    userListRoot.userSelected(username, avatarPath)
                 }
             }
         }
