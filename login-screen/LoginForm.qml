@@ -11,6 +11,16 @@ Column {
     
     signal loginRequested(string username, string password)
     
+    Text {
+        id: usernameLabel
+        width: parent.width
+        text: root.selectedUsername !== "" ? root.selectedUsername : "Select a user"
+        font.pixelSize: 14
+        color: root.selectedUsername !== "" ? "#3a6ea5" : "#999999"
+        horizontalAlignment: Text.AlignHCenter
+        visible: true
+    }
+    
     TextField {
         id: passwordField
         width: parent.width
