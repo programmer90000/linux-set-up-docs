@@ -20,10 +20,31 @@ Rectangle {
         delegate: Rectangle {
             width: parent.width
             height: 45
-            color: mouseArea.containsMouse ? "#2a2a2a" : "#1e1e1e"
+            color: {
+                if (userListRoot.selectedUsername === getUsername()) {
+                    return "#3a6ea5"  // Highlight selected user
+                } else if (mouseArea.containsMouse) {
+                    return "#2a2a2a"
+                } else {
+                    return "#1e1e1e"
+                }
+            }
             radius: 5
-            border.color: "#3a3a3a"
+            border.color: {
+                if (userListRoot.selectedUsername === getUsername()) {
+                    return "#5a8ec5"
+                } else {
+                    return "#3a3a3a"
+                }
+            }
             border.width: 1
+            
+            function getUsername() {
+                if (typeof model === 'string') return model
+                if (model && model.name) return model.name
+                if (model && model.userName) return model.userName
+                return "User " + index
+            }
             
             Item {
                 id: userIconContainer
@@ -42,17 +63,7 @@ Rectangle {
                             return model.avatarPath
                         }
                         
-                        var username = ""
-                        if (typeof model === 'string') {
-                            username = model
-                        } else if (model && model.name) {
-                            username = model.name
-                        } else if (model && model.userName) {
-                            username = model.userName
-                        } else {
-                            return "/usr/share/sddm/themes/login-screen/profile-picture.jpg"
-                        }
-                        
+                        var username = getUsername()
                         return "/usr/share/sddm/themes/login-screen/" + username + "/profile-picture.jpg"
                     }
                     width: parent.width
@@ -65,7 +76,7 @@ Rectangle {
                             visible = true
                         } else if (status === Image.Error) {
                             visible = false
-                            console.log("Failed to load image for user " + username + " from:", source)
+                            console.log("Failed to load image for user " + getUsername() + " from:", source)
                         }
                     }
                 }
@@ -75,26 +86,22 @@ Rectangle {
                     id: fallbackRect
                     anchors.fill: parent
                     radius: 15
-                    color: "#3a3a3a"
+                    color: {
+                        if (userListRoot.selectedUsername === getUsername()) {
+                            return "#5a8ec5"
+                        } else {
+                            return "#3a3a3a"
+                        }
+                    }
                     visible: !userIcon.visible
                     
                     Text {
                         anchors.centerIn: parent
                         text: {
-                            // Extract first letter from username
-                            var username = ""
-                            if (typeof model === 'string') {
-                                username = model
-                            } else if (model && model.name) {
-                                username = model.name
-                            } else if (model && model.userName) {
-                                username = model.userName
-                            } else {
-                                username = "User " + index
-                            }
+                            var username = getUsername()
                             return username ? username.charAt(0).toUpperCase() : "?"
                         }
-                        color: "#cccccc"
+                        color: "#ffffff"
                         font.pixelSize: 16
                         font.bold: true
                     }
@@ -104,12 +111,7 @@ Rectangle {
             // Username text next to the image
             Text {
                 id: usernameText
-                text: {
-                    if (typeof model === 'string') return model
-                    if (model && model.name) return model.name
-                    if (model && model.userName) return model.userName
-                    return "User " + index
-                }
+                text: getUsername()
                 anchors {
                     left: userIconContainer.right
                     leftMargin: 10
@@ -117,8 +119,15 @@ Rectangle {
                     rightMargin: 10
                     verticalCenter: parent.verticalCenter
                 }
-                color: "white"
-                font.pixelSize: 12
+                color: {
+                    if (userListRoot.selectedUsername === getUsername()) {
+                        return "#ffffff"
+                    } else {
+                        return "#cccccc"
+                    }
+                }
+                font.pixelSize: 14
+                font.bold: userListRoot.selectedUsername === getUsername()
                 horizontalAlignment: Text.AlignLeft
                 wrapMode: Text.WordWrap
                 elide: Text.ElideRight
@@ -130,10 +139,7 @@ Rectangle {
                 anchors.fill: parent
                 hoverEnabled: true
                 onClicked: {
-                    var username = (typeof model === 'string') ? model : 
-                                  (model && model.name) ? model.name : 
-                                  (model && model.userName) ? model.userName :
-                                  "user" + index
+                    var username = getUsername()
                     userListRoot.selectedUsername = username
                     userListRoot.userSelected(username)
                 }

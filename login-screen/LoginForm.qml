@@ -6,20 +6,10 @@ Column {
     spacing: 15
     width: 300
     
-    property alias usernameInput: usernameField
+    property string selectedUsername: ""
     property alias passwordInput: passwordField
     
     signal loginRequested(string username, string password)
-    
-    TextField {
-        id: usernameField
-        width: parent.width
-        height: 45
-        placeholderText: "Username"
-        font.pixelSize: 16
-        background: Rectangle { color: "white"; radius: 5 }
-        onAccepted: passwordField.forceActiveFocus()
-    }
     
     TextField {
         id: passwordField
@@ -28,12 +18,26 @@ Column {
         placeholderText: "Password"
         echoMode: TextField.Password
         font.pixelSize: 16
-        background: Rectangle { color: "white"; radius: 5 }
-        onAccepted: root.loginRequested(usernameField.text, passwordField.text)
+        
+        background: Rectangle {
+            color: root.selectedUsername !== "" ? "white" : "#f0f0f0"
+            radius: 5
+            border.color: root.selectedUsername !== "" ? "#cccccc" : "#e0e0e0"
+            border.width: 1
+        }
+        
+        enabled: root.selectedUsername !== ""
+        
+        onAccepted: {
+            if (root.selectedUsername !== "" && passwordField.text !== "") {
+                root.loginRequested(root.selectedUsername, passwordField.text)
+            }
+        }
     }
     
     function setUsername(username) {
-        usernameField.text = username
+        root.selectedUsername = username
+        passwordField.text = ""
         passwordField.forceActiveFocus()
     }
 }
