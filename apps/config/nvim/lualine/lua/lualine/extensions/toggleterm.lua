@@ -1,0 +1,13 @@
+local function toggleterm_statusline()
+    return "ToggleTerm #" .. vim.b.toggle_number
+end
+
+local M = {}
+
+M.sections = {
+    lualine_a = { toggleterm_statusline },
+}
+
+M.filetypes = { "toggleterm" }
+
+return M
