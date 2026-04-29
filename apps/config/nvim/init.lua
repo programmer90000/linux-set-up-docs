@@ -1,0 +1,15 @@
+vim.autoindent = true
+vim.autoread = true
+vim.autowrite = false
+vim.autowriteall = false
+vim.backspace = "indent,eol,start"
+vim.backup = false
+vim.breakindent = true
+vim.o.confirm = true
+vim.o.copyindent = true
+vim.o.equalalways = false
+vim.o.errorbells = true
+vim.opt.expandtab = true
+vim.o.fileignorecase = true
+vim.o.hlsearch = true
+vim.o.infercase = false

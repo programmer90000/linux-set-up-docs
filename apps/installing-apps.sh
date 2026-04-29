@@ -7,6 +7,8 @@ echo "Installing curl"
 sudo apt install -y curl
 echo "Installing Neovim"
 sudo apt install -y neovim
+mkdir -p ~/.config/nvim/
+cp installing-apps/config/nvim/init.lua ~/.config/nvim/
 echo "Installing Shotcut"
 sudo apt install -y shotcut
 mkdir -p ~/.config/Meltytech/
