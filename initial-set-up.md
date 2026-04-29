@@ -60,7 +60,7 @@ chmod +x desktop/install-desktop.sh
 
 Run:
 ```
-chmod +x installing-apps/installing-apps.sh installing-apps/get-and-install.sh
-./installing-apps/installing-apps.sh
-./installing-apps/get-and-install.sh
+chmod +x apps/installing-apps.sh apps/get-and-install.sh
+./apps/installing-apps.sh
+./apps/get-and-install.sh
 ```
