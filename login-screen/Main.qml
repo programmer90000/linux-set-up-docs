@@ -1,25 +1,28 @@
 import QtQuick
 import QtQuick.Controls
-import "./"
+import QtQuick.Layouts
 
 Rectangle {
+    id: mainWindow
     width: 1920
     height: 1080
-    color: "#1a1a1a"
-
+    color: "transparent"  // Fallback color when splash is dismissed
+    
     UserList {
         id: userList
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         anchors.margins: 20
-        
-        onUserSelected: loginForm.setUsername(username)
+        visible: !splashScreen.active
+        enabled: !splashScreen.active
+        onUserSelected: loginForm.setUsername(username, avatarPath)
     }
-
+    
     LoginForm {
         id: loginForm
-        anchors.centerIn: parent
-        
+        visible: !splashScreen.active
         onLoginRequested: sddm.login(username, password, 0)
     }
+    
+    SplashScreen { id: splashScreen }
 }
