@@ -1,10 +1,13 @@
 import QtQuick
 import QtQuick.Controls
 
-Column {
-    id: root
-    spacing: 15
-    width: 300
+Rectangle {
+    id: fullScreenRoot
+    anchors.fill: parent
+    color: "transparent"
+    
+    // This makes the component invisible to mouse events, allowing clicks to pass through to the UserList and other controls behind it
+    z: -2
     
     property string selectedUsername: ""
     property string selectedAvatarPath: ""
@@ -12,98 +15,120 @@ Column {
     
     signal loginRequested(string username, string password)
     
-    Item {
-        id: avatarContainer
-        width: 80
-        height: 80
-        anchors.horizontalCenter: parent.horizontalCenter
+    Image {
+        id: formBackground
+        anchors.fill: parent
+        source: Qt.resolvedUrl("splash_background.png")
+        fillMode: Image.PreserveAspectCrop
+        z: -1
         
-        Image {
-            id: avatarImage
+        // Add semi-transparent overlay
+        Rectangle {
             anchors.fill: parent
-            source: root.selectedAvatarPath
-            fillMode: Image.PreserveAspectFit
-            visible: false
-            cache: false // Disable cache to ensure reload when user changes
+            color: "#80000000"  // Dark overlay
+        }
+    }
+    
+    Column {
+        id: loginContent
+        spacing: 15
+        width: 300
+        anchors.centerIn: parent
+        
+        // Avatar container
+        Item {
+            id: avatarContainer
+            width: 80
+            height: 80
+            anchors.horizontalCenter: parent.horizontalCenter
             
-            onStatusChanged: {
-                if (status === Image.Ready) {
-                    visible = true
-                    fallbackRect.visible = false
-                } else if (status === Image.Error) {
-                    visible = false
-                    fallbackRect.visible = true
-                    console.log("Login form: Avatar not found at:", source)
+            Image {
+                id: avatarImage
+                anchors.fill: parent
+                source: fullScreenRoot.selectedAvatarPath
+                fillMode: Image.PreserveAspectFit
+                visible: false
+                cache: false
+                
+                onStatusChanged: {
+                    if (status === Image.Ready) {
+                        visible = true
+                        fallbackRect.visible = false
+                    } else if (status === Image.Error) {
+                        visible = false
+                        fallbackRect.visible = true
+                        console.log("Login form: Avatar not found at:", source)
+                    }
+                }
+            }
+            
+            // Fallback circle with initial
+            Rectangle {
+                id: fallbackRect
+                anchors.fill: parent
+                radius: 40
+                color: "#3a6ea5"
+                visible: true
+                
+                Text {
+                    anchors.centerIn: parent
+                    text: fullScreenRoot.selectedUsername !== "" ? fullScreenRoot.selectedUsername.charAt(0).toUpperCase() : "?"
+                    color: "white"
+                    font.pixelSize: 36
+                    font.bold: true
                 }
             }
         }
         
-        // Fallback circle with initial
-        Rectangle {
-            id: fallbackRect
-            anchors.fill: parent
-            radius: 40
-            color: "#3a6ea5"
-            visible: true
+        // Spacing between avatar and username
+        Item { height: 5 }
+        
+        Text {
+            id: usernameLabel
+            width: parent.width
+            text: fullScreenRoot.selectedUsername !== "" ? fullScreenRoot.selectedUsername : "Select a user"
+            font.pixelSize: 14
+            font.bold: fullScreenRoot.selectedUsername !== ""
+            color: fullScreenRoot.selectedUsername !== "" ? "#3a6ea5" : "#999999"
+            horizontalAlignment: Text.AlignHCenter
+        }
+        
+        // Spacing between username and password field
+        Item { height: 10 }
+        
+        TextField {
+            id: passwordField
+            width: parent.width
+            height: 45
+            placeholderText: "Password"
+            echoMode: TextField.Password
+            font.pixelSize: 16
             
-            Text {
-                anchors.centerIn: parent
-                text: root.selectedUsername !== "" ? root.selectedUsername.charAt(0).toUpperCase() : "?"
-                color: "white"
-                font.pixelSize: 36
-                font.bold: true
+            background: Rectangle {
+                color: fullScreenRoot.selectedUsername !== "" ? "white" : "#f0f0f0"
+                radius: 5
+                border.color: fullScreenRoot.selectedUsername !== "" ? "#cccccc" : "#e0e0e0"
+                border.width: 1
             }
-        }
-    }
-    
-    // Spacing between avatar and username
-    Item { height: 5 }
-    
-    Text {
-        id: usernameLabel
-        width: parent.width
-        text: root.selectedUsername !== "" ? root.selectedUsername : "Select a user"
-        font.pixelSize: 14
-        font.bold: root.selectedUsername !== ""
-        color: root.selectedUsername !== "" ? "#3a6ea5" : "#999999"
-        horizontalAlignment: Text.AlignHCenter
-    }
-    
-    // Spacing between username and password field
-    Item { height: 10 }
-    
-    TextField {
-        id: passwordField
-        width: parent.width
-        height: 45
-        placeholderText: "Password"
-        echoMode: TextField.Password
-        font.pixelSize: 16
-        
-        background: Rectangle {
-            color: root.selectedUsername !== "" ? "white" : "#f0f0f0"
-            radius: 5
-            border.color: root.selectedUsername !== "" ? "#cccccc" : "#e0e0e0"
-            border.width: 1
-        }
-        
-        enabled: root.selectedUsername !== ""
-        
-        onAccepted: {
-            if (root.selectedUsername !== "" && passwordField.text !== "") {
-                root.loginRequested(root.selectedUsername, passwordField.text)
+            
+            enabled: fullScreenRoot.selectedUsername !== ""
+            
+            onAccepted: {
+                if (fullScreenRoot.selectedUsername !== "" && passwordField.text !== "") {
+                    fullScreenRoot.loginRequested(fullScreenRoot.selectedUsername, passwordField.text)
+                }
             }
         }
     }
     
     function setUsername(username, avatarPath) {
-        root.selectedUsername = username
+        fullScreenRoot.selectedUsername = username
         
         if (avatarPath && avatarPath !== "") {
-            root.selectedAvatarPath = avatarPath
+            fullScreenRoot.selectedAvatarPath = avatarPath
         } else {
             var constructedPath = "/usr/share/sddm/themes/login-screen/" + username + "/profile-picture.jpg"
-            root.selectedAvatarPath = constructedPath
+            fullScreenRoot.selectedAvatarPath = constructedPath
         }
         
         // Reset avatar visibility to trigger reload
@@ -112,7 +137,7 @@ Column {
         
         // Reload the image
         avatarImage.source = ""
-        avatarImage.source = root.selectedAvatarPath
+        avatarImage.source = fullScreenRoot.selectedAvatarPath
         
         // Clear password and focus
         passwordField.text = ""
