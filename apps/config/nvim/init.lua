@@ -1,3 +1,12 @@
+vim.opt.rtp:prepend("/home/abdul/.config/nvim/mason/")
+vim.opt.rtp:prepend("/home/abdul/.config/nvim/lualine/")
+vim.opt.rtp:prepend("/home/abdul/.config/nvim/nvim-surround")
+vim.opt.rtp:prepend("/home/abdul/.config/nvim/nvim-treesitter")
+vim.opt.rtp:prepend("/home/abdul/.config/nvim/plenary")
+vim.opt.rtp:prepend("/home/abdul/.config/nvim/nui")
+vim.opt.rtp:prepend("/home/abdul/.config/nvim/nvim-web-devicons")
+vim.opt.rtp:prepend("/home/abdul/.config/nvim/neo-tree")
+
 vim.autoindent = true
 vim.autoread = true
 vim.autowrite = false
@@ -24,3 +33,9 @@ vim.opt.relativenumber = false
 vim.opt.shiftwidth = 4
 vim.opt.smartindent = true
 vim.opt.tabstop = 4
+
+require("mason").setup()
+require("lualine").setup()
+require("nvim-surround").setup()
+require("nvim-treesitter").setup()
+require("neo-tree").setup {}
