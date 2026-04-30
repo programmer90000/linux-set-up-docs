@@ -34,6 +34,8 @@ vim.opt.shiftwidth = 4
 vim.opt.smartindent = true
 vim.opt.tabstop = 4
 
+vim.cmd("colorscheme colour-scheme")
+
 require("mason").setup()
 require("lualine").setup()
 require("nvim-surround").setup()
