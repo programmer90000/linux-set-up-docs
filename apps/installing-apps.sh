@@ -5,6 +5,8 @@ echo "Refreshing package list"
 sudo apt update
 echo "Installing curl"
 sudo apt install -y curl
+echo "Installing zsh"
+sudo apt install -y zsh
 echo "Installing tmux"
 sudo apt install tmux
 mkdir -p ~/.config/tmux/
