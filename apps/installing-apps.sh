@@ -8,7 +8,7 @@ sudo apt install -y curl
 echo "Installing zsh"
 sudo apt install -y zsh
 echo "Installing tmux"
-sudo apt install tmux
+sudo apt install -y tmux
 mkdir -p ~/.config/tmux/
 cp apps/config/tmux/tmux.conf ~/.config/tmux/
 echo "Installing Neovim"
