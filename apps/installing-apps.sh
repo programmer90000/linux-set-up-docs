@@ -8,6 +8,14 @@ sudo apt install -y curl
 echo "Installing Neovim"
 sudo apt install -y neovim
 mkdir -p ~/.config/nvim/
+cp -r installing-apps/config/nvim/lualine/ ~/.config/nvim/
+cp -r installing-apps/config/nvim/mason/ ~/.config/nvim/
+cp -r installing-apps/config/nvim/neo-tree/ ~/.config/nvim/
+cp -r installing-apps/config/nvim/nui/ ~/.config/nvim/
+cp -r installing-apps/config/nvim/nvim-surround/ ~/.config/nvim/
+cp -r installing-apps/config/nvim/nvim-treesitter/ ~/.config/nvim/
+cp -r installing-apps/config/nvim/nvim-web-devicons/ ~/.config/nvim/
+cp -r installing-apps/config/nvim/plenary/ ~/.config/nvim/
 cp installing-apps/config/nvim/init.lua ~/.config/nvim/
 echo "Installing Shotcut"
 sudo apt install -y shotcut
