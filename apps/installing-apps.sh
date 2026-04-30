@@ -7,6 +7,8 @@ echo "Installing curl"
 sudo apt install -y curl
 echo "Installing tmux"
 sudo apt install tmux
+mkdir -p ~/.config/tmux/
+cp apps/config/tmux/tmux.conf ~/.config/tmux/
 echo "Installing Neovim"
 sudo apt install -y neovim
 mkdir -p ~/.config/nvim/
