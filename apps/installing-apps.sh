@@ -5,6 +5,8 @@ echo "Refreshing package list"
 sudo apt update
 echo "Installing curl"
 sudo apt install -y curl
+echo "Installing tmux"
+sudo apt install tmux
 echo "Installing Neovim"
 sudo apt install -y neovim
 mkdir -p ~/.config/nvim/
