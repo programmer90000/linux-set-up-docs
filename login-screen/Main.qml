@@ -22,6 +22,9 @@ Rectangle {
         id: loginForm
         visible: !splashScreen.active
         onLoginRequested: sddm.login(username, password, 0)
+        onShowSplashRequested: {
+            splashScreen.show()
+        }
     }
     
     SplashScreen { id: splashScreen }

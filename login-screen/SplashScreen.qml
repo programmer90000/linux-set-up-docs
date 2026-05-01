@@ -80,6 +80,15 @@ Rectangle {
         dismissed()
     }
     
+    function show() {
+        active = true
+        visible = true
+        // Refresh the date/time display
+        splashClock.updateTime()
+        splashDateText.text = Qt.formatDateTime(new Date(), "ddd dd/MM/yyyy")
+        forceActiveFocus()
+    }
+    
     Component.onCompleted: {
         forceActiveFocus()
         console.log("Splash screen ready")

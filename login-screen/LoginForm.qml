@@ -14,6 +14,7 @@ Rectangle {
     property alias passwordInput: passwordField
     
     signal loginRequested(string username, string password)
+    signal showSplashRequested()
     
     Image {
         id: formBackground
@@ -70,6 +71,51 @@ Rectangle {
                     dateText.text = Qt.formatDateTime(now, "ddd dd/MM/yyyy")
                 }
             }
+        }
+    }
+    
+    Button {
+        id: showSplashButton
+        width: 48
+        height: 48
+        anchors {
+            top: parent.top
+            left: parent.left
+            margins: 20
+        }
+        z: 2
+        
+        Image {
+            anchors.centerIn: parent
+            source: Qt.resolvedUrl("assets/back_arrow_icon.png")
+            width: 24
+            height: 24
+            fillMode: Image.PreserveAspectFit
+        }
+        
+        background: Rectangle {
+            radius: 24
+            color: parent.pressed ? "#3a6ea5" : (parent.hovered ? "#2a2a2a" : "#1e1e1e")
+            border.color: "#3a3a3a"
+            border.width: 1
+        }
+        
+        ToolTip {
+            visible: parent.hovered
+            text: "Show Splash Screen"
+            delay: 500
+            background: Rectangle {
+                color: "#1e1e1e"
+                radius: 4
+            }
+            contentItem: Text {
+                text: parent.text
+                color: "white"
+            }
+        }
+        
+        onClicked: {
+            showSplashRequested()
         }
     }
     
