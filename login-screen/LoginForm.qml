@@ -25,7 +25,51 @@ Rectangle {
         // Add semi-transparent overlay
         Rectangle {
             anchors.fill: parent
-            color: "#80000000"  // Dark overlay
+            color: "#80000000" // Dark overlay
+        }
+    }
+    
+    Column {
+        id: timeDateContainer
+        anchors {
+            top: parent.top
+            horizontalCenter: parent.horizontalCenter
+            topMargin: 50
+        }
+        spacing: 10
+        z: 1
+        
+        Clock {
+            id: loginClock
+            width: 400
+            height: 48
+            textColor: "white"
+            fontSize: 48
+            timeFormat: "hh:mm:ss"
+        }
+        
+        Text {
+            id: dateText
+            anchors.horizontalCenter: parent.horizontalCenter
+            text: {
+                var now = new Date()
+                return Qt.formatDateTime(now, "ddd dd/MM/yyyy")
+            }
+            color: "white"
+            font.pixelSize: 20
+            font.family: "Sans"
+            style: Text.Outline
+            styleColor: "black"
+            
+            Timer {
+                interval: 60000
+                running: true
+                repeat: true
+                onTriggered: {
+                    var now = new Date()
+                    dateText.text = Qt.formatDateTime(now, "ddd dd/MM/yyyy")
+                }
+            }
         }
     }
     

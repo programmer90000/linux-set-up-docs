@@ -14,6 +14,7 @@ sudo apt install -y sddm
 sudo mkdir -p $THEME_DIR
 sudo cp login-screen/Main.qml $THEME_DIR
 sudo cp login-screen/UserList.qml $THEME_DIR
+sudo cp login-screen/Clock.qml $THEME_DIR
 sudo cp login-screen/LoginForm.qml $THEME_DIR
 sudo cp login-screen/SplashScreen.qml $THEME_DIR
 sudo cp login-screen/theme.conf $THEME_DIR
