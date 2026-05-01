@@ -165,6 +165,28 @@ Rectangle {
         }
     }
     
+    PowerButton {
+        id: powerBtn
+        anchors {
+            bottom: parent.bottom
+            right: parent.right
+            margins: 20
+        }
+        z: 2
+        
+        onShutdownRequested: {
+            sddm.powerOff()
+        }
+        
+        onRestartRequested: {
+            sddm.reboot()
+        }
+        
+        onSuspendRequested: {
+            sddm.suspend()
+        }
+    }
+    
     function setUsername(username, avatarPath) {
         fullScreenRoot.selectedUsername = username
         
