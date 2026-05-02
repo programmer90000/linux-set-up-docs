@@ -28,6 +28,14 @@ chmod +x alacritty/alacritty.sh
 
 > **Do this before installing a window manager**
 
+## Install Boot Theme
+
+Run:
+```
+chmod +x boot-theme/install-boot-theme.sh
+./boot-theme/install-boot-theme.sh
+```
+
 ## Install Labwc Window Manager
 
 Run:
