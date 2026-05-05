@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=Custom Progress Theme
+Description=A custom theme with a progress bar, background, and text
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/custom-progress-theme
+ScriptFile=/usr/share/plymouth/themes/custom-progress-theme/custom-progress-theme.script
