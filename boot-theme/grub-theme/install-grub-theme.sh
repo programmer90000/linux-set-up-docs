@@ -39,6 +39,6 @@ sudo cp -a --no-preserve=ownership "config/theme.txt" "${THEME_DIR}/${THEME_NAME
 sudo cp -a --no-preserve=ownership "background.png" "${THEME_DIR}/${THEME_NAME}/background.png"
 sudo cp -a --no-preserve=ownership "assets/icons" "${THEME_DIR}/${THEME_NAME}/icons"
 sudo cp -a --no-preserve=ownership "assets/select/"*.png "${THEME_DIR}/${THEME_NAME}"
-sudo cp -a --no-preserve=ownership "grub" /etc/default/grub
+sudo cp -a --no-preserve=ownership "../grub" /etc/default/grub
 echo -e "\n Updating grub config... \n"
 sudo /usr/sbin/grub-mkconfig -o /boot/grub/grub.cfg
