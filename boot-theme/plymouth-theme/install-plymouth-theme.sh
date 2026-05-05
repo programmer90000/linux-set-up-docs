@@ -65,8 +65,8 @@ sudo cp -a --no-preserve=ownership "${BASE_DIR}/progress_box.png" "${THEME_DIR}/
 sudo cp -a --no-preserve=ownership "${BASE_DIR}/progress_fill.png" "${THEME_DIR}/"
 sudo cp -a --no-preserve=ownership "${BASE_DIR}/custom-progress-theme.script" "${THEME_DIR}/"
 sudo cp -a --no-preserve=ownership "${BASE_DIR}/custom-progress-theme.plymouth" "${THEME_DIR}/"
+sudo cp "$GRUB_FILE" /etc/default/grub
 
 sudo plymouth-set-default-theme "$THEME_NAME"
 sudo update-initramfs -u
-sudo cp "$GRUB_FILE" /etc/default/grub
 sudo update-grub
