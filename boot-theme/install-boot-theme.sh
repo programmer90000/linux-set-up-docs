@@ -39,46 +39,6 @@ sudo cp -a --no-preserve=ownership "config/theme.txt" "${THEME_DIR}/${THEME_NAME
 sudo cp -a --no-preserve=ownership "background.png" "${THEME_DIR}/${THEME_NAME}/background.png"
 sudo cp -a --no-preserve=ownership "assets/icons" "${THEME_DIR}/${THEME_NAME}/icons"
 sudo cp -a --no-preserve=ownership "assets/select/"*.png "${THEME_DIR}/${THEME_NAME}"
-
-# Backup grub config
-if [[ -f /etc/default/grub.bak ]]; then
-    echo -e "\n File '/etc/default/grub.bak' already exists!"
-else
-    sudo cp -an /etc/default/grub /etc/default/grub.bak
-fi
-
-if sudo grep "GRUB_THEME=" /etc/default/grub 2>&1 >/dev/null; then
-    sudo sed -i "s|.*GRUB_THEME=.*|GRUB_THEME=\"${THEME_DIR}/${THEME_NAME}/theme.txt\"|" /etc/default/grub
-else
-    echo "GRUB_THEME=\"${THEME_DIR}/${THEME_NAME}/theme.txt\"" | sudo tee -a /etc/default/grub > /dev/null
-fi
-
-if sudo grep "GRUB_BACKGROUND=" /etc/default/grub 2>&1 >/dev/null; then
-    sudo sed -i "s|.*GRUB_BACKGROUND=.*|GRUB_BACKGROUND=\"${THEME_DIR}/${THEME_NAME}/background.png\"|" /etc/default/grub
-else
-    echo "GRUB_BACKGROUND=\"${THEME_DIR}/${THEME_NAME}/background.png\"" | sudo tee -a /etc/default/grub > /dev/null
-fi
-
-# Set resolution for grub
-gfxmode="GRUB_GFXMODE=1920x1080,auto"
-
-if sudo grep "GRUB_GFXMODE=" /etc/default/grub 2>&1 >/dev/null; then
-    # Replace GRUB_GFXMODE
-    sudo sed -i "s|.*GRUB_GFXMODE=.*|${gfxmode}|" /etc/default/grub
-else
-    # Append GRUB_GFXMODE
-    echo "${gfxmode}" | sudo tee -a /etc/default/grub > /dev/null
-fi
-
-if sudo grep "GRUB_TERMINAL=console" /etc/default/grub 2>&1 >/dev/null || sudo grep "GRUB_TERMINAL=\"console\"" /etc/default/grub 2>&1 >/dev/null; then
-    # Replace GRUB_TERMINAL
-    sudo sed -i "s|.*GRUB_TERMINAL=.*|#GRUB_TERMINAL=console|" /etc/default/grub
-fi
-
-if sudo grep "GRUB_TERMINAL_OUTPUT=console" /etc/default/grub 2>&1 >/dev/null || sudo grep "GRUB_TERMINAL_OUTPUT=\"console\"" /etc/default/grub 2>&1 >/dev/null; then
-    # Replace GRUB_TERMINAL_OUTPUT
-    sudo sed -i "s|.*GRUB_TERMINAL_OUTPUT=.*|#GRUB_TERMINAL_OUTPUT=console|" /etc/default/grub
-fi
-
+sudo cp -a --no-preserve=ownership "grub" /etc/default/grub
 echo -e "\n Updating grub config... \n"
 sudo /usr/sbin/grub-mkconfig -o /boot/grub/grub.cfg
