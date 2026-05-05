@@ -55,7 +55,7 @@ if [[ ! -f "/etc/debian_version" ]]; then
 fi
 
 sudo apt update
-sudo apt install -y plymouth
+sudo apt install -y plymouth plymouth-themes
 sudo mkdir -p "$THEME_DIR"
 
 sudo cp -a --no-preserve=ownership "${BASE_DIR}/background.png" "${THEME_DIR}/"
