@@ -1,0 +1,85 @@
+-- Get the width and height of the screen
+win_width = Window.GetWidth();
+win_height = Window.GetHeight();
+
+-- Load the background image. Scale it to fill the whole screen. Set it behind all elements
+bg_img = Image("background.png");
+bg_scaled = bg_img.Scale(win_width, win_height);
+bg_sprite = Sprite(bg_scaled);
+bg_sprite.SetPosition(0, 0, -10);
+
+-- Load the logo image. Scale it
+debian_logo_img = Image("debian-logo.png");
+logo_width = 100;
+logo_height = 100;
+debian_logo_scaled = debian_logo_img.Scale(logo_width, logo_height);
+
+-- Position the logo image centered horizontally and slightly above the center of the screen vertically
+logo_x = win_width / 2 - logo_width / 2;
+logo_y = win_height / 2 - 100;
+logo_sprite = Sprite(debian_logo_scaled);
+logo_sprite.SetPosition(logo_x, logo_y, 0);
+
+-- Load the text image
+debian_text_img = Image("debian-text.png");
+text_width = debian_text_img.GetWidth();
+text_height = debian_text_img.GetHeight();
+
+-- Position the text image centered horizontally at the bottom of the screen
+text_x = win_width / 2 - text_width / 2;
+text_y = win_height - 80;
+text_sprite = Sprite(debian_text_img);
+text_sprite.SetPosition(text_x, text_y, 0);
+
+-- Load the empty and full progress box images
+progress_box_img = Image("progress_box.png");
+progress_fill_img_full = Image("progress_fill.png");
+box_width = progress_box_img.GetWidth();
+box_height = progress_box_img.GetHeight();
+
+-- Position the progress box centered horizontally, below the logo
+pos_x = win_width / 2 - box_width / 2;
+pos_y = win_height / 2 + 50;
+box_sprite = Sprite(progress_box_img);
+box_sprite.SetPosition(pos_x, pos_y, 0);
+
+-- Get the fill height and create an initial fill sprite of minimal width
+fill_height = progress_fill_img_full.GetHeight();
+initial_fill = progress_fill_img_full.Scale(1, fill_height);
+fill_sprite = Sprite(initial_fill);
+
+-- Position the fill sprite inside the progress box (with 2px padding from left edge). Vertically center the fill within the box
+fill_x = pos_x + 2;
+fill_y = pos_y + (box_height - fill_height) / 2;
+fill_sprite.SetPosition(fill_x, fill_y, 1);
+
+-- Callback function that updates the progress bar during boot
+-- duration: time elapsed since boot start (in seconds)
+-- progress: value between 0.0 and 1.0 indicating boot completion percentage
+fun progress_callback(duration, progress)
+{
+    -- Calculate new width based on progress percentage
+    new_width = Math.Int(progress_fill_img_full.GetWidth() * progress);
+    -- Ensure minimum width of 1px to keep sprite visible
+    if (new_width < 1)
+        new_width = 1;
+    -- Only update the image if the width has changed
+    if (fill_sprite.GetImage().GetWidth() != new_width)
+    {
+        scaled_fill = progress_fill_img_full.Scale(new_width, fill_height);
+        fill_sprite.SetImage(scaled_fill);
+    }
+    -- Fade in all elements during the first 2 seconds of boot
+    if (duration < 2.0)
+    {
+        alpha = duration / 2.0; -- alpha increases from 0 to 1 over 2 seconds
+        logo_sprite.SetOpacity(alpha);
+        box_sprite.SetOpacity(alpha);
+        fill_sprite.SetOpacity(alpha);
+        bg_sprite.SetOpacity(alpha);
+        text_sprite.SetOpacity(alpha);
+    }
+}
+
+-- Register the progress callback function with Plymouth
+Plymouth.SetBootProgressFunction(progress_callback);
