@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-BASE_DIR="./boot-theme/plymouth-theme"
+BASE_DIR="./boot-theme/plymouth-theme/"
 
 THEME_NAME="custom-progress-theme"
 THEME_DIR="/usr/share/plymouth/themes/$THEME_NAME"
