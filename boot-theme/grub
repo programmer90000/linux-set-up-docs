@@ -7,6 +7,10 @@ GRUB_DISTRIBUTOR=`( . /etc/os-release && echo ${NAME} )`
 GRUB_CMDLINE_LINUX_DEFAULT="quiet"
 GRUB_CMDLINE_LINUX=""
 
+# Grub theme
+GRUB_THEME="/usr/share/grub/themes/gradient/theme.txt"
+GRUB_BACKGROUND="/usr/share/grub/themes/gradient/background.png"
+
 # If your computer has multiple operating systems installed, then you probably want to run os-prober. However, if your computer is a host for guest OSes installed via LVM or raw disk devices, running os-prober can cause damage to those guest OSes as it mounts filesystems to look for things.
 #GRUB_DISABLE_OS_PROBER=false
 
@@ -30,5 +34,3 @@ GRUB_GFXMODE=1920x1080,auto
 
 # Uncomment to get a beep at grub start
 #GRUB_INIT_TUNE="480 440 1"
-GRUB_THEME="/usr/share/grub/themes/gradient/theme.txt"
-GRUB_BACKGROUND="/usr/share/grub/themes/gradient/background.png"
