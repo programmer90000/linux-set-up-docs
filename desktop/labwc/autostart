@@ -12,5 +12,7 @@ export WAYLAND_DISPLAY="wayland-0"
 # Wait for compositor
 sleep 1
 
+# Launch desktop background
+pcmanfm-qt --desktop --set-wallpaper="/usr/share/pixmaps/desktop-wallpaper.png" &
 # Launch sfwbar
 sfwbar --config $HOME/.config/sfwbar/sfwbar.config --css $HOME/.config/sfwbar/style.css &
