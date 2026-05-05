@@ -10,6 +10,10 @@ ASSETS_DIR="${BASE_DIR}/assets"
 ICONS_DIR="${ASSETS_DIR}/icons"
 SELECT_DIR="${ASSETS_DIR}/select"
 
+GRUB_DIR="/etc/default/"
+GRUB_FILE="${BASE_DIR}/../grub"
+
+
 COMMON_FILES=(
     "terminal_box_c.png"
     "terminal_box_e.png"
@@ -47,6 +51,12 @@ fi
 if [[ ! -f "/etc/debian_version" ]]; then
     echo "Error: This script is made for Debian-based systems"
     echo -e "Distribution detected: $(cat /etc/os-release 2>/dev/null | grep PRETTY_NAME | cut -d'"' -f2 2>/dev/null || echo 'Unknown OS')"
+    exit 1
+fi
+
+if [ ! -f "$GRUB_FILE" ]; then
+    echo "Error: Grub file '$GRUB_FILE' not found."
+    echo "Please ensure the file exists in the correct location."
     exit 1
 fi
 
@@ -92,6 +102,7 @@ sudo mkdir -p "${THEME_DIR}/${THEME_NAME}"
 echo -e "\n Installing ${THEME_NAME} theme..."
 
 # Don't preserve ownership. The owner is root
+sudo cp -a --no-preserve=ownership "$GRUB_FILE" "$GRUB_DIR"
 sudo cp -a --no-preserve=ownership "$BACKGROUND_IMAGE" "${THEME_DIR}/${THEME_NAME}/background.png"
 
 for file in "${COMMON_FILES[@]}"; do
