@@ -49,6 +49,14 @@ This should open a completely black screen with a mouse cursor
 
 To open Alacritty, right-click, press `Super + Enter`
 
+## Install Login Screen
+
+Run:
+```
+chmod +x login-screen/install-login-screen.sh
+./login-screen/install-login-screen.sh
+```
+
 ## Install Tmux
 
 Run:
