@@ -29,4 +29,5 @@ chmod +x ~/.config/sfwbar/scripts/init.sh
 mkdir -p ~/.config/labwc
 cd ../labwc/
 cp autostart ~/.config/labwc/autostart
+cp rc.xml ~/.config/labwc/rc.xml
 chmod +x ~/.config/labwc/autostart

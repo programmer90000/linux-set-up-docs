@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+
+<labwc_config>
+    <core>
+        <decoration>server</decoration>
+        <gap>0</gap>
+        <adaptiveSync>yes</adaptiveSync>
+        <allowTearing>no</allowTearing>
+        <autoEnableOutputs>yes</autoEnableOutputs>
+        <reuseOutputMode>no</reuseOutputMode>
+        <xwaylandPersistence>no</xwaylandPersistence>
+        <primarySelection>no</primarySelection>
+    </core>
+    <placement>
+        <policy>automatic</policy>
+    </placement>
+    <windowSwitcher preview="yes" outlines="yes" unshade="yes" order="focus">
+        <osd show="yes" style="thumbnail" output="cursor" thumbnailLabelFormat="" />
+    </windowSwitcher>
+    <resistance>
+        <screenEdgeStrength>30</screenEdgeStrength>
+        <windowEdgeStrength>30</windowEdgeStrength>
+        <unSnapThreshold>30</unSnapThreshold>
+        <unMaximizeThreshold>30</unMaximizeThreshold>
+    </resistance>
+    <focus>
+        <followMouse>no</followMouse>
+        <followMouseRequiresMovement>no</followMouseRequiresMovement>
+        <raiseOnFocus>yes</raiseOnFocus>
+    </focus>
+    <snapping>
+        <range>0</range>
+        <cornerRange>0</cornerRange>
+        <topMaximize>no</topMaximize>
+        <overlay enabled="no"></overlay>
+        <notifyClient>always</notifyClient>
+    </snapping>
+    <margin top="0" bottom="0" left="0" right="0" />
+    <resize>
+        <popupShow>Always</popupShow>
+        <drawContents>yes</drawContents>
+        <cornerRange>3</cornerRange>
+        <minimumArea>8</minimumArea>
+    </resize>
+    <keyboard layoutScope="global">
+        <numlock>off</numlock>
+    </keyboard>
+    <mouse>
+        <doubleClickTime>300</doubleClickTime>
+    </mouse>
+    <menu>
+        <ignoreButtonReleasePeriod>250</ignoreButtonReleasePeriod>
+        <showIcons>no</showIcons>
+    </menu>
+</labwc_config>
