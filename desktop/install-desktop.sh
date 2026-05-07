@@ -1,12 +1,6 @@
 #!/bin/bash
 
 sudo apt update
-sudo apt install -y pcmanfm-qt
-mkdir -p ~/.config/pcmanfm-qt/default/
-sudo cp desktop/desktop-wallpaper.png /usr/share/pixmaps/
-cp desktop/settings.conf ~/.config/pcmanfm-qt/default/
-pcmanfm-qt --desktop &
-pcmanfm-qt --set-wallpaper="/usr/share/pixmaps/desktop-wallpaper.png"
 mkdir -p ~/Desktop/
 sudo mkdir -p /usr/share/icons/custom-icon-theme/
 sudo mkdir -p /usr/share/icons/custom-icon-theme/{apps,mimetypes,actions,devices,emblems,places,status}/{16,22,24,32,48,64,128,256,512}
