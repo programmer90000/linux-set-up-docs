@@ -1,18 +1,3 @@
 #!/bin/bash
 
-# Source environment
-source /etc/profile
-source ~/.profile
-source ~/.bashrc
-
-# Set Wayland environment
-export XDG_RUNTIME_DIR="/run/user/$(id -u)"
-export WAYLAND_DISPLAY="wayland-0"
-
-# Wait for compositor
-sleep 1
-
-# Launch desktop background
-pcmanfm-qt --desktop --set-wallpaper="/usr/share/pixmaps/desktop-wallpaper.png" &
-# Launch sfwbar
-sfwbar --config $HOME/.config/sfwbar/sfwbar.config --css $HOME/.config/sfwbar/style.css &
+swaybg -i /usr/share/pixmaps/desktop-wallpaper.png -m fill &

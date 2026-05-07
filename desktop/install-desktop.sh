@@ -1,6 +1,10 @@
 #!/bin/bash
 
 sudo apt update
+sudo apt install swaybg
+sudo cp desktop/desktop-wallpaper.png /usr/share/pixmaps/
+mkdir -p ~/.config/labwc
+cp desktop/labwc/autostart ~/.config/labwc/
 mkdir -p ~/Desktop/
 sudo mkdir -p /usr/share/icons/custom-icon-theme/
 sudo mkdir -p /usr/share/icons/custom-icon-theme/{apps,mimetypes,actions,devices,emblems,places,status}/{16,22,24,32,48,64,128,256,512}
