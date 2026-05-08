@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=ScreenRuler
+Type=Application
+Exec=screenruler
+Icon=screenruler
+Terminal=false
+Categories=Utility;
+StartupNotify=true
+NoDisplay=false
+StartupWMClass=screenruler
