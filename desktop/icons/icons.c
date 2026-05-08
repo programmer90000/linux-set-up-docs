@@ -2,7 +2,9 @@
 #include <gtk-layer-shell/gtk-layer-shell.h>
 #include <gio/gio.h>
 
-static GtkBox *icon_box = NULL;
+static GtkGrid *icon_grid = NULL;
+static GList *all_icons = NULL;
+static int icons_per_column = 5;
 
 static void apply_css_styling(GtkWidget *widget, const char *css) {
     GtkStyleContext *context = gtk_widget_get_style_context(widget);
@@ -43,34 +45,56 @@ static GdkPixbuf* load_icon_for_file(const char *filepath) {
     return pixbuf;
 }
 
-static void add_icon_for_file(GtkBox *box, const char *filepath) {
-    GtkWidget *grid, *image, *label;
+static void on_icon_clicked(GtkWidget *widget, GdkEventButton *event, gpointer user_data) {
+    char *filepath = (char*)user_data;
+    if (filepath && event->button == 1) {
+        GFile *file = g_file_new_for_path(filepath);
+        gchar *uri = g_file_get_uri(file);
+        g_app_info_launch_default_for_uri(uri, NULL, NULL);
+        g_free(uri);
+        g_object_unref(file);
+        g_print("Launched: %s\n", filepath);
+    }
+}
+
+static GtkWidget* create_icon_widget(const char *filepath) {
+    GtkWidget *grid, *image, *label, *event_box;
     GdkPixbuf *pixbuf;
-    char *display_name;
     char *basename;
+    char *display_text;
     
     basename = g_path_get_basename(filepath);
-    display_name = basename;
     pixbuf = load_icon_for_file(filepath);
+    
+    // Truncate long names
+    if (strlen(basename) > 15) {
+        char *temp = g_strndup(basename, 12);
+        display_text = g_strdup_printf("%s...", temp);
+        g_free(temp);
+    } else {
+        display_text = g_strdup(basename);
+    }
     
     grid = gtk_grid_new();
     gtk_grid_set_row_spacing(GTK_GRID(grid), 8);
     
-    gtk_widget_set_size_request(grid, 100, -1);
-    
     image = gtk_image_new_from_pixbuf(pixbuf);
     g_object_unref(pixbuf);
     
-    label = gtk_label_new(display_name);
+    label = gtk_label_new(display_text);
     gtk_label_set_line_wrap(GTK_LABEL(label), TRUE);
-    gtk_label_set_max_width_chars(GTK_LABEL(label), 10);
+    gtk_label_set_max_width_chars(GTK_LABEL(label), 12);
     gtk_label_set_xalign(GTK_LABEL(label), 0.5);
     gtk_label_set_yalign(GTK_LABEL(label), 0.5);
     
     gtk_grid_attach(GTK_GRID(grid), image, 0, 0, 1, 1);
     gtk_grid_attach(GTK_GRID(grid), label, 0, 1, 1, 1);
     
-    g_object_set_data_full(G_OBJECT(grid), "filepath", g_strdup(filepath), g_free);
+    // Wrap in event box to handle clicks
+    event_box = gtk_event_box_new();
+    gtk_container_add(GTK_CONTAINER(event_box), grid);
+    
+    g_signal_connect(event_box, "button-press-event", G_CALLBACK(on_icon_clicked), g_strdup(filepath));
     
     apply_css_styling(grid,
         "grid {"
@@ -93,12 +117,46 @@ static void add_icon_for_file(GtkBox *box, const char *filepath) {
         "}"
     );
     
-    gtk_box_pack_start(box, grid, FALSE, FALSE, 0);
+    gtk_widget_set_size_request(event_box, 110, 100);
     
     g_free(basename);
+    g_free(display_text);
+    
+    return event_box;
 }
 
-static void load_desktop_files(GtkBox *box) {
+static void reload_grid_layout(void) {
+    int total = g_list_length(all_icons);
+    
+    g_print("Reloading grid layout: %d total icons, %d per column\n", total, icons_per_column);
+    
+    // Clear the grid
+    GList *children = gtk_container_get_children(GTK_CONTAINER(icon_grid));
+    for (GList *child = children; child != NULL; child = child->next) {
+        gtk_container_remove(GTK_CONTAINER(icon_grid), GTK_WIDGET(child->data));
+    }
+    g_list_free(children);
+    
+    // Re-add icons with proper column/row positions
+    for (int i = 0; i < total; i++) {
+        int column = i / icons_per_column;
+        int row = i % icons_per_column;
+        
+        GtkWidget *icon = GTK_WIDGET(g_list_nth_data(all_icons, i));
+        gtk_grid_attach(icon_grid, icon, column, row, 1, 1);
+        
+        g_print("  Icon %d: column=%d, row=%d\n", i, column, row);
+    }
+    
+    gtk_widget_show_all(GTK_WIDGET(icon_grid));
+}
+
+static void add_icon(const char *filepath) {
+    GtkWidget *icon = create_icon_widget(filepath);
+    all_icons = g_list_append(all_icons, icon);
+}
+
+static void load_desktop_files(void) {
     const char *desktop_path;
     GDir *dir;
     const char *filename;
@@ -120,27 +178,34 @@ static void load_desktop_files(GtkBox *box) {
     }
     
     while ((filename = g_dir_read_name(dir))) {
-        char *full_path = g_build_filename(desktop_path, filename, NULL);
-        
-        // Skip hidden files
         if (filename[0] != '.') {
-            add_icon_for_file(box, full_path);
+            char *full_path = g_build_filename(desktop_path, filename, NULL);
+            add_icon(full_path);
+            g_print("  Added: %s\n", filename);
+            g_free(full_path);
         }
-        
-        g_free(full_path);
     }
     
     g_dir_close(dir);
-    
-    GList *children = gtk_container_get_children(GTK_CONTAINER(box));
-    g_print("Added %d icons to desktop\n", g_list_length(children));
-    g_list_free(children);
+    g_print("Total icons loaded: %d\n", g_list_length(all_icons));
 }
 
+static void calculate_icons_per_column(GtkWidget *window) {
+    GdkScreen *screen = gtk_widget_get_screen(window);
+    int screen_height = gdk_screen_get_height(screen);
+    
+    int icon_height = 110;
+    int available_height = screen_height - 150;
+    
+    icons_per_column = available_height / icon_height;
+    if (icons_per_column < 1) icons_per_column = 1;
+    if (icons_per_column > 10) icons_per_column = 10;
+    
+    g_print("Screen height: %d, Icons per column: %d\n", screen_height, icons_per_column);
+}
 static void activate(GtkApplication *app, gpointer user_data) {
     GtkWidget *window;
     GtkWidget *scrolled_window;
-    GtkWidget *viewport;
     
     // Create main window
     window = gtk_application_window_new(app);
@@ -148,27 +213,35 @@ static void activate(GtkApplication *app, gpointer user_data) {
     gtk_layer_set_namespace(GTK_WINDOW(window), "desktop-icons");
     gtk_layer_set_layer(GTK_WINDOW(window), GTK_LAYER_SHELL_LAYER_BOTTOM);
     gtk_layer_set_anchor(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_LEFT, TRUE);
+    gtk_layer_set_anchor(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_RIGHT, TRUE);
     gtk_layer_set_anchor(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_TOP, TRUE);
     gtk_layer_set_anchor(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_BOTTOM, TRUE);
     
+    gtk_layer_set_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_LEFT, 20);
+    gtk_layer_set_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_RIGHT, 20);
+    gtk_layer_set_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_TOP, 20);
+    gtk_layer_set_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_BOTTOM, 20);
+    
+    calculate_icons_per_column(window);
+    
     // Create a scrolled window to handle overflow
     scrolled_window = gtk_scrolled_window_new(NULL, NULL);
-    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolled_window), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
+    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(scrolled_window), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
     
-    // Create a viewport to hold the box
-    viewport = gtk_viewport_new(NULL, NULL);
-    gtk_viewport_set_shadow_type(GTK_VIEWPORT(viewport), GTK_SHADOW_NONE);
+    // Create grid for icons
+    icon_grid = GTK_GRID(gtk_grid_new());
+    gtk_grid_set_column_spacing(icon_grid, 20);
+    gtk_grid_set_row_spacing(icon_grid, 15);
     
-    // Create a vertical box to hold icons
-    icon_box = GTK_BOX(gtk_box_new(GTK_ORIENTATION_VERTICAL, 15));
+    load_desktop_files();
     
-    load_desktop_files(icon_box);
+    reload_grid_layout();
     
-    gtk_container_add(GTK_CONTAINER(viewport), GTK_WIDGET(icon_box));
-    gtk_container_add(GTK_CONTAINER(scrolled_window), viewport);
+    gtk_container_add(GTK_CONTAINER(scrolled_window), GTK_WIDGET(icon_grid));
     gtk_container_add(GTK_CONTAINER(window), scrolled_window);
     
-    gtk_window_set_default_size(GTK_WINDOW(window), 140, -1);
+    gtk_window_set_default_size(GTK_WINDOW(window), -1, -1);
+    gtk_widget_set_size_request(window, -1, -1);
     
     apply_css_styling(window,
         "window {"
@@ -183,22 +256,23 @@ static void activate(GtkApplication *app, gpointer user_data) {
         "scrolledwindow {"
             "background-color: transparent;"
         "}"
-    );
-    
-    apply_css_styling(viewport,
-        "viewport {"
+        "scrolledwindow.viewport {"
             "background-color: transparent;"
         "}"
     );
     
-    // Debug: Give the vertical box a visible background
-    apply_css_styling(GTK_WIDGET(icon_box),
-        "box {"
+    // Debug: Show grid background
+    apply_css_styling(GTK_WIDGET(icon_grid),
+        "grid {"
             "background-color: rgba(255, 0, 0, 0.2);"
         "}"
     );
     
     gtk_widget_show_all(window);
+    
+    gint width, height;
+    gtk_window_get_size(GTK_WINDOW(window), &width, &height);
+    g_print("Window size after show: %dx%d\n", width, height);
 }
 
 int main(int argc, char **argv) {
@@ -209,6 +283,12 @@ int main(int argc, char **argv) {
     g_signal_connect(app, "activate", G_CALLBACK(activate), NULL);
     
     status = g_application_run(G_APPLICATION(app), argc, argv);
+    
+    for (GList *l = all_icons; l != NULL; l = l->next) {
+        gtk_widget_destroy(GTK_WIDGET(l->data));
+    }
+    g_list_free(all_icons);
+    
     g_object_unref(app);
     
     return status;
