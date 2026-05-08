@@ -107,6 +107,12 @@ static char* create_display_text(const char *filepath) {
     char *basename = g_path_get_basename(filepath);
     char *display_text;
     
+    // Remove .desktop extension for display
+    char *dot_desktop = strstr(basename, ".desktop");
+    if (dot_desktop) {
+        *dot_desktop = '\0';
+    }
+    
     if (strlen(basename) > MAX_LABEL_LEN) {
         char *temp = g_strndup(basename, WRAPPED_LABEL_LEN);
         display_text = g_strdup_printf("%s...", temp);
