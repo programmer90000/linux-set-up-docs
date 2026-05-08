@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Shotcut
+Type=Application
+Exec=shotcut
+Icon=shotcut
+Terminal=false
+Categories=AudioVideo;VideoEditor;
+StartupNotify=true
+NoDisplay=false
+StartupWMClass=org.shotcut.Shotcut
+Path=
