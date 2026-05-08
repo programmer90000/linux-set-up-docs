@@ -1,5 +1,5 @@
 all:
-	gcc -o icons icons.c `pkg-config --cflags --libs gtk+-3.0 gtk-layer-shell-0 gio-unix-2.0`
+	gcc -o icons icons.c `pkg-config --cflags --libs gtk+-3.0 gtk-layer-shell-0 gio-unix-2.0 cairo`
 install:
 	install -Dm755 icons /usr/local/bin/icons
 uninstall:

@@ -3,6 +3,7 @@
 #include <gio/gio.h>
 #include <gio/gdesktopappinfo.h>
 #include <glib.h>
+#include <cairo.h>
 
 static GtkGrid *icon_grid = NULL;
 static GList *all_icons = NULL;
@@ -19,6 +20,58 @@ static void apply_css_styling(GtkWidget *widget, const char *css) {
 
 static GdkPixbuf* load_icon_for_file(const char *filepath) {
     GdkPixbuf *pixbuf = NULL;
+    
+    if (g_str_has_suffix(filepath, ".desktop")) {
+        char *contents;
+        GError *error = NULL;
+        
+        if (g_file_get_contents(filepath, &contents, NULL, &error)) {
+            char **lines = g_strsplit(contents, "\n", -1);
+            
+            for (int i = 0; lines[i]; i++) {
+                if (g_str_has_prefix(lines[i], "Icon=")) {
+                    char *icon_value = lines[i] + 5;
+                    
+                    // Trim whitespace
+                    while (g_ascii_isspace(*icon_value)) icon_value++;
+                    char *end = icon_value + strlen(icon_value) - 1;
+                    while (end > icon_value && g_ascii_isspace(*end)) *end-- = '\0';
+                    
+                    if (strlen(icon_value) > 0) {
+                        // Check if it's a file path (contains '/' or ends with .png/.svg/.xpm)
+                        if (strchr(icon_value, '/') || g_str_has_suffix(icon_value, ".png") || g_str_has_suffix(icon_value, ".svg") || g_str_has_suffix(icon_value, ".xpm")) {
+                            // It's a file path - load directly
+                            if (g_file_test(icon_value, G_FILE_TEST_EXISTS)) {
+                                pixbuf = gdk_pixbuf_new_from_file_at_size(icon_value, 48, 48, NULL);
+                                if (pixbuf) {
+                                    g_print("Loaded icon from path: %s\n", icon_value);
+                                }
+                            }
+                        } else {
+                            // It's an icon name - look up in theme
+                            GtkIconTheme *theme = gtk_icon_theme_get_default();
+                            GtkIconInfo *icon_info = gtk_icon_theme_lookup_icon(theme, icon_value, 48, GTK_ICON_LOOKUP_FORCE_SIZE);
+                            if (icon_info) {
+                                pixbuf = gtk_icon_info_load_icon(icon_info, NULL);
+                                g_object_unref(icon_info);
+                                if (pixbuf) {
+                                    g_print("Loaded icon from theme: %s\n", icon_value);
+                                }
+                            }
+                        }
+                    }
+                    break;
+                }
+            }
+            
+            g_strfreev(lines);
+            g_free(contents);
+        }
+        
+        if (error) g_error_free(error);
+        if (pixbuf) return pixbuf;
+    }
+    
     GFile *file = g_file_new_for_path(filepath);
     GFileInfo *info = g_file_query_info(file, "standard::icon", G_FILE_QUERY_INFO_NONE, NULL, NULL);
     GIcon *gicon = NULL;
