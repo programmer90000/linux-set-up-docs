@@ -6,9 +6,14 @@ sudo cp desktop/desktop-wallpaper.png /usr/share/pixmaps/
 mkdir -p ~/.config/labwc
 cp desktop/labwc/autostart ~/.config/labwc/
 swaybg -i /usr/share/pixmaps/desktop-wallpaper.png -m fill &
+sudo apt install -y build-essential libgtk-3-dev libgtk-layer-shell-dev gedit
+cd desktop/icons/
+make
+sudo make install
 mkdir -p ~/Desktop/
 sudo mkdir -p /usr/share/icons/custom-icon-theme/
 sudo mkdir -p /usr/share/icons/custom-icon-theme/{apps,mimetypes,actions,devices,emblems,places,status}/{16,22,24,32,48,64,128,256,512}
+cd ../../
 sudo cp desktop/index.theme /usr/share/icons/custom-icon-theme/index.theme
 sudo apt install -y build-essential cmake meson ninja-build pkg-config libgtk-3-dev libgdk-pixbuf-2.0-dev libcairo2-dev libglib2.0-dev libwayland-dev libgtk-layer-shell-dev libxkbregistry-dev
 cd desktop/app-launcher/
