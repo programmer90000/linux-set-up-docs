@@ -2,7 +2,7 @@
 Name=Zoom Workplace
 Type=Application
 Exec=/usr/bin/zoom %U
-Icon=Zoom
+Icon=/usr/share/pixmaps/application-x-zoom.png
 Terminal=false
 Categories=Network;InstantMessaging;VideoConference;Telephony;
 StartupNotify=true
