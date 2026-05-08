@@ -210,10 +210,34 @@ static gboolean on_icon_double_click(GtkWidget *widget, GdkEventButton *event, g
     if (g_str_has_suffix(filepath, ".desktop")) {
         GDesktopAppInfo *app_info = g_desktop_app_info_new_from_filename(filepath);
         if (app_info) {
+        const char *exec_path = g_app_info_get_executable(G_APP_INFO(app_info));
+        
+        char *command_line = g_strdup(g_app_info_get_commandline(G_APP_INFO(app_info)));
+        
+        char **argv = NULL;
+        int argc = 0;
+        if (g_shell_parse_argv(command_line, &argc, &argv, &error)) {
+            char **new_argv = g_new(char*, argc + 3);
+            new_argv[0] = g_strdup(argv[0]);  // executable path
+            
+            for (int i = 1; i < argc; i++) {
+                new_argv[i+2] = g_strdup(argv[i]);
+            }
+            new_argv[argc+2] = NULL;
+            
+            launched = g_spawn_async(NULL, new_argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, &error);
+            
+            for (int i = 0; new_argv[i]; i++) g_free(new_argv[i]);
+            g_free(new_argv);
+            g_strfreev(argv);
+        } else {
             GAppLaunchContext *context = g_app_launch_context_new();
             launched = g_app_info_launch(G_APP_INFO(app_info), NULL, context, &error);
             g_object_unref(context);
-            g_object_unref(app_info);
+        }
+        
+        g_free(command_line);
+        g_object_unref(app_info);
         }
     }
     
