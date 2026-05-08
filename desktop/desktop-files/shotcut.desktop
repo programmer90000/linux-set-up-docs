@@ -2,7 +2,7 @@
 Name=Shotcut
 Type=Application
 Exec=shotcut
-Icon=shotcut
+Icon=org.shotcut.Shotcut
 Terminal=false
 Categories=AudioVideo;VideoEditor;
 StartupNotify=true
