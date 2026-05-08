@@ -2,7 +2,7 @@
 Name=HardInfo2
 Type=Application
 Exec=hardinfo2
-Icon=hardinfo
+Icon=hardinfo2
 Terminal=false
 Categories=System;HardwareSettings;
 StartupNotify=true
