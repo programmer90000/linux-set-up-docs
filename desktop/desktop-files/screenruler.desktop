@@ -2,7 +2,7 @@
 Name=ScreenRuler
 Type=Application
 Exec=screenruler
-Icon=screenruler
+Icon=/usr/share/screenruler/screenruler-icon-64x64.png
 Terminal=false
 Categories=Utility;
 StartupNotify=true
