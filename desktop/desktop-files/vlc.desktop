@@ -7,5 +7,5 @@ Terminal=false
 Categories=AudioVideo;
 StartupNotify=true
 NoDisplay=false
-StartupWMClass=org.shotcut.Shotcut
+StartupWMClass=vlc
 Path=
