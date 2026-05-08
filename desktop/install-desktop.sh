@@ -13,6 +13,7 @@ sudo make install
 icons &
 mkdir -p ~/Desktop/
 cd ../../
+cp desktop/desktop-files/* ~/Desktop/
 sudo apt install -y build-essential cmake meson ninja-build pkg-config libgtk-3-dev libgdk-pixbuf-2.0-dev libcairo2-dev libglib2.0-dev libwayland-dev libgtk-layer-shell-dev libxkbregistry-dev
 cd desktop/app-launcher/
 meson setup builddir -Dbuildtype=release
