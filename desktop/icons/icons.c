@@ -1,6 +1,8 @@
 #include <gtk/gtk.h>
 #include <gtk-layer-shell/gtk-layer-shell.h>
 #include <gio/gio.h>
+#include <gio/gdesktopappinfo.h>
+#include <glib.h>
 
 static GtkGrid *icon_grid = NULL;
 static GList *all_icons = NULL;
@@ -47,14 +49,108 @@ static GdkPixbuf* load_icon_for_file(const char *filepath) {
 
 static void on_icon_clicked(GtkWidget *widget, GdkEventButton *event, gpointer user_data) {
     char *filepath = (char*)user_data;
-    if (filepath && event->button == 1) {
-        GFile *file = g_file_new_for_path(filepath);
-        gchar *uri = g_file_get_uri(file);
-        g_app_info_launch_default_for_uri(uri, NULL, NULL);
+    if (!filepath || event->button != 1) {
+        return;
+    }
+    
+    g_print("Launching: %s\n", filepath);
+    
+    GFile *file = g_file_new_for_path(filepath);
+    gchar *uri = g_file_get_uri(file);
+    GError *error = NULL;
+    gboolean launched = FALSE;
+    
+    if (!g_file_query_exists(file, NULL)) {
+        g_print("Error: File does not exist: %s\n", filepath);
         g_free(uri);
         g_object_unref(file);
-        g_print("Launched: %s\n", filepath);
+        return;
     }
+    
+    GFileInfo *file_info = g_file_query_info(file, "standard::content-type", G_FILE_QUERY_INFO_NONE, NULL, &error);
+    
+    if (!file_info) {
+        g_print("Warning: Could not get file info: %s\n", error ? error->message : "Unknown error");
+        if (error) g_error_free(error);
+        error = NULL;
+    } else {
+        const char *content_type = g_file_info_get_content_type(file_info);
+        g_print("Content type: %s\n", content_type ? content_type : "unknown");
+        g_object_unref(file_info);
+    }
+    
+    if (g_str_has_suffix(filepath, ".desktop")) {
+        GDesktopAppInfo *app_info = g_desktop_app_info_new_from_filename(filepath);
+        
+        if (app_info) {
+            GAppLaunchContext *context = g_app_launch_context_new();
+            launched = g_app_info_launch(G_APP_INFO(app_info), NULL, context, &error);
+            g_object_unref(context);
+            g_object_unref(app_info);
+            
+            if (launched) {
+                g_print("Successfully launched .desktop file\n");
+            } else if (error) {
+                g_print("Failed to launch .desktop file: %s\n", error->message);
+                g_error_free(error);
+                error = NULL;
+            }
+        } else {
+            g_print("Failed to load .desktop file (might not be a valid .desktop file)\n");
+        }
+    }
+    
+    // For regular files, try various launch methods
+    if (!launched) {
+        g_print("Trying g_app_info_launch_default_for_uri...\n");
+        launched = g_app_info_launch_default_for_uri(uri, NULL, &error);
+        
+        if (error) {
+            g_print("Failed: %s\n", error->message);
+            g_error_free(error);
+            error = NULL;
+        } else if (launched) {
+            g_print("Success!\n");
+        }
+    }
+    
+    if (!launched) {
+        GAppInfo *app_info = g_app_info_get_default_for_uri_scheme("file");
+        if (app_info) {
+            GList *files = NULL;
+            files = g_list_append(files, file);
+            launched = g_app_info_launch(app_info, files, NULL, &error);
+            g_list_free(files);
+            g_object_unref(app_info);
+            
+            if (launched) {
+                g_print("Successfully launched via file scheme handler\n");
+            } else if (error) {
+                g_print("File scheme handler failed: %s\n", error->message);
+                g_error_free(error);
+                error = NULL;
+            }
+        }
+    }
+    
+    if (!launched) {
+        const char *argv[] = {"xdg-open", filepath, NULL};
+        launched = g_spawn_async(NULL, (char**)argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, &error);
+        
+        if (launched) {
+            g_print("Successfully launched via xdg-open\n");
+        } else if (error) {
+            g_print("xdg-open failed: %s\n", error->message);
+            g_error_free(error);
+        }
+    }
+    
+    if (!launched) {
+        g_print("All launch methods failed for: %s\n", filepath);
+    }
+    
+    g_free(uri);
+    g_object_unref(file);
 }
 
 static GtkWidget* create_icon_widget(const char *filepath) {
