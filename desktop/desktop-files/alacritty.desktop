@@ -2,7 +2,7 @@
 Name=Alacritty
 Type=Application
 Exec=alacritty
-Icon=alacritty
+Icon=Alacritty
 Terminal=false
 Categories=System;TerminalEmulator;
 StartupNotify=true
