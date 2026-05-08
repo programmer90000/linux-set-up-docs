@@ -280,7 +280,7 @@ static void calculate_icons_per_column(DesktopIcons *desktop, GtkWidget *window)
     int screen_height = gdk_screen_get_height(screen);
     int available_height = screen_height - (2 * WINDOW_MARGIN);
     
-    desktop->icons_per_column = available_height / ICON_HEIGHT;
+    desktop->icons_per_column = (available_height + GRID_ROW_SPACING) / (ICON_HEIGHT + GRID_ROW_SPACING);
     if (desktop->icons_per_column < 1) desktop->icons_per_column = 1;
 }
 
