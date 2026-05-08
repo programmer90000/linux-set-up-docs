@@ -5,5 +5,8 @@ install:
 	sudo cp icons /usr/local/bin/
 	sudo chmod 755 /usr/local/bin/icons
 
+clean:
+	rm -f icons
+
 uninstall:
 	sudo rm -f /usr/local/bin/icons
