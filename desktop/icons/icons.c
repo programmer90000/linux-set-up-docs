@@ -25,7 +25,7 @@ typedef struct {
 // Function prototypes
 static GdkPixbuf* load_icon_for_file(const char *filepath);
 static GtkWidget* create_icon_widget(const char *filepath);
-static void on_icon_clicked(GtkWidget *widget, GdkEventButton *event, gpointer user_data);
+static gboolean on_icon_double_click(GtkWidget *widget, GdkEventButton *event, gpointer user_data);
 static void apply_css_styling(GtkWidget *widget, const char *css);
 static void reload_grid_layout(DesktopIcons *desktop);
 static void add_icon(DesktopIcons *desktop, const char *filepath);
@@ -150,10 +150,17 @@ static GtkWidget* create_icon_widget(const char *filepath) {
     gtk_grid_attach(GTK_GRID(grid), image, 0, 0, 1, 1);
     gtk_grid_attach(GTK_GRID(grid), label, 0, 1, 1, 1);
     
-    // Make it clickable
+    // Make it clickable with double-click
     GtkWidget *event_box = gtk_event_box_new();
     gtk_container_add(GTK_CONTAINER(event_box), grid);
-    g_signal_connect(event_box, "button-press-event", G_CALLBACK(on_icon_clicked), g_strdup(filepath));
+    
+    // Store filepath in the widget
+    g_object_set_data_full(G_OBJECT(event_box), "filepath", 
+                          g_strdup(filepath), g_free);
+    
+    // Connect double-click event
+    g_signal_connect(event_box, "button-press-event", 
+                     G_CALLBACK(on_icon_double_click), NULL);
     
     apply_css_styling(grid,
         "grid {"
@@ -179,17 +186,18 @@ static GtkWidget* create_icon_widget(const char *filepath) {
     return event_box;
 }
 
-static void on_icon_clicked(GtkWidget *widget, GdkEventButton *event, gpointer user_data) {
-    char *filepath = (char*)user_data;
+static gboolean on_icon_double_click(GtkWidget *widget, GdkEventButton *event, gpointer user_data) {
+    // Only trigger on double-click
+    if (event->type != GDK_2BUTTON_PRESS || event->button != 1) {
+        return FALSE;
+    }
     
-    // Return if not left-click
-    if (event->button != 1) return;
+    char *filepath = g_object_get_data(G_OBJECT(widget), "filepath");
+    if (!filepath) {
+        return FALSE;
+    }
     
-    // Make a local copy, but DON'T free the original here
-    // The original will be freed when the widget is destroyed
-    char *path_to_launch = g_strdup(filepath);
-    
-    GFile *file = g_file_new_for_path(path_to_launch);
+    GFile *file = g_file_new_for_path(filepath);
     gchar *uri = g_file_get_uri(file);
     GError *error = NULL;
     gboolean launched = FALSE;
@@ -199,8 +207,8 @@ static void on_icon_clicked(GtkWidget *widget, GdkEventButton *event, gpointer u
     }
     
     // Try launching .desktop file
-    if (g_str_has_suffix(path_to_launch, ".desktop")) {
-        GDesktopAppInfo *app_info = g_desktop_app_info_new_from_filename(path_to_launch);
+    if (g_str_has_suffix(filepath, ".desktop")) {
+        GDesktopAppInfo *app_info = g_desktop_app_info_new_from_filename(filepath);
         if (app_info) {
             GAppLaunchContext *context = g_app_launch_context_new();
             launched = g_app_info_launch(G_APP_INFO(app_info), NULL, context, &error);
@@ -216,20 +224,20 @@ static void on_icon_clicked(GtkWidget *widget, GdkEventButton *event, gpointer u
     
     // Fallback to xdg-open
     if (!launched) {
-        const char *argv[] = {"xdg-open", path_to_launch, NULL};
+        const char *argv[] = {"xdg-open", filepath, NULL};
         launched = g_spawn_async(NULL, (char**)argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, &error);
     }
     
     if (error) {
-        g_warning("Failed to launch %s: %s", path_to_launch, error->message);
+        g_warning("Failed to launch %s: %s", filepath, error->message);
         g_error_free(error);
     }
     
 cleanup:
     g_free(uri);
     g_object_unref(file);
-    g_free(path_to_launch);
-    // Do NOT free filepath here!
+    
+    return TRUE;
 }
 
 static void reload_grid_layout(DesktopIcons *desktop) {
