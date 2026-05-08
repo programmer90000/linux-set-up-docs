@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=GPRename
+Type=Application
+Exec=gprename
+Icon=gprename
+Terminal=false
+Categories=Utility;FileTools;
+StartupNotify=true
+NoDisplay=false
+StartupWMClass=Gprename
