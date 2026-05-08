@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=GIMP
+Type=Application
+Exec=gimp
+Icon=gimp
+Terminal=false
+Categories=Graphics;2DGraphics;RasterGraphics;
+StartupNotify=true
+NoDisplay=false
+StartupWMClass=GIMP
+Path=
