@@ -176,9 +176,14 @@ static GtkWidget* create_icon_widget(const char *filepath) {
 static void on_icon_clicked(GtkWidget *widget, GdkEventButton *event, gpointer user_data) {
     char *filepath = (char*)user_data;
     
-    if (!filepath || event->button != 1) return;
+    // Return if not left-click
+    if (event->button != 1) return;
     
-    GFile *file = g_file_new_for_path(filepath);
+    // Make a local copy, but DON'T free the original here
+    // The original will be freed when the widget is destroyed
+    char *path_to_launch = g_strdup(filepath);
+    
+    GFile *file = g_file_new_for_path(path_to_launch);
     gchar *uri = g_file_get_uri(file);
     GError *error = NULL;
     gboolean launched = FALSE;
@@ -188,8 +193,8 @@ static void on_icon_clicked(GtkWidget *widget, GdkEventButton *event, gpointer u
     }
     
     // Try launching .desktop file
-    if (g_str_has_suffix(filepath, ".desktop")) {
-        GDesktopAppInfo *app_info = g_desktop_app_info_new_from_filename(filepath);
+    if (g_str_has_suffix(path_to_launch, ".desktop")) {
+        GDesktopAppInfo *app_info = g_desktop_app_info_new_from_filename(path_to_launch);
         if (app_info) {
             GAppLaunchContext *context = g_app_launch_context_new();
             launched = g_app_info_launch(G_APP_INFO(app_info), NULL, context, &error);
@@ -205,19 +210,20 @@ static void on_icon_clicked(GtkWidget *widget, GdkEventButton *event, gpointer u
     
     // Fallback to xdg-open
     if (!launched) {
-        const char *argv[] = {"xdg-open", filepath, NULL};
+        const char *argv[] = {"xdg-open", path_to_launch, NULL};
         launched = g_spawn_async(NULL, (char**)argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, &error);
     }
     
     if (error) {
-        g_warning("Failed to launch %s: %s", filepath, error->message);
+        g_warning("Failed to launch %s: %s", path_to_launch, error->message);
         g_error_free(error);
     }
     
 cleanup:
     g_free(uri);
     g_object_unref(file);
-    g_free(filepath);
+    g_free(path_to_launch);
+    // Do NOT free filepath here!
 }
 
 static void reload_grid_layout(DesktopIcons *desktop) {
