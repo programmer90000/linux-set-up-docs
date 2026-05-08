@@ -10,6 +10,7 @@ sudo apt install -y build-essential libgtk-3-dev libgtk-layer-shell-dev gedit
 cd desktop/icons/
 make
 sudo make install
+icons &
 mkdir -p ~/Desktop/
 sudo mkdir -p /usr/share/icons/custom-icon-theme/
 sudo mkdir -p /usr/share/icons/custom-icon-theme/{apps,mimetypes,actions,devices,emblems,places,status}/{16,22,24,32,48,64,128,256,512}
