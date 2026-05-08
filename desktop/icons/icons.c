@@ -53,30 +53,15 @@ static void on_icon_clicked(GtkWidget *widget, GdkEventButton *event, gpointer u
         return;
     }
     
-    g_print("Launching: %s\n", filepath);
-    
     GFile *file = g_file_new_for_path(filepath);
     gchar *uri = g_file_get_uri(file);
     GError *error = NULL;
     gboolean launched = FALSE;
     
     if (!g_file_query_exists(file, NULL)) {
-        g_print("Error: File does not exist: %s\n", filepath);
         g_free(uri);
         g_object_unref(file);
         return;
-    }
-    
-    GFileInfo *file_info = g_file_query_info(file, "standard::content-type", G_FILE_QUERY_INFO_NONE, NULL, &error);
-    
-    if (!file_info) {
-        g_print("Warning: Could not get file info: %s\n", error ? error->message : "Unknown error");
-        if (error) g_error_free(error);
-        error = NULL;
-    } else {
-        const char *content_type = g_file_info_get_content_type(file_info);
-        g_print("Content type: %s\n", content_type ? content_type : "unknown");
-        g_object_unref(file_info);
     }
     
     if (g_str_has_suffix(filepath, ".desktop")) {
@@ -87,66 +72,21 @@ static void on_icon_clicked(GtkWidget *widget, GdkEventButton *event, gpointer u
             launched = g_app_info_launch(G_APP_INFO(app_info), NULL, context, &error);
             g_object_unref(context);
             g_object_unref(app_info);
-            
-            if (launched) {
-                g_print("Successfully launched .desktop file\n");
-            } else if (error) {
-                g_print("Failed to launch .desktop file: %s\n", error->message);
-                g_error_free(error);
-                error = NULL;
-            }
-        } else {
-            g_print("Failed to load .desktop file (might not be a valid .desktop file)\n");
         }
     }
     
     // For regular files, try various launch methods
     if (!launched) {
-        g_print("Trying g_app_info_launch_default_for_uri...\n");
         launched = g_app_info_launch_default_for_uri(uri, NULL, &error);
-        
-        if (error) {
-            g_print("Failed: %s\n", error->message);
-            g_error_free(error);
-            error = NULL;
-        } else if (launched) {
-            g_print("Success!\n");
-        }
-    }
-    
-    if (!launched) {
-        GAppInfo *app_info = g_app_info_get_default_for_uri_scheme("file");
-        if (app_info) {
-            GList *files = NULL;
-            files = g_list_append(files, file);
-            launched = g_app_info_launch(app_info, files, NULL, &error);
-            g_list_free(files);
-            g_object_unref(app_info);
-            
-            if (launched) {
-                g_print("Successfully launched via file scheme handler\n");
-            } else if (error) {
-                g_print("File scheme handler failed: %s\n", error->message);
-                g_error_free(error);
-                error = NULL;
-            }
-        }
     }
     
     if (!launched) {
         const char *argv[] = {"xdg-open", filepath, NULL};
         launched = g_spawn_async(NULL, (char**)argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, &error);
-        
-        if (launched) {
-            g_print("Successfully launched via xdg-open\n");
-        } else if (error) {
-            g_print("xdg-open failed: %s\n", error->message);
-            g_error_free(error);
-        }
     }
     
-    if (!launched) {
-        g_print("All launch methods failed for: %s\n", filepath);
+    if (error) {
+        g_error_free(error);
     }
     
     g_free(uri);
@@ -194,13 +134,12 @@ static GtkWidget* create_icon_widget(const char *filepath) {
     
     apply_css_styling(grid,
         "grid {"
-            "background-color: rgba(0, 100, 200, 0.3);"
-            "border: 1px solid blue;"
-            "padding: 5px;"
-            "margin: 5px;"
+            "background-color: transparent; "
+            "padding: 8px;"
+            "border-radius: 5px;"
         "}"
         "grid:hover {"
-            "background-color: rgba(0, 100, 200, 0.6);"
+            "background-color: rgba(255, 255, 255, 0.1);"
         "}"
     );
     
@@ -208,7 +147,7 @@ static GtkWidget* create_icon_widget(const char *filepath) {
         "label {"
             "color: white;"
             "text-shadow: 1px 1px 2px black;"
-            "font-size: 12px;"
+            "font-size: 11px;"
             "font-weight: bold;"
         "}"
     );
@@ -224,8 +163,6 @@ static GtkWidget* create_icon_widget(const char *filepath) {
 static void reload_grid_layout(void) {
     int total = g_list_length(all_icons);
     
-    g_print("Reloading grid layout: %d total icons, %d per column\n", total, icons_per_column);
-    
     // Clear the grid
     GList *children = gtk_container_get_children(GTK_CONTAINER(icon_grid));
     for (GList *child = children; child != NULL; child = child->next) {
@@ -240,8 +177,6 @@ static void reload_grid_layout(void) {
         
         GtkWidget *icon = GTK_WIDGET(g_list_nth_data(all_icons, i));
         gtk_grid_attach(icon_grid, icon, column, row, 1, 1);
-        
-        g_print("  Icon %d: column=%d, row=%d\n", i, column, row);
     }
     
     gtk_widget_show_all(GTK_WIDGET(icon_grid));
@@ -264,8 +199,6 @@ static void load_desktop_files(void) {
         return;
     }
     
-    g_print("Loading desktop files from: %s\n", desktop_path);
-    
     dir = g_dir_open(desktop_path, 0, &error);
     if (!dir) {
         g_warning("Failed to open desktop directory: %s", error->message);
@@ -277,13 +210,11 @@ static void load_desktop_files(void) {
         if (filename[0] != '.') {
             char *full_path = g_build_filename(desktop_path, filename, NULL);
             add_icon(full_path);
-            g_print("  Added: %s\n", filename);
             g_free(full_path);
         }
     }
     
     g_dir_close(dir);
-    g_print("Total icons loaded: %d\n", g_list_length(all_icons));
 }
 
 static void calculate_icons_per_column(GtkWidget *window) {
@@ -291,14 +222,12 @@ static void calculate_icons_per_column(GtkWidget *window) {
     int screen_height = gdk_screen_get_height(screen);
     
     int icon_height = 110;
-    int available_height = screen_height - 150;
+    int available_height = screen_height - 40;
     
     icons_per_column = available_height / icon_height;
     if (icons_per_column < 1) icons_per_column = 1;
-    if (icons_per_column > 10) icons_per_column = 10;
-    
-    g_print("Screen height: %d, Icons per column: %d\n", screen_height, icons_per_column);
 }
+
 static void activate(GtkApplication *app, gpointer user_data) {
     GtkWidget *window;
     GtkWidget *scrolled_window;
@@ -308,6 +237,7 @@ static void activate(GtkApplication *app, gpointer user_data) {
     gtk_layer_init_for_window(GTK_WINDOW(window));
     gtk_layer_set_namespace(GTK_WINDOW(window), "desktop-icons");
     gtk_layer_set_layer(GTK_WINDOW(window), GTK_LAYER_SHELL_LAYER_BOTTOM);
+    
     gtk_layer_set_anchor(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_LEFT, TRUE);
     gtk_layer_set_anchor(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_RIGHT, TRUE);
     gtk_layer_set_anchor(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_TOP, TRUE);
@@ -330,7 +260,6 @@ static void activate(GtkApplication *app, gpointer user_data) {
     gtk_grid_set_row_spacing(icon_grid, 15);
     
     load_desktop_files();
-    
     reload_grid_layout();
     
     gtk_container_add(GTK_CONTAINER(scrolled_window), GTK_WIDGET(icon_grid));
@@ -357,18 +286,7 @@ static void activate(GtkApplication *app, gpointer user_data) {
         "}"
     );
     
-    // Debug: Show grid background
-    apply_css_styling(GTK_WIDGET(icon_grid),
-        "grid {"
-            "background-color: rgba(255, 0, 0, 0.2);"
-        "}"
-    );
-    
     gtk_widget_show_all(window);
-    
-    gint width, height;
-    gtk_window_get_size(GTK_WINDOW(window), &width, &height);
-    g_print("Window size after show: %dx%d\n", width, height);
 }
 
 int main(int argc, char **argv) {
