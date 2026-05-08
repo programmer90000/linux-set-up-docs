@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Alacritty
+Type=Application
+Exec=alacritty
+Icon=alacritty
+Terminal=false
+Categories=System;TerminalEmulator;
+StartupNotify=true
+NoDisplay=false
+StartupWMClass=Alacritty
