@@ -13,12 +13,12 @@ sudo make install
 mkdir -p ~/Desktop/
 cd ../../
 cp desktop/desktop-files/brave-browser.desktop ~/Desktop/
-cp desktop/thunderbird.desktop ~/Desktop/
-cp desktop/alacritty.desktop ~/Desktop/
-cp desktop/shotcut.desktop ~/Desktop/
-cp desktop/vlc.desktop ~/Desktop/
-cp desktop/gimp.desktop ~/Desktop/
-cp desktop/hard-info-2.desktop ~/Desktop/
+cp desktop/desktop-files/thunderbird.desktop ~/Desktop/
+cp desktop/desktop-files/alacritty.desktop ~/Desktop/
+cp desktop/desktop-files/shotcut.desktop ~/Desktop/
+cp desktop/desktop-files/vlc.desktop ~/Desktop/
+cp desktop/desktop-files/gimp.desktop ~/Desktop/
+cp desktop/desktop-files/hard-info-2.desktop ~/Desktop/
 mkdir -p ~/.config/desktop-icons/
 cp desktop/icons/order.conf ~/.config/desktop-icons/
 mkdir -p ~/.config/desktop-files/
