@@ -21,6 +21,7 @@ cp desktop/desktop-files/gimp.desktop ~/Desktop/
 cp desktop/desktop-files/hard-info-2.desktop ~/Desktop/
 mkdir -p ~/.config/desktop-icons/
 cp desktop/icons/order.conf ~/.config/desktop-icons/
+cp desktop/icons/config.conf ~/.config/desktop-icons/
 mkdir -p ~/.config/desktop-files/
 cp desktop/desktop-files/* ~/.config/desktop-files/
 icons &

@@ -4,6 +4,7 @@
 #include <gio/gdesktopappinfo.h>
 #include <glib.h>
 #include <string.h>
+#include <stdlib.h>
 
 // Constants
 #define ICON_SIZE 48
@@ -16,6 +17,7 @@
 #define WINDOW_MARGIN 20
 #define CONFIG_DIR "desktop-icons"
 #define ORDER_FILE "order.conf"
+#define CONFIG_FILE "config.conf"
 
 // Type definitions
 typedef struct {
@@ -25,6 +27,10 @@ typedef struct {
     int icons_per_column;
 } DesktopIcons;
 
+typedef struct {
+    int bottom_reserved;
+} DesktopConfig;
+
 // Function prototypes
 static GdkPixbuf* load_icon_for_file(const char *filepath);
 static GtkWidget* create_icon_widget(const char *filepath);
@@ -33,12 +39,67 @@ static void apply_css_styling(GtkWidget *widget, const char *css);
 static void reload_grid_layout(DesktopIcons *desktop);
 static void add_icon(DesktopIcons *desktop, const char *filepath);
 static void load_desktop_files(DesktopIcons *desktop);
-static void calculate_icons_per_column(DesktopIcons *desktop, GtkWidget *window);
-static void setup_layer_shell_window(GtkWidget *window);
+static void calculate_icons_per_column(DesktopIcons *desktop, GtkWidget *window, DesktopConfig *config);
+static void setup_layer_shell_window(GtkWidget *window, DesktopConfig *config);
 static void cleanup(DesktopIcons *desktop);
+static void cleanup_config(DesktopConfig *config);
 static GList* load_icon_order(void);
 static void save_icon_order(GList *ordered_files);
 static GList* get_ordered_icon_list(const char *desktop_path, GList *order_list);
+static DesktopConfig* load_configuration(void);
+
+static DesktopConfig* load_configuration(void) {
+    DesktopConfig *config = g_new0(DesktopConfig, 1);
+    
+    // Default to no reserved space
+    config->bottom_reserved = 0;
+    
+    char *config_dir = g_build_filename(g_get_user_config_dir(), CONFIG_DIR, NULL);
+    char *config_path = g_build_filename(config_dir, CONFIG_FILE, NULL);
+    
+    if (!g_file_test(config_path, G_FILE_TEST_EXISTS)) {
+        g_free(config_dir);
+        g_free(config_path);
+        return config;
+    }
+    
+    GError *error = NULL;
+    char *contents = NULL;
+    
+    if (!g_file_get_contents(config_path, &contents, NULL, &error)) {
+        g_warning("Failed to read config: %s", error->message);
+        g_error_free(error);
+        g_free(config_dir);
+        g_free(config_path);
+        return config;
+    }
+    
+    // Parse line by line
+    char **lines = g_strsplit(contents, "\n", -1);
+    for (int i = 0; lines[i]; i++) {
+        char *line = g_strstrip(lines[i]);
+        
+        if (strlen(line) == 0 || line[0] == '#')
+            continue;
+        
+        char **parts = g_strsplit(line, "=", 2);
+        if (g_strv_length(parts) == 2) {
+            char *key = g_strstrip(parts[0]);
+            char *value = g_strstrip(parts[1]);
+            
+            if (g_strcmp0(key, "bottom_reserved") == 0)
+                config->bottom_reserved = atoi(value);
+        }
+        g_strfreev(parts);
+    }
+    
+    g_strfreev(lines);
+    g_free(contents);
+    g_free(config_dir);
+    g_free(config_path);
+    
+    return config;
+}
 
 static GList* load_icon_order(void) {
     GList *order_list = NULL;
@@ -306,34 +367,32 @@ static gboolean on_icon_double_click(GtkWidget *widget, GdkEventButton *event, g
     if (g_str_has_suffix(filepath, ".desktop")) {
         GDesktopAppInfo *app_info = g_desktop_app_info_new_from_filename(filepath);
         if (app_info) {
-        const char *exec_path = g_app_info_get_executable(G_APP_INFO(app_info));
-        
-        char *command_line = g_strdup(g_app_info_get_commandline(G_APP_INFO(app_info)));
-        
-        char **argv = NULL;
-        int argc = 0;
-        if (g_shell_parse_argv(command_line, &argc, &argv, &error)) {
-            char **new_argv = g_new(char*, argc + 3);
-            new_argv[0] = g_strdup(argv[0]);  // executable path
+            char *command_line = g_strdup(g_app_info_get_commandline(G_APP_INFO(app_info)));
             
-            for (int i = 1; i < argc; i++) {
-                new_argv[i+2] = g_strdup(argv[i]);
+            char **argv = NULL;
+            int argc = 0;
+            if (g_shell_parse_argv(command_line, &argc, &argv, &error)) {
+                char **new_argv = g_new(char*, argc + 3);
+                new_argv[0] = g_strdup(argv[0]);  // executable path
+                
+                for (int i = 1; i < argc; i++) {
+                    new_argv[i+2] = g_strdup(argv[i]);
+                }
+                new_argv[argc+2] = NULL;
+                
+                launched = g_spawn_async(NULL, new_argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, &error);
+                
+                for (int i = 0; new_argv[i]; i++) g_free(new_argv[i]);
+                g_free(new_argv);
+                g_strfreev(argv);
+            } else {
+                GAppLaunchContext *context = g_app_launch_context_new();
+                launched = g_app_info_launch(G_APP_INFO(app_info), NULL, context, &error);
+                g_object_unref(context);
             }
-            new_argv[argc+2] = NULL;
             
-            launched = g_spawn_async(NULL, new_argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, &error);
-            
-            for (int i = 0; new_argv[i]; i++) g_free(new_argv[i]);
-            g_free(new_argv);
-            g_strfreev(argv);
-        } else {
-            GAppLaunchContext *context = g_app_launch_context_new();
-            launched = g_app_info_launch(G_APP_INFO(app_info), NULL, context, &error);
-            g_object_unref(context);
-        }
-        
-        g_free(command_line);
-        g_object_unref(app_info);
+            g_free(command_line);
+            g_object_unref(app_info);
         }
     }
     
@@ -416,16 +475,22 @@ static void load_desktop_files(DesktopIcons *desktop) {
     g_list_free_full(order_list, g_free);
 }
 
-static void calculate_icons_per_column(DesktopIcons *desktop, GtkWidget *window) {
+static void calculate_icons_per_column(DesktopIcons *desktop, GtkWidget *window, DesktopConfig *config) {
     GdkScreen *screen = gtk_widget_get_screen(window);
     int screen_height = gdk_screen_get_height(screen);
-    int available_height = screen_height - (2 * WINDOW_MARGIN);
     
-    desktop->icons_per_column = (available_height + GRID_ROW_SPACING) / (ICON_HEIGHT + GRID_ROW_SPACING);
+    int available_height = screen_height - config->bottom_reserved - (2 * WINDOW_MARGIN);
+    
+    if (available_height > 0) {
+        desktop->icons_per_column = (available_height + GRID_ROW_SPACING) / (ICON_HEIGHT + GRID_ROW_SPACING);
+    } else {
+        desktop->icons_per_column = 1;
+    }
+    
     if (desktop->icons_per_column < 1) desktop->icons_per_column = 1;
 }
 
-static void setup_layer_shell_window(GtkWidget *window) {
+static void setup_layer_shell_window(GtkWidget *window, DesktopConfig *config) {
     gtk_layer_init_for_window(GTK_WINDOW(window));
     gtk_layer_set_namespace(GTK_WINDOW(window), "desktop-icons");
     gtk_layer_set_layer(GTK_WINDOW(window), GTK_LAYER_SHELL_LAYER_BOTTOM);
@@ -438,7 +503,7 @@ static void setup_layer_shell_window(GtkWidget *window) {
     gtk_layer_set_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_LEFT, WINDOW_MARGIN);
     gtk_layer_set_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_RIGHT, WINDOW_MARGIN);
     gtk_layer_set_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_TOP, WINDOW_MARGIN);
-    gtk_layer_set_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_BOTTOM, WINDOW_MARGIN);
+    gtk_layer_set_margin(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_BOTTOM, config->bottom_reserved + WINDOW_MARGIN);
 }
 
 static void cleanup(DesktopIcons *desktop) {
@@ -456,16 +521,22 @@ static void cleanup(DesktopIcons *desktop) {
     g_free(desktop);
 }
 
+static void cleanup_config(DesktopConfig *config) {
+    g_free(config);
+}
+
 // Main application activation handler
 static void activate(GtkApplication *app, gpointer user_data) {
+    DesktopConfig *config = load_configuration();
+    
     DesktopIcons *desktop = g_new0(DesktopIcons, 1);
     
     // Create main window
     GtkWidget *window = gtk_application_window_new(app);
-    setup_layer_shell_window(window);
+    setup_layer_shell_window(window, config);
     
     // Calculate layout
-    calculate_icons_per_column(desktop, window);
+    calculate_icons_per_column(desktop, window, config);
     
     // Create scrolled window
     GtkWidget *scrolled_window = gtk_scrolled_window_new(NULL, NULL);
@@ -501,6 +572,7 @@ static void activate(GtkApplication *app, gpointer user_data) {
     
     gtk_widget_show_all(window);
     g_signal_connect_swapped(window, "destroy", G_CALLBACK(cleanup), desktop);
+    g_signal_connect_swapped(window, "destroy", G_CALLBACK(cleanup_config), config);
 }
 
 int main(int argc, char **argv) {
