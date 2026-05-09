@@ -40,6 +40,7 @@ vim.o.preserveindent = false
 vim.o.pumblend = 30
 vim.o.ruler = true
 vim.o.rulerformat = "Line:%l  Col:%c  Virtual:%v  Char:0x%B  Pos:%o  %p%%  %L lines"
+vim.o.shell = "/bin/bash"
 
 vim.cmd("colorscheme colour-scheme")
 
