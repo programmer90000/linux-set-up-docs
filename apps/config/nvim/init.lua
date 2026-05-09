@@ -33,6 +33,14 @@ vim.opt.relativenumber = false
 vim.opt.shiftwidth = 4
 vim.opt.smartindent = true
 vim.opt.tabstop = 4
+vim.o.mousescroll = "vert=3"
+vim.o.mousetime = 500
+vim.o.numberwidth = 1
+vim.o.preserveindent = false
+vim.o.pumblend = 30
+vim.o.pumborder = true
+vim.o.ruler = true
+vim.o.rulerformat = "Line:%l  Col:%c  Virtual:%v  Char:0x%B  Pos:%o  %p%%  %L lines"
 
 vim.cmd("colorscheme colour-scheme")
 
