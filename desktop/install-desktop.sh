@@ -21,6 +21,8 @@ cp desktop/gimp.desktop ~/Desktop/
 cp desktop/hard-info-2.desktop ~/Desktop/
 mkdir -p ~/.config/desktop-icons/
 cp desktop/icons/order.conf ~/.config/desktop-icons/
+mkdir -p ~/.config/desktop-files/
+cp desktop/desktop-files/* ~/.config/desktop-files/
 icons &
 sudo apt install -y build-essential cmake meson ninja-build pkg-config libgtk-3-dev libgdk-pixbuf-2.0-dev libcairo2-dev libglib2.0-dev libwayland-dev libgtk-layer-shell-dev libxkbregistry-dev
 cd desktop/app-launcher/
