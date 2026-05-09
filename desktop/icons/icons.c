@@ -14,11 +14,14 @@
 #define GRID_COLUMN_SPACING 20
 #define GRID_ROW_SPACING 15
 #define WINDOW_MARGIN 20
+#define CONFIG_DIR "desktop-icons"
+#define ORDER_FILE "order.conf"
 
 // Type definitions
 typedef struct {
     GtkGrid *grid;
     GList *icons;
+    GList *icon_files;
     int icons_per_column;
 } DesktopIcons;
 
@@ -33,6 +36,98 @@ static void load_desktop_files(DesktopIcons *desktop);
 static void calculate_icons_per_column(DesktopIcons *desktop, GtkWidget *window);
 static void setup_layer_shell_window(GtkWidget *window);
 static void cleanup(DesktopIcons *desktop);
+static GList* load_icon_order(void);
+static void save_icon_order(GList *ordered_files);
+static GList* get_ordered_icon_list(const char *desktop_path, GList *order_list);
+
+static GList* load_icon_order(void) {
+    GList *order_list = NULL;
+    char *config_path = g_build_filename(g_get_user_config_dir(), CONFIG_DIR, ORDER_FILE, NULL);
+    
+    if (!g_file_test(config_path, G_FILE_TEST_EXISTS)) {
+        g_free(config_path);
+        return NULL;
+    }
+    
+    GError *error = NULL;
+    char *contents = NULL;
+    
+    if (!g_file_get_contents(config_path, &contents, NULL, &error)) {
+        g_warning("Failed to read order config: %s", error->message);
+        g_error_free(error);
+        g_free(config_path);
+        return NULL;
+    }
+    
+    char **lines = g_strsplit(contents, "\n", -1);
+    
+    for (int i = 0; lines[i]; i++) {
+        char *line = g_strstrip(lines[i]);
+        
+        if (strlen(line) == 0 || line[0] == '#')
+            continue;
+        
+        order_list = g_list_append(order_list, g_strdup(line));
+    }
+    
+    g_strfreev(lines);
+    g_free(contents);
+    g_free(config_path);
+    
+    return order_list;
+}
+
+static void save_icon_order(GList *ordered_files) {
+    char *config_dir = g_build_filename(g_get_user_config_dir(), CONFIG_DIR, NULL);
+    char *config_path = g_build_filename(config_dir, ORDER_FILE, NULL);
+    
+    if (!g_file_test(config_dir, G_FILE_TEST_EXISTS)) {
+        if (g_mkdir_with_parents(config_dir, 0755) != 0) {
+            g_warning("Failed to create config directory: %s", config_dir);
+            g_free(config_dir);
+            g_free(config_path);
+            return;
+        }
+    }
+    
+    for (GList *item = ordered_files; item; item = item->next) {
+        char *basename = g_path_get_basename((char*)item->data);
+        g_string_append_printf(content, "%s\n", basename);
+        g_free(basename);
+    }
+    
+    GError *error = NULL;
+    if (!g_file_set_contents(config_path, content->str, -1, &error)) {
+        g_warning("Failed to save order config: %s", error->message);
+        g_error_free(error);
+    }
+    
+    g_string_free(content, TRUE);
+    g_free(config_dir);
+    g_free(config_path);
+}
+
+static GList* get_ordered_icon_list(const char *desktop_path, GList *order_list) {
+    GList *ordered_files = NULL;
+    
+    if (!order_list) {
+        return NULL;  // If there is no config file, show nothing
+    }
+    
+    for (GList *order_item = order_list; order_item; order_item = order_item->next) {
+        char *order_name = (char*)order_item->data;
+        char *full_path = g_build_filename(desktop_path, order_name, NULL);
+        
+        if (g_file_test(full_path, G_FILE_TEST_EXISTS)) {
+            ordered_files = g_list_append(ordered_files, full_path);
+        } else {
+            g_warning("File listed in config does not exist: %s", full_path);
+            g_free(full_path);
+        }
+    }
+    
+    return ordered_files;
+}
 
 static void apply_css_styling(GtkWidget *widget, const char *css) {
     GtkStyleContext *context = gtk_widget_get_style_context(widget);
@@ -265,7 +360,7 @@ cleanup:
 }
 
 static void reload_grid_layout(DesktopIcons *desktop) {
-    int total = g_list_length(desktop->icons);
+    int total = g_list_length(desktop->icon_files);
     
     // Clear existing children
     GList *children = gtk_container_get_children(GTK_CONTAINER(desktop->grid));
@@ -298,25 +393,26 @@ static void load_desktop_files(DesktopIcons *desktop) {
         return;
     }
     
-    GError *error = NULL;
-    GDir *dir = g_dir_open(desktop_path, 0, &error);
+    GList *order_list = load_icon_order();
     
-    if (!dir) {
-        g_warning("Failed to open desktop directory: %s", error->message);
-        g_error_free(error);
+    if (!order_list) {
+        g_warning("No order config found. Please create %s/.config/%s/%s", g_get_user_config_dir(), CONFIG_DIR, ORDER_FILE);
         return;
     }
     
-    const char *filename;
-    while ((filename = g_dir_read_name(dir))) {
-        if (filename[0] != '.') {
-            char *full_path = g_build_filename(desktop_path, filename, NULL);
-            add_icon(desktop, full_path);
-            g_free(full_path);
-        }
+    desktop->icon_files = get_ordered_icon_list(desktop_path, order_list);
+    
+    if (!desktop->icon_files) {
+        g_warning("No valid files found from order config");
+        g_list_free_full(order_list, g_free);
+        return;
     }
     
-    g_dir_close(dir);
+    for (GList *item = desktop->icon_files; item; item = item->next) {
+        add_icon(desktop, (char*)item->data);
+    }
+    
+    g_list_free_full(order_list, g_free);
 }
 
 static void calculate_icons_per_column(DesktopIcons *desktop, GtkWidget *window) {
@@ -351,6 +447,11 @@ static void cleanup(DesktopIcons *desktop) {
         }
         g_list_free(desktop->icons);
     }
+    
+    if (desktop->icon_files) {
+        g_list_free_full(desktop->icon_files, g_free);
+    }
+    
     g_free(desktop);
 }
 
@@ -375,7 +476,12 @@ static void activate(GtkApplication *app, gpointer user_data) {
     gtk_grid_set_row_spacing(desktop->grid, GRID_ROW_SPACING);
     
     load_desktop_files(desktop);
-    reload_grid_layout(desktop);
+    
+    if (desktop->icon_files && g_list_length(desktop->icon_files) > 0) {
+        reload_grid_layout(desktop);
+    } else {
+        g_warning("No icons to display. Please check your config file.");
+    }
     
     gtk_container_add(GTK_CONTAINER(scrolled_window), GTK_WIDGET(desktop->grid));
     gtk_container_add(GTK_CONTAINER(window), scrolled_window);
