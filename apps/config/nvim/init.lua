@@ -33,7 +33,7 @@ vim.opt.relativenumber = false
 vim.opt.shiftwidth = 4
 vim.opt.smartindent = true
 vim.opt.tabstop = 4
-vim.o.mousescroll = "vert=3"
+vim.o.mousescroll = "ver:3,hor:0"
 vim.o.mousetime = 500
 vim.o.numberwidth = 1
 vim.o.preserveindent = false
