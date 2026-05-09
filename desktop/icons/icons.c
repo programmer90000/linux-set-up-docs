@@ -90,6 +90,7 @@ static void save_icon_order(GList *ordered_files) {
         }
     }
     
+    GString *content = g_string_new(NULL);
     for (GList *item = ordered_files; item; item = item->next) {
         char *basename = g_path_get_basename((char*)item->data);
         g_string_append_printf(content, "%s\n", basename);
