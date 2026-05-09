@@ -37,6 +37,7 @@ cp sfwbar.config ~/.config/sfwbar/sfwbar.config
 cp style.css ~/.config/sfwbar/style.css
 cp init.sh ~/.config/sfwbar/scripts/init.sh
 chmod +x ~/.config/sfwbar/scripts/init.sh
+sfwbar &
 mkdir -p ~/.config/labwc
 cd ../labwc/
 cp autostart ~/.config/labwc/autostart
