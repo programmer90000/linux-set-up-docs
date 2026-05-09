@@ -1,4 +1,5 @@
 #!/bin/bash
 
 swaybg -i /usr/share/pixmaps/desktop-wallpaper.png -m fill &
+sfwbar &
 icons &
