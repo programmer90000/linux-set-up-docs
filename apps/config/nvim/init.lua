@@ -42,6 +42,28 @@ vim.o.ruler = true
 vim.o.rulerformat = "Line:%l  Col:%c  Virtual:%v  Char:0x%B  Pos:%o  %p%%  %L lines"
 vim.o.shell = "/bin/bash"
 vim.o.shelltemp = true
+vim.o.shiftround = true
+vim.o.shiftwidth = 4
+vim.o.showbreak = "↪ "
+vim.o.showcmd = false
+vim.o.showmatch = true
+vim.o.showmode = true
+vim.o.showtabline = 2
+vim.o.smarttab = true
+vim.o.splitright = true
+vim.o.splitbelow = true
+vim.o.statusline = ""
+vim.o.tabline = ""
+vim.o.undofile = true
+vim.o.undolevels = 1000
+vim.o.undoreload = 10000
+vim.o.visualbell = true
+vim.o.warn = true
+vim.o.wrap = true
+vim.o.write = true
+vim.o.writeany = false
+vim.o.writebackup = true
+vim.o.writedelay = 0
 
 vim.cmd("colorscheme colour-scheme")
 
