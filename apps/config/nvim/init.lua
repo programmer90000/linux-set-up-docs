@@ -38,7 +38,6 @@ vim.o.mousetime = 500
 vim.o.numberwidth = 1
 vim.o.preserveindent = false
 vim.o.pumblend = 30
-vim.o.pumborder = true
 vim.o.ruler = true
 vim.o.rulerformat = "Line:%l  Col:%c  Virtual:%v  Char:0x%B  Pos:%o  %p%%  %L lines"
 
