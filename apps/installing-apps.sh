@@ -22,8 +22,8 @@ cp -r apps/config/nvim/nvim-surround/ ~/.config/nvim/
 cp -r apps/config/nvim/nvim-treesitter/ ~/.config/nvim/
 cp -r apps/config/nvim/nvim-web-devicons/ ~/.config/nvim/
 cp -r apps/config/nvim/plenary/ ~/.config/nvim/
-mkdir -p ~/.config/nvim/colours/
-cp apps/config/nvim/colours/colour-scheme.lua ~/.config/nvim/colours/
+mkdir -p ~/.config/nvim/colors/
+cp apps/config/nvim/colours/colour-scheme.lua ~/.config/nvim/colors/
 cp apps/config/nvim/init.lua ~/.config/nvim/
 echo "Installing Shotcut"
 sudo apt install -y shotcut
