@@ -64,6 +64,29 @@ vim.o.write = true
 vim.o.writeany = false
 vim.o.writebackup = true
 vim.o.writedelay = 0
+vim.o.pumheight = 10
+vim.o.pumwidth = 40
+vim.o.pummaxwidth = 50
+vim.o.winblend = 50
+vim.o.winborder = "single"
+vim.o.winfixheight = false
+vim.o.winfixwidth = false
+vim.o.winfixbuf = false
+vim.o.winheight = 1
+vim.o.winhighlight = ""
+vim.o.winminheight = 3
+vim.o.winminwidth = 10
+vim.o.winwidth = 20
+vim.o.wrapscan = true
+vim.o.indentkeys = ""
+vim.o.quoteescape = ""
+vim.o.report = 0
+vim.o.scrolloff = 8
+vim.o.shellcmdflag = ""
+vim.o.shellquote = ""
+vim.o.tabpagemax = 30
+vim.o.undodir = os.getenv("HOME") .. "/.local/share/nvim/undo"
+vim.o.winbar = ""
 
 vim.cmd("colorscheme colour-scheme")
 
