@@ -244,5 +244,8 @@ require("nvim-surround").setup {
     end,
 }
 
-require("nvim-treesitter").setup()
+require("nvim-treesitter").setup {
+    install_dir = vim.fs.joinpath(vim.fn.stdpath("data"), "nvim-treesitter"),
+}
+
 require("neo-tree").setup {}
