@@ -1,11 +1,11 @@
-vim.opt.rtp:prepend("/home/abdul/.config/nvim/mason/")
-vim.opt.rtp:prepend("/home/abdul/.config/nvim/lualine/")
-vim.opt.rtp:prepend("/home/abdul/.config/nvim/nvim-surround")
-vim.opt.rtp:prepend("/home/abdul/.config/nvim/nvim-treesitter")
-vim.opt.rtp:prepend("/home/abdul/.config/nvim/plenary")
-vim.opt.rtp:prepend("/home/abdul/.config/nvim/nui")
-vim.opt.rtp:prepend("/home/abdul/.config/nvim/nvim-web-devicons")
-vim.opt.rtp:prepend("/home/abdul/.config/nvim/neo-tree")
+vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/mason/"))
+vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/lualine/"))
+vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/nvim-surround/"))
+vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/nvim-treesitter/"))
+vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/plenary/"))
+vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/nui/"))
+vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/nvim-web-devicons/"))
+vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/neo-tree/"))
 
 vim.autoindent = true
 vim.autoread = true
