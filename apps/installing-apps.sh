@@ -11,6 +11,9 @@ echo "Installing tmux"
 sudo apt install -y tmux
 mkdir -p ~/.config/tmux/
 cp apps/config/tmux/tmux.conf ~/.config/tmux/
+mkdir -p ~/.config/tmux/tmux-resurrect/
+cp -r apps/config/tmux/tmux-resurrect/* ~/.config/tmux/tmux-resurrect/
+chmod +x ~/.config/tmux/tmux-resurrect/scripts/*.sh
 echo "Installing Neovim"
 sudo apt install -y neovim
 mkdir -p ~/.config/nvim/
