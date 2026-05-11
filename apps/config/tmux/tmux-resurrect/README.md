@@ -1,0 +1,3 @@
+### Credits
+
+https://github.com/tmux-plugins/tmux-resurrect
