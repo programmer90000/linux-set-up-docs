@@ -48,6 +48,11 @@
     </keyboard>
     <mouse>
         <doubleClickTime>300</doubleClickTime>
+        <context name="Root">
+            <mousebind button="Right" action="Press">
+                <action name="ShowMenu" menu="None" />
+            </mousebind>
+        </context>
     </mouse>
     <menu>
         <ignoreButtonReleasePeriod>250</ignoreButtonReleasePeriod>
