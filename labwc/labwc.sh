@@ -22,5 +22,3 @@ mkdir ~/.config/labwc/
 cp $ENVIRONMENT ~/.config/labwc/
 echo "Copying rc.xml file"
 cp labwc/rc.xml ~/.config/labwc/
-echo "Starting Labwc"
-labwc
