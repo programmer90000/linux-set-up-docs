@@ -120,7 +120,7 @@ unfocused_hollow = true
 thickness = 0.15
 
 [terminal]
-shell = "/usr/bin/bash"
+shell = "/usr/bin/zsh"
 osc52 = "Disabled"
 
 [mouse]
