@@ -37,3 +37,8 @@ zstyle ':completion:*' format 'Completing %d'
 zstyle ':completion:*' group-name ''
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' verbose yes
+
+# Wildcard
+setopt EXTENDED_GLOB
+setopt NO_CASE_GLOB
+setopt NOMATCH
