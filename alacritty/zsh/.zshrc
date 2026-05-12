@@ -49,4 +49,4 @@ setopt NOTIFY
 # Key bindings
 bindkey '^[[3~' delete-char
 
-PS1='%~ %# '
+PS1='%~%# '
