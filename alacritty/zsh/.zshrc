@@ -22,3 +22,8 @@ export PAGER="nvim -R -"
 
 # Language
 export LANG=en_GB.UTF-8
+
+# Directory navigation
+unsetopt AUTO_CD
+setopt AUTO_PUSHD
+setopt PUSHD_IGNORE_DUPS
