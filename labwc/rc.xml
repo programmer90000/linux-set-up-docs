@@ -44,6 +44,7 @@
         <minimumArea>8</minimumArea>
     </resize>
     <keyboard layoutScope="global">
+        <default />
         <numlock>off</numlock>
     </keyboard>
     <mouse>
