@@ -49,4 +49,15 @@ setopt NOTIFY
 # Key bindings
 bindkey '^[[3~' delete-char
 
-PS1='%~%# '
+git_branch() {
+    local branch=$(git branch 2>/dev/null | grep '^\*' | sed 's/^* //')
+    if [[ -n $branch ]]; then
+        echo "($branch)"
+    fi
+}
+
+# Enable command subsitution in prompt
+setopt PROMPT_SUBST
+
+# Prompt
+PS1='%~$(git_branch)%# '
