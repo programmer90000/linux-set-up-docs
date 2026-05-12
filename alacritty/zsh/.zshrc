@@ -42,3 +42,6 @@ zstyle ':completion:*' verbose yes
 setopt EXTENDED_GLOB
 setopt NO_CASE_GLOB
 setopt NOMATCH
+
+# Notify when background process completes or stops
+setopt NOTIFY
