@@ -15,3 +15,7 @@ setopt HIST_EXPIRE_DUPS_FIRST
 setopt SHARE_HISTORY
 setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_SPACE
+
+# Programs
+export EDITOR=nvim
+export PAGER="nvim -R -"
