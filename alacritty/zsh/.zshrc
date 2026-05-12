@@ -52,7 +52,11 @@ bindkey '^[[3~' delete-char
 git_branch() {
     local branch=$(git branch 2>/dev/null | grep '^\*' | sed 's/^* //')
     if [[ -n $branch ]]; then
-        echo "($branch)"
+        if [[ -z $(git status --porcelain 2>/dev/null) ]]; then
+            echo -e "\033[0;32m($branch)\033[0m"
+        else
+            echo -e "\033[0;31m($branch)\033[0m"
+        fi
     fi
 }
 
