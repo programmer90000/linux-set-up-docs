@@ -13,6 +13,7 @@
     </core>
     <placement>
         <policy>automatic</policy>
+        <cascadeOffset x="0" y="0" />
     </placement>
     <windowSwitcher preview="yes" outlines="yes" unshade="yes" order="focus">
         <osd show="yes" style="thumbnail" output="cursor" thumbnailLabelFormat="" />
