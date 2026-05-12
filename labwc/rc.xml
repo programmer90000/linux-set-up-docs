@@ -46,6 +46,12 @@
     <keyboard layoutScope="global">
         <default />
         <numlock>off</numlock>
+        <default />        
+        <keybind key="W-Return"><action name="None" /></keybind>
+        <keybind key="W-KP_Enter"><action name="None" /></keybind>
+        <keybind key="A-Escape"><action name="None" /></keybind>
+        <keybind key="A-Tab"><action name="None" /></keybind>
+        <keybind key="A-F3"><action name="None" /></keybind>
     </keyboard>
     <mouse>
         <doubleClickTime>300</doubleClickTime>
