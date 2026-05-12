@@ -45,3 +45,6 @@ setopt NOMATCH
 
 # Notify when background process completes or stops
 setopt NOTIFY
+
+# Key bindings
+bindkey '^[[3~' delete-char
