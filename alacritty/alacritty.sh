@@ -17,7 +17,10 @@ fi
 sudo apt update
 sudo apt install -y alacritty
 mkdir -p ~/.config/alacritty/
+mkdir -p ~/.config/zsh/
 sudo apt install -y tmux
 sudo apt install -y fonts-hack
 sudo apt install -y zsh
+cp alacritty/zsh/.zshrc ~/.config/zsh/
+ln -s ~/.config/zsh/.zshrc ~/.zshrc
 cp $ALACRITTY_CONFIG ~/.config/alacritty/alacritty.toml
