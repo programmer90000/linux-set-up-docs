@@ -41,8 +41,20 @@ mkdir -p ~/.config/GIMP/3.0/
 cp apps/config/GIMP/3.0/gimprc ~/.config/GIMP/3.0/
 echo "Installing Thunderbird"
 sudo apt install -y thunderbird
-mkdir -p ~/.config/thunderbird/
-ln -s ~/.config/thunderbird/ ~/.thunderbird
+mkdir -p ~/.config/thunderbird/custom-profile/
+thunderbird -CreateProfile "custom-profile $HOME/.config/thunderbird/custom-profile/"
+thunderbird -P custom-profile
+sleep 3
+pkill thunderbird 2>/dev/null
+cp apps/config/thunderbird/addons.json ~/.config/thunderbird/custom-profile/
+cp apps/config/thunderbird/extensions.json ~/.config/thunderbird/custom-profile/
+cp apps/config/thunderbird/installs.ini ~/.config/thunderbird/custom-profile/
+cp apps/config/thunderbird/mailViews.dat ~/.config/thunderbird/custom-profile/
+cp apps/config/thunderbird/prefs.js ~/.config/thunderbird/custom-profile/
+cp apps/config/thunderbird/profiles.ini ~/.config/thunderbird/custom-profile/
+cp apps/config/thunderbird/user.js ~/.config/thunderbird/custom-profile/
+cp apps/config/thunderbird/virtualFolders.dat ~/.config/thunderbird/custom-profile/
+cp apps/config/thunderbird/xulstore.json ~/.config/thunderbird/custom-profile/
 echo "Installing CopyQ"
 sudo apt install -y copyq
 mkdir -p ~/.config/copyq/
