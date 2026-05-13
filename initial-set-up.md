@@ -77,3 +77,5 @@ chmod +x apps/installing-apps.sh apps/get-and-install.sh
 ./apps/installing-apps.sh
 ./apps/get-and-install.sh
 ```
+
+Follow the docs in [apps/config/set-up-individual-apps.md](apps/set-up-individual-apps.md)
