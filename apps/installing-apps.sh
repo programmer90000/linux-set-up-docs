@@ -93,3 +93,8 @@ mkdir -p ~/.config/BraveSoftware/Brave-Browser/Default/
 cp "apps/config/brave/Local State" ~/.config/BraveSoftware/Brave-Browser/
 cp apps/config/brave/Preferences ~/.config/BraveSoftware/Brave-Browser/Default/
 cp apps/config/brave/Bookmarks ~/.config/BraveSoftware/Brave-Browser/Default/
+echo "Installing LibreWolf browser"
+sudo extrepo enable librewolf
+sudo extrepo update librewolf
+sudo apt update
+sudo apt install librewolf -y
