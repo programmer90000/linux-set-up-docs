@@ -16,10 +16,10 @@ user_pref("alerts.useSystemBackend", true);
 user_pref("app.update.auto", false);
 user_pref("app.use_without_mail_account", false);
 user_pref("apz.disable_for_scroll_linked_effects", true);
-user_pref("doubletappzoom.defaultzoomin", false)
+user_pref("doubletappzoom.defaultzoomin", false);
 user_pref("drag.enabled", false);
 user_pref("enlarge_displayport_when_clipped", true);
-user_pref("keyboard.enabled", true)
+user_pref("keyboard.enabled", true);
 user_pref("keyboard.focus-optimization", true);
 user_pref("clipboard.autocopy", false);
 user_pref("clipboard.paste_image_type", "image/png");
