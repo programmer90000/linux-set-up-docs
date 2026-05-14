@@ -82,6 +82,8 @@ echo "PURGE" | sudo debconf-communicate iperf3
 mkdir -p ~/.config/hardinfo2/
 cp apps/config/hardinfo2/settings.ini ~/.config/hardinfo2/
 sudo apt install firefox-esr
+mkdir -p ~/.config/firefox-esr/personal/
+firefox-esr --CreateProfile "personal $HOME/.config/firefox-esr/personal/"
 echo "Installing Extrepo"
 sudo apt install -y extrepo
 sudo cp apps/config.yaml /etc/extrepo/config.yaml
