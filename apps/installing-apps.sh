@@ -43,7 +43,7 @@ echo "Installing Thunderbird"
 sudo apt install -y thunderbird
 mkdir -p ~/.config/thunderbird/custom-profile/
 thunderbird -CreateProfile "custom-profile $HOME/.config/thunderbird/custom-profile/"
-thunderbird -P custom-profile
+thunderbird -P custom-profile &
 sleep 3
 pkill thunderbird 2>/dev/null
 cp apps/config/thunderbird/addons.json ~/.config/thunderbird/custom-profile/
