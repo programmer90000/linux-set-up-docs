@@ -50,7 +50,6 @@ cp apps/config/thunderbird/addons.json ~/.config/thunderbird/custom-profile/
 cp apps/config/thunderbird/extensions.json ~/.config/thunderbird/custom-profile/
 cp apps/config/thunderbird/installs.ini ~/.config/thunderbird/custom-profile/
 cp apps/config/thunderbird/mailViews.dat ~/.config/thunderbird/custom-profile/
-cp apps/config/thunderbird/prefs.js ~/.config/thunderbird/custom-profile/
 cp apps/config/thunderbird/profiles.ini ~/.config/thunderbird/custom-profile/
 cp apps/config/thunderbird/user.js ~/.config/thunderbird/custom-profile/
 cp apps/config/thunderbird/virtualFolders.dat ~/.config/thunderbird/custom-profile/
