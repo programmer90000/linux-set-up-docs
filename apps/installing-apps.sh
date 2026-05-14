@@ -81,6 +81,7 @@ sudo DEBIAN_FRONTEND=noninteractive apt install -y hardinfo2
 echo "PURGE" | sudo debconf-communicate iperf3
 mkdir -p ~/.config/hardinfo2/
 cp apps/config/hardinfo2/settings.ini ~/.config/hardinfo2/
+sudo apt install firefox-esr
 echo "Installing Extrepo"
 sudo apt install -y extrepo
 sudo cp apps/config.yaml /etc/extrepo/config.yaml
