@@ -1,0 +1,9 @@
+user_pref("accessibility.mouse_focus_formcontrol", false);
+user_pref("browser.startup_page", 1)
+user_pref("browser.shell.checkDefaultBrowser", false);
+user_pref("browser.ctrlTab.sortByRecentlyUsed", false);
+user_pref("browser.link.open_newwindow", 3);
+user_pref("browser.tabs.loadInBackground", true)
+user_pref("browser.tabs.warnOnClose", true);
+user_pref("browser.warnOnQuit", true);
+user_pref("browser.tabs.cardPreview.enabled", true);
