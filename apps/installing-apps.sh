@@ -83,6 +83,8 @@ mkdir -p ~/.config/hardinfo2/
 cp apps/config/hardinfo2/settings.ini ~/.config/hardinfo2/
 echo "Installing trash-cli"
 sudo apt install trash-cli
+echo "Installing colordiff"
+sudo apt install colordiff
 sudo apt install firefox-esr
 mkdir -p ~/.config/firefox-esr/personal/
 firefox-esr --CreateProfile "personal $HOME/.config/firefox-esr/personal/"
