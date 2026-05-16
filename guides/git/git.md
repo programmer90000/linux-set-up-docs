@@ -24,6 +24,25 @@
 | git add --all               | Stage all changes in the repository                                       |
 | git rm --cached <file>      | Remove a file from the staging area without removing it from the computer |
 | git restore --staged <file> | Remove a file from the staging area without changing working directory    |
+| git add -p <file> | Enter interactive hunk-by-hunk staging mode for the specified file |
+
+## Interactive Staging (git add -p)
+
+| Command | Purpose                                                                               |
+|---------|---------------------------------------------------------------------------------------|
+| y       | Stage the current hunk                                                                |
+| n       | Do not stage the current hunk                                                         |
+| q       | Quit - do not stage the current hunk or any remaining hunks                           |
+| a       | Stage this hunk and all remaining hunks in this file without further prompts          |
+| g       | Go to a specific hunk number (useful for large files with many changes)               |
+| /       | Search forward for a hunk containing a specific regular expression pattern            |
+| s       | Split the current hunk into smaller hunks (when lines are too close together)         |
+| e       | Manually edit the current hunk in your text editor for precise line-by-line control   |
+| ?       | Display help menu showing all available interactive staging commands                  |
+| j       | Leave this hunk undecided and move to the next undecided hunk                         |
+| J       | Leave this hunk undecided and move to the next hunk regardless of its decision status |
+| k       | Move back to the previous undecided hunk (reverse navigation)                         |
+| K       | Move back to the previous hunk while keeping current hunk undecided                   |
 
 ## Committing
 
@@ -98,3 +117,4 @@
 | git tag                      | List all tags in the repository alphabetically                    |
 | git tag -a v1.0 -m "message" | Create an annotated tag with a message (recommended for releases) |
 | git push --tags              | Upload all local tags to the remote repository                    |
+jhn
