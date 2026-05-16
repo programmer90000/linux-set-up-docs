@@ -45,7 +45,7 @@
 ## Diff
 
 | Command                       | Purpose                                                                   |
-|-------------------------------|----------------------------------------------------- ---------------------|
+|-------------------------------|---------------------------------------------------------------------------|
 | git diff                      | Review what changes have been made before staging them                    |
 | git diff --staged             | Review what changes have been made to files in the staging area           |
 | git diff <branch1>..<branch2> | Show differences between two branches (changes in branch2 not in branch1) |
