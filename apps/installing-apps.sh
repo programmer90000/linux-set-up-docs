@@ -85,6 +85,7 @@ echo "Installing trash-cli"
 sudo apt install trash-cli
 echo "Installing colordiff"
 sudo apt install colordiff
+echo "Installing Firefox"
 sudo apt install firefox-esr
 mkdir -p ~/.config/firefox-esr/personal/
 firefox-esr --CreateProfile "personal $HOME/.config/firefox-esr/personal/"
