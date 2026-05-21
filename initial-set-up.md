@@ -61,14 +61,6 @@ chmod +x desktop/install-desktop.sh
 ./desktop/install-desktop.sh
 ```
 
-## Install Login Screen
-
-Run:
-```
-chmod +x login-screen/install-login-screen.sh
-./login-screen/install-login-screen.sh
-```
-
 ## Install Apps
 
 Run:
@@ -79,3 +71,11 @@ chmod +x apps/installing-apps.sh apps/get-and-install.sh
 ```
 
 Follow the docs in [apps/config/set-up-individual-apps.md](apps/set-up-individual-apps.md)
+
+## Install Login Screen
+
+Run:
+```
+chmod +x login-screen/install-login-screen.sh
+./login-screen/install-login-screen.sh
+```
