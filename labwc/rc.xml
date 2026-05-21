@@ -290,6 +290,13 @@
             <scrollFactor>1.0</scrollFactor>
         </device>
     </libinput>
+    <magnifier>
+        <width>400</width>
+        <height>400</height>
+        <initScale>2.0</initScale>
+        <increment>0.2</increment>
+        <useFilter>true</useFilter>
+    </magnifier>
     <menu>
         <ignoreButtonReleasePeriod>250</ignoreButtonReleasePeriod>
         <showIcons>no</showIcons>
