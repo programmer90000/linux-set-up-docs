@@ -301,4 +301,11 @@
         <ignoreButtonReleasePeriod>250</ignoreButtonReleasePeriod>
         <showIcons>no</showIcons>
     </menu>
+    <windowSwitcher show="no" preview="yes" outlines="yes" allWorkspaces="no">
+        <fields>
+            <field content="type" width="25%" />
+            <field content="trimmed_identifier" width="25%" />
+            <field content="title" width="50%" />
+        </fields>
+    </windowSwitcher>
 </labwc_config>
