@@ -3,6 +3,9 @@ export ZDOTDIR="$HOME/.config/zsh"
 export HISTFILE="$ZDOTDIR/.zsh_history"
 mkdir -p "$ZDOTDIR"
 
+# Aliases
+[ -f ~/.config/zsh/.zsh-aliases ] && source ~/.config/zsh/.zsh-aliases
+
 # History
 HISTSIZE=10000
 SAVEHIST=10000

@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=Brave Browser
 Type=Application
-Exec=brave-browser
+Exec=brave-browser --password-store=libsecret
 Icon=brave-browser
 Terminal=false
 Categories=Network;WebBrowser;
