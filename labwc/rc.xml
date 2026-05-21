@@ -154,6 +154,54 @@
                 <action name="" />
             </mousebind>
         </context>
+        <context name="Iconify">
+            <mousebind button="Left" action="Click">
+                <action name="Iconify" />
+            </mousebind>
+        </context>
+        <context name="Close">
+            <mousebind button="Left" action="Click">
+                <action name="Close" />
+            </mousebind>
+        </context>
+        <context name="WindowMenu">
+            <mousebind button="Left" action="Click">
+                <action name="" />
+            </mousebind>
+            <mousebind button="Right" action="Click">
+                <action name="" />
+            </mousebind>
+        </context>
+        <context name="Icon">
+            <mousebind button="Left" action="Click">
+                <action name="" />
+            </mousebind>
+            <mousebind button="Right" action="Click">
+                <action name="" />
+            </mousebind>
+        </context>
+        <context name="Shade">
+            <mousebind button="Left" action="Click">
+                <action name="" />
+            </mousebind>
+        </context>
+        <context name="AllDesktops">
+            <mousebind button="Left" action="Click">
+                <action name="" />
+            </mousebind>
+        </context>
+        <context name="Client">
+            <mousebind button="Left" action="Press">
+                <action name="Focus" />
+                <action name="Raise" />
+            </mousebind>
+            <mousebind button="Middle" action="Press">
+                <action name="" />
+            </mousebind>
+            <mousebind button="Right" action="Press">
+                <action name="" />
+            </mousebind>
+        </context>
         <context name="Top">
             <mousebind button="Left" action="Drag">
                 <action name="Resize" />
