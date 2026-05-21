@@ -82,13 +82,13 @@ echo "PURGE" | sudo debconf-communicate iperf3
 mkdir -p ~/.config/hardinfo2/
 cp apps/config/hardinfo2/settings.ini ~/.config/hardinfo2/
 echo "Installing trash-cli"
-sudo apt install trash-cli
+sudo apt install -y trash-cli
 echo "Installing wdiff"
-sudo apt install wdiff
+sudo apt install -y wdiff
 echo "Installing colordiff"
-sudo apt install colordiff
+sudo apt install -y colordiff
 echo "Installing Firefox"
-sudo apt install firefox-esr
+sudo apt install -y firefox-esr
 mkdir -p ~/.config/firefox-esr/personal/
 firefox-esr --CreateProfile "personal $HOME/.config/firefox-esr/personal/"
 cp apps/config/firefox/profiles.ini ~/.mozilla/firefox/
