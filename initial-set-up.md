@@ -45,14 +45,6 @@ chmod +x labwc/labwc.sh
 ./labwc/labwc.sh
 ```
 
-## Install Login Screen
-
-Run:
-```
-chmod +x login-screen/install-login-screen.sh
-./login-screen/install-login-screen.sh
-```
-
 ## Install Tmux
 
 Run:
@@ -67,6 +59,14 @@ Run:
 ```
 chmod +x desktop/install-desktop.sh
 ./desktop/install-desktop.sh
+```
+
+## Install Login Screen
+
+Run:
+```
+chmod +x login-screen/install-login-screen.sh
+./login-screen/install-login-screen.sh
 ```
 
 ## Install Apps
