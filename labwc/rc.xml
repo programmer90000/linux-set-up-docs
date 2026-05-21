@@ -85,15 +85,44 @@
         <cornerRange>3</cornerRange>
         <minimumArea>8</minimumArea>
     </resize>
-    <keyboard layoutScope="global">
-        <default />
+    <keyboard>
+        <layoutScope>global</layoutScope>
         <numlock>off</numlock>
-        <default />        
+        <repeatRate>3</repeatRate>
+        <repeatDelay>600</repeatDelay>
+        <default />
         <keybind key="W-Return"><action name="None" /></keybind>
         <keybind key="W-KP_Enter"><action name="None" /></keybind>
+        <keybind key="W-a"><action name="None" /></keybind>
+        <keybind key="W-Left"><action name="None" /></keybind>
+        <keybind key="W-Right"><action name="None" /></keybind>
+        <keybind key="W-Up"><action name="None" /></keybind>
+        <keybind key="W-Down"><action name="None" /></keybind>
+        <keybind key="W-KP_7"><action name="None" /></keybind>
+        <keybind key="W-KP_8"><action name="None" /></keybind>
+        <keybind key="W-KP_9"><action name="None" /></keybind>
+        <keybind key="W-KP_4"><action name="None" /></keybind>
+        <keybind key="W-KP_5"><action name="None" /></keybind>
+        <keybind key="W-KP_6"><action name="None" /></keybind>
+        <keybind key="W-KP_1"><action name="None" /></keybind>
+        <keybind key="W-KP_2"><action name="None" /></keybind>
+        <keybind key="W-KP_3"><action name="None" /></keybind>
+        <keybind key="W-Space"><action name="None" /></keybind>
         <keybind key="A-Escape"><action name="None" /></keybind>
         <keybind key="A-Tab"><action name="None" /></keybind>
         <keybind key="A-F3"><action name="None" /></keybind>
+        <keybind key="A-F4"><action name="None" /></keybind>
+        <keybind key="A-S-Tab"><action name="None" /></keybind>
+        <keybind key="A-Left"><action name="None" /></keybind>
+        <keybind key="A-Right"><action name="None" /></keybind>
+        <keybind key="A-Up"><action name="None" /></keybind>
+        <keybind key="A-Down"><action name="None" /></keybind>
+        <keybind key="A-Space"><action name="None" /></keybind>
+        <keybind key="XF86_AudioLowerVolume"><action name="None" /></keybind>
+        <keybind key="XF86_AudioRaiseVolume"><action name="None" /></keybind>
+        <keybind key="XF86_AudioMute"><action name="None" /></keybind>
+        <keybind key="XF86_MonBrightnessUp"><action name="None" /></keybind>
+        <keybind key="XF86_MonBrightnessDown"><action name="None" /></keybind>
     </keyboard>
     <mouse>
         <doubleClickTime>300</doubleClickTime>
