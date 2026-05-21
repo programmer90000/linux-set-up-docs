@@ -308,4 +308,21 @@
             <field content="title" width="50%" />
         </fields>
     </windowSwitcher>
+    <desktops>
+        <popupTime>1000</popupTime>
+        <names>
+            <name>Default</name>
+        </names>
+    </desktops>
+    <regions></regions>
+    <windowRules>
+        <windowRule identifier="*">
+            <action name="Maximize"/>
+        </windowRule>
+        <windowRule identifier="">
+            <action name="ResizeTo" width="" height="" />
+            <action name="AutoPlace" policy="automatic" />
+        </windowRule>
+        <windowRule identifier="" serverDecoration="no"/>
+    </windowRules>
 </labwc_config>
