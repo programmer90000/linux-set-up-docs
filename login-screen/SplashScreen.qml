@@ -71,7 +71,10 @@ Rectangle {
     }
     
     focus: true
-    Keys.onPressed: dismiss()
+    Keys.onPressed: {
+        dismiss()
+        event.accepted = true
+    }
     
     function dismiss() {
         if (!active) return
