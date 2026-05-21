@@ -11,6 +11,48 @@
         <xwaylandPersistence>no</xwaylandPersistence>
         <primarySelection>no</primarySelection>
     </core>
+    <theme>
+        <name></name>
+        <icon></icon>
+        <fallbackAppIcon>labwc</fallbackAppIcon>
+        <titlebar>
+            <layout>icon:iconify,max,close</layout>
+            <showTitle>yes</showTitle>
+        </titlebar>
+        <cornerRadius>8</cornerRadius>
+        <keepBorder>yes</keepBorder>
+        <dropShadows>no</dropShadows>
+        <font place="ActiveWindow">
+            <name>sans</name>
+            <size>10</size>
+            <slant>normal</slant>
+            <weight>normal</weight>
+        </font>
+        <font place="InactiveWindow">
+            <name>sans</name>
+            <size>10</size>
+            <slant>normal</slant>
+            <weight>normal</weight>
+        </font>
+        <font place="MenuHeader">
+            <name>sans</name>
+            <size>10</size>
+            <slant>normal</slant>
+            <weight>normal</weight>
+        </font>
+        <font place="MenuItem">
+            <name>sans</name>
+            <size>10</size>
+            <slant>normal</slant>
+            <weight>normal</weight>
+        </font>
+        <font place="OnScreenDisplay">
+            <name>sans</name>
+            <size>10</size>
+            <slant>normal</slant>
+            <weight>normal</weight>
+        </font>
+    </theme>
     <placement>
         <policy>automatic</policy>
         <cascadeOffset x="0" y="0" />
