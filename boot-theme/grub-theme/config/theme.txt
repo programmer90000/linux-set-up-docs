@@ -34,3 +34,21 @@ terminal-border: "0"
     text = "Booting in %d seconds"
     color = "#cccccc"
 }
+
++ label {
+    top = 90%
+    left = 5%
+    width = 40%
+    align = "left"
+    text = "[Enter] Boot Selected   [e] Edit Boot Entry   [c] Command Line (CLI)"
+    color = "#aaaaaa"
+}
+
++ label {
+    top = 93%
+    left = 5%
+    width = 40%
+    align = "left"
+    text = "[▲/▼] Move Selection  [Esc] Return to Menu  [F10/Ctrl+X] Boot after Edit"
+    color = "#888888"
+}
