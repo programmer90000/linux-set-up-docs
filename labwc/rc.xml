@@ -272,6 +272,24 @@
             </mousebind>
         </context>
     </mouse>
+    <libinput>
+        <device category="default">
+            <naturalScroll>yes</naturalScroll>
+            <leftHanded>no</leftHanded>
+            <pointerSpeed>0.0</pointerSpeed>
+            <accelProfile>flat</accelProfile>
+            <tap>no</tap>
+            <tapButtonMap>lrm</tapButtonMap>
+            <tapAndDrag>no</tapAndDrag>
+            <dragLock>no</dragLock>
+            <middleEmulation>no</middleEmulation>
+            <disableWhileTyping>yes</disableWhileTyping>
+            <clickMethod>none</clickMethod>
+            <sendEventsMode>no</sendEventsMode>
+            <calibrationMatrix></calibrationMatrix>
+            <scrollFactor>1.0</scrollFactor>
+        </device>
+    </libinput>
     <menu>
         <ignoreButtonReleasePeriod>250</ignoreButtonReleasePeriod>
         <showIcons>no</showIcons>
