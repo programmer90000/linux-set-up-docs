@@ -9,6 +9,7 @@ vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/neo-tree/"))
 vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/indent-blankline/"))
 vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/comment/"))
 vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/neominimap/"))
+vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/autopairs/"))
 
 vim.autoindent = true
 vim.autoread = true
@@ -584,6 +585,7 @@ require("neo-tree").setup {
 
 require("ibl").setup()
 require('Comment').setup()
+require("nvim-autopairs").setup()
 
 vim.g.neominimap = {
   auto_enable = true,
