@@ -121,7 +121,7 @@ thickness = 0.15
 
 [terminal]
 shell = "/usr/bin/zsh"
-osc52 = "Disabled"
+osc52 = "CopyPaste"
 
 [mouse]
 hide_when_typing = false
