@@ -24,6 +24,10 @@ cp -r apps/config/nvim/nvim-surround/ ~/.config/nvim/
 cp -r apps/config/nvim/nvim-treesitter/ ~/.config/nvim/
 cp -r apps/config/nvim/nvim-web-devicons/ ~/.config/nvim/
 cp -r apps/config/nvim/plenary/ ~/.config/nvim/
+cp -r apps/config/nvim/indent-blankline/ ~/.config/nvim/
+cp -r apps/config/nvim/comment/ ~/.config/nvim/
+cp -r apps/config/nvim/neominimap ~/.config/nvim/
+cp -r apps/config/nvim/autopairs/ ~/.config/nvim/
 mkdir -p ~/.config/nvim/colors/
 cp apps/config/nvim/colours/colour-scheme.lua ~/.config/nvim/colors/
 cp apps/config/nvim/init.lua ~/.config/nvim/
