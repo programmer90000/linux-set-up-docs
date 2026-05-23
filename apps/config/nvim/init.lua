@@ -6,7 +6,7 @@ vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/plenary/"))
 vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/nui/"))
 vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/nvim-web-devicons/"))
 vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/neo-tree/"))
-vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/indent-blankline/")
+vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/indent-blankline/"))
 vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/comment/"))
 
 vim.autoindent = true
