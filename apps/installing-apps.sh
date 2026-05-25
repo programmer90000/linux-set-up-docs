@@ -102,6 +102,11 @@ mkdir -p ~/.config/BraveSoftware/Brave-Browser/Default/
 cp "apps/config/brave/Local State" ~/.config/BraveSoftware/Brave-Browser/
 cp apps/config/brave/Preferences ~/.config/BraveSoftware/Brave-Browser/Default/
 cp apps/config/brave/Bookmarks ~/.config/BraveSoftware/Brave-Browser/Default/
+echo "Installing Vivaldi browser"
+wget -qO- https://repo.vivaldi.com/archive/linux_signing_key.pub | gpg --dearmor | sudo dd of=/usr/share/keyrings/vivaldi-browser.gpg
+echo "deb [signed-by=/usr/share/keyrings/vivaldi-browser.gpg arch=$(dpkg --print-architecture)] https://repo.vivaldi.com/archive/deb/ stable main" | sudo dd of=/etc/apt/sources.list.d/vivaldi-archive.list
+sudo apt update
+sudo apt install -y vivaldi-stable
 echo "Installing LibreWolf browser"
 sudo extrepo enable librewolf
 sudo extrepo update librewolf
