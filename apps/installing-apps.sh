@@ -91,13 +91,6 @@ echo "Installing wdiff"
 sudo apt install -y wdiff
 echo "Installing colordiff"
 sudo apt install -y colordiff
-echo "Installing Firefox"
-sudo apt install -y firefox-esr
-mkdir -p ~/.config/firefox-esr/personal/
-firefox-esr --CreateProfile "personal $HOME/.config/firefox-esr/personal/"
-cp apps/config/firefox/profiles.ini ~/.mozilla/firefox/
-cp apps/config/firefox/profiles.ini ~/.mozilla/firefox-esr/
-cp apps/config/firefox/user.js ~/.config/firefox-esr/personal/
 echo "Installing Extrepo"
 sudo apt install -y extrepo
 sudo cp apps/config.yaml /etc/extrepo/config.yaml
