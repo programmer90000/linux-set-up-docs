@@ -79,7 +79,7 @@ sudo apt install -y gprename
 mkdir -p ~/.config/gprename/
 cp apps/config/gprename/gprename ~/.config/gprename/
 echo "Installing xdg-desktop-portal-wlr"
-sudo apt install xdg-desktop-portal-wlr
+sudo apt install -y xdg-desktop-portal-wlr
 echo "Installing grim"
 sudo apt install -y grim
 echo "Installing slurp"
