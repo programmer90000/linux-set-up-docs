@@ -99,6 +99,19 @@ echo "Installing wdiff"
 sudo apt install -y wdiff
 echo "Installing colordiff"
 sudo apt install -y colordiff
+echo "Installing Beekeeper Studio"
+sudo apt install -y ca-certificates curl gpg
+curl -fsSL https://deb.beekeeperstudio.io/beekeeper.key | sudo gpg --dearmor --output /usr/share/keyrings/beekeeper.gpg
+sudo chmod go+r /usr/share/keyrings/beekeeper.gpg
+sudo tee /etc/apt/sources.list.d/beekeeper-studio-app.sources > /dev/null << EOF
+Types: deb
+URIs: https://deb.beekeeperstudio.io
+Suites: stable
+Components: main
+Signed-By: /usr/share/keyrings/beekeeper.gpg
+EOF
+sudo apt update
+sudo apt install -y beekeeper-studio
 echo "Installing dunst"
 sudo apt install -y dunst
 echo "Installing libnotify-bin"
