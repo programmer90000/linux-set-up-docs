@@ -83,9 +83,9 @@ sudo apt install xdg-desktop-portal-wlr
 echo "Installing grim"
 sudo apt install grim
 echo "Installing slurp"
-sudo apt install slurp
+sudo apt install -y slurp
 echo "Installing Kooha"
-sudo apt install kooha
+sudo apt install -y kooha
 echo "Installing Hardinfo2"
 sudo apt install -y lm-sensors sysbench lsscsi mesa-utils dmidecode udisks2 xdg-utils iperf3 vulkan-tools gawk
 echo "iperf3 iperf3/start_daemon boolean false" | sudo debconf-set-selections
@@ -100,9 +100,9 @@ sudo apt install -y wdiff
 echo "Installing colordiff"
 sudo apt install -y colordiff
 echo "Installing dunst"
-sudo apt install dunst
+sudo apt install -y dunst
 echo "Installing libnotify-bin"
-sudo apt install libnotify-bin
+sudo apt install -y libnotify-bin
 echo "Installing Extrepo"
 sudo apt install -y extrepo
 sudo cp apps/config.yaml /etc/extrepo/config.yaml
