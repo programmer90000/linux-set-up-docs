@@ -81,7 +81,7 @@ cp apps/config/gprename/gprename ~/.config/gprename/
 echo "Installing xdg-desktop-portal-wlr"
 sudo apt install xdg-desktop-portal-wlr
 echo "Installing grim"
-sudo apt install grim
+sudo apt install -y grim
 echo "Installing slurp"
 sudo apt install -y slurp
 echo "Installing Kooha"
