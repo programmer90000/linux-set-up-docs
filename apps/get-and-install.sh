@@ -97,7 +97,7 @@ install_from_source() {
                 ./"$downloaded_file"
             elif [[ "$downloaded_file" == *.deb ]]; then
                 echo "Installing $app_name .deb package..."
-                sudo dpkg -i "$downloaded_file"
+                sudo apt install -y "./$downloaded_file"
                 sudo apt-get install -f -y # Fix any dependency issues
             else
                 echo "Unknown file type. Please install manually."
@@ -117,7 +117,7 @@ install_from_source() {
         
         if [[ "$source" == *.deb ]]; then
             echo "Installing .deb package..."
-            sudo dpkg -i "$source"
+            sudo apt install -y "$source"
             sudo apt-get install -f -y # Fix any dependency issues
         elif [[ "$source" == *.sh ]]; then
             echo "Running shell script installer..."
