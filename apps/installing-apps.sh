@@ -102,7 +102,7 @@ sudo apt install -y colordiff
 echo "Installing rmlint"
 sudo apt install -y rmlint
 echo "Installing lnav"
-sudo apt install lnav
+sudo apt install -y lnav
 echo "Installing Beekeeper Studio"
 sudo apt install -y ca-certificates curl gpg
 curl -fsSL https://deb.beekeeperstudio.io/beekeeper.key | sudo gpg --dearmor --output /usr/share/keyrings/beekeeper.gpg
