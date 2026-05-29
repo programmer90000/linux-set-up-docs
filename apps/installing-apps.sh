@@ -124,6 +124,8 @@ echo "Installing dunst"
 sudo apt install -y dunst
 echo "Installing libnotify-bin"
 sudo apt install -y libnotify-bin
+echo "Installing KeePassXc"
+sudo apt install keepassxc-full
 echo "Installing Extrepo"
 sudo apt install -y extrepo
 sudo cp apps/config.yaml /etc/extrepo/config.yaml
