@@ -143,12 +143,28 @@ install_zoom() {
     fi
 }
 
+install_sniffnet() {
+    local source
+    source=$(get_source "Sniffnet")
+    install_from_source "$source" "Sniffnet"
+    
+    echo ""
+    if command -v sniffnet &> /dev/null; then
+        echo "Sniffnet has been successfully installed! You can launch Sniffnet by typing 'sniffnet' in the terminal"
+    else
+        echo "Installation completed, but 'sniffnet' command not found in PATH."
+        echo "You may need to log out and back in, or manually launch Sniffnet from the installed location."
+    fi
+}
+
 read -p "What would you like to install? " install_target
 
 install_target=$(echo "$install_target" | xargs)
 
 if [[ "$install_target" == "Zoom" || "$install_target" == "zoom" ]]; then
     install_zoom
+elif [[ "$install_target" == "Sniffnet" || "$install_target" == "sniffnet" ]]; then
+    install_sniffnet
 else
     echo "You entered an invalid app name to install"
     exit 1
