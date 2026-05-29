@@ -84,6 +84,8 @@ echo "Installing grim"
 sudo apt install -y grim
 echo "Installing slurp"
 sudo apt install -y slurp
+echo "Installing imagemagick"
+sudo apt install -y imagemagick
 echo "Installing Kooha"
 sudo apt install -y kooha
 echo "Installing Hardinfo2"
