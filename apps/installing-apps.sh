@@ -78,6 +78,7 @@ echo "Installing GPRename"
 sudo apt install -y gprename
 mkdir -p ~/.config/gprename/
 cp apps/config/gprename/gprename ~/.config/gprename/
+sudo apt install xdg-desktop-portal-wlr grim slurp
 echo "Installing Screen Grab"
 sudo apt install screengrab
 echo "Installing Kooha"
