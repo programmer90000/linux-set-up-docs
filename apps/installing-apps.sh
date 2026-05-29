@@ -78,6 +78,8 @@ echo "Installing GPRename"
 sudo apt install -y gprename
 mkdir -p ~/.config/gprename/
 cp apps/config/gprename/gprename ~/.config/gprename/
+echo "Installing Screen Grab"
+sudo apt install screengrab
 echo "Installing Hardinfo2"
 sudo apt install -y lm-sensors sysbench lsscsi mesa-utils dmidecode udisks2 xdg-utils iperf3 vulkan-tools gawk
 echo "iperf3 iperf3/start_daemon boolean false" | sudo debconf-set-selections
