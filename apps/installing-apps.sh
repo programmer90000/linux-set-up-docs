@@ -91,6 +91,10 @@ echo "Installing wdiff"
 sudo apt install -y wdiff
 echo "Installing colordiff"
 sudo apt install -y colordiff
+echo "Installing dunst"
+sudo apt install dunst
+echo "Installing libnotify-bin"
+sudo apt install libnotify-bin
 echo "Installing Extrepo"
 sudo apt install -y extrepo
 sudo cp apps/config.yaml /etc/extrepo/config.yaml
