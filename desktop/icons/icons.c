@@ -42,9 +42,7 @@ static void load_desktop_files(DesktopIcons *desktop);
 static void calculate_icons_per_column(DesktopIcons *desktop, GtkWidget *window, DesktopConfig *config);
 static void setup_layer_shell_window(GtkWidget *window, DesktopConfig *config);
 static void cleanup(DesktopIcons *desktop);
-static void cleanup_config(DesktopConfig *config);
 static GList* load_icon_order(void);
-static void save_icon_order(GList *ordered_files);
 static GList* get_ordered_icon_list(const char *desktop_path, GList *order_list);
 static DesktopConfig* load_configuration(void);
 
@@ -57,47 +55,36 @@ static DesktopConfig* load_configuration(void) {
     char *config_dir = g_build_filename(g_get_user_config_dir(), CONFIG_DIR, NULL);
     char *config_path = g_build_filename(config_dir, CONFIG_FILE, NULL);
     
-    if (!g_file_test(config_path, G_FILE_TEST_EXISTS)) {
-        g_free(config_dir);
-        g_free(config_path);
-        return config;
-    }
-    
-    GError *error = NULL;
-    char *contents = NULL;
-    
-    if (!g_file_get_contents(config_path, &contents, NULL, &error)) {
-        g_warning("Failed to read config: %s", error->message);
-        g_error_free(error);
-        g_free(config_dir);
-        g_free(config_path);
-        return config;
-    }
-    
-    // Parse line by line
-    char **lines = g_strsplit(contents, "\n", -1);
-    for (int i = 0; lines[i]; i++) {
-        char *line = g_strstrip(lines[i]);
+    if (g_file_test(config_path, G_FILE_TEST_EXISTS)) {
+        GError *error = NULL;
+        char *contents = NULL;
         
-        if (strlen(line) == 0 || line[0] == '#')
-            continue;
-        
-        char **parts = g_strsplit(line, "=", 2);
-        if (g_strv_length(parts) == 2) {
-            char *key = g_strstrip(parts[0]);
-            char *value = g_strstrip(parts[1]);
-            
-            if (g_strcmp0(key, "bottom_reserved") == 0)
-                config->bottom_reserved = atoi(value);
+        if (g_file_get_contents(config_path, &contents, NULL, &error)) {
+            char **lines = g_strsplit(contents, "\n", -1);
+            for (int i = 0; lines[i]; i++) {
+                char *line = g_strstrip(lines[i]);
+                if (strlen(line) == 0 || line[0] == '#') continue;
+                
+                char **parts = g_strsplit(line, "=", 2);
+                if (g_strv_length(parts) == 2) {
+                    char *key = g_strstrip(parts[0]);
+                    char *value = g_strstrip(parts[1]);
+                    
+                    if (g_strcmp0(key, "bottom_reserved") == 0)
+                        config->bottom_reserved = atoi(value);
+                }
+                g_strfreev(parts);
+            }
+            g_strfreev(lines);
+            g_free(contents);
+        } else if (error) {
+            g_warning("Failed to read config: %s", error->message);
+            g_error_free(error);
         }
-        g_strfreev(parts);
     }
     
-    g_strfreev(lines);
-    g_free(contents);
     g_free(config_dir);
     g_free(config_path);
-    
     return config;
 }
 
@@ -105,76 +92,33 @@ static GList* load_icon_order(void) {
     GList *order_list = NULL;
     char *config_path = g_build_filename(g_get_user_config_dir(), CONFIG_DIR, ORDER_FILE, NULL);
     
-    if (!g_file_test(config_path, G_FILE_TEST_EXISTS)) {
-        g_free(config_path);
-        return NULL;
-    }
-    
-    GError *error = NULL;
-    char *contents = NULL;
-    
-    if (!g_file_get_contents(config_path, &contents, NULL, &error)) {
-        g_warning("Failed to read order config: %s", error->message);
-        g_error_free(error);
-        g_free(config_path);
-        return NULL;
-    }
-    
-    char **lines = g_strsplit(contents, "\n", -1);
-    
-    for (int i = 0; lines[i]; i++) {
-        char *line = g_strstrip(lines[i]);
+    if (g_file_test(config_path, G_FILE_TEST_EXISTS)) {
+        GError *error = NULL;
+        char *contents = NULL;
         
-        if (strlen(line) == 0 || line[0] == '#')
-            continue;
-        
-        order_list = g_list_append(order_list, g_strdup(line));
-    }
-    
-    g_strfreev(lines);
-    g_free(contents);
-    g_free(config_path);
-    
-    return order_list;
-}
-
-static void save_icon_order(GList *ordered_files) {
-    char *config_dir = g_build_filename(g_get_user_config_dir(), CONFIG_DIR, NULL);
-    char *config_path = g_build_filename(config_dir, ORDER_FILE, NULL);
-    
-    if (!g_file_test(config_dir, G_FILE_TEST_EXISTS)) {
-        if (g_mkdir_with_parents(config_dir, 0755) != 0) {
-            g_warning("Failed to create config directory: %s", config_dir);
-            g_free(config_dir);
-            g_free(config_path);
-            return;
+        if (g_file_get_contents(config_path, &contents, NULL, &error)) {
+            char **lines = g_strsplit(contents, "\n", -1);
+            for (int i = 0; lines[i]; i++) {
+                char *line = g_strstrip(lines[i]);
+                if (strlen(line) == 0 || line[0] == '#') continue;
+                order_list = g_list_append(order_list, g_strdup(line));
+            }
+            g_strfreev(lines);
+            g_free(contents);
+        } else if (error) {
+            g_warning("Failed to read order config: %s", error->message);
+            g_error_free(error);
         }
     }
     
-    GString *content = g_string_new(NULL);
-    for (GList *item = ordered_files; item; item = item->next) {
-        char *basename = g_path_get_basename((char*)item->data);
-        g_string_append_printf(content, "%s\n", basename);
-        g_free(basename);
-    }
-    
-    GError *error = NULL;
-    if (!g_file_set_contents(config_path, content->str, -1, &error)) {
-        g_warning("Failed to save order config: %s", error->message);
-        g_error_free(error);
-    }
-    
-    g_string_free(content, TRUE);
-    g_free(config_dir);
     g_free(config_path);
+    return order_list;
 }
 
 static GList* get_ordered_icon_list(const char *desktop_path, GList *order_list) {
     GList *ordered_files = NULL;
     
-    if (!order_list) {
-        return NULL;  // If there is no config file, show nothing
-    }
+    if (!order_list) return NULL;
     
     for (GList *order_item = order_list; order_item; order_item = order_item->next) {
         char *order_name = (char*)order_item->data;
@@ -294,7 +238,7 @@ static GtkWidget* create_icon_widget(const char *filepath) {
     GtkWidget *image = gtk_image_new_from_pixbuf(pixbuf);
     GtkWidget *label = gtk_label_new(display_text);
     
-    g_object_unref(pixbuf);
+    if (pixbuf) g_object_unref(pixbuf);
     g_free(display_text);
     
     // Configure label
@@ -312,31 +256,18 @@ static GtkWidget* create_icon_widget(const char *filepath) {
     gtk_container_add(GTK_CONTAINER(event_box), grid);
     
     // Store filepath in the widget
-    g_object_set_data_full(G_OBJECT(event_box), "filepath", 
-                          g_strdup(filepath), g_free);
+    g_object_set_data_full(G_OBJECT(event_box), "filepath", g_strdup(filepath), g_free);
     
     // Connect double-click event
-    g_signal_connect(event_box, "button-press-event", 
-                     G_CALLBACK(on_icon_double_click), NULL);
+    g_signal_connect(event_box, "button-press-event", G_CALLBACK(on_icon_double_click), NULL);
     
     apply_css_styling(grid,
-        "grid {"
-            "background-color: transparent;"
-            "padding: 8px;"
-            "border-radius: 5px;"
-        "}"
-        "grid:hover {"
-            "background-color: rgba(255, 255, 255, 0.1);"
-        "}"
+        "grid { background-color: transparent; padding: 8px; border-radius: 5px; }"
+        "grid:hover { background-color: rgba(255, 255, 255, 0.1); }"
     );
     
     apply_css_styling(label,
-        "label {"
-            "color: white;"
-            "text-shadow: 1px 1px 2px black;"
-            "font-size: 11px;"
-            "font-weight: bold;"
-        "}"
+        "label { color: white; text-shadow: 1px 1px 2px black; font-size: 11px; font-weight: bold; }"
     );
     
     gtk_widget_set_size_request(event_box, ICON_WIDTH, ICON_HEIGHT);
@@ -350,71 +281,38 @@ static gboolean on_icon_double_click(GtkWidget *widget, GdkEventButton *event, g
     }
     
     char *filepath = g_object_get_data(G_OBJECT(widget), "filepath");
-    if (!filepath) {
-        return FALSE;
-    }
-    
-    GFile *file = g_file_new_for_path(filepath);
-    gchar *uri = g_file_get_uri(file);
-    GError *error = NULL;
-    gboolean launched = FALSE;
-    
-    if (!g_file_query_exists(file, NULL)) {
-        goto cleanup;
-    }
+    if (!filepath) return FALSE;
     
     // Try launching .desktop file
     if (g_str_has_suffix(filepath, ".desktop")) {
         GDesktopAppInfo *app_info = g_desktop_app_info_new_from_filename(filepath);
         if (app_info) {
             char *command_line = g_strdup(g_app_info_get_commandline(G_APP_INFO(app_info)));
+            GError *error = NULL;
             
-            char **argv = NULL;
-            int argc = 0;
-            if (g_shell_parse_argv(command_line, &argc, &argv, &error)) {
-                char **new_argv = g_new(char*, argc + 3);
-                new_argv[0] = g_strdup(argv[0]);  // executable path
-                
-                for (int i = 1; i < argc; i++) {
-                    new_argv[i+2] = g_strdup(argv[i]);
-                }
-                new_argv[argc+2] = NULL;
-                
-                launched = g_spawn_async(NULL, new_argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, &error);
-                
-                for (int i = 0; new_argv[i]; i++) g_free(new_argv[i]);
-                g_free(new_argv);
-                g_strfreev(argv);
-            } else {
-                GAppLaunchContext *context = g_app_launch_context_new();
-                launched = g_app_info_launch(G_APP_INFO(app_info), NULL, context, &error);
-                g_object_unref(context);
+            gboolean success = g_spawn_command_line_async(command_line, &error);
+            
+            if (!success && error) {
+                g_warning("Failed to launch: %s", error->message);
+                g_error_free(error);
             }
             
             g_free(command_line);
             g_object_unref(app_info);
+            return TRUE;
         }
     }
     
-    // Try default handler for URI
-    if (!launched) {
-        launched = g_app_info_launch_default_for_uri(uri, NULL, &error);
-    }
-    
-    // Fallback to xdg-open
-    if (!launched) {
-        const char *argv[] = {"xdg-open", filepath, NULL};
-        launched = g_spawn_async(NULL, (char**)argv, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, &error);
-    }
+    // Fallback
+    GError *error = NULL;
+    char *command = g_strdup_printf("xdg-open \"%s\"", filepath);
+    g_spawn_command_line_async(command, &error);
+    g_free(command);
     
     if (error) {
-        g_warning("Failed to launch %s: %s", filepath, error->message);
+        g_warning("Failed to launch fallback: %s", error->message);
         g_error_free(error);
     }
-    
-cleanup:
-    g_free(uri);
-    g_object_unref(file);
     
     return TRUE;
 }
@@ -461,40 +359,69 @@ static void load_desktop_files(DesktopIcons *desktop) {
     }
     
     desktop->icon_files = get_ordered_icon_list(desktop_path, order_list);
+    g_list_free_full(order_list, g_free);
     
     if (!desktop->icon_files) {
         g_warning("No valid files found from order config");
-        g_list_free_full(order_list, g_free);
         return;
     }
     
     for (GList *item = desktop->icon_files; item; item = item->next) {
         add_icon(desktop, (char*)item->data);
     }
-    
-    g_list_free_full(order_list, g_free);
 }
 
 static void calculate_icons_per_column(DesktopIcons *desktop, GtkWidget *window, DesktopConfig *config) {
-    GdkScreen *screen = gtk_widget_get_screen(window);
-    int screen_height = gdk_screen_get_height(screen);
+    int available_height = 0;
+    GdkWindow *gdk_window = gtk_widget_get_window(window);
     
-    int available_height = screen_height - config->bottom_reserved - (2 * WINDOW_MARGIN);
+    // Try to get monitor info
+    if (gdk_window) {
+        GdkDisplay *display = gdk_window_get_display(gdk_window);
+        if (display) {
+            GdkMonitor *monitor = gdk_display_get_monitor_at_window(display, gdk_window);
+            
+            if (monitor && GDK_IS_MONITOR(monitor)) {
+                GdkRectangle workarea;
+                gdk_monitor_get_workarea(monitor, &workarea);
+                available_height = workarea.height;
+            }
+        }
+    }
     
-    if (available_height > 0) {
-        desktop->icons_per_column = (available_height + GRID_ROW_SPACING) / (ICON_HEIGHT + GRID_ROW_SPACING);
+    // Fallback to screen dimensions if monitor detection failed
+    if (available_height == 0) {
+        #pragma GCC diagnostic push
+        #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+        GdkScreen *screen = gtk_widget_get_screen(window);
+        if (screen) {
+            available_height = gdk_screen_get_height(screen);
+        } else {
+            available_height = 768;  // Reasonable fallback
+        }
+        #pragma GCC diagnostic pop
+    }
+    
+    // Calculate icons per column
+    int usable_height = available_height - config->bottom_reserved - (2 * WINDOW_MARGIN);
+    
+    if (usable_height > 0) {
+        desktop->icons_per_column = (usable_height + GRID_ROW_SPACING) / (ICON_HEIGHT + GRID_ROW_SPACING);
     } else {
         desktop->icons_per_column = 1;
     }
     
-    if (desktop->icons_per_column < 1) desktop->icons_per_column = 1;
+    // Ensure at least 1 icon per column
+    if (desktop->icons_per_column < 1) {
+        desktop->icons_per_column = 1;
+    }
 }
 
 static void setup_layer_shell_window(GtkWidget *window, DesktopConfig *config) {
     gtk_layer_init_for_window(GTK_WINDOW(window));
     gtk_layer_set_namespace(GTK_WINDOW(window), "desktop-icons");
-    gtk_layer_set_layer(GTK_WINDOW(window), GTK_LAYER_SHELL_LAYER_BOTTOM);
-    
+    gtk_layer_set_layer(GTK_WINDOW(window), GTK_LAYER_SHELL_LAYER_BACKGROUND);
+    gtk_layer_set_keyboard_mode(GTK_WINDOW(window), GTK_LAYER_SHELL_KEYBOARD_MODE_NONE);
     gtk_layer_set_anchor(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_LEFT, TRUE);
     gtk_layer_set_anchor(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_RIGHT, TRUE);
     gtk_layer_set_anchor(GTK_WINDOW(window), GTK_LAYER_SHELL_EDGE_TOP, TRUE);
@@ -508,10 +435,7 @@ static void setup_layer_shell_window(GtkWidget *window, DesktopConfig *config) {
 
 static void cleanup(DesktopIcons *desktop) {
     if (desktop->icons) {
-        for (GList *l = desktop->icons; l != NULL; l = l->next) {
-            gtk_widget_destroy(GTK_WIDGET(l->data));
-        }
-        g_list_free(desktop->icons);
+        g_list_free_full(desktop->icons, (GDestroyNotify)gtk_widget_destroy);
     }
     
     if (desktop->icon_files) {
@@ -519,10 +443,6 @@ static void cleanup(DesktopIcons *desktop) {
     }
     
     g_free(desktop);
-}
-
-static void cleanup_config(DesktopConfig *config) {
-    g_free(config);
 }
 
 // Main application activation handler
@@ -558,21 +478,12 @@ static void activate(GtkApplication *app, gpointer user_data) {
     gtk_container_add(GTK_CONTAINER(scrolled_window), GTK_WIDGET(desktop->grid));
     gtk_container_add(GTK_CONTAINER(window), scrolled_window);
     
-    apply_css_styling(window,
-        "window, window.background {"
-            "background-color: transparent;"
-        "}"
-    );
-    
-    apply_css_styling(scrolled_window,
-        "scrolledwindow, scrolledwindow.viewport {"
-            "background-color: transparent;"
-        "}"
-    );
+    apply_css_styling(window, "window, window.background { background-color: transparent; }");
+    apply_css_styling(scrolled_window, "scrolledwindow, scrolledwindow.viewport { background-color: transparent; }");
     
     gtk_widget_show_all(window);
     g_signal_connect_swapped(window, "destroy", G_CALLBACK(cleanup), desktop);
-    g_signal_connect_swapped(window, "destroy", G_CALLBACK(cleanup_config), config);
+    g_signal_connect_swapped(window, "destroy", G_CALLBACK(g_free), config);
 }
 
 int main(int argc, char **argv) {
