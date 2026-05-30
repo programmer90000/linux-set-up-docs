@@ -18,6 +18,16 @@ cd linux-set-up-docs/
 
 > All SH files in this repository should be run from the root of the Linux Set Up Docs directory
 
+## Connect to Git accounts
+
+Run:
+```
+chmod +x git/connect-to-online-git-accounts.sh
+./git/connect-to-online-git-accounts.sh
+```
+
+Follow the docs in [connect-to-online-git-accounts.md](./git/connect-to-online-git-accounts.md)
+
 ## Install Alacritty
 
 Run:
