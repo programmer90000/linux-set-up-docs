@@ -1,2 +1,0 @@
-gnome-keyring-daemon
-alias brave-browser="brave-browser --password-store=libsecret"
