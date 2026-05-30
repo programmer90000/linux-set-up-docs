@@ -22,6 +22,5 @@ sudo apt install -y tmux
 sudo apt install -y fonts-hack
 sudo apt install -y zsh
 cp alacritty/zsh/.zshrc ~/.config/zsh/
-cp alacritty/zsh/.zsh-aliases ~/.config/zsh/
 ln -s ~/.config/zsh/.zshrc ~/.zshrc
 cp $ALACRITTY_CONFIG ~/.config/alacritty/alacritty.toml
