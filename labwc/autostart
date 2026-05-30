@@ -1,3 +1,6 @@
+#KeePassXc
+keepassxc --keyfile ~/.config/keepassxc/passwords.keyx ~/.config/keepassxc/Passwords.kdbx &
+
 # Autostart
 swaybg -i /usr/share/pixmaps/desktop-wallpaper.png -m fill &
 icons &
