@@ -1,7 +1,3 @@
-# GNOME Keyring
-eval $(gnome-keyring-daemon --start --components=secrets)
-export SSH_AUTH_SOCK
-
 # Autostart
 swaybg -i /usr/share/pixmaps/desktop-wallpaper.png -m fill &
 icons &
