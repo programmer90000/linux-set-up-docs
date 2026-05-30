@@ -28,6 +28,7 @@ cp -r apps/config/nvim/indent-blankline/ ~/.config/nvim/
 cp -r apps/config/nvim/comment/ ~/.config/nvim/
 cp -r apps/config/nvim/neominimap ~/.config/nvim/
 cp -r apps/config/nvim/autopairs/ ~/.config/nvim/
+cp -r apps/config/nvim/quickui/ ~/.config/nvim/
 mkdir -p ~/.config/nvim/colors/
 cp apps/config/nvim/colours/colour-scheme.lua ~/.config/nvim/colors/
 cp apps/config/nvim/init.lua ~/.config/nvim/
