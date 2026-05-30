@@ -45,14 +45,6 @@ chmod +x labwc/labwc.sh
 ./labwc/labwc.sh
 ```
 
-## Install Tmux
-
-Run:
-```
-chmod +x tmux/tmux.sh
-./tmux/tmux.sh
-```
-
 ## Install Desktop
 
 Run:
