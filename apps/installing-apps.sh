@@ -89,10 +89,9 @@ sudo apt install -y imagemagick
 echo "Installing Kooha"
 sudo apt install -y kooha
 echo "Installing Hardinfo2"
-sudo apt install -y lm-sensors sysbench lsscsi mesa-utils dmidecode udisks2 xdg-utils iperf3 vulkan-tools gawk
 echo "iperf3 iperf3/start_daemon boolean false" | sudo debconf-set-selections
+sudo apt install -y lm-sensors sysbench lsscsi mesa-utils dmidecode udisks2 xdg-utils iperf3 vulkan-tools gawk
 sudo DEBIAN_FRONTEND=noninteractive apt install -y hardinfo2
-echo "PURGE" | sudo debconf-communicate iperf3
 mkdir -p ~/.config/hardinfo2/
 cp apps/config/hardinfo2/settings.ini ~/.config/hardinfo2/
 echo "Installing trash-cli"
