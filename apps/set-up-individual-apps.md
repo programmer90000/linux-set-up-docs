@@ -14,7 +14,7 @@
 5. Set the `Encryption Settings` to `Basic`. Do **not** change any `Advanced` settings
 6. Set the `Decryption Time` to `1.0 sec`
 7. Select `Continue`
-8. Keep the `Password` empty
+8. Set the `Password` to a strong password different to your user password
 9. Select `Add additional protection...`
 10. Select `Add Key File`
 11. Select `Generate`
