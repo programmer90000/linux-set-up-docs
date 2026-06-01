@@ -9,7 +9,7 @@ virsh snapshot-create-as --domain YourVMName --name "SnapshotName" --description
 
 Run:
 ```
-virsh snapshot-create-as --domain YourVMName --name "LiveSnapshotName" --description "Snapshot Description" --live
+virsh snapshot-create-as --domain YourVMName --name "LiveSnapshotName" --description "Snapshot Description" --disk-only --atomic
 ```
 
 # List all snapshots
