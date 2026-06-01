@@ -1,10 +1,5 @@
 # Set Up Individual Apps
 
-## Thunderbird
-
-- Go to `Settings > Add-ons and Themes > Themes`
-- Enable `Dark` theme
-
 ## KeePassXc
 
 1. Click `Create Database`
@@ -38,3 +33,8 @@
 29. When asked to save the password in Brave browser, select `Never`
 
 TEMP DOCS: AFTER THIS, RUN `./APPS/CONFIG/KEEPASSXC/INSTALL.SH`. I STILL NEED TO WRITE THIS FILE PROPERLY. RUN `CHMOD +X` AND THEN RUN IT WITH NORMAL USER PRIVLIGES. AFTER THIS, RUN: `sudo keepassxc-unlock-setup $USER ~/.config/keepassxc/Passwords.kdbx`
+
+## Thunderbird
+
+- Go to `Settings > Add-ons and Themes > Themes`
+- Enable `Dark` theme
