@@ -4,3 +4,18 @@ virt-install --name debian-13 --memory 2048 --vcpus 1 --disk size=3,format=qcow2
 ```
 
 Change the name, memory, vcpus, disk size, OS variant, cdrom and listen appropriately
+
+To list all VMs, run:
+```
+virsh list --all
+```
+
+To get the IP or port of a VM, run:
+```
+virsh vncdisplay <vm_name>
+```
+
+To connect to a VM, run:
+```
+vncviewer 127.0.0.1:5901
+```
