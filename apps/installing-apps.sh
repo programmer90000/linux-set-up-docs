@@ -126,6 +126,8 @@ echo "Installing libnotify-bin"
 sudo apt install -y libnotify-bin
 echo "Installing KeePassXc"
 sudo apt install -y keepassxc-full
+echo "Installing QEMU/KVM"
+sudo apt install qemu-kvm libvirt-daemon-system libvirt-clients virtinst bridge-utils
 echo "Installing Extrepo"
 sudo apt install -y extrepo
 sudo cp apps/config.yaml /etc/extrepo/config.yaml
