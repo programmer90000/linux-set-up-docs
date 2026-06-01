@@ -1,10 +1,5 @@
 # Set Up Individual Apps
 
-## Thunderbird
-
-- Go to `Settings > Add-ons and Themes > Themes`
-- Enable `Dark` theme
-
 ## KeePassXc
 
 1. Click `Create Database`
@@ -36,3 +31,9 @@
 27. Open each website
 28. This should open `Keepassxc`. Enable `Remember`. Click `Allow Selected`
 29. When asked to save the password in Brave browser, select `Never`
+
+## Thunderbird
+
+- Go to `Settings > Add-ons and Themes > Themes`
+- Enable `Dark` theme
+
