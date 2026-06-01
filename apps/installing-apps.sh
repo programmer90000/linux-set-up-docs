@@ -151,3 +151,5 @@ sudo apt update
 sudo apt install librewolf -y
 mkdir -p ~/.config/librewolf/librewolf/
 cp apps/config/librewolf/librewolf.overrides.cfg ~/.config/librewolf/librewolf/
+echo "Installing man pages"
+sudo apt install man-db manpages manpages-dev manpages-posix manpages-posix-dev
