@@ -38,3 +38,4 @@ TEMP DOCS: AFTER THIS, RUN `./APPS/CONFIG/KEEPASSXC/INSTALL.SH`. I STILL NEED TO
 
 - Go to `Settings > Add-ons and Themes > Themes`
 - Enable `Dark` theme
+- Login to all email accounts
