@@ -1,15 +1,8 @@
-# Take a snapshot of a shutdown machine
+# Take a snapshot
 
 Run:
 ```
 virsh snapshot-create-as --domain YourVMName --name "SnapshotName" --description "Snapshot Description"
-```
-
-# Take a snapshot of a running machine:
-
-Run:
-```
-virsh snapshot-create-as --domain YourVMName --name "LiveSnapshotName" --description "Snapshot Description" --disk-only --atomic
 ```
 
 # List all snapshots
