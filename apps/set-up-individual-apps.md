@@ -47,3 +47,5 @@ TEMP DOCS: AFTER THIS, RUN `./APPS/CONFIG/KEEPASSXC/INSTALL.SH`. I STILL NEED TO
 virt-install --name debian-13 --memory 2048 --vcpus 1 --disk size=3,format=qcow2 --os-variant=debian13 --cdrom /home/abdul/Downloads/debian-13.5.0-amd64-netinst.iso --network default --graphics vnc,listen=127.0.0.1,port=5901 --noautoconsole
 ```
 Change the name, memory, vcpus, disk size, OS variant, cdrom and listen appropriately
+
+2. Follow the docs in [../installation.md] to create the VM. Set the `hostname` to `are-debian-13-vm` or another appropriate hostname. Set the `Full name` to `Password Is Admin`. Set the `Username` to `password-is-admin`. Set the `Password` to `admin`. Set the `Partitioning method` to `Guided - use entire disk`. Select `Yes` when asked to install the GRUB boot loader. Set the device to the device shown. Do not manually enter a device.
