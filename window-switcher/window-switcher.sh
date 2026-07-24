@@ -9,6 +9,33 @@ debug_log() {
     fi
 }
 
+build_window_submenu() {
+    local app_id="$1"
+    local sort_method="$2"
+    local temp_file="$3"
+    local sorted_windows=""
+    
+    debug_log "Building submenu with sort: $sort_method"
+    
+    case "$sort_method" in
+        "Creation (Oldest First)")
+            sorted_windows=$(grep "|$app_id|" "$temp_file" 2>/dev/null | sort -n -t'|' -k1)
+            ;;
+        "Creation (Newest First)")
+            sorted_windows=$(grep "|$app_id|" "$temp_file" 2>/dev/null | sort -rn -t'|' -k1)
+            ;;
+        "Alphabetical")
+            sorted_windows=$(grep "|$app_id|" "$temp_file" 2>/dev/null | sort -t'|' -k4)
+            ;;
+        *)
+            sorted_windows=$(grep "|$app_id|" "$temp_file" 2>/dev/null | sort -n -t'|' -k1)
+            ;;
+    esac
+    
+    debug_log "Found $(echo "$sorted_windows" | grep -c '|' || echo 0) windows"
+    echo "$sorted_windows"
+}
+
 # Function to build display list with different sort orders
 build_display_list() {
     local sort_order="$1"
@@ -230,6 +257,75 @@ while true; do
             true
         fi
         break
+    elif [ $count -gt 1 ]; then
+        # Multiple windows - show submenu
+        submenu_sort="Creation (Oldest First)"  # Default sort for submenu
+        
+        # Build initial sorted window list
+        sorted_windows=$(build_window_submenu "$app_id" "$submenu_sort" "$temp_file")
+        
+        while true; do
+            # Build submenu display
+            submenu_list=""
+            
+            # Add windows to list with proper escaping
+            if [ -n "$sorted_windows" ]; then
+                while IFS='|' read -r creation_timestamp a_id title; do
+                    # Properly escape special characters for display
+                    title_escaped=$(printf "%s" "$title" | sed 's/&/\\&/g; s/"/\\"/g')
+                    submenu_list+="$title_escaped\n"
+                done < <(echo "$sorted_windows")
+            fi
+            
+            # Add controls
+            submenu_list+="---\nBack to main menu"
+            
+            # Show submenu
+            selected_window=$(echo -e "$submenu_list" | fuzzel --dmenu --prompt="$app_id ($count windows): " --lines=15 --width=50 --font="Monospace:size=16" --background=282a36ff --text=f8f8f2ff | head -1)
+            
+            # Handle selection
+            if [ -z "$selected_window" ]; then
+                # User cancelled
+                break 2  # Break out of both loops
+            fi
+            
+            # Check if user selected back
+            if [[ "$selected_window" == "Back to main menu" ]]; then
+                break  # Go back to main menu
+            fi
+            
+            # Check if selected is the separator
+            if [[ "$selected_window" == "---" ]]; then
+                continue
+            fi
+            
+            # User selected a specific window - clean it up
+            selected_window_clean=$(printf "%s" "$selected_window" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
+            
+            debug_log "Attempting to focus: app_id='$app_id', title='$selected_window_clean'"
+            
+            # Try to focus with exact title match
+            if wlrctl window focus app-id:"$app_id" title:"$selected_window_clean" 2>/dev/null; then
+                debug_log "Focused using app-id and title"
+                break 2  # Exit both loops
+            fi
+            
+            # Try focusing by title only (for cases where app-id might not match)
+            if wlrctl window focus title:"$selected_window_clean" 2>/dev/null; then
+                debug_log "Focused using title only"
+                break 2
+            fi
+            
+            # Fallback: try to focus by app_id only
+            if wlrctl window focus app-id:"$app_id" 2>/dev/null; then
+                debug_log "Focused using app-id only (fallback)"
+                break 2
+            fi
+            
+            debug_log "Failed to focus window"
+            # If we get here, focusing failed - show a message and continue
+            echo "Failed to focus window" >&2
+        done
     else
         # Fallback: try to focus by app_id
         if wlrctl window focus app-id:"$app_id" 2>/dev/null; then
