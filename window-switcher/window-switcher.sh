@@ -109,7 +109,7 @@ build_display_list() {
 # Function to show sort options submenu
 show_sort_menu() {
     local sort_options="◆ Alphabetical\n◇ Newest Created\n◇ Oldest Created\n━━━━━━━━━━━━━━━━━━━━\n↩ Back to main menu"
-    local selected=$(echo -e "$sort_options" | fuzzel --dmenu --prompt="Sort by: " --lines=15 --width=60 --font="Monospace:size=18" --background=282a36ff --text=f8f8f2ff --selection=44475aff --border=bd93f9ff)
+    local selected=$(wofi_menu "Sort by:" 10 "$sort_options")
     
     case "$selected" in
         "◆ Alphabetical"|"◇ Newest Created"|"◇ Oldest Created")
@@ -130,7 +130,7 @@ show_sort_menu() {
 # Function to show window sort options submenu
 show_window_sort_menu() {
     local sort_options="◆ Creation (Oldest First)\n◇ Creation (Newest First)\n◇ Alphabetical\n━━━━━━━━━━━━━━━━━━━━\n↩ Back to window list"
-    local selected=$(echo -e "$sort_options" | fuzzel --dmenu --prompt="Sort windows by: " --lines=15 --width=60 --font="Monospace:size=18" --background=282a36ff --text=f8f8f2ff --selection=44475aff --border=bd93f9ff)
+    local selected=$(wofi_menu "Sort windows by:" 10 "$sort_options")
     
     case "$selected" in
         "◆ Creation (Oldest First)"|"◇ Creation (Newest First)"|"◇ Alphabetical")
@@ -148,13 +148,22 @@ show_window_sort_menu() {
     esac
 }
 
-# Create temporary file to store window list
+wofi_menu() {
+    local prompt="$1"
+    local lines="$2"
+    local options="$3"
+    
+    echo -e "$options" | wofi --dmenu --prompt "$prompt" --lines "$lines" --width 50 --height 400 --cache-file /dev/null --define "font=Monospace 16" --define "background=#282a36" --define "text=#f8f8f2" --define "selection=#44475a" --define "border=#6272a4" --define "separator=#44475a" 2>/dev/null
+}
+
+# Get window list from wlrctl
 temp_file=$(mktemp)
 
 debug_log "Starting window discovery..."
 
-# Get window list from wlrctl and format as "timestamp|app_id|title"
+# Parse and store window info with timestamps
 wlrctl window list 2>/dev/null | while IFS=: read -r app_id title; do
+    # Trim whitespace
     app_id=$(echo "$app_id" | xargs)
     title=$(echo "$title" | xargs)
     
@@ -237,7 +246,7 @@ display_list=$(build_display_list "$current_sort")
 
 # Main loop - keep showing menu until user selects a window or cancels
 while true; do
-    selected=$(echo -e "$display_list" | fuzzel --dmenu --prompt="󰇾 Window Switcher: " --lines=20 --width=60 --font="Monospace:size=18" --background=282a36ff --text=f8f8f2ff --selection=44475aff --border=bd93f9ff)
+    selected=$(wofi_menu "Window Switcher:" 15 "$display_list")
     
     # Exit if nothing selected
     if [ -z "$selected" ]; then
@@ -259,52 +268,27 @@ while true; do
     fi
     
     # User selected a window - process it
-    # Extract app_id from selection (remove leading spaces)
-    selected_clean=$(echo "$selected" | sed 's/^[[:space:]]*//')
-    app_id=$(echo "$selected_clean" | cut -d':' -f1 | xargs)
+    # Extract app_id from selection
+    app_id=$(echo "$selected" | cut -d':' -f1 | xargs)
     app_id=$(echo "$app_id" | cut -d'(' -f1 | xargs)
     
     # Check if this app has multiple windows
     count=${window_counts[$app_id]}
     
     if [ -z "$count" ] || [ $count -eq 0 ]; then
-        app_id=$(echo "$selected_clean" | awk '{print $1}')
+        app_id=$(echo "$selected" | awk '{print $1}')
         count=${window_counts[$app_id]}
     fi
     
     if [ $count -eq 1 ]; then
         # Only one window, focus it directly
         title="${app_first_window[$app_id]}"
-        
-        debug_log "Attempting to focus single window: app_id='$app_id', title='$title'"
-        
-        # Try multiple focus strategies
-        focus_success=0
-        
-        # Strategy 1: Try app-id and title together
-        if wlrctl window focus app-id:"$app_id" title:"$title" 2>/dev/null; then
-            debug_log "Focused single window using app-id and title"
-            focus_success=1
-        # Strategy 2: Try title only
-        elif wlrctl window focus title:"$title" 2>/dev/null; then
-            debug_log "Focused single window using title only"
-            focus_success=1
-        # Strategy 3: Try app-id only
-        elif wlrctl window focus app-id:"$app_id" 2>/dev/null; then
-            debug_log "Focused single window using app-id only (fallback)"
-            focus_success=1
-        # Strategy 4: Try focusing all windows of this app (last resort)
-        elif wlrctl window focus app-id:"$app_id" 2>/dev/null; then
-            debug_log "Focused single window using app-id only (final fallback)"
-            focus_success=1
-        fi
-        
-        if [ $focus_success -eq 0 ]; then
-            debug_log "Failed to focus single window"
-            echo "Failed to focus window: $title" >&2
+        if wlrctl window focus app-id:"$app_id" 2>/dev/null || \
+           wlrctl window focus title:"$title" 2>/dev/null; then
+            # Focus successful
+            true
         fi
         break
-        
     elif [ $count -gt 1 ]; then
         # Multiple windows - show submenu with sorting options
         submenu_sort="Creation (Oldest First)"  # Default sort for submenu
@@ -316,12 +300,12 @@ while true; do
             # Build submenu display with sort indicator
             submenu_list="  ── Sort: $submenu_sort ──\n"
             
-            # Add windows to list with proper escaping and indentation
+            # Add windows to list with proper escaping
             if [ -n "$sorted_windows" ]; then
                 while IFS='|' read -r creation_timestamp a_id title; do
                     # Properly escape special characters for display
                     title_escaped=$(printf "%s" "$title" | sed 's/&/\\&/g; s/"/\\"/g')
-                    submenu_list+="  $title_escaped\n"
+                    submenu_list+="$title_escaped\n"
                 done < <(echo "$sorted_windows")
             fi
             
@@ -329,7 +313,7 @@ while true; do
             submenu_list+="━━━━━━━━━━━━━━━━━━━━\n  [Sort Windows]\n━━━━━━━━━━━━━━━━━━━━\n  ↩ Back to main menu"
             
             # Show submenu
-            selected_window=$(echo -e "$submenu_list" | fuzzel --dmenu --prompt="󰇾 $app_id ($count windows): " --lines=20 --width=60 --font="Monospace:size=18" --background=282a36ff --text=f8f8f2ff --selection=44475aff --border=bd93f9ff | head -1)
+            selected_window=$(wofi_menu "$app_id ($count windows):" 15 "$submenu_list" | head -1)
             
             # Handle selection
             if [ -z "$selected_window" ]; then
@@ -337,11 +321,8 @@ while true; do
                 break 2  # Break out of both loops
             fi
             
-            # Clean up selection (remove leading spaces)
-            selected_window_clean=$(echo "$selected_window" | sed 's/^[[:space:]]*//')
-            
             # Check if user selected sort option
-            if [[ "$selected_window_clean" == "[Sort Windows]" ]]; then
+            if [[ "$selected_window" == "[Sort Windows]" ]]; then
                 new_sort=$(show_window_sort_menu)
                 if [ $? -eq 0 ] && [ -n "$new_sort" ] && [ "$new_sort" != "$submenu_sort" ]; then
                     submenu_sort="$new_sort"
@@ -352,59 +333,46 @@ while true; do
             fi
             
             # Check if user selected back
-            if [[ "$selected_window_clean" == "↩ Back to main menu" ]]; then
+            if [[ "$selected_window" == "Back to main menu" ]]; then
                 break  # Go back to main menu
             fi
             
             # Check if selected is the separator
-            if [[ "$selected_window_clean" == "━━━━━━━━━━━━━━━━━━━━" ]]; then
+            if [[ "$selected_window" == "━━━━━━━━━━━━━━━━━━━━" ]]; then
                 continue
             fi
             
-            # User selected a specific window - use the cleaned title
+            # User selected a specific window - clean it up
+            selected_window_clean=$(printf "%s" "$selected_window" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
+            
             debug_log "Attempting to focus: app_id='$app_id', title='$selected_window_clean'"
             
-            # Try multiple focus strategies
-            focus_success=0
-            
-            # Strategy 1: Try app-id and title together (most specific)
+            # Try to focus with exact title match
             if wlrctl window focus app-id:"$app_id" title:"$selected_window_clean" 2>/dev/null; then
                 debug_log "Focused using app-id and title"
-                focus_success=1
-            # Strategy 2: Try title only (for cases where app-id might not match)
-            elif wlrctl window focus title:"$selected_window_clean" 2>/dev/null; then
-                debug_log "Focused using title only"
-                focus_success=1
-            # Strategy 3: Try app-id only (fallback)
-            elif wlrctl window focus app-id:"$app_id" 2>/dev/null; then
-                debug_log "Focused using app-id only (fallback)"
-                focus_success=1
-            # Strategy 4: Try to find by partial title match
-            else
-                # Try to find a window containing the selected text
-                partial_match=$(wlrctl window list 2>/dev/null | grep -i "$selected_window_clean" | head -1 | cut -d':' -f2 | xargs)
-                if [ -n "$partial_match" ] && wlrctl window focus title:"$partial_match" 2>/dev/null; then
-                    debug_log "Focused using partial title match: '$partial_match'"
-                    focus_success=1
-                fi
+                break 2  # Exit both loops
             fi
             
-            if [ $focus_success -eq 1 ]; then
-                break 2  # Exit both loops
-            else
-                debug_log "Failed to focus window"
-                echo "Failed to focus window: $selected_window_clean" >&2
-                # Continue the submenu loop instead of breaking
+            # Try focusing by title only (for cases where app-id might not match)
+            if wlrctl window focus title:"$selected_window_clean" 2>/dev/null; then
+                debug_log "Focused using title only"
+                break 2
             fi
+            
+            # Fallback: try to focus by app_id only
+            if wlrctl window focus app-id:"$app_id" 2>/dev/null; then
+                debug_log "Focused using app-id only (fallback)"
+                break 2
+            fi
+            
+            debug_log "Failed to focus window"
+            # If we get here, focusing failed - show a message and continue
+            echo "Failed to focus window" >&2
         done
     else
         # Fallback: try to focus by app_id
-        debug_log "Attempting fallback focus by app_id: $app_id"
         if wlrctl window focus app-id:"$app_id" 2>/dev/null; then
-            debug_log "Focused using app-id only (final fallback)"
-        else
-            debug_log "Failed to focus with fallback method"
-            echo "Failed to focus window" >&2
+            true
         fi
         break
     fi
