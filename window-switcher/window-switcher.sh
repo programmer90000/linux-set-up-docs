@@ -14,6 +14,9 @@ build_display_list() {
     local sort_order="$1"
     local display_list=""
     
+    # Add sort options as a special entry that opens a submenu
+    display_list="[Sort Options]\n---\n"
+    
     case "$sort_order" in
         "Newest Created")
             # Sort apps by newest creation timestamp first
@@ -74,6 +77,25 @@ build_display_list() {
     esac
     
     echo -e "$display_list"
+}
+
+# Function to show sort options submenu
+show_sort_menu() {
+    local sort_options="Alphabetical\nNewest Created\nOldest Created\n---\nBack to main menu"
+    local selected=$(echo -e "$sort_options" | fuzzel --dmenu --prompt="Sort by: " --lines=15 --width=50 --font="Monospace:size=16" --background=282a36ff --text=f8f8f2ff)
+    
+    case "$selected" in
+        "Alphabetical"|"Newest Created"|"Oldest Created")
+            current_sort="$selected"
+            return 0
+            ;;
+        "Back to main menu"|"")
+            return 1
+            ;;
+        *)
+            return 1
+            ;;
+    esac
 }
 
 # Create temporary file to store window list
@@ -163,6 +185,58 @@ debug_log "Built arrays. Found ${#window_counts[@]} applications"
 current_sort="Alphabetical"
 display_list=$(build_display_list "$current_sort")
 
-echo -e "$display_list" | fuzzel --dmenu --prompt="Window: "
+# Main loop - keep showing menu until user selects a window or cancels
+while true; do
+    selected=$(echo -e "$display_list" | fuzzel --dmenu --prompt="Window Switcher: " --lines=15 --width=50 --font="Monospace:size=16" --background=282a36ff --text=f8f8f2ff)
+    
+    # Exit if nothing selected
+    if [ -z "$selected" ]; then
+        break
+    fi
+    
+    # Check if user selected sort options
+    if [[ "$selected" == "[Sort Options]" ]]; then
+        if show_sort_menu; then
+            # Sort option was changed, rebuild display list
+            display_list=$(build_display_list "$current_sort")
+        fi
+        continue
+    fi
+    
+    # Check if selected is the separator
+    if [[ "$selected" == "---" ]]; then
+        continue
+    fi
+    
+    # User selected a window - process it
+    # Extract app_id from selection
+    app_id=$(echo "$selected" | cut -d':' -f1 | xargs)
+    app_id=$(echo "$app_id" | cut -d'(' -f1 | xargs)
+    
+    # Check if this app has multiple windows
+    count=${window_counts[$app_id]}
+    
+    if [ -z "$count" ] || [ $count -eq 0 ]; then
+        app_id=$(echo "$selected" | awk '{print $1}')
+        count=${window_counts[$app_id]}
+    fi
+    
+    if [ $count -eq 1 ]; then
+        # Only one window, focus it directly
+        title="${app_first_window[$app_id]}"
+        if wlrctl window focus app-id:"$app_id" 2>/dev/null || \
+           wlrctl window focus title:"$title" 2>/dev/null; then
+            # Focus successful
+            true
+        fi
+        break
+    else
+        # Fallback: try to focus by app_id
+        if wlrctl window focus app-id:"$app_id" 2>/dev/null; then
+            true
+        fi
+        break
+    fi
+done
 
 rm -f "$temp_file"
