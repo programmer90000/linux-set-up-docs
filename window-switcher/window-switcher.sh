@@ -9,6 +9,73 @@ debug_log() {
     fi
 }
 
+# Function to build display list with different sort orders
+build_display_list() {
+    local sort_order="$1"
+    local display_list=""
+    
+    case "$sort_order" in
+        "Newest Created")
+            # Sort apps by newest creation timestamp first
+            sorted_apps=()
+            for app_id in "${!app_latest_creation[@]}"; do
+                sorted_apps+=("${app_latest_creation[$app_id]}|$app_id")
+            done
+            IFS=$'\n' sorted_apps=($(sort -rn <<<"${sorted_apps[*]}"))
+            unset IFS
+            
+            for entry in "${sorted_apps[@]}"; do
+                app_id=$(echo "$entry" | cut -d'|' -f2)
+                count=${window_counts[$app_id]}
+                
+                if [ $count -eq 1 ]; then
+                    first_title="${app_first_window[$app_id]}"
+                    display_list+="$app_id: $first_title\n"
+                else
+                    display_list+="$app_id ($count windows)\n"
+                fi
+            done
+            ;;
+            
+        "Oldest Created")
+            # Sort apps by oldest creation timestamp first
+            sorted_apps=()
+            for app_id in "${!app_creation_timestamps[@]}"; do
+                sorted_apps+=("${app_creation_timestamps[$app_id]}|$app_id")
+            done
+            IFS=$'\n' sorted_apps=($(sort -n <<<"${sorted_apps[*]}"))
+            unset IFS
+            
+            for entry in "${sorted_apps[@]}"; do
+                app_id=$(echo "$entry" | cut -d'|' -f2)
+                count=${window_counts[$app_id]}
+                
+                if [ $count -eq 1 ]; then
+                    first_title="${app_first_window[$app_id]}"
+                    display_list+="$app_id: $first_title\n"
+                else
+                    display_list+="$app_id ($count windows)\n"
+                fi
+            done
+            ;;
+            
+        *) # Default: Alphabetical
+            for app_id in $(echo "${!window_counts[@]}" | tr ' ' '\n' | sort); do
+                count=${window_counts[$app_id]}
+                
+                if [ $count -eq 1 ]; then
+                    first_title="${app_first_window[$app_id]}"
+                    display_list+="$app_id: $first_title\n"
+                else
+                    display_list+="$app_id ($count windows)\n"
+                fi
+            done
+            ;;
+    esac
+    
+    echo -e "$display_list"
+}
+
 # Create temporary file to store window list
 temp_file=$(mktemp)
 
@@ -92,18 +159,9 @@ done < "$temp_file"
 
 debug_log "Built arrays. Found ${#window_counts[@]} applications"
 
-# Build display list with application grouping
-display_list=""
-for app_id in $(echo "${!window_counts[@]}" | tr ' ' '\n' | sort); do
-    count=${window_counts[$app_id]}
-    
-    if [ $count -eq 1 ]; then
-        first_title="${app_first_window[$app_id]}"
-        display_list+="$app_id: $first_title\n"
-    else
-        display_list+="$app_id ($count windows)\n"
-    fi
-done
+# Initial display with alphabetical sorting
+current_sort="Alphabetical"
+display_list=$(build_display_list "$current_sort")
 
 echo -e "$display_list" | fuzzel --dmenu --prompt="Window: "
 
