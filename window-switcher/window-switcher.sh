@@ -42,7 +42,7 @@ build_display_list() {
     local display_list=""
     
     # Add sort options as a special entry that opens a submenu
-    display_list="[Sort Options]\n---\n"
+    display_list="[Sort Options]\n━━━━━━━━━━━━━━━━━━━━\n"
     
     case "$sort_order" in
         "Newest Created")
@@ -60,9 +60,9 @@ build_display_list() {
                 
                 if [ $count -eq 1 ]; then
                     first_title="${app_first_window[$app_id]}"
-                    display_list+="$app_id: $first_title\n"
+                    display_list+="  $app_id: $first_title\n"
                 else
-                    display_list+="$app_id ($count windows)\n"
+                    display_list+="  $app_id ($count windows)\n"
                 fi
             done
             ;;
@@ -82,9 +82,9 @@ build_display_list() {
                 
                 if [ $count -eq 1 ]; then
                     first_title="${app_first_window[$app_id]}"
-                    display_list+="$app_id: $first_title\n"
+                    display_list+="  $app_id: $first_title\n"
                 else
-                    display_list+="$app_id ($count windows)\n"
+                    display_list+="  $app_id ($count windows)\n"
                 fi
             done
             ;;
@@ -95,9 +95,9 @@ build_display_list() {
                 
                 if [ $count -eq 1 ]; then
                     first_title="${app_first_window[$app_id]}"
-                    display_list+="$app_id: $first_title\n"
+                    display_list+="  $app_id: $first_title\n"
                 else
-                    display_list+="$app_id ($count windows)\n"
+                    display_list+="  $app_id ($count windows)\n"
                 fi
             done
             ;;
@@ -108,15 +108,17 @@ build_display_list() {
 
 # Function to show sort options submenu
 show_sort_menu() {
-    local sort_options="Alphabetical\nNewest Created\nOldest Created\n---\nBack to main menu"
-    local selected=$(echo -e "$sort_options" | fuzzel --dmenu --prompt="Sort by: " --lines=15 --width=50 --font="Monospace:size=16" --background=282a36ff --text=f8f8f2ff)
+    local sort_options="◆ Alphabetical\n◇ Newest Created\n◇ Oldest Created\n━━━━━━━━━━━━━━━━━━━━\n↩ Back to main menu"
+    local selected=$(echo -e "$sort_options" | fuzzel --dmenu --prompt="Sort by: " --lines=15 --width=60 --font="Monospace:size=18" --background=282a36ff --text=f8f8f2ff --selection=44475aff --border=bd93f9ff)
     
     case "$selected" in
-        "Alphabetical"|"Newest Created"|"Oldest Created")
-            current_sort="$selected"
+        "◆ Alphabetical"|"◇ Newest Created"|"◇ Oldest Created")
+            # Remove the symbol and space to get the actual sort name
+            sort_name=$(echo "$selected" | cut -d' ' -f2-)
+            current_sort="$sort_name"
             return 0
             ;;
-        "Back to main menu"|"")
+        "↩ Back to main menu"|"")
             return 1
             ;;
         *)
@@ -127,15 +129,17 @@ show_sort_menu() {
 
 # Function to show window sort options submenu
 show_window_sort_menu() {
-    local sort_options="Creation (Oldest First)\nCreation (Newest First)\nAlphabetical\n---\nBack to window list"
-    local selected=$(echo -e "$sort_options" | fuzzel --dmenu --prompt="Sort windows by: " --lines=15 --width=50 --font="Monospace:size=16" --background=282a36ff --text=f8f8f2ff)
+    local sort_options="◆ Creation (Oldest First)\n◇ Creation (Newest First)\n◇ Alphabetical\n━━━━━━━━━━━━━━━━━━━━\n↩ Back to window list"
+    local selected=$(echo -e "$sort_options" | fuzzel --dmenu --prompt="Sort windows by: " --lines=15 --width=60 --font="Monospace:size=18" --background=282a36ff --text=f8f8f2ff --selection=44475aff --border=bd93f9ff)
     
     case "$selected" in
-        "Creation (Oldest First)"|"Creation (Newest First)"|"Alphabetical")
-            echo "$selected"
+        "◆ Creation (Oldest First)"|"◇ Creation (Newest First)"|"◇ Alphabetical")
+            # Remove the symbol and space to get the actual sort name
+            sort_name=$(echo "$selected" | cut -d' ' -f2-)
+            echo "$sort_name"
             return 0
             ;;
-        "Back to window list"|"")
+        "↩ Back to window list"|"")
             return 1
             ;;
         *)
@@ -233,7 +237,7 @@ display_list=$(build_display_list "$current_sort")
 
 # Main loop - keep showing menu until user selects a window or cancels
 while true; do
-    selected=$(echo -e "$display_list" | fuzzel --dmenu --prompt="Window Switcher: " --lines=15 --width=50 --font="Monospace:size=16" --background=282a36ff --text=f8f8f2ff)
+    selected=$(echo -e "$display_list" | fuzzel --dmenu --prompt="󰇾 Window Switcher: " --lines=20 --width=60 --font="Monospace:size=18" --background=282a36ff --text=f8f8f2ff --selection=44475aff --border=bd93f9ff)
     
     # Exit if nothing selected
     if [ -z "$selected" ]; then
@@ -250,20 +254,21 @@ while true; do
     fi
     
     # Check if selected is the separator
-    if [[ "$selected" == "---" ]]; then
+    if [[ "$selected" == "━━━━━━━━━━━━━━━━━━━━" ]]; then
         continue
     fi
     
     # User selected a window - process it
-    # Extract app_id from selection
-    app_id=$(echo "$selected" | cut -d':' -f1 | xargs)
+    # Extract app_id from selection (remove leading spaces)
+    selected_clean=$(echo "$selected" | sed 's/^[[:space:]]*//')
+    app_id=$(echo "$selected_clean" | cut -d':' -f1 | xargs)
     app_id=$(echo "$app_id" | cut -d'(' -f1 | xargs)
     
     # Check if this app has multiple windows
     count=${window_counts[$app_id]}
     
     if [ -z "$count" ] || [ $count -eq 0 ]; then
-        app_id=$(echo "$selected" | awk '{print $1}')
+        app_id=$(echo "$selected_clean" | awk '{print $1}')
         count=${window_counts[$app_id]}
     fi
     
@@ -299,6 +304,7 @@ while true; do
             echo "Failed to focus window: $title" >&2
         fi
         break
+        
     elif [ $count -gt 1 ]; then
         # Multiple windows - show submenu with sorting options
         submenu_sort="Creation (Oldest First)"  # Default sort for submenu
@@ -308,22 +314,22 @@ while true; do
         
         while true; do
             # Build submenu display with sort indicator
-            submenu_list="--- Sort: $submenu_sort ---\n"
+            submenu_list="  ── Sort: $submenu_sort ──\n"
             
-            # Add windows to list with proper escaping
+            # Add windows to list with proper escaping and indentation
             if [ -n "$sorted_windows" ]; then
                 while IFS='|' read -r creation_timestamp a_id title; do
                     # Properly escape special characters for display
                     title_escaped=$(printf "%s" "$title" | sed 's/&/\\&/g; s/"/\\"/g')
-                    submenu_list+="$title_escaped\n"
+                    submenu_list+="  $title_escaped\n"
                 done < <(echo "$sorted_windows")
             fi
             
-            # Add controls
-            submenu_list+="---\n[Sort Windows]\n---\nBack to main menu"
+            # Add controls with better visuals
+            submenu_list+="━━━━━━━━━━━━━━━━━━━━\n  [Sort Windows]\n━━━━━━━━━━━━━━━━━━━━\n  ↩ Back to main menu"
             
             # Show submenu
-            selected_window=$(echo -e "$submenu_list" | fuzzel --dmenu --prompt="$app_id ($count windows): " --lines=15 --width=50 --font="Monospace:size=16" --background=282a36ff --text=f8f8f2ff | head -1)
+            selected_window=$(echo -e "$submenu_list" | fuzzel --dmenu --prompt="󰇾 $app_id ($count windows): " --lines=20 --width=60 --font="Monospace:size=18" --background=282a36ff --text=f8f8f2ff --selection=44475aff --border=bd93f9ff | head -1)
             
             # Handle selection
             if [ -z "$selected_window" ]; then
@@ -331,8 +337,11 @@ while true; do
                 break 2  # Break out of both loops
             fi
             
+            # Clean up selection (remove leading spaces)
+            selected_window_clean=$(echo "$selected_window" | sed 's/^[[:space:]]*//')
+            
             # Check if user selected sort option
-            if [[ "$selected_window" == "[Sort Windows]" ]]; then
+            if [[ "$selected_window_clean" == "[Sort Windows]" ]]; then
                 new_sort=$(show_window_sort_menu)
                 if [ $? -eq 0 ] && [ -n "$new_sort" ] && [ "$new_sort" != "$submenu_sort" ]; then
                     submenu_sort="$new_sort"
@@ -343,18 +352,16 @@ while true; do
             fi
             
             # Check if user selected back
-            if [[ "$selected_window" == "Back to main menu" ]]; then
+            if [[ "$selected_window_clean" == "↩ Back to main menu" ]]; then
                 break  # Go back to main menu
             fi
             
             # Check if selected is the separator
-            if [[ "$selected_window" == "---" ]]; then
+            if [[ "$selected_window_clean" == "━━━━━━━━━━━━━━━━━━━━" ]]; then
                 continue
             fi
             
-            # User selected a specific window - clean it up
-            selected_window_clean=$(printf "%s" "$selected_window" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')
-            
+            # User selected a specific window - use the cleaned title
             debug_log "Attempting to focus: app_id='$app_id', title='$selected_window_clean'"
             
             # Try multiple focus strategies
