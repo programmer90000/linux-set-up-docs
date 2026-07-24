@@ -270,10 +270,33 @@ while true; do
     if [ $count -eq 1 ]; then
         # Only one window, focus it directly
         title="${app_first_window[$app_id]}"
-        if wlrctl window focus app-id:"$app_id" 2>/dev/null || \
-           wlrctl window focus title:"$title" 2>/dev/null; then
-            # Focus successful
-            true
+        
+        debug_log "Attempting to focus single window: app_id='$app_id', title='$title'"
+        
+        # Try multiple focus strategies
+        focus_success=0
+        
+        # Strategy 1: Try app-id and title together
+        if wlrctl window focus app-id:"$app_id" title:"$title" 2>/dev/null; then
+            debug_log "Focused single window using app-id and title"
+            focus_success=1
+        # Strategy 2: Try title only
+        elif wlrctl window focus title:"$title" 2>/dev/null; then
+            debug_log "Focused single window using title only"
+            focus_success=1
+        # Strategy 3: Try app-id only
+        elif wlrctl window focus app-id:"$app_id" 2>/dev/null; then
+            debug_log "Focused single window using app-id only (fallback)"
+            focus_success=1
+        # Strategy 4: Try focusing all windows of this app (last resort)
+        elif wlrctl window focus app-id:"$app_id" 2>/dev/null; then
+            debug_log "Focused single window using app-id only (final fallback)"
+            focus_success=1
+        fi
+        
+        if [ $focus_success -eq 0 ]; then
+            debug_log "Failed to focus single window"
+            echo "Failed to focus window: $title" >&2
         fi
         break
     elif [ $count -gt 1 ]; then
@@ -334,32 +357,47 @@ while true; do
             
             debug_log "Attempting to focus: app_id='$app_id', title='$selected_window_clean'"
             
-            # Try to focus with exact title match
+            # Try multiple focus strategies
+            focus_success=0
+            
+            # Strategy 1: Try app-id and title together (most specific)
             if wlrctl window focus app-id:"$app_id" title:"$selected_window_clean" 2>/dev/null; then
                 debug_log "Focused using app-id and title"
-                break 2  # Exit both loops
-            fi
-            
-            # Try focusing by title only (for cases where app-id might not match)
-            if wlrctl window focus title:"$selected_window_clean" 2>/dev/null; then
+                focus_success=1
+            # Strategy 2: Try title only (for cases where app-id might not match)
+            elif wlrctl window focus title:"$selected_window_clean" 2>/dev/null; then
                 debug_log "Focused using title only"
-                break 2
-            fi
-            
-            # Fallback: try to focus by app_id only
-            if wlrctl window focus app-id:"$app_id" 2>/dev/null; then
+                focus_success=1
+            # Strategy 3: Try app-id only (fallback)
+            elif wlrctl window focus app-id:"$app_id" 2>/dev/null; then
                 debug_log "Focused using app-id only (fallback)"
-                break 2
+                focus_success=1
+            # Strategy 4: Try to find by partial title match
+            else
+                # Try to find a window containing the selected text
+                partial_match=$(wlrctl window list 2>/dev/null | grep -i "$selected_window_clean" | head -1 | cut -d':' -f2 | xargs)
+                if [ -n "$partial_match" ] && wlrctl window focus title:"$partial_match" 2>/dev/null; then
+                    debug_log "Focused using partial title match: '$partial_match'"
+                    focus_success=1
+                fi
             fi
             
-            debug_log "Failed to focus window"
-            # If we get here, focusing failed - show a message and continue
-            echo "Failed to focus window" >&2
+            if [ $focus_success -eq 1 ]; then
+                break 2  # Exit both loops
+            else
+                debug_log "Failed to focus window"
+                echo "Failed to focus window: $selected_window_clean" >&2
+                # Continue the submenu loop instead of breaking
+            fi
         done
     else
         # Fallback: try to focus by app_id
+        debug_log "Attempting fallback focus by app_id: $app_id"
         if wlrctl window focus app-id:"$app_id" 2>/dev/null; then
-            true
+            debug_log "Focused using app-id only (final fallback)"
+        else
+            debug_log "Failed to focus with fallback method"
+            echo "Failed to focus window" >&2
         fi
         break
     fi
