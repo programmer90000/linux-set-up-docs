@@ -125,6 +125,25 @@ show_sort_menu() {
     esac
 }
 
+# Function to show window sort options submenu
+show_window_sort_menu() {
+    local sort_options="Creation (Oldest First)\nCreation (Newest First)\nAlphabetical\n---\nBack to window list"
+    local selected=$(echo -e "$sort_options" | fuzzel --dmenu --prompt="Sort windows by: " --lines=15 --width=50 --font="Monospace:size=16" --background=282a36ff --text=f8f8f2ff)
+    
+    case "$selected" in
+        "Creation (Oldest First)"|"Creation (Newest First)"|"Alphabetical")
+            echo "$selected"
+            return 0
+            ;;
+        "Back to window list"|"")
+            return 1
+            ;;
+        *)
+            return 1
+            ;;
+    esac
+}
+
 # Create temporary file to store window list
 temp_file=$(mktemp)
 
@@ -258,15 +277,15 @@ while true; do
         fi
         break
     elif [ $count -gt 1 ]; then
-        # Multiple windows - show submenu
+        # Multiple windows - show submenu with sorting options
         submenu_sort="Creation (Oldest First)"  # Default sort for submenu
         
         # Build initial sorted window list
         sorted_windows=$(build_window_submenu "$app_id" "$submenu_sort" "$temp_file")
         
         while true; do
-            # Build submenu display
-            submenu_list=""
+            # Build submenu display with sort indicator
+            submenu_list="--- Sort: $submenu_sort ---\n"
             
             # Add windows to list with proper escaping
             if [ -n "$sorted_windows" ]; then
@@ -278,7 +297,7 @@ while true; do
             fi
             
             # Add controls
-            submenu_list+="---\nBack to main menu"
+            submenu_list+="---\n[Sort Windows]\n---\nBack to main menu"
             
             # Show submenu
             selected_window=$(echo -e "$submenu_list" | fuzzel --dmenu --prompt="$app_id ($count windows): " --lines=15 --width=50 --font="Monospace:size=16" --background=282a36ff --text=f8f8f2ff | head -1)
@@ -287,6 +306,17 @@ while true; do
             if [ -z "$selected_window" ]; then
                 # User cancelled
                 break 2  # Break out of both loops
+            fi
+            
+            # Check if user selected sort option
+            if [[ "$selected_window" == "[Sort Windows]" ]]; then
+                new_sort=$(show_window_sort_menu)
+                if [ $? -eq 0 ] && [ -n "$new_sort" ] && [ "$new_sort" != "$submenu_sort" ]; then
+                    submenu_sort="$new_sort"
+                    # Rebuild sorted windows with new sort
+                    sorted_windows=$(build_window_submenu "$app_id" "$submenu_sort" "$temp_file")
+                fi
+                continue  # Rebuild submenu with new sort
             fi
             
             # Check if user selected back
