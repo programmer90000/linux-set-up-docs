@@ -15,6 +15,6 @@ if [ ! -d "$BASE_FILE" ]; then
 fi
 
 sudo apt update
-sudo apt install -y wlrctl fuzzel
+sudo apt install -y wlrctl wofi
 
 cp window-switcher/window-switcher.sh ~/.config/labwc/
