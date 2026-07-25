@@ -1,4 +1,4 @@
-use iced::widget::{button, column, text, scrollable};
+use iced::widget::{button, column, row, text, scrollable};
 use iced::{Element, Length, Task, Theme};
 use std::collections::HashMap;
 use std::process::Command;
@@ -7,6 +7,19 @@ use std::time::{SystemTime, UNIX_EPOCH};
 pub fn main() -> iced::Result {
     iced::application("LabWC Window Switcher", WindowSwitcher::update, WindowSwitcher::view)
         .run_with(|| (WindowSwitcher::new(), Task::none()))
+}
+
+#[derive(Debug, Clone)]
+enum SortOrder {
+    Alphabetical,
+    NewestFirst,
+    OldestFirst,
+}
+
+impl Default for SortOrder {
+    fn default() -> Self {
+        Self::Alphabetical
+    }
 }
 
 #[derive(Debug, Clone)]
@@ -26,11 +39,13 @@ struct AppGroup {
 #[derive(Debug, Clone)]
 enum Message {
     Refresh,
+    ChangeSortOrder(SortOrder),
     Error(String),
 }
 
 struct WindowSwitcher {
     app_groups: Vec<AppGroup>,
+    sort_order: SortOrder,
     error_message: Option<String>,
     loading: bool,
 }
@@ -39,6 +54,7 @@ impl WindowSwitcher {
     fn new() -> Self {
         let mut switcher = Self {
             app_groups: Vec::new(),
+            sort_order: SortOrder::default(),
             error_message: None,
             loading: true,
         };
@@ -60,6 +76,7 @@ impl WindowSwitcher {
                 let stdout = String::from_utf8_lossy(&output.stdout);
                 let windows = self.parse_window_list(&stdout);
                 self.app_groups = self.group_windows(windows);
+                self.sort_app_groups();
                 self.loading = false;
             }
             Ok(output) => {
@@ -184,6 +201,28 @@ impl WindowSwitcher {
             .collect()
     }
     
+    fn sort_app_groups(&mut self) {
+        match self.sort_order {
+            SortOrder::Alphabetical => {
+                self.app_groups.sort_by(|a, b| a.app_id.cmp(&b.app_id));
+            }
+            SortOrder::NewestFirst => {
+                self.app_groups.sort_by(|a, b| {
+                    let a_max = a.windows.iter().map(|w| w.timestamp).max().unwrap_or(0);
+                    let b_max = b.windows.iter().map(|w| w.timestamp).max().unwrap_or(0);
+                    b_max.cmp(&a_max)
+                });
+            }
+            SortOrder::OldestFirst => {
+                self.app_groups.sort_by(|a, b| {
+                    let a_min = a.windows.iter().map(|w| w.timestamp).min().unwrap_or(0);
+                    let b_min = b.windows.iter().map(|w| w.timestamp).min().unwrap_or(0);
+                    a_min.cmp(&b_min)
+                });
+            }
+        }
+    }
+    
     fn format_timestamp(&self, timestamp: u64) -> String {
         let now = SystemTime::now()
             .duration_since(UNIX_EPOCH)
@@ -209,20 +248,42 @@ impl WindowSwitcher {
                 self.load_windows();
                 Task::none()
             }
+            Message::ChangeSortOrder(order) => {
+                self.sort_order = order;
+                self.sort_app_groups();
+                Task::none()
+            }
             Message::Error(msg) => {
                 self.error_message = Some(msg);
                 Task::none()
             }
         }
     }
-
+    
     fn view(&self) -> Element<Message> {
         let mut content = column![
             text("=== LabWC Window Switcher ===").size(24),
-            button("Refresh").on_press(Message::Refresh),
         ]
         .spacing(10)
         .padding(20);
+        
+        let sort_row = row![
+            button("Refresh").on_press(Message::Refresh),
+            button("Alphabetical").on_press(Message::ChangeSortOrder(SortOrder::Alphabetical)),
+            button("Newest First").on_press(Message::ChangeSortOrder(SortOrder::NewestFirst)),
+            button("Oldest First").on_press(Message::ChangeSortOrder(SortOrder::OldestFirst)),
+        ]
+        .spacing(10)
+        .padding(5);
+        
+        content = content.push(sort_row);
+        
+        let sort_text = match self.sort_order {
+            SortOrder::Alphabetical => "Alphabetical",
+            SortOrder::NewestFirst => "Newest First",
+            SortOrder::OldestFirst => "Oldest First",
+        };
+        content = content.push(text(format!("Current sort: {}", sort_text)).size(16));
         
         if let Some(error) = &self.error_message {
             content = content.push(text(format!("Error: {}", error)));
