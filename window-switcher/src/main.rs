@@ -12,6 +12,7 @@ pub fn main() -> iced::Result {
 struct WindowInfo {
     app_id: String,
     title: String,
+    pid: Option<u32>,
 }
 
 #[derive(Debug, Clone)]
@@ -84,12 +85,31 @@ impl WindowSwitcher {
                 let title = parts[1].trim().to_string();
                 
                 if !title.is_empty() && title != "title" {
-                    windows.push(WindowInfo { app_id, title });
+                    let pid = self.get_window_pid(&app_id, &title);
+                    windows.push(WindowInfo { app_id, title, pid });
                 }
             }
         }
         
         windows
+    }
+    
+    fn get_window_pid(&self, app_id: &str, title: &str) -> Option<u32> {
+        let output = Command::new("wlrctl")
+            .arg("window")
+            .arg("get-pid")
+            .arg(format!("app-id:{}", app_id))
+            .arg(format!("title:{}", title))
+            .output()
+            .ok()?;
+        
+        if output.status.success() {
+            let pid_str = String::from_utf8_lossy(&output.stdout);
+            let pid_str = pid_str.trim();
+            pid_str.parse::<u32>().ok()
+        } else {
+            None
+        }
     }
     
     fn group_windows(&self, windows: Vec<WindowInfo>) -> Vec<AppGroup> {
@@ -146,7 +166,11 @@ impl WindowSwitcher {
                 list = list.push(text(header).size(16));
                 
                 for window in &group.windows {
-                    list = list.push(text(format!("{}", window.title)).size(14));
+                    let pid_text = match window.pid {
+                        Some(pid) => format!(" (PID: {})", pid),
+                        None => " (PID: unknown)".to_string(),
+                    };
+                    list = list.push(text(format!("{}{}", window.title, pid_text)).size(14));
                 }
             }
             content = content.push(scrollable(list));
