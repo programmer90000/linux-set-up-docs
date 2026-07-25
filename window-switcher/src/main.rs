@@ -1,4 +1,4 @@
-use iced::widget::{button, column, row, text, scrollable};
+use iced::widget::{button, column, container, row, scrollable, text, Row};
 use iced::{Element, Length, Task, Theme};
 use std::collections::HashMap;
 use std::process::Command;
@@ -39,6 +39,7 @@ struct AppGroup {
 #[derive(Debug, Clone)]
 enum Message {
     Refresh,
+    SelectWindow(usize, usize),
     ChangeSortOrder(SortOrder),
     Error(String),
 }
@@ -46,6 +47,7 @@ enum Message {
 struct WindowSwitcher {
     app_groups: Vec<AppGroup>,
     sort_order: SortOrder,
+    selected_app: Option<usize>,
     error_message: Option<String>,
     loading: bool,
 }
@@ -55,6 +57,7 @@ impl WindowSwitcher {
         let mut switcher = Self {
             app_groups: Vec::new(),
             sort_order: SortOrder::default(),
+            selected_app: None,
             error_message: None,
             loading: true,
         };
@@ -242,10 +245,28 @@ impl WindowSwitcher {
         }
     }
     
+    fn focus_window(&self, app_id: &str, title: &str) {
+        let mut cmd = Command::new("wlrctl");
+        cmd.arg("window");
+        cmd.arg("focus");
+        cmd.arg(format!("app-id:{}", app_id));
+        cmd.arg(format!("title:{}", title));
+        
+        let _ = cmd.output();
+    }
+    
     fn update(&mut self, message: Message) -> Task<Message> {
         match message {
             Message::Refresh => {
                 self.load_windows();
+                Task::none()
+            }
+            Message::SelectWindow(app_idx, window_idx) => {
+                if let Some(app_group) = self.app_groups.get(app_idx) {
+                    if let Some(window) = app_group.windows.get(window_idx) {
+                        self.focus_window(&window.app_id, &window.title);
+                    }
+                }
                 Task::none()
             }
             Message::ChangeSortOrder(order) => {
@@ -261,12 +282,13 @@ impl WindowSwitcher {
     }
     
     fn view(&self) -> Element<Message> {
-        let mut content = column![
-            text("=== LabWC Window Switcher ===").size(24),
-        ]
-        .spacing(10)
-        .padding(20);
+        let mut content = Column::new().spacing(10).padding(20);
         
+        content = content.push(
+            text("=== LabWC Window Switcher ===").size(24)
+                .width(Length::Fill)
+        );
+
         let sort_row = row![
             button("Refresh").on_press(Message::Refresh),
             button("Alphabetical").on_press(Message::ChangeSortOrder(SortOrder::Alphabetical)),
@@ -294,28 +316,43 @@ impl WindowSwitcher {
         } else if self.app_groups.is_empty() {
             content = content.push(text("No windows found").size(18));
         } else {
-            let mut list = column![].spacing(10);
-            for group in &self.app_groups {
-                let header = if group.windows.len() == 1 {
-                    format!("{}", group.app_id)
+            let mut grid = Column::new().spacing(10);
+            let cols: usize = 4;
+            let mut rows = Vec::new();
+            let mut current_row = Vec::new();
+            
+            for (app_idx, app_group) in self.app_groups.iter().enumerate() {
+                let display_text = if app_group.windows.len() == 1 {
+                    format!("{}: {}", app_group.app_id, app_group.windows[0].title)
                 } else {
-                    format!("{} ({} windows)", group.app_id, group.windows.len())
+                    format!("{} ({} windows)", app_group.app_id, app_group.windows.len())
                 };
-                list = list.push(text(header).size(16));
                 
-                for window in &group.windows {
-                    let pid_text = match window.pid {
-                        Some(pid) => format!(" PID:{}", pid),
-                        None => " PID:unknown".to_string(),
-                    };
-                    let time_text = self.format_timestamp(window.timestamp);
-                    list = list.push(
-                        text(format!("  └─ {}{} [{}]", window.title, pid_text, time_text))
-                            .size(14)
-                    );
+                let button_widget = button(text(display_text).size(14))
+                    .width(Length::Fill)
+                    .on_press(Message::SelectWindow(app_idx, 0));
+                
+                current_row.push(button_widget);
+                
+                if current_row.len() >= cols {
+                    rows.push(current_row);
+                    current_row = Vec::new();
                 }
             }
-            content = content.push(scrollable(list));
+            
+            if !current_row.is_empty() {
+                rows.push(current_row);
+            }
+            
+            for row_buttons in rows {
+                let mut row_widget = Row::new().spacing(10);
+                for btn in row_buttons {
+                    row_widget = row_widget.push(btn);
+                }
+                grid = grid.push(row_widget);
+            }
+            
+            content = content.push(scrollable(grid));
         }
         
         content.into()
