@@ -1,4 +1,4 @@
-use iced::widget::{button, column, container, row, scrollable, text, Row};
+use iced::widget::{button, Column, container, row, scrollable, text, Row};
 use iced::{Element, Length, Task, Theme};
 use std::collections::HashMap;
 use std::process::Command;
