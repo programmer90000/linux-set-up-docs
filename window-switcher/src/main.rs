@@ -9,7 +9,7 @@ pub fn main() -> iced::Result {
         .run_with(|| (WindowSwitcher::new(), Task::none()))
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 enum SortOrder {
     Alphabetical,
     NewestFirst,
@@ -28,6 +28,7 @@ struct WindowInfo {
     title: String,
     timestamp: u64,
     pid: Option<u32>,
+    id: String,
 }
 
 #[derive(Debug, Clone)]
@@ -109,7 +110,8 @@ impl WindowSwitcher {
                 if !title.is_empty() && title != "title" {
                     let pid = self.get_window_pid(&app_id, &title);
                     let timestamp = self.get_window_timestamp(&app_id, &title);
-                    windows.push(WindowInfo { app_id, title, timestamp, pid });
+                    let id = format!("{}:{}:{}", app_id, title, timestamp);
+                    windows.push(WindowInfo {app_id, title, timestamp, pid, id});
                 }
             }
         }
@@ -146,10 +148,12 @@ impl WindowSwitcher {
             }
         }
         
-        SystemTime::now()
-            .duration_since(UNIX_EPOCH)
-            .unwrap_or_default()
-            .as_secs()
+        let hash_input = format!("{}{}", app_id, title);
+        let mut hash = 0u64;
+        for (i, byte) in hash_input.bytes().enumerate() {
+            hash = hash.wrapping_add((byte as u64) << (i % 8));
+        }
+        1577836800 + (hash % 315360000)
     }
     
     fn get_timestamp_from_proc(&self, pid: u32) -> Option<u64> {
@@ -289,14 +293,13 @@ impl WindowSwitcher {
                 .width(Length::Fill)
         );
 
-        let sort_row = row![
-            button("Refresh").on_press(Message::Refresh),
-            button("Alphabetical").on_press(Message::ChangeSortOrder(SortOrder::Alphabetical)),
-            button("Newest First").on_press(Message::ChangeSortOrder(SortOrder::NewestFirst)),
-            button("Oldest First").on_press(Message::ChangeSortOrder(SortOrder::OldestFirst)),
-        ]
-        .spacing(10)
-        .padding(5);
+        let sort_row = Row::new()
+            .spacing(10)
+            .padding(5)
+            .push(button("Refresh").on_press(Message::Refresh))
+            .push(button("Alphabetical").on_press(Message::ChangeSortOrder(SortOrder::Alphabetical)))
+            .push(button("Newest First").on_press(Message::ChangeSortOrder(SortOrder::NewestFirst)))
+            .push(button("Oldest First").on_press(Message::ChangeSortOrder(SortOrder::OldestFirst)));
         
         content = content.push(sort_row);
         
@@ -305,7 +308,13 @@ impl WindowSwitcher {
             SortOrder::NewestFirst => "Newest First",
             SortOrder::OldestFirst => "Oldest First",
         };
-        content = content.push(text(format!("Current sort: {}", sort_text)).size(16));
+        content = content.push(
+            text(format!("Sort: {} | Groups: {} | Windows: {}", 
+                sort_text, 
+                self.app_groups.len(),
+                self.app_groups.iter().map(|g| g.windows.len()).sum::<usize>()
+            )).size(16)
+        );
         
         if let Some(error) = &self.error_message {
             content = content.push(text(format!("Error: {}", error)));
