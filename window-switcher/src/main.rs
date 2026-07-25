@@ -2,6 +2,7 @@ use iced::widget::{button, column, text, scrollable};
 use iced::{Element, Length, Task, Theme};
 use std::collections::HashMap;
 use std::process::Command;
+use std::time::{SystemTime, UNIX_EPOCH};
 
 pub fn main() -> iced::Result {
     iced::application("LabWC Window Switcher", WindowSwitcher::update, WindowSwitcher::view)
@@ -12,6 +13,7 @@ pub fn main() -> iced::Result {
 struct WindowInfo {
     app_id: String,
     title: String,
+    timestamp: u64,
     pid: Option<u32>,
 }
 
@@ -86,7 +88,8 @@ impl WindowSwitcher {
                 
                 if !title.is_empty() && title != "title" {
                     let pid = self.get_window_pid(&app_id, &title);
-                    windows.push(WindowInfo { app_id, title, pid });
+                    let timestamp = self.get_window_timestamp(&app_id, &title);
+                    windows.push(WindowInfo { app_id, title, timestamp, pid });
                 }
             }
         }
@@ -112,6 +115,58 @@ impl WindowSwitcher {
         }
     }
     
+    fn get_window_timestamp(&self, app_id: &str, title: &str) -> u64 {
+        if let Some(pid) = self.get_window_pid(app_id, title) {
+            if let Some(ts) = self.get_timestamp_from_proc(pid) {
+                return ts;
+            }
+            
+            if let Some(ts) = self.get_timestamp_from_proc_stat(pid) {
+                return ts;
+            }
+        }
+        
+        SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .unwrap_or_default()
+            .as_secs()
+    }
+    
+    fn get_timestamp_from_proc(&self, pid: u32) -> Option<u64> {
+        let stat_path = format!("/proc/{}/stat", pid);
+        let content = std::fs::read_to_string(&stat_path).ok()?;
+        let fields: Vec<&str> = content.split_whitespace().collect();
+        
+        if fields.len() >= 22 {
+            if let Ok(start_time_ticks) = fields[21].parse::<u64>() {
+                let uptime_content = std::fs::read_to_string("/proc/uptime").ok()?;
+                let uptime_seconds = uptime_content
+                    .split_whitespace()
+                    .next()?
+                    .parse::<f64>()
+                    .ok()?;
+                
+                let boot_time = SystemTime::now()
+                    .duration_since(UNIX_EPOCH)
+                    .unwrap_or_default()
+                    .as_secs() - uptime_seconds as u64;
+                
+                let start_time_seconds = start_time_ticks / 100;
+                return Some(boot_time + start_time_seconds);
+            }
+        }
+        None
+    }
+    
+    fn get_timestamp_from_proc_stat(&self, pid: u32) -> Option<u64> {
+        let proc_path = format!("/proc/{}", pid);
+        std::fs::metadata(&proc_path)
+            .ok()
+            .and_then(|meta| meta.modified().ok())
+            .and_then(|time| time.duration_since(UNIX_EPOCH).ok())
+            .map(|d| d.as_secs())
+    }
+    
     fn group_windows(&self, windows: Vec<WindowInfo>) -> Vec<AppGroup> {
         let mut groups: HashMap<String, Vec<WindowInfo>> = HashMap::new();
         
@@ -122,8 +177,30 @@ impl WindowSwitcher {
         }
         
         groups.into_iter()
-            .map(|(app_id, windows)| AppGroup { app_id, windows })
+            .map(|(app_id, mut windows)| {
+                windows.sort_by(|a, b| b.timestamp.cmp(&a.timestamp));
+                AppGroup { app_id, windows }
+            })
             .collect()
+    }
+    
+    fn format_timestamp(&self, timestamp: u64) -> String {
+        let now = SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .unwrap_or_default()
+            .as_secs();
+        
+        let diff = now.saturating_sub(timestamp);
+        
+        if diff < 60 {
+            format!("{}s ago", diff)
+        } else if diff < 3600 {
+            format!("{}m ago", diff / 60)
+        } else if diff < 86400 {
+            format!("{}h ago", diff / 3600)
+        } else {
+            format!("{}d ago", diff / 86400)
+        }
     }
     
     fn update(&mut self, message: Message) -> Task<Message> {
@@ -167,10 +244,14 @@ impl WindowSwitcher {
                 
                 for window in &group.windows {
                     let pid_text = match window.pid {
-                        Some(pid) => format!(" (PID: {})", pid),
-                        None => " (PID: unknown)".to_string(),
+                        Some(pid) => format!(" PID:{}", pid),
+                        None => " PID:unknown".to_string(),
                     };
-                    list = list.push(text(format!("{}{}", window.title, pid_text)).size(14));
+                    let time_text = self.format_timestamp(window.timestamp);
+                    list = list.push(
+                        text(format!("  └─ {}{} [{}]", window.title, pid_text, time_text))
+                            .size(14)
+                    );
                 }
             }
             content = content.push(scrollable(list));
