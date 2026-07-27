@@ -48,7 +48,6 @@ enum Message {
 struct WindowSwitcher {
     app_groups: Vec<AppGroup>,
     sort_order: SortOrder,
-    selected_app: Option<usize>,
     error_message: Option<String>,
     loading: bool,
 }
@@ -58,7 +57,6 @@ impl WindowSwitcher {
         let mut switcher = Self {
             app_groups: Vec::new(),
             sort_order: SortOrder::default(),
-            selected_app: None,
             error_message: None,
             loading: true,
         };
