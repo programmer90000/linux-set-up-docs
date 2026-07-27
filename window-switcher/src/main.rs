@@ -230,25 +230,6 @@ impl WindowSwitcher {
         }
     }
     
-    fn format_timestamp(&self, timestamp: u64) -> String {
-        let now = SystemTime::now()
-            .duration_since(UNIX_EPOCH)
-            .unwrap_or_default()
-            .as_secs();
-        
-        let diff = now.saturating_sub(timestamp);
-        
-        if diff < 60 {
-            format!("{}s ago", diff)
-        } else if diff < 3600 {
-            format!("{}m ago", diff / 60)
-        } else if diff < 86400 {
-            format!("{}h ago", diff / 3600)
-        } else {
-            format!("{}d ago", diff / 86400)
-        }
-    }
-    
     fn focus_window(&self, app_id: &str, title: &str) {
         let mut cmd = Command::new("wlrctl");
         cmd.arg("window");
