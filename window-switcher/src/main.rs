@@ -27,8 +27,6 @@ struct WindowInfo {
     app_id: String,
     title: String,
     timestamp: u64,
-    pid: Option<u32>,
-    id: String,
 }
 
 #[derive(Debug, Clone)]
@@ -106,10 +104,8 @@ impl WindowSwitcher {
                 let title = parts[1].trim().to_string();
                 
                 if !title.is_empty() && title != "title" {
-                    let pid = self.get_window_pid(&app_id, &title);
                     let timestamp = self.get_window_timestamp(&app_id, &title);
-                    let id = format!("{}:{}:{}", app_id, title, timestamp);
-                    windows.push(WindowInfo {app_id, title, timestamp, pid, id});
+                    windows.push(WindowInfo {app_id, title, timestamp});
                 }
             }
         }
