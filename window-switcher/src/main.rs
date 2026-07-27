@@ -1,5 +1,5 @@
-use iced::widget::{button, Column, container, row, scrollable, text, Row};
-use iced::{Element, Length, Task, Theme};
+use iced::widget::{button, Column, scrollable, text, Row};
+use iced::{Element, Length, Task};
 use std::collections::HashMap;
 use std::process::Command;
 use std::time::{SystemTime, UNIX_EPOCH};
