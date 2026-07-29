@@ -40,7 +40,6 @@ enum Message {
     Refresh,
     SelectWindow(usize, usize),
     ChangeSortOrder(SortOrder),
-    Error(String),
 }
 
 struct WindowSwitcher {
@@ -251,10 +250,6 @@ impl WindowSwitcher {
             Message::ChangeSortOrder(order) => {
                 self.sort_order = order;
                 self.sort_app_groups();
-                Task::none()
-            }
-            Message::Error(msg) => {
-                self.error_message = Some(msg);
                 Task::none()
             }
         }
