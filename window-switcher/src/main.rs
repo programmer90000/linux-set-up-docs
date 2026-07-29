@@ -5,8 +5,7 @@ use std::process::Command;
 use std::time::{SystemTime, UNIX_EPOCH};
 
 pub fn main() -> iced::Result {
-    iced::application("LabWC Window Switcher", WindowSwitcher::update, WindowSwitcher::view)
-        .run_with(|| (WindowSwitcher::new(), Task::none()))
+    iced::application("LabWC Window Switcher", WindowSwitcher::update, WindowSwitcher::view).window(iced::window::Settings { size: iced::Size::new(2000.0, 200.0), resizable: true, decorations: true, position: iced::window::Position::Centered, ..Default::default()}).run_with(|| (WindowSwitcher::new(), Task::none()))
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
