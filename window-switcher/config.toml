@@ -2,3 +2,4 @@
 width = 2000.0
 height = 250.0
 resizable = true
+decorations = true
