@@ -30,34 +30,54 @@ impl Default for Config {
 
 impl Config {
     pub fn load() -> Self {
-        let config_path = PathBuf::from("config.toml");
-        
-        if config_path.exists() {
-            println!("Loading config from: {:?}", config_path);
-            match fs::read_to_string(&config_path) {
-                Ok(content) => {
-                    match toml::from_str::<Config>(&content) {
-                        Ok(config) => {
-                            println!("Config loaded successfully");
-                            println!("Window size: {}x{}", config.window.width, config.window.height);
-                            println!("Resizable: {}", config.window.resizable);
-                            println!("Decorations: {}", config.window.decorations);
-                            return config;
-                        }
-                        Err(e) => {
-                            eprintln!("Error parsing config: {}", e);
-                            eprintln!("Using default config instead");
+        let config_paths = Self::get_config_paths();
+
+        for path in config_paths {
+            if path.exists() {
+                println!("Loading config from: {:?}", path);
+                match fs::read_to_string(&path) {
+                    Ok(content) => {
+                        match toml::from_str::<Config>(&content) {
+                            Ok(config) => {
+                                println!("Config loaded successfully");
+                                println!("Window size: {}x{}", config.window.width, config.window.height);
+                                println!("Resizable: {}", config.window.resizable);
+                                println!("Decorations: {}", config.window.decorations);
+                                return config;
+                            }
+                            Err(e) => {
+                                eprintln!("Error parsing config at {:?}: {}", path, e);
+                                eprintln!("Using default config instead");
+                            }
                         }
                     }
-                }
-                Err(e) => {
-                    eprintln!("Error reading config: {}", e);
+                    Err(e) => {
+                        eprintln!("Error reading config at {:?}: {}", path, e);
+                    }
                 }
             }
-        } else {
-            println!("ℹNo config.toml found, using defaults");
         }
 
+        println!("No valid config found, using defaults");
         Config::default()
+    }
+
+    fn get_config_paths() -> Vec<PathBuf> {
+        let mut paths = Vec::new();
+
+        // 1. User config directory (Linux: ~/.config/window-switcher/config.toml)
+        if let Some(config_dir) = dirs::config_dir() {
+            paths.push(config_dir.join("window-switcher").join("config.toml"));
+        }
+
+        // 2. Current directory
+        paths.push(PathBuf::from("config.toml"));
+
+        // 3. Home directory hidden file
+        if let Some(home) = dirs::home_dir() {
+            paths.push(home.join(".config").join("window-switcher").join("config.toml"));
+        }
+        
+        paths
     }
 }
