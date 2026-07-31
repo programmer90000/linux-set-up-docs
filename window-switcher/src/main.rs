@@ -12,8 +12,9 @@ use config::Config;
 pub fn main() -> iced::Result {
     let config = Config::load();
     let width = config.window.width;
+    let height = config.window.height;
     
-    iced::application("LabWC Window Switcher", WindowSwitcher::update, WindowSwitcher::view).window(iced::window::Settings { size: iced::Size::new(width, 200.0), resizable: true, decorations: true, position: iced::window::Position::Centered, ..Default::default()}).run_with(|| (WindowSwitcher::new(), Task::none()))
+    iced::application("LabWC Window Switcher", WindowSwitcher::update, WindowSwitcher::view).window(iced::window::Settings { size: iced::Size::new(width, height), resizable: true, decorations: true, position: iced::window::Position::Centered, ..Default::default()}).run_with(|| (WindowSwitcher::new(), Task::none()))
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
