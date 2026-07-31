@@ -11,6 +11,7 @@ pub struct Config {
 pub struct WindowConfig {
     pub width: f32,
     pub height: f32,
+    pub resizable: bool,
 }
 
 impl Default for Config {
@@ -19,6 +20,7 @@ impl Default for Config {
             window: WindowConfig {
                 width: 2000.0,
                 height: 200.0,
+                resizable: true,
             },
         }
     }
@@ -36,6 +38,7 @@ impl Config {
                         Ok(config) => {
                             println!("Config loaded successfully");
                             println!("Window size: {}x{}", config.window.width, config.window.height);
+                            println!("Resizable: {}", config.window.resizable);
                             return config;
                         }
                         Err(e) => {
