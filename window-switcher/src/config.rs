@@ -10,6 +10,7 @@ pub struct Config {
 #[derive(Debug, Deserialize, Serialize)]
 pub struct WindowConfig {
     pub width: f32,
+    pub height: f32,
 }
 
 impl Default for Config {
@@ -17,6 +18,7 @@ impl Default for Config {
         Self {
             window: WindowConfig {
                 width: 2000.0,
+                height: 200.0,
             },
         }
     }
@@ -33,7 +35,7 @@ impl Config {
                     match toml::from_str::<Config>(&content) {
                         Ok(config) => {
                             println!("Config loaded successfully");
-                            println!("Window width: {}", config.window.width);
+                            println!("Window size: {}x{}", config.window.width, config.window.height);
                             return config;
                         }
                         Err(e) => {
