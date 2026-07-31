@@ -1,0 +1,55 @@
+use serde::{Deserialize, Serialize};
+use std::fs;
+use std::path::PathBuf;
+
+#[derive(Debug, Deserialize, Serialize)]
+pub struct Config {
+    pub window: WindowConfig,
+}
+
+#[derive(Debug, Deserialize, Serialize)]
+pub struct WindowConfig {
+    pub width: f32,
+}
+
+impl Default for Config {
+    fn default() -> Self {
+        Self {
+            window: WindowConfig {
+                width: 2000.0,
+            },
+        }
+    }
+}
+
+impl Config {
+    pub fn load() -> Self {
+        let config_path = PathBuf::from("config.toml");
+        
+        if config_path.exists() {
+            println!("Loading config from: {:?}", config_path);
+            match fs::read_to_string(&config_path) {
+                Ok(content) => {
+                    match toml::from_str::<Config>(&content) {
+                        Ok(config) => {
+                            println!("Config loaded successfully");
+                            println!("Window width: {}", config.window.width);
+                            return config;
+                        }
+                        Err(e) => {
+                            eprintln!("Error parsing config: {}", e);
+                            eprintln!("Using default config instead");
+                        }
+                    }
+                }
+                Err(e) => {
+                    eprintln!("Error reading config: {}", e);
+                }
+            }
+        } else {
+            println!("ℹNo config.toml found, using defaults");
+        }
+
+        Config::default()
+    }
+}
