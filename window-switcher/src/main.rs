@@ -9,13 +9,28 @@ use std::time::{SystemTime, UNIX_EPOCH};
 
 use config::Config;
 
+use iced::{Color, Theme};
+use std::sync::Arc;
+
+pub fn theme(hex_color: &str) -> Theme {
+    let color = Color::parse(hex_color).unwrap();
+    
+    let palette = iced::theme::Palette {
+        background: color,
+        ..Theme::default().palette()
+    };
+    
+    let theme = iced::theme::Custom::new("theme".to_string(), palette);
+    Theme::Custom(Arc::new(theme))
+}
+
 pub fn main() -> iced::Result {
     let config = Config::load();
     let width = config.window.width;
     let height = config.window.height;
     let decorations = config.window.decorations;
     
-    iced::application("LabWC Window Switcher", WindowSwitcher::update, WindowSwitcher::view).window(iced::window::Settings { size: iced::Size::new(width, height), decorations: decorations, position: iced::window::Position::Centered, ..Default::default()}).run_with(|| (WindowSwitcher::new(), Task::none()))
+    iced::application("LabWC Window Switcher", WindowSwitcher::update, WindowSwitcher::view).window(iced::window::Settings { size: iced::Size::new(width, height), decorations: decorations, position: iced::window::Position::Centered, ..Default::default()}).theme(|state| theme("#9EDFF0FF")).run_with(|| (WindowSwitcher::new(), Task::none()))
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
