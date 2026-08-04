@@ -13,10 +13,9 @@ pub fn main() -> iced::Result {
     let config = Config::load();
     let width = config.window.width;
     let height = config.window.height;
-    let resizable = config.window.resizable;
     let decorations = config.window.decorations;
     
-    iced::application("LabWC Window Switcher", WindowSwitcher::update, WindowSwitcher::view).window(iced::window::Settings { size: iced::Size::new(width, height), resizable: resizable, decorations: decorations, position: iced::window::Position::Centered, ..Default::default()}).run_with(|| (WindowSwitcher::new(), Task::none()))
+    iced::application("LabWC Window Switcher", WindowSwitcher::update, WindowSwitcher::view).window(iced::window::Settings { size: iced::Size::new(width, height), decorations: decorations, position: iced::window::Position::Centered, ..Default::default()}).run_with(|| (WindowSwitcher::new(), Task::none()))
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
