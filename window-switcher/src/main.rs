@@ -13,7 +13,9 @@ use iced::{Color, Theme};
 use std::sync::Arc;
 
 pub fn theme(hex_color: &str) -> Theme {
-    let color = Color::parse(hex_color).unwrap();
+    let color = Color::parse(hex_color).unwrap_or_else(|| {
+        Color::from_rgb(1.00, 1.00, 1.00)
+    });
     
     let palette = iced::theme::Palette {
         background: color,
@@ -29,8 +31,12 @@ pub fn main() -> iced::Result {
     let width = config.window.width;
     let height = config.window.height;
     let decorations = config.window.decorations;
+    let bg_color = config.theme.background_color.clone();
     
-    iced::application("LabWC Window Switcher", WindowSwitcher::update, WindowSwitcher::view).window(iced::window::Settings { size: iced::Size::new(width, height), decorations: decorations, position: iced::window::Position::Centered, ..Default::default()}).theme(|state| theme("#9EDFF0FF")).run_with(|| (WindowSwitcher::new(), Task::none()))
+    let bg_color_for_theme = bg_color.clone();
+    let bg_color_for_state = bg_color.clone();
+    
+    iced::application("LabWC Window Switcher", WindowSwitcher::update, WindowSwitcher::view).window(iced::window::Settings { size: iced::Size::new(width, height), decorations: decorations, position: iced::window::Position::Centered, ..Default::default()}).theme(move |_state| theme(&bg_color_for_theme)).run_with(move || {(WindowSwitcher::new(bg_color_for_state), Task::none())})
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -71,15 +77,17 @@ struct WindowSwitcher {
     sort_order: SortOrder,
     error_message: Option<String>,
     loading: bool,
+    background_color: String,
 }
 
 impl WindowSwitcher {
-    fn new() -> Self {
+    fn new(background_color: String) -> Self {
         let mut switcher = Self {
             app_groups: Vec::new(),
             sort_order: SortOrder::default(),
             error_message: None,
             loading: true,
+            background_color,
         };
         switcher.load_windows();
         switcher
