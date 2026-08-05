@@ -296,11 +296,6 @@ impl WindowSwitcher {
     fn view(&self) -> Element<Message> {
         let mut content = Column::new().spacing(10).padding(20);
         
-        content = content.push(
-            text("=== LabWC Window Switcher ===").size(24)
-                .width(Length::Fill)
-        );
-
         let sort_row = Row::new()
             .spacing(10)
             .padding(5)
