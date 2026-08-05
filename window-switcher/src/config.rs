@@ -19,6 +19,7 @@ pub struct WindowConfig {
 #[derive(Debug, Deserialize, Serialize)]
 pub struct ThemeConfig {
     pub background_color: String,
+    pub background_opacity: f32,
 }
 
 impl Default for Config {
@@ -32,6 +33,7 @@ impl Default for Config {
             },
             theme: ThemeConfig {
                 background_color: "#FFFFFF".to_string(),
+                background_opacity: 1.0,
             },
         }
     }
@@ -53,6 +55,7 @@ impl Config {
                                 println!("Resizable: {}", config.window.resizable);
                                 println!("Decorations: {}", config.window.decorations);
                                 println!("Background color: {}", config.theme.background_color);
+                                println!("Background opacity: {}", config.theme.background_opacity);
                                 return config;
                             }
                             Err(e) => {
