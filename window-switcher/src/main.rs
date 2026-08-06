@@ -12,12 +12,12 @@ use config::Config;
 use iced::{Color, Theme};
 use std::sync::Arc;
 
-pub fn theme(hex_color: &str, opacity: f32) -> Theme {
-    let mut color = Color::parse(hex_color).unwrap_or_else(|| {
+pub fn theme(bg_hex: &str, bg_opacity: f32) -> Theme {
+    let mut color = Color::parse(bg_hex).unwrap_or_else(|| {
         Color::from_rgb(1.00, 1.00, 1.00)
     });
     
-    color.a = opacity.clamp(0.0, 1.0);
+    color.a = bg_opacity.clamp(0.0, 1.0);
     
     let palette = iced::theme::Palette {
         background: color,
@@ -35,12 +35,13 @@ pub fn main() -> iced::Result {
     let decorations = config.window.decorations;
     let bg_color = config.theme.background_color.clone();
     let bg_opacity = config.theme.background_opacity;
+    let text_color = config.text.color.clone();
     
     let bg_color_for_theme = bg_color.clone();
     let bg_color_for_state = bg_color.clone();
-    let bg_opacity_for_theme = bg_opacity;
+    let text_color_for_state = text_color.clone();
     
-    iced::application("LabWC Window Switcher", WindowSwitcher::update, WindowSwitcher::view).window(iced::window::Settings { size: iced::Size::new(width, height), decorations: decorations, position: iced::window::Position::Centered, transparent: true, ..Default::default()}).theme(move |_state| theme(&bg_color_for_theme, bg_opacity_for_theme)).run_with(move || {(WindowSwitcher::new(bg_color_for_state, bg_opacity), Task::none())})
+    iced::application("LabWC Window Switcher", WindowSwitcher::update, WindowSwitcher::view).window(iced::window::Settings { size: iced::Size::new(width, height), decorations: decorations, position: iced::window::Position::Centered, transparent: true, ..Default::default()}).theme(move |_state| theme(&bg_color_for_theme, bg_opacity)).run_with(move || {(WindowSwitcher::new(bg_color_for_state, bg_opacity, text_color_for_state), Task::none())})
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -83,10 +84,11 @@ struct WindowSwitcher {
     loading: bool,
     background_color: String,
     background_opacity: f32,
+    text_color: String,
 }
 
 impl WindowSwitcher {
-    fn new(background_color: String, background_opacity: f32) -> Self {
+    fn new(background_color: String, background_opacity: f32, text_color: String) -> Self {
         let mut switcher = Self {
             app_groups: Vec::new(),
             sort_order: SortOrder::default(),
@@ -94,6 +96,7 @@ impl WindowSwitcher {
             loading: true,
             background_color,
             background_opacity,
+            text_color,
         };
         switcher.load_windows();
         switcher
@@ -295,14 +298,15 @@ impl WindowSwitcher {
     
     fn view(&self) -> Element<Message> {
         let mut content = Column::new().spacing(10).padding(20);
+        let text_color = Color::parse(&self.text_color).unwrap_or(Color::from_rgb(0.0, 0.0, 0.0));
         
         let sort_row = Row::new()
             .spacing(10)
             .padding(5)
-            .push(button("Refresh").on_press(Message::Refresh))
-            .push(button("Alphabetical").on_press(Message::ChangeSortOrder(SortOrder::Alphabetical)))
-            .push(button("Newest First").on_press(Message::ChangeSortOrder(SortOrder::NewestFirst)))
-            .push(button("Oldest First").on_press(Message::ChangeSortOrder(SortOrder::OldestFirst)));
+            .push(button(text("Refresh").color(text_color)).on_press(Message::Refresh))
+            .push(button(text("Alphabetical").color(text_color)).on_press(Message::ChangeSortOrder(SortOrder::Alphabetical)))
+            .push(button(text("Newest First").color(text_color)).on_press(Message::ChangeSortOrder(SortOrder::NewestFirst)))
+            .push(button(text("Oldest First").color(text_color)).on_press(Message::ChangeSortOrder(SortOrder::OldestFirst)));
         
         content = content.push(sort_row);
         
@@ -317,17 +321,17 @@ impl WindowSwitcher {
                 self.app_groups.len(),
                 self.app_groups.iter().map(|g| g.windows.len()).sum::<usize>(),
                 self.background_opacity
-            )).size(16)
+            )).color(text_color).size(16)
         );
         
         if let Some(error) = &self.error_message {
-            content = content.push(text(format!("Error: {}", error)));
+            content = content.push(text(format!("Error: {}", error)).color(text_color).size(18));
         }
         
         if self.loading {
-            content = content.push(text("Loading windows...").size(18));
+            content = content.push(text("Loading windows...").color(text_color).size(18));
         } else if self.app_groups.is_empty() {
-            content = content.push(text("No windows found").size(18));
+            content = content.push(text("No windows found").color(text_color).size(18));
         } else {
             let mut grid = Column::new().spacing(10);
             let cols: usize = 4;
@@ -341,7 +345,7 @@ impl WindowSwitcher {
                     format!("{} ({} windows)", app_group.app_id, app_group.windows.len())
                 };
                 
-                let button_widget = button(text(display_text).size(14))
+                let button_widget = button(text(display_text).color(text_color).size(14))
                     .width(Length::Fill)
                     .on_press(Message::SelectWindow(app_idx, 0));
                 
