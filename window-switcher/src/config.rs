@@ -6,6 +6,7 @@ use std::path::PathBuf;
 pub struct Config {
     pub window: WindowConfig,
     pub theme: ThemeConfig,
+    pub text: TextConfig,
 }
 
 #[derive(Debug, Deserialize, Serialize)]
@@ -22,6 +23,12 @@ pub struct ThemeConfig {
     pub background_opacity: f32,
 }
 
+#[derive(Debug, Deserialize, Serialize)]
+pub struct TextConfig {
+    pub color: String,
+    pub size: u16,
+}
+
 impl Default for Config {
     fn default() -> Self {
         Self {
@@ -34,6 +41,10 @@ impl Default for Config {
             theme: ThemeConfig {
                 background_color: "#FFFFFF".to_string(),
                 background_opacity: 1.0,
+            },
+            text: TextConfig {
+                color: "#000000".to_string(),
+                size: 14,
             },
         }
     }
@@ -56,6 +67,8 @@ impl Config {
                                 println!("Decorations: {}", config.window.decorations);
                                 println!("Background color: {}", config.theme.background_color);
                                 println!("Background opacity: {}", config.theme.background_opacity);
+                                println!("Text color: {}", config.text.color);
+                                println!("Text size: {}", config.text.size);
                                 return config;
                             }
                             Err(e) => {
