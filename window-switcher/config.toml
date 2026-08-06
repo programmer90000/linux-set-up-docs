@@ -7,3 +7,6 @@ decorations = true
 [theme]
 background_color = "#FFFFFF"
 background_opacity = 0.8
+
+[text]
+color = "#000000"
