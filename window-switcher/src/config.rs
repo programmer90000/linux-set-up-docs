@@ -26,6 +26,7 @@ pub struct ThemeConfig {
 #[derive(Debug, Deserialize, Serialize)]
 pub struct TextConfig {
     pub color: String,
+    pub size: u16,
 }
 
 impl Default for Config {
@@ -43,6 +44,7 @@ impl Default for Config {
             },
             text: TextConfig {
                 color: "#000000".to_string(),
+                size: 14,
             },
         }
     }
@@ -66,6 +68,7 @@ impl Config {
                                 println!("Background color: {}", config.theme.background_color);
                                 println!("Background opacity: {}", config.theme.background_opacity);
                                 println!("Text color: {}", config.text.color);
+                                println!("Text size: {}", config.text.size);
                                 return config;
                             }
                             Err(e) => {
