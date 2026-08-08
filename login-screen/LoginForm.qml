@@ -239,7 +239,7 @@ Rectangle {
         if (avatarPath && avatarPath !== "") {
             fullScreenRoot.selectedAvatarPath = avatarPath
         } else {
-            var constructedPath = "/usr/share/sddm/themes/login-screen/" + username + "/profile-picture.jpg"
+            var constructedPath = "/usr/share/sddm/themes/login-screen/" + username + "/profile-picture.png"
             fullScreenRoot.selectedAvatarPath = constructedPath
         }
         

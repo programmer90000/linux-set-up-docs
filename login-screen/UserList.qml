@@ -46,7 +46,7 @@ Rectangle {
             
             function getAvatarPath() {
                 var username = getUsername()
-                var avatarPath = "/usr/share/sddm/themes/login-screen/" + username + "/profile-picture.jpg"
+                var avatarPath = "/usr/share/sddm/themes/login-screen/" + username + "/profile-picture.png"
                 return avatarPath
             }
             
