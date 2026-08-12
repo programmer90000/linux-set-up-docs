@@ -1,4 +1,7 @@
 {
+    "profile": {
+        "name": "Personal"
+    },
     "brave": {
         "bookmarks": {
             "show_all_bookmarks_button": false
