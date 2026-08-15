@@ -128,6 +128,8 @@ echo "Installing KeePassXc"
 sudo apt install -y keepassxc-full
 echo "Installing QEMU/KVM"
 sudo apt install qemu-kvm libvirt-daemon-system libvirt-clients virtinst bridge-utils
+echo "Installing ssh"
+sudo apt install ssh
 echo "Installing Extrepo"
 sudo apt install -y extrepo
 sudo cp apps/config.yaml /etc/extrepo/config.yaml
