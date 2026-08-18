@@ -12,6 +12,9 @@
     "brave": {
         "bookmarks": {
             "show_all_bookmarks_button": false
+        },
+        "new_tab_page": {
+            "shows_options": 0
         }
     },
     "browser": {
