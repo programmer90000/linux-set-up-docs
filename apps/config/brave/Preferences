@@ -1,6 +1,10 @@
 {
     "profile": {
-        "name": "Personal"
+        "name": "Personal",
+        "avatar_index": 26,
+        "gaia_picture_file_name": "avatar.png",
+        "has_migrated_to_gaia_info": true,
+        "use_gaia_picture": true
     },
     "brave": {
         "bookmarks": {
@@ -15,3 +19,4 @@
         }
     }
 }
+
