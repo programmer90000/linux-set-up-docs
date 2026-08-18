@@ -2,8 +2,15 @@
     "profile": {
         "info_cache": {
             "Default": {
-                "name": "Personal"
+                "name": "Personal",
+                "avatar_icon": "chrome://theme/IDR_PROFILE_AVATAR_26",
+                "gaia_picture_file_name": "avatar.png",
+                "has_migrated_to_gaia_info": true,
+                "is_using_default_avatar": false,
+                "is_using_default_name": false,
+                "use_gaia_picture": true
             }
         }
     }
 }
+
