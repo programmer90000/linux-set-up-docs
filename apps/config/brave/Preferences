@@ -6,6 +6,9 @@
         "has_migrated_to_gaia_info": true,
         "use_gaia_picture": true
     },
+    "session": {
+        "restore_on_startup": 5
+    },
     "brave": {
         "bookmarks": {
             "show_all_bookmarks_button": false
@@ -19,4 +22,3 @@
         }
     }
 }
-
