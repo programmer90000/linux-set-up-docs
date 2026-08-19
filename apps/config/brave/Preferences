@@ -14,7 +14,16 @@
             "show_all_bookmarks_button": false
         },
         "new_tab_page": {
-            "shows_options": 0
+            "shows_options": 0,
+            "clock_format": "h24",
+            "show_background_image": false,
+            "show_brave_news": false,
+            "show_rewards": false,
+            "show_stats": false,
+            "show_together": false
+        },
+        "news": {
+            "open-articles-in-new-tab": true
         }
     },
     "browser": {
