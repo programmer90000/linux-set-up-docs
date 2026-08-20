@@ -130,7 +130,8 @@ hide_when_typing = false
 bindings = [
     { key = "F5", chars = "~" },
     { key = "C", mods = "Control|Shift", action = "Copy" },
-    { key = "V", mods = "Control|Shift", action = "Paste" }
+    { key = "V", mods = "Control|Shift", action = "Paste" },
+    { key = "F", mods = "Control|Shift", action = "SearchBackward" }
 ]
 
 [debug]
