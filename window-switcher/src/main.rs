@@ -74,7 +74,9 @@ struct AppGroup {
 #[derive(Debug, Clone)]
 enum Message {
     Refresh,
-    SelectWindow(usize, usize),
+    SelectAppGroup(usize),
+    SelectWindowInGroup(usize, usize),
+    BackToMainView,
     ChangeSortOrder(SortOrder),
 }
 
@@ -83,6 +85,7 @@ struct WindowSwitcher {
     sort_order: SortOrder,
     error_message: Option<String>,
     loading: bool,
+    active_group_idx: Option<usize>,
     background_color: String,
     background_opacity: f32,
     text_color: String,
@@ -96,6 +99,7 @@ impl WindowSwitcher {
             sort_order: SortOrder::default(),
             error_message: None,
             loading: true,
+            active_group_idx: None,
             background_color,
             background_opacity,
             text_color,
@@ -108,6 +112,7 @@ impl WindowSwitcher {
     fn load_windows(&mut self) {
         self.loading = true;
         self.error_message = None;
+        self.active_group_idx = None;
         
         let output = Command::new("wlrctl")
             .arg("window")
@@ -274,7 +279,16 @@ impl WindowSwitcher {
         cmd.arg(format!("app-id:{}", app_id));
         cmd.arg(format!("title:{}", title));
         
-        let _ = cmd.output();
+        let output = cmd.output();
+        if let Ok(out) = output {
+            if !out.status.success() {
+                eprintln!("Failed to focus window '{}': {}", title, String::from_utf8_lossy(&out.stderr));
+            }
+        }
+    }
+    
+    fn close_window_task() -> Task<Message> {
+        iced::window::get_latest().and_then(iced::window::close)
     }
     
     fn update(&mut self, message: Message) -> Task<Message> {
@@ -283,12 +297,28 @@ impl WindowSwitcher {
                 self.load_windows();
                 Task::none()
             }
-            Message::SelectWindow(app_idx, window_idx) => {
+            Message::SelectAppGroup(app_idx) => {
+                if let Some(app_group) = self.app_groups.get(app_idx) {
+                    if app_group.windows.len() == 1 {
+                        self.focus_window(&app_group.app_id, &app_group.windows[0].title);
+                        return Self::close_window_task();
+                    } else {
+                        self.active_group_idx = Some(app_idx);
+                    }
+                }
+                Task::none()
+            }
+            Message::SelectWindowInGroup(app_idx, window_idx) => {
                 if let Some(app_group) = self.app_groups.get(app_idx) {
                     if let Some(window) = app_group.windows.get(window_idx) {
                         self.focus_window(&window.app_id, &window.title);
+                        return Self::close_window_task();
                     }
                 }
+                Task::none()
+            }
+            Message::BackToMainView => {
+                self.active_group_idx = None;
                 Task::none()
             }
             Message::ChangeSortOrder(order) => {
@@ -303,9 +333,15 @@ impl WindowSwitcher {
         let mut content = Column::new().spacing(10).padding(20);
         let text_color = Color::parse(&self.text_color).unwrap_or(Color::from_rgb(0.0, 0.0, 0.0));
         
-        let sort_row = Row::new()
-            .spacing(10)
-            .padding(5)
+        let mut sort_row = Row::new().spacing(10).padding(5);
+        
+        if self.active_group_idx.is_some() {
+            sort_row = sort_row.push(
+                button(text("← Back").color(text_color)).on_press(Message::BackToMainView),
+            );
+        }
+        
+        sort_row = sort_row
             .push(button(text("Refresh").color(text_color)).on_press(Message::Refresh))
             .push(button(text("Alphabetical").color(text_color)).on_press(Message::ChangeSortOrder(SortOrder::Alphabetical)))
             .push(button(text("Newest First").color(text_color)).on_press(Message::ChangeSortOrder(SortOrder::NewestFirst)))
@@ -338,38 +374,71 @@ impl WindowSwitcher {
         } else {
             let mut grid = Column::new().spacing(10);
             let cols: usize = 4;
-            let mut rows = Vec::new();
-            let mut current_row = Vec::new();
             
-            for (app_idx, app_group) in self.app_groups.iter().enumerate() {
-                let display_text = if app_group.windows.len() == 1 {
-                    format!("{}: {}", app_group.app_id, app_group.windows[0].title)
-                } else {
-                    format!("{} ({} windows)", app_group.app_id, app_group.windows.len())
-                };
-                
-                let button_widget = button(text(display_text).color(text_color).size(self.text_size))
-                    .width(Length::Fill)
-                    .on_press(Message::SelectWindow(app_idx, 0));
-                
-                current_row.push(button_widget);
-                
-                if current_row.len() >= cols {
-                    rows.push(current_row);
-                    current_row = Vec::new();
+            match self.active_group_idx {
+                None => {
+                    let mut rows = Vec::new();
+                    let mut current_row = Vec::new();
+                    
+                    for (app_idx, app_group) in self.app_groups.iter().enumerate() {
+                        let display_text = if app_group.windows.len() == 1 {
+                            format!("{}: {}", app_group.app_id, app_group.windows[0].title)
+                        } else {
+                            format!("{} ({} windows)", app_group.app_id, app_group.windows.len())
+                        };
+                        
+                        let button_widget = button(text(display_text).color(text_color).size(self.text_size))
+                            .width(Length::Fill)
+                            .on_press(Message::SelectAppGroup(app_idx));
+                        
+                        current_row.push(button_widget);
+                        
+                        if current_row.len() >= cols {
+                            rows.push(current_row);
+                            current_row = Vec::new();
+                        }
+                    }
+                    
+                    if !current_row.is_empty() {
+                        rows.push(current_row);
+                    }
+                    
+                    for row_buttons in rows {
+                        let mut row_widget = Row::new().spacing(10);
+                        for btn in row_buttons {
+                            row_widget = row_widget.push(btn);
+                        }
+                        grid = grid.push(row_widget);
+                    }
                 }
-            }
-            
-            if !current_row.is_empty() {
-                rows.push(current_row);
-            }
-            
-            for row_buttons in rows {
-                let mut row_widget = Row::new().spacing(10);
-                for btn in row_buttons {
-                    row_widget = row_widget.push(btn);
+                Some(app_idx) => {
+                    if let Some(app_group) = self.app_groups.get(app_idx) {
+                        let mut current_row = Vec::new();
+                        let mut rows = Vec::new();
+                        
+                        for (win_idx, window) in app_group.windows.iter().enumerate() {
+                            let btn = button(text(&window.title).color(text_color).size(self.text_size)).width(Length::Fill).on_press(Message::SelectWindowInGroup(app_idx, win_idx));
+                            
+                            current_row.push(btn);
+                            
+                            if current_row.len() >= cols {
+                                rows.push(current_row);
+                                current_row = Vec::new();
+                            }
+                        }
+                        if !current_row.is_empty() {
+                            rows.push(current_row);
+                        }
+                        
+                        for row_buttons in rows {
+                            let mut row_widget = Row::new().spacing(10);
+                            for btn in row_buttons {
+                                row_widget = row_widget.push(btn);
+                            }
+                            grid = grid.push(row_widget);
+                        }
+                    }
                 }
-                grid = grid.push(row_widget);
             }
             
             content = content.push(scrollable(grid));
