@@ -128,7 +128,9 @@ hide_when_typing = false
 
 [keyboard]
 bindings = [
-    { key = "F5", chars = "~" }
+    { key = "F5", chars = "~" },
+    { key = "C", mods = "Control|Shift", action = "Copy" },
+    { key = "V", mods = "Control|Shift", action = "Paste" }
 ]
 
 [debug]
