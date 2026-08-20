@@ -288,7 +288,7 @@ impl WindowSwitcher {
     }
     
     fn close_window_task() -> Task<Message> {
-        iced::window::get_latest().and_then(iced::window::close)
+        iced::window::get_latest().and_then(|id| iced::window::close(id))
     }
     
     fn update(&mut self, message: Message) -> Task<Message> {
