@@ -17,6 +17,14 @@
             "show-ntp-search": false
         },
         "new_tab_page": {
+            "background": {
+                "random": false,
+                "type": "custom_image",
+                "selected_value": "background.png"
+            },
+            "custom_background_image_list": [
+                "background.png"
+            ],
             "shows_options": 0,
             "clock_format": "h24",
             "show_background_image": false,

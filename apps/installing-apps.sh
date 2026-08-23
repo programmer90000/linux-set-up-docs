@@ -141,6 +141,7 @@ sudo apt update
 sudo apt install -y brave-browser
 mkdir -p ~/.config/BraveSoftware/Brave-Browser/Default/
 cp apps/config/brave/avatar.png ~/.config/BraveSoftware/Brave-Browser/Default/
+cp apps/config/brave/background.png ~/.config/BraveSoftware/Brave-Browser/Default/sanitized_background_images/
 cp "apps/config/brave/Local State" ~/.config/BraveSoftware/Brave-Browser/
 cp apps/config/brave/Preferences ~/.config/BraveSoftware/Brave-Browser/Default/
 cp apps/config/brave/Bookmarks ~/.config/BraveSoftware/Brave-Browser/Default/
