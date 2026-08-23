@@ -27,7 +27,7 @@
             ],
             "shows_options": 0,
             "clock_format": "h24",
-            "show_background_image": false,
+            "show_background_image": true,
             "show_brave_news": false,
             "show_rewards": false,
             "show_stats": false,
