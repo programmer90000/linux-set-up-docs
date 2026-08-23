@@ -13,6 +13,9 @@
         "bookmarks": {
             "show_all_bookmarks_button": false
         },
+        "brave_search": {
+            "show-ntp-search": false
+        },
         "new_tab_page": {
             "shows_options": 0,
             "clock_format": "h24",
