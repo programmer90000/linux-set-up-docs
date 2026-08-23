@@ -168,7 +168,7 @@ pub fn main() -> iced::Result {
     let bg_color_for_state = bg_color.clone();
     let text_color_for_state = text_color.clone();
     
-    iced::application("LabWC Window Switcher", WindowSwitcher::update, WindowSwitcher::view).window(iced::window::Settings { size: iced::Size::new(width, height), decorations: decorations, position: iced::window::Position::Centered, transparent: true, ..Default::default()}).theme(move |_state| theme(&bg_color_for_theme, bg_opacity)).run_with(move || {(WindowSwitcher::new(bg_color_for_state, bg_opacity, text_color_for_state, text_size), Task::none())})
+    iced::application("LabWC Window Switcher", WindowSwitcher::update, WindowSwitcher::view).subscription(WindowSwitcher::subscription).window(iced::window::Settings { size: iced::Size::new(width, height), decorations: decorations, position: iced::window::Position::Centered, transparent: true, ..Default::default()}).theme(move |_state| theme(&bg_color_for_theme, bg_opacity)).run_with(move || {(WindowSwitcher::new(bg_color_for_state, bg_opacity, text_color_for_state, text_size), Task::none())})
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -204,6 +204,7 @@ enum Message {
     SelectWindowInGroup(usize, usize),
     BackToMainView,
     ChangeSortOrder(SortOrder),
+    Event(iced::Event),
 }
 
 struct WindowSwitcher {
@@ -237,6 +238,10 @@ impl WindowSwitcher {
         };
         switcher.load_windows();
         switcher
+    }
+
+    fn subscription(&self) -> iced::Subscription<Message> {
+        iced::event::listen().map(Message::Event)
     }
     
     fn load_windows(&mut self) {
@@ -327,6 +332,10 @@ impl WindowSwitcher {
     
     fn update(&mut self, message: Message) -> Task<Message> {
         match message {
+            Message::Event(iced::Event::Window(iced::window::Event::Unfocused)) => {
+                Self::close_window_task()
+            }
+            Message::Event(_) => Task::none(),
             Message::Refresh => {
                 self.load_windows();
                 Task::none()
@@ -481,3 +490,4 @@ impl WindowSwitcher {
         content.into()
     }
 }
+
