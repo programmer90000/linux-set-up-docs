@@ -10,7 +10,133 @@ use std::time::{SystemTime, UNIX_EPOCH};
 use config::Config;
 
 use iced::{Color, Theme};
-use std::sync::Arc;
+use std::sync::{Arc, Mutex};
+
+use wayland_client::protocol::{wl_registry, wl_seat};
+use wayland_client::{backend::ObjectData, Connection, Dispatch, Proxy, QueueHandle};
+use wayland_protocols_wlr::foreign_toplevel::v1::client::{
+    zwlr_foreign_toplevel_handle_v1::{self, ZwlrForeignToplevelHandleV1},
+    zwlr_foreign_toplevel_manager_v1::{self, ZwlrForeignToplevelManagerV1},
+};
+
+#[derive(Clone, Debug)]
+pub struct RawWindowInfo {
+    pub app_id: String,
+    pub title: String,
+    pub handle: ZwlrForeignToplevelHandleV1,
+}
+
+#[derive(Default)]
+pub struct WaylandState {
+    pub seat: Option<wl_seat::WlSeat>,
+    pub manager: Option<ZwlrForeignToplevelManagerV1>,
+    pub windows: Vec<RawWindowInfo>,
+}
+
+#[derive(Default, Debug, Clone)]
+pub struct PendingWindow {
+    pub app_id: String,
+    pub title: String,
+}
+
+impl Dispatch<wl_registry::WlRegistry, ()> for WaylandState {
+    fn event(
+        state: &mut Self,
+        registry: &wl_registry::WlRegistry,
+        event: wl_registry::Event,
+        _: &(),
+        _: &Connection,
+        qh: &QueueHandle<Self>,
+    ) {
+        if let wl_registry::Event::Global {
+            name,
+            interface,
+            version,
+        } = event
+        {
+            if interface == "wl_seat" {
+                state.seat = Some(registry.bind::<wl_seat::WlSeat, _, _>(name, version.min(1), qh, ()));
+            } else if interface == "zwlr_foreign_toplevel_manager_v1" {
+                state.manager = Some(registry.bind::<ZwlrForeignToplevelManagerV1, _, _>(
+                    name,
+                    version.min(1),
+                    qh,
+                    (),
+                ));
+            }
+        }
+    }
+}
+
+impl Dispatch<wl_seat::WlSeat, ()> for WaylandState {
+    fn event(
+        _: &mut Self,
+        _: &wl_seat::WlSeat,
+        _: wl_seat::Event,
+        _: &(),
+        _: &Connection,
+        _: &QueueHandle<Self>,
+    ) {
+    }
+}
+
+impl Dispatch<ZwlrForeignToplevelManagerV1, ()> for WaylandState {
+    fn event(
+        _: &mut Self,
+        _: &ZwlrForeignToplevelManagerV1,
+        _: zwlr_foreign_toplevel_manager_v1::Event,
+        _: &(),
+        _: &Connection,
+        _: &QueueHandle<Self>,
+    ) {
+    }
+
+    fn event_created_child(
+        _opcode: u16,
+        qh: &QueueHandle<Self>,
+    ) -> Arc<dyn ObjectData> {
+        qh.make_data::<ZwlrForeignToplevelHandleV1, Arc<Mutex<PendingWindow>>>(
+            Arc::new(Mutex::new(PendingWindow::default())),
+        )
+    }
+}
+
+impl Dispatch<ZwlrForeignToplevelHandleV1, Arc<Mutex<PendingWindow>>> for WaylandState {
+    fn event(
+        state: &mut Self,
+        handle: &ZwlrForeignToplevelHandleV1,
+        event: zwlr_foreign_toplevel_handle_v1::Event,
+        data: &Arc<Mutex<PendingWindow>>,
+        _: &Connection,
+        _: &QueueHandle<Self>,
+    ) {
+        match event {
+            zwlr_foreign_toplevel_handle_v1::Event::AppId { app_id } => {
+                if let Ok(mut pending) = data.lock() {
+                    pending.app_id = app_id;
+                }
+            }
+            zwlr_foreign_toplevel_handle_v1::Event::Title { title } => {
+                if let Ok(mut pending) = data.lock() {
+                    pending.title = title;
+                }
+            }
+            zwlr_foreign_toplevel_handle_v1::Event::Closed => {
+                state.windows.retain(|w| w.handle.id() != handle.id());
+            }
+            zwlr_foreign_toplevel_handle_v1::Event::Done => {
+                if let Ok(pending) = data.lock() {
+                    state.windows.push(RawWindowInfo {
+                        app_id: pending.app_id.clone(),
+                        title: pending.title.clone(),
+                        handle: handle.clone(),
+                    });
+                }
+            }
+            _ => {}
+        }
+    }
+}
 
 pub fn theme(bg_hex: &str, bg_opacity: f32) -> Theme {
     let mut color = Color::parse(bg_hex).unwrap_or_else(|| {
@@ -62,7 +188,7 @@ impl Default for SortOrder {
 struct WindowInfo {
     app_id: String,
     title: String,
-    timestamp: u64,
+    handle: ZwlrForeignToplevelHandleV1,
 }
 
 #[derive(Debug, Clone)]
@@ -90,6 +216,8 @@ struct WindowSwitcher {
     background_opacity: f32,
     text_color: String,
     text_size: u16,
+    seat: Option<wl_seat::WlSeat>,
+    connection: Option<Connection>,
 }
 
 impl WindowSwitcher {
@@ -104,6 +232,8 @@ impl WindowSwitcher {
             background_opacity,
             text_color,
             text_size,
+            seat: None,
+            connection: None,
         };
         switcher.load_windows();
         switcher
@@ -114,123 +244,47 @@ impl WindowSwitcher {
         self.error_message = None;
         self.active_group_idx = None;
         
-        let output = Command::new("wlrctl")
-            .arg("window")
-            .arg("list")
-            .output();
-        
-        match output {
-            Ok(output) if output.status.success() => {
-                let stdout = String::from_utf8_lossy(&output.stdout);
-                let windows = self.parse_window_list(&stdout);
-                self.app_groups = self.group_windows(windows);
-                self.sort_app_groups();
-                self.loading = false;
-            }
-            Ok(output) => {
-                self.error_message = Some(format!("wlrctl error: {}", String::from_utf8_lossy(&output.stderr)));
-                self.loading = false;
-            }
+        let connection = match Connection::connect_to_env() {
+            Ok(conn) => conn,
             Err(e) => {
-                self.error_message = Some(format!("Failed to run wlrctl: {}", e));
+                self.error_message = Some(format!("Failed to connect to Wayland: {}", e));
                 self.loading = false;
+                return;
             }
-        }
-    }
-    
-    fn parse_window_list(&self, output: &str) -> Vec<WindowInfo> {
-        let mut windows = Vec::new();
+        };
         
-        for line in output.lines() {
-            if line.is_empty() {
-                continue;
-            }
+        let mut event_queue = connection.new_event_queue();
+        let qh = event_queue.handle();
+        let display = connection.display();
+        
+        let mut state = WaylandState::default();
+        
+        display.get_registry(&qh, ());
+        
+        if let Err(e) = event_queue.roundtrip(&mut state) {
+            self.error_message = Some(format!("Wayland roundtrip failed: {}", e));
+            self.loading = false;
+            return;
+        }
+        
+        if let Err(e) = event_queue.roundtrip(&mut state) {
+            self.error_message = Some(format!("Wayland window list roundtrip failed: {}", e));
+            self.loading = false;
+            return;
+        }
+        
+        self.seat = state.seat;
+        
+        let windows: Vec<WindowInfo> = state
+            .windows
+            .into_iter()
+            .map(|w| WindowInfo {app_id: w.app_id, title: w.title, handle: w.handle})
+            .collect();
             
-            let parts: Vec<&str> = line.splitn(2, ':').collect();
-            if parts.len() == 2 {
-                let app_id = parts[0].trim().to_string();
-                let title = parts[1].trim().to_string();
-                
-                if !title.is_empty() && title != "title" {
-                    let timestamp = self.get_window_timestamp(&app_id, &title);
-                    windows.push(WindowInfo {app_id, title, timestamp});
-                }
-            }
-        }
-        
-        windows
-    }
-    
-    fn get_window_pid(&self, app_id: &str, title: &str) -> Option<u32> {
-        let output = Command::new("wlrctl")
-            .arg("window")
-            .arg("get-pid")
-            .arg(format!("app-id:{}", app_id))
-            .arg(format!("title:{}", title))
-            .output()
-            .ok()?;
-        
-        if output.status.success() {
-            let pid_str = String::from_utf8_lossy(&output.stdout);
-            let pid_str = pid_str.trim();
-            pid_str.parse::<u32>().ok()
-        } else {
-            None
-        }
-    }
-    
-    fn get_window_timestamp(&self, app_id: &str, title: &str) -> u64 {
-        if let Some(pid) = self.get_window_pid(app_id, title) {
-            if let Some(ts) = self.get_timestamp_from_proc(pid) {
-                return ts;
-            }
-            
-            if let Some(ts) = self.get_timestamp_from_proc_stat(pid) {
-                return ts;
-            }
-        }
-        
-        let hash_input = format!("{}{}", app_id, title);
-        let mut hash = 0u64;
-        for (i, byte) in hash_input.bytes().enumerate() {
-            hash = hash.wrapping_add((byte as u64) << (i % 8));
-        }
-        1577836800 + (hash % 315360000)
-    }
-    
-    fn get_timestamp_from_proc(&self, pid: u32) -> Option<u64> {
-        let stat_path = format!("/proc/{}/stat", pid);
-        let content = std::fs::read_to_string(&stat_path).ok()?;
-        let fields: Vec<&str> = content.split_whitespace().collect();
-        
-        if fields.len() >= 22 {
-            if let Ok(start_time_ticks) = fields[21].parse::<u64>() {
-                let uptime_content = std::fs::read_to_string("/proc/uptime").ok()?;
-                let uptime_seconds = uptime_content
-                    .split_whitespace()
-                    .next()?
-                    .parse::<f64>()
-                    .ok()?;
-                
-                let boot_time = SystemTime::now()
-                    .duration_since(UNIX_EPOCH)
-                    .unwrap_or_default()
-                    .as_secs() - uptime_seconds as u64;
-                
-                let start_time_seconds = start_time_ticks / 100;
-                return Some(boot_time + start_time_seconds);
-            }
-        }
-        None
-    }
-    
-    fn get_timestamp_from_proc_stat(&self, pid: u32) -> Option<u64> {
-        let proc_path = format!("/proc/{}", pid);
-        std::fs::metadata(&proc_path)
-            .ok()
-            .and_then(|meta| meta.modified().ok())
-            .and_then(|time| time.duration_since(UNIX_EPOCH).ok())
-            .map(|d| d.as_secs())
+        self.app_groups = self.group_windows(windows);
+        self.sort_app_groups();
+        self.connection = Some(connection);
+        self.loading = false;
     }
     
     fn group_windows(&self, windows: Vec<WindowInfo>) -> Vec<AppGroup> {
@@ -243,47 +297,27 @@ impl WindowSwitcher {
         }
         
         groups.into_iter()
-            .map(|(app_id, mut windows)| {
-                windows.sort_by(|a, b| b.timestamp.cmp(&a.timestamp));
-                AppGroup { app_id, windows }
-            })
+            .map(|(app_id, windows)| AppGroup { app_id, windows })
             .collect()
     }
     
     fn sort_app_groups(&mut self) {
         match self.sort_order {
-            SortOrder::Alphabetical => {
+            SortOrder::Alphabetical | SortOrder::NewestFirst | SortOrder::OldestFirst => {
                 self.app_groups.sort_by(|a, b| a.app_id.cmp(&b.app_id));
-            }
-            SortOrder::NewestFirst => {
-                self.app_groups.sort_by(|a, b| {
-                    let a_max = a.windows.iter().map(|w| w.timestamp).max().unwrap_or(0);
-                    let b_max = b.windows.iter().map(|w| w.timestamp).max().unwrap_or(0);
-                    b_max.cmp(&a_max)
-                });
-            }
-            SortOrder::OldestFirst => {
-                self.app_groups.sort_by(|a, b| {
-                    let a_min = a.windows.iter().map(|w| w.timestamp).min().unwrap_or(0);
-                    let b_min = b.windows.iter().map(|w| w.timestamp).min().unwrap_or(0);
-                    a_min.cmp(&b_min)
-                });
             }
         }
     }
     
-    fn focus_window(&self, app_id: &str, title: &str) {
-        let mut cmd = Command::new("wlrctl");
-        cmd.arg("window");
-        cmd.arg("focus");
-        cmd.arg(format!("app-id:{}", app_id));
-        cmd.arg(format!("title:{}", title));
-        
-        let output = cmd.output();
-        if let Ok(out) = output {
-            if !out.status.success() {
-                eprintln!("Failed to focus window '{}': {}", title, String::from_utf8_lossy(&out.stderr));
+    fn focus_window(&self, window: &WindowInfo) {
+        if let Some(seat) = &self.seat {
+            window.handle.unset_minimized();
+            window.handle.activate(seat);
+            if let Some(conn) = &self.connection {
+                let _ = conn.flush();
             }
+        } else {
+            eprintln!("Cannot focus window: Wayland seat unavailable.");
         }
     }
     
@@ -300,7 +334,7 @@ impl WindowSwitcher {
             Message::SelectAppGroup(app_idx) => {
                 if let Some(app_group) = self.app_groups.get(app_idx) {
                     if app_group.windows.len() == 1 {
-                        self.focus_window(&app_group.app_id, &app_group.windows[0].title);
+                        self.focus_window(&app_group.windows[0]);
                         return Self::close_window_task();
                     } else {
                         self.active_group_idx = Some(app_idx);
@@ -311,7 +345,7 @@ impl WindowSwitcher {
             Message::SelectWindowInGroup(app_idx, window_idx) => {
                 if let Some(app_group) = self.app_groups.get(app_idx) {
                     if let Some(window) = app_group.windows.get(window_idx) {
-                        self.focus_window(&window.app_id, &window.title);
+                        self.focus_window(window);
                         return Self::close_window_task();
                     }
                 }
