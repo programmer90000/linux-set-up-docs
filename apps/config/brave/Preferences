@@ -66,5 +66,8 @@
             "color_variant2": 2,
             "user_color2": -8
         }
+    },
+    "omnibox": {
+        "prevent_url_elisions": true
     }
 }
