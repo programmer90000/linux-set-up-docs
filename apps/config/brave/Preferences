@@ -10,7 +10,8 @@
         "restore_on_startup": 5
     },
     "bookmark_bar": {
-      "show_on_all_tabs": true
+      "show_on_all_tabs": true,
+      "show_tab_groups": false
    },
     "brave": {
         "ai_chat": {
