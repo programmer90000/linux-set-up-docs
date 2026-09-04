@@ -46,6 +46,7 @@
     },
     "browser": {
         "show_home_button": false,
+        "show_tab_search_button": false,
         "theme": {
             "color_scheme2": 2,
             "color_variant2": 2,
