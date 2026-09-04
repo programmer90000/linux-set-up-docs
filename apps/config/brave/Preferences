@@ -55,6 +55,9 @@
             "commander_suggestions_enabled": false,
             "history_suggestions_enabled": false
         },
+    "tabs": {
+      "vertical_tabs_enabled": true
+    },
         "top_site_suggestions_enabled": false,
         "web_view_rounded_corners": true
     },
