@@ -1,4 +1,5 @@
 {
+    "auto_pin_new_tab_groups": false,
     "profile": {
         "name": "Personal",
         "avatar_index": 26,
@@ -10,8 +11,7 @@
         "restore_on_startup": 5
     },
     "bookmark_bar": {
-      "show_on_all_tabs": true,
-      "show_tab_groups": false
+      "show_on_all_tabs": true
    },
     "brave": {
         "ai_chat": {
