@@ -10,6 +10,9 @@
         "restore_on_startup": 5
     },
     "brave": {
+        "ai_chat": {
+            "show_toolbar_button": false
+        },
         "bookmarks": {
             "show_all_bookmarks_button": false
         },
@@ -42,6 +45,7 @@
         }
     },
     "browser": {
+        "show_home_button": false,
         "theme": {
             "color_scheme2": 2,
             "color_variant2": 2,
