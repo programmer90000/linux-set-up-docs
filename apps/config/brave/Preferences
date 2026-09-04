@@ -25,6 +25,7 @@
         "brave_search": {
             "show-ntp-search": false
         },
+        "location_bar_is_wide": true,
         "new_tab_page": {
             "background": {
                 "random": false,
