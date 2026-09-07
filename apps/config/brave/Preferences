@@ -58,7 +58,12 @@
         "tabs": {
             "vertical_tabs_enabled": true,
             "vertical_tabs_collapsed": true,
-            "vertical_tabs_show_toggle_button": true
+            "vertical_tabs_show_toggle_button": true,
+            "vertical_tabs_expanded_state_per_window": true,
+            "vertical_tabs_hide_completely_when_collapsed": false,
+            "vertical_tabs_on_right": false,
+            "vertical_tabs_show_scrollbar": true,
+            "vertical_tabs_show_title_on_window": false
         },
         "top_site_suggestions_enabled": false,
         "web_view_rounded_corners": true
