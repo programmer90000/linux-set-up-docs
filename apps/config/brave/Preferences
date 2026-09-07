@@ -67,7 +67,8 @@
             "always_hide_tab_close_button": false,
             "middle_click_close_tab_enabled": false,
             "mute_indicator_not_clickable": false,
-            "scrollable_horizontal_tab_strip": true
+            "scrollable_horizontal_tab_strip": true,
+            "hover_mode": 1
         },
         "top_site_suggestions_enabled": false,
         "web_view_rounded_corners": true
