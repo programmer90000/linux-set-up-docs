@@ -85,5 +85,10 @@
     },
     "omnibox": {
         "prevent_url_elisions": true
+    },
+    "performance_tuning": {
+        "high_efficiency_mode": {
+            "state": 0
+        }
     }
 }
