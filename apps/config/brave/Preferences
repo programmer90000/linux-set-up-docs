@@ -45,6 +45,7 @@
         }
     },
     "browser": {
+        "custom_chrome_frame": true,
         "show_home_button": false,
         "show_tab_search_button": false,
         "theme": {
