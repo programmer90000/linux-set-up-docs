@@ -63,7 +63,11 @@
             "vertical_tabs_hide_completely_when_collapsed": false,
             "vertical_tabs_on_right": false,
             "vertical_tabs_show_scrollbar": true,
-            "vertical_tabs_show_title_on_window": false
+            "vertical_tabs_show_title_on_window": false,
+            "always_hide_tab_close_button": false,
+            "middle_click_close_tab_enabled": false,
+            "mute_indicator_not_clickable": false,
+            "scrollable_horizontal_tab_strip": true
         },
         "top_site_suggestions_enabled": false,
         "web_view_rounded_corners": true
@@ -82,4 +86,3 @@
         "prevent_url_elisions": true
     }
 }
-
