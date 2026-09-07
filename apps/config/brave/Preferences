@@ -22,7 +22,11 @@
         "containers": {
             "enabled": false,
             "list": []
-        }
+        },
+        "speedreader": {
+            "enabled_for_all_sites": false,
+            "feature_enabled": false
+        },
         "bookmarks": {
             "show_all_bookmarks_button": false
         },
