@@ -82,7 +82,8 @@
             "hover_mode": 1
         },
         "top_site_suggestions_enabled": false,
-        "web_view_rounded_corners": true
+        "web_view_rounded_corners": true,
+        "wayback_machine_enabled": false
     },
     "browser": {
         "custom_chrome_frame": true,
