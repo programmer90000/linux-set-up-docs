@@ -55,7 +55,8 @@
             "commander_suggestions_enabled": false,
             "history_suggestions_enabled": false
         },
-        "top_site_suggestions_enabled": false
+        "top_site_suggestions_enabled": false,
+        "web_view_rounded_corners": true
     },
     "browser": {
         "custom_chrome_frame": true,
@@ -71,4 +72,3 @@
         "prevent_url_elisions": true
     }
 }
-
