@@ -46,7 +46,13 @@
         },
         "news": {
             "open-articles-in-new-tab": true
-        }
+        },
+        "omnibox": {
+            "bookmark_suggestions_enabled": false,
+            "commander_suggestions_enabled": false,
+            "history_suggestions_enabled": false
+        },
+        "top_site_suggestions_enabled": false
     },
     "browser": {
         "custom_chrome_frame": true,
