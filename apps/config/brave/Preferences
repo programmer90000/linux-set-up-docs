@@ -15,8 +15,10 @@
     },
     "brave": {
         "ai_chat": {
+            "autocomplete_provider_enabled": false,
             "show_toolbar_button": false
         },
+        "autocomplete_enabled": true,
         "bookmarks": {
             "show_all_bookmarks_button": false
         },
@@ -65,3 +67,4 @@
         }
     }
 }
+
