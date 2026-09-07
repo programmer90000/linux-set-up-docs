@@ -20,7 +20,10 @@
             "background": {
                 "random": false,
                 "type": "custom_image",
-                "selected_value": "background.png"
+                "selected_value": "background.png",
+                "custom_background_alignment": "center",
+                "custom_background_tiling": "no-repeat",
+                "custom_background_size": "cover"
             },
             "custom_background_image_list": [
                 "background.png"
@@ -28,6 +31,7 @@
             "shows_options": 0,
             "clock_format": "h24",
             "show_background_image": true,
+            "show_sponsored_images": false,
             "show_brave_news": false,
             "show_rewards": false,
             "show_stats": false,
