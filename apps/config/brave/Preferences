@@ -55,6 +55,9 @@
             "commander_suggestions_enabled": false,
             "history_suggestions_enabled": false
         },
+        "sidebar": {
+            "sidebar_show_option": 3
+        },
         "tabs": {
             "vertical_tabs_enabled": true,
             "vertical_tabs_collapsed": true,
@@ -85,6 +88,9 @@
     },
     "omnibox": {
         "prevent_url_elisions": true
+    },
+    "side_panel": {
+        "is_right_aligned": false
     },
     "performance_tuning": {
         "high_efficiency_mode": {
