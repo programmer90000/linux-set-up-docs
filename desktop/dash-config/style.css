@@ -12,3 +12,31 @@
 button:hover {
     background: #285577;
 }
+
+/* Stack Date (Top) and Time (Bottom) inside single button */
+#datetime_widget label {
+    font-size: 11px;
+    text-align: center;
+    padding: 0px 6px;
+}
+
+/* Caps Lock Active State Highlight */
+#caps_lock {
+    background-color: #d9534f;
+    color: #ffffff;
+    font-weight: bold;
+    border-radius: 3px;
+    margin: 2px 4px;
+    padding: 0px 4px;
+}
+
+/* Workspace Pager Styling */
+#workspace_pager button {
+    padding: 0px 6px;
+    border: none;
+}
+
+#workspace_pager button:checked {
+    background: #285577;
+    font-weight: bold;
+}
