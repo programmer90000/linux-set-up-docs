@@ -8,6 +8,10 @@
         "use_gaia_picture": true,
         "content_settings": {
             "exceptions": {
+                "fingerprintingV2": {
+                    "*,*": {
+                        "setting": 2
+                },
                 "httpsUpgrades": {
                     "*,*": {
                         "setting": 3
