@@ -13,6 +13,11 @@
                         "setting": 3
                     }
                 },
+                "javascript": {
+                    "*,*": {
+                        "setting": 2
+                    }
+                },
                 "shieldsAds": {
                     "*,*": {
                         "setting": 0
