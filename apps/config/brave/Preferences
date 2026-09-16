@@ -8,6 +8,11 @@
         "use_gaia_picture": true,
         "content_settings": {
             "exceptions": {
+                "httpsUpgrades": {
+                    "*,*": {
+                        "setting": 3
+                    }
+                },
                 "shieldsAds": {
                     "*,*": {
                         "setting": 0
