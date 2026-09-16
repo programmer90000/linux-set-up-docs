@@ -5,7 +5,16 @@
         "avatar_index": 26,
         "gaia_picture_file_name": "avatar.png",
         "has_migrated_to_gaia_info": true,
-        "use_gaia_picture": true
+        "use_gaia_picture": true,
+        "content_settings": {
+            "exceptions": {
+                "shieldsAds": {
+                    "*,*": {
+                        "setting": 0
+                    }
+                }
+            }
+        }
     },
     "session": {
         "restore_on_startup": 5
