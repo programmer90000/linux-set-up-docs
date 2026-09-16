@@ -6,8 +6,14 @@
         "gaia_picture_file_name": "avatar.png",
         "has_migrated_to_gaia_info": true,
         "use_gaia_picture": true,
+        "cookie_controls_mode": 1,
         "content_settings": {
             "exceptions": {
+                "cookies": {
+                    "*,*": {
+                        "setting": 1
+                    }
+                },
                 "fingerprintingV2": {
                     "*,*": {
                         "setting": 2
