@@ -1,0 +1,14 @@
+Module("clock")
+
+layout {
+    grid "datetime_container" {
+        label "date_label" {
+            value = Time("%a, %b %d")
+            style = "date_text"
+        }
+        label "time_label" {
+            value = Time("%H:%M")
+            style = "time_text"
+        }
+    }
+}
