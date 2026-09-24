@@ -30,6 +30,7 @@ cd desktop/app-launcher/
 meson setup builddir -Dbuildtype=release
 ninja -C builddir
 sudo ninja -C builddir install
+cp grid/grid.conf ~/.config/nwg-launchers/nwggrid/
 cd ../dash/
 meson setup build -Dauto_features=enabled -Dbuildtype=release
 ninja -C build

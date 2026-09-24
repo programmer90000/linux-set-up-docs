@@ -4,7 +4,7 @@ Type=Application
 Exec=brave-browser --password-store=basic
 Icon=brave-browser
 Terminal=false
-Categories=Network;WebBrowser;
+Categories=Internet;
 StartupNotify=true
 NoDisplay=false
 StartupWMClass=brave-browser
