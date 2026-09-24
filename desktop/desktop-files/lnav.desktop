@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=lnav
+Type=Application
+Exec=lnav %f
+Icon=terminal
+Terminal=true
+Categories=Development;
+StartupNotify=false
+NoDisplay=false
+StartupWMClass=lnav
