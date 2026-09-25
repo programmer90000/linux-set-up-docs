@@ -1,7 +1,7 @@
 #!/bin/bash
 set -eu
 
-dir="$HOME/Screenshots"
+dir="$HOME/media/Screenshots"
 mkdir -p "$dir"
 
 file="$dir/screenshot-$(date +%Y%m%d-%H%M%S).png"
