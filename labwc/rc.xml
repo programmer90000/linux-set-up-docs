@@ -91,6 +91,9 @@
         <repeatRate>3</repeatRate>
         <repeatDelay>600</repeatDelay>
         <default />
+        <keybind key="Print">
+            <action name="Execute" command="~/.config/labwc/scripts/screen-capture-menu.sh" />
+        </keybind>
         <keybind key="W-Return"><action name="None" /></keybind>
         <keybind key="W-KP_Enter"><action name="None" /></keybind>
         <keybind key="W-a"><action name="None" /></keybind>
