@@ -2,6 +2,7 @@
 
 ENVIRONMENT="labwc/environment"
 AUTOSTART="labwc/autostart"
+SCRIPTS="labwc/scripts"
 
 if [ "$EUID" -eq 0 ]; then
     echo "Error: This script should not be run as root or with sudo."
@@ -21,6 +22,12 @@ if [ ! -f "$AUTOSTART" ]; then
     exit 1
 fi
 
+if [ ! -d "$SCRIPTS" ]; then
+    echo "Configuration directory '$SCRIPTS' not found."
+    echo "Please ensure the directory exists in the correct location."
+    exit 1
+fi
+
 echo "Installing Labwc"
 sudo apt update
 sudo apt install -y labwc
@@ -33,3 +40,5 @@ cp labwc/rc.xml ~/.config/labwc/
 echo "Copying autostart file"
 cp $AUTOSTART ~/.config/labwc/
 chmod +x ~/.config/labwc/autostart
+echo "Copying scripts directory"
+cp -r $SCRIPTS ~/.config/labwc/
