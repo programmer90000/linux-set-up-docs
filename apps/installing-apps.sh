@@ -87,6 +87,8 @@ echo "Installing slurp"
 sudo apt install -y slurp
 echo "Installing imagemagick"
 sudo apt install -y imagemagick
+echo "Installing wf-recorder"
+sudo apt install -y wf-recorder
 echo "Installing Kooha"
 sudo apt install -y kooha
 echo "Installing Hardinfo2"
