@@ -1,3 +1,9 @@
+Run:
+```
+git config --global user.name "YOUR NAME"
+git config --global user.email "YOUR EMAIL"
+```
+
 # GitHub
 
 1. Go to `Settings > SSH and GPG keys`
