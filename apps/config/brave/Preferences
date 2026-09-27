@@ -17,6 +17,7 @@
                 "fingerprintingV2": {
                     "*,*": {
                         "setting": 2
+                    }
                 },
                 "httpsUpgrades": {
                     "*,*": {
