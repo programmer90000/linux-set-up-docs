@@ -136,6 +136,8 @@ echo "Installing btop"
 sudo apt install btop
 echo "Installing Docker"
 sudo apt install -y docker.io docker-cli ca-certificates apparmor
+echo "Installing strace"
+sudo apt install -y strace
 echo "Installing Extrepo"
 sudo apt install -y extrepo
 sudo cp apps/config.yaml /etc/extrepo/config.yaml
