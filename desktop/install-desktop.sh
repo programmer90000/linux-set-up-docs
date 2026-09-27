@@ -31,6 +31,10 @@ meson setup builddir -Dbuildtype=release
 ninja -C builddir
 sudo ninja -C builddir install
 cp grid/grid.conf ~/.config/nwg-launchers/nwggrid/
+cd ../window-switcher/
+cargo build --release
+sudo cp target/release/window-switcher /usr/local/bin/
+sudo chmod +x /usr/local/bin/window-switcher
 cd ../dash/
 meson setup build -Dauto_features=enabled -Dbuildtype=release
 ninja -C build
