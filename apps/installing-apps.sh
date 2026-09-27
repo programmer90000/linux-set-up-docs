@@ -129,11 +129,11 @@ sudo apt install -y libnotify-bin
 echo "Installing KeePassXc"
 sudo apt install -y keepassxc-full
 echo "Installing QEMU/KVM"
-sudo apt install qemu-kvm libvirt-daemon-system libvirt-clients virtinst bridge-utils
+sudo apt install -y qemu-kvm libvirt-daemon-system libvirt-clients virtinst bridge-utils
 echo "Installing ssh"
-sudo apt install ssh
+sudo apt install -y ssh
 echo "Installing btop"
-sudo apt install btop
+sudo apt install -y btop
 echo "Installing Docker"
 sudo apt install -y docker.io docker-cli ca-certificates apparmor
 echo "Installing strace"
