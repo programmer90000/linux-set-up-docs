@@ -175,7 +175,7 @@ sudo apt install -y strace
 
 echo "Installing TigerVNC Viewer"
 sudo apt install -y tigervnc-viewer
-Installing:
+
 echo "Installing Extrepo"
 sudo apt install -y extrepo
 sudo cp apps/config.yaml /etc/extrepo/config.yaml
