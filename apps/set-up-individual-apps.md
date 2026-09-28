@@ -40,7 +40,7 @@
 
 ## QEMU/ KVM
 
-Follow the docs in [../installation.md] to create the VM
+Follow the docs in [../installation.md](../installation.md) to create the VM
 
 Set the `hostname` to `are-debian-13-vm` or another appropriate hostname
 
