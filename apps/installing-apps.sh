@@ -132,6 +132,7 @@ sudo apt install -y rmlint
 
 echo "Installing lnav"
 sudo apt install -y lnav
+sudo cp apps/app-icons/lnav/lnav.png /usr/share/icons/hicolor/512x512/apps/
 
 echo "Installing Valgrind"
 sudo apt install -y valgrind

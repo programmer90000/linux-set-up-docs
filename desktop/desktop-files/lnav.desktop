@@ -2,7 +2,7 @@
 Name=lnav
 Type=Application
 Exec=lnav %f
-Icon=terminal
+Icon=lnav
 Terminal=true
 Categories=Development;
 StartupNotify=false
