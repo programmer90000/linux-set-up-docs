@@ -2,7 +2,7 @@
 Name=ImageMagick
 Type=Application
 Exec=display %u
-Icon=imagemagick
+Icon=ImageMagick
 Terminal=false
 Categories=Media;
 StartupNotify=true

@@ -103,6 +103,7 @@ sudo apt install -y slurp
 
 echo "Installing imagemagick"
 sudo apt install -y imagemagick
+sudo cp apps/app-icons/ImageMagick/ImageMagick.png /usr/share/icons/hicolor/512x512/apps/
 
 echo "Installing wf-recorder"
 sudo apt install -y wf-recorder
@@ -207,3 +208,6 @@ cp apps/config/librewolf/librewolf.overrides.cfg ~/.config/librewolf/librewolf/
 
 echo "Installing man pages"
 sudo apt install -y man-db manpages manpages-dev manpages-posix manpages-posix-dev
+
+echo "Updating system icon cache"
+sudo gtk-update-icon-cache -f -t /usr/share/icons/hicolor
