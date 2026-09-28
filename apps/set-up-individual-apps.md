@@ -62,4 +62,4 @@ After this, run all of the commands to setup the computer found in [../setup.md]
 
 Shutdown the VM and make a snapshot with the name `Ran all config files`
 
-Start the VM, login and make a snapshot with the name `Running VM - Ran all config files`
+Start the VM, login and make a snapshot with the name `Running-VM-Ran-all-config-files`
