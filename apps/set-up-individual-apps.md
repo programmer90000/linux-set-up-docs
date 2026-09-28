@@ -55,3 +55,11 @@ Set the `Partitioning method` to `Guided - use entire disk`
 Select `Yes` when asked to install the GRUB boot loader
 
 Set the device to the device shown. Do not manually enter a device
+
+After creating the VM, before running any other commands, shut the VM down and make a snapshot with the name `Initial Snapshot`
+
+After this, run all of the commands to setup the computer found in [../setup.md](../setup.md)
+
+Shutdown the VM and make a snapshot with the name `Ran all config files`
+
+Start the VM, login and make a snapshot with the name `Running VM - Ran all config files`
