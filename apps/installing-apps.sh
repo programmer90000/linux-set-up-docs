@@ -15,6 +15,7 @@ mkdir -p ~/.config/tmux/tmux-resurrect/
 cp -r apps/config/tmux/tmux-resurrect/* ~/.config/tmux/tmux-resurrect/
 chmod +x ~/.config/tmux/tmux-resurrect/scripts/*.sh
 cp -r apps/config/tmux/tmux-better-mouse-mode/ ~/.config/tmux/
+sudo cp apps/app-icons/tmux/tmux.png /usr/share/icons/hicolor/256x256/apps/
 
 echo "Installing Neovim"
 sudo apt install -y neovim

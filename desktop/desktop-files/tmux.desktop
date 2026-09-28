@@ -2,7 +2,7 @@
 Name=Tmux
 Type=Application
 Exec=tmux
-Icon=terminal
+Icon=tmux
 Terminal=true
 Categories=Development;
 StartupNotify=false
