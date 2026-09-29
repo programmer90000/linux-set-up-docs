@@ -162,7 +162,7 @@ echo "Installing KeePassXc"
 sudo apt install -y keepassxc-full
 
 echo "Installing QEMU/KVM"
-sudo apt install -y qemu-kvm libvirt-daemon-system libvirt-clients virtinst bridge-utils
+sudo apt install -y qemu--kvm libvirt-daemon-system libvirt-clients virtinst pipewire pipewire-audio wireplumber
 
 echo "Installing ssh"
 sudo apt install -y ssh
