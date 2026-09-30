@@ -94,7 +94,7 @@
         <keybind key="Print">
             <action name="Execute" command="~/.config/labwc/scripts/screen-capture-menu.sh" />
         </keybind>
-        <keybind key="W-l">
+        <keybind key="C-S-A-m">
             <action name="Execute" command="wpctl set-mute @DEFAULT_SINK@ toggle" />
         </keybind>
         <keybind key="W-k">
