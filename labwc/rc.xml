@@ -97,6 +97,9 @@
         <keybind key="W-l">
             <action name="Execute" command="wpctl set-mute @DEFAULT_SINK@ toggle" />
         </keybind>
+        <keybind key="W-k">
+            <action name="Execute" command="wpctl set-volume @DEFAULT_SINK@ 1-" />
+        </keybind>
         <keybind key="W-Return"><action name="None" /></keybind>
         <keybind key="W-KP_Enter"><action name="None" /></keybind>
         <keybind key="W-a"><action name="None" /></keybind>
