@@ -9,6 +9,7 @@ echo "Installing git"
 sudo apt install -y git git-delta
 mkdir -p ~/.config/git/
 cp apps/config/git/config ~/.config/git/
+unset PAGER
 
 echo "Installing curl"
 sudo apt install -y curl
