@@ -60,6 +60,14 @@ After creating the VM, before running any other commands, shut the VM down and m
 
 After this, run all of the commands to setup the computer found in [../setup.md](../setup.md)
 
-Shutdown the VM and make a snapshot with the name `Ran all config files`
+Shutdown the VM
+
+On the host machine, run:
+```
+virt-xml debian-13 --edit --audio type=pipewire,id=1
+virt-xml debian-13 --add-device --sound model=ich9,audio.id=1
+```
+
+Make a snapshot with the name `Ran all config files`
 
 Start the VM, login and make a snapshot with the name `Running-VM-Ran-all-config-files`
