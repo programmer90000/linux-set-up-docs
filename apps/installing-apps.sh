@@ -1,8 +1,12 @@
 #!/bin/bash
 
 mkdir -p ~/.config/
+
 echo "Refreshing package list"
 sudo apt update
+
+echo "Installing git"
+sudo apt install -y git git-delta
 
 echo "Installing curl"
 sudo apt install -y curl
