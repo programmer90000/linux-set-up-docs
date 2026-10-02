@@ -27,19 +27,19 @@ sudo cp apps/app-icons/tmux/tmux.png /usr/share/icons/hicolor/256x256/apps/
 echo "Installing Neovim"
 sudo apt install -y neovim
 mkdir -p ~/.config/nvim/
-cp -r apps/config/nvim/lualine/ ~/.config/nvim/
-cp -r apps/config/nvim/mason/ ~/.config/nvim/
-cp -r apps/config/nvim/neo-tree/ ~/.config/nvim/
-cp -r apps/config/nvim/nui/ ~/.config/nvim/
-cp -r apps/config/nvim/nvim-surround/ ~/.config/nvim/
-cp -r apps/config/nvim/nvim-treesitter/ ~/.config/nvim/
-cp -r apps/config/nvim/nvim-web-devicons/ ~/.config/nvim/
-cp -r apps/config/nvim/plenary/ ~/.config/nvim/
-cp -r apps/config/nvim/indent-blankline/ ~/.config/nvim/
-cp -r apps/config/nvim/comment/ ~/.config/nvim/
-cp -r apps/config/nvim/neominimap ~/.config/nvim/
-cp -r apps/config/nvim/autopairs/ ~/.config/nvim/
-cp -r apps/config/nvim/quickui/ ~/.config/nvim/
+cp -r apps/config/nvim/plugins/lualine/ ~/.config/nvim/
+cp -r apps/config/nvim/plugins/mason/ ~/.config/nvim/
+cp -r apps/config/nvim/plugins/neo-tree/ ~/.config/nvim/
+cp -r apps/config/nvim/plugins/nui/ ~/.config/nvim/
+cp -r apps/config/nvim/plugins/nvim-surround/ ~/.config/nvim/
+cp -r apps/config/nvim/plugins/nvim-treesitter/ ~/.config/nvim/
+cp -r apps/config/nvim/plugins/nvim-web-devicons/ ~/.config/nvim/
+cp -r apps/config/nvim/plugins/plenary/ ~/.config/nvim/
+cp -r apps/config/nvim/plugins/indent-blankline/ ~/.config/nvim/
+cp -r apps/config/nvim/plugins/comment/ ~/.config/nvim/
+cp -r apps/config/nvim/plugins/neominimap ~/.config/nvim/
+cp -r apps/config/nvim/plugins/autopairs/ ~/.config/nvim/
+cp -r apps/config/nvim/plugins/quickui/ ~/.config/nvim/
 mkdir -p ~/.config/nvim/colors/
 cp apps/config/nvim/colours/colour-scheme.lua ~/.config/nvim/colors/
 cp apps/config/nvim/init.lua ~/.config/nvim/
