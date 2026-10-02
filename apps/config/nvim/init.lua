@@ -1,3 +1,4 @@
+vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/plugins/autopairs/"))
 vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/mason/"))
 vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/lualine/"))
 vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/nvim-surround/"))
@@ -9,7 +10,6 @@ vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/neo-tree/"))
 vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/indent-blankline/"))
 vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/comment/"))
 vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/neominimap/"))
-vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/autopairs/"))
 vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/quickui/"))
 
 vim.autoindent = true
