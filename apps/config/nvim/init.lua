@@ -6,10 +6,10 @@ dofile(config_path .. "lualine.lua")
 dofile(config_path .. "mason.lua")
 dofile(config_path .. "neo-tree.lua")
 dofile(config_path .. "nvim-surround.lua")
+dofile(config_path .. "nvim-treesitter.lua")
 
 vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/plugins/indent-blankline/"))
 vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/plugins/neominimap/"))
-vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/plugins/nvim-treesitter/"))
 vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/plugins/plenary/"))
 vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/plugins/nui/"))
 vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/plugins/nvim-web-devicons/"))
@@ -94,10 +94,6 @@ vim.o.undodir = os.getenv("HOME") .. "/.local/share/nvim/undo"
 vim.o.winbar = ""
 
 vim.cmd("colorscheme colour-scheme")
-
-require("nvim-treesitter").setup {
-    install_dir = vim.fs.joinpath(vim.fn.stdpath("data"), "nvim-treesitter"),
-}
 
 require("ibl").setup()
 
