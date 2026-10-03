@@ -7,13 +7,13 @@ dofile(config_path .. "mason.lua")
 dofile(config_path .. "neo-tree.lua")
 dofile(config_path .. "nvim-surround.lua")
 dofile(config_path .. "nvim-treesitter.lua")
+dofile(config_path .. "quickui.lua")
 
 vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/plugins/indent-blankline/"))
 vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/plugins/neominimap/"))
 vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/plugins/plenary/"))
 vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/plugins/nui/"))
 vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/plugins/nvim-web-devicons/"))
-vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/plugins/quickui/"))
 
 vim.autoindent = true
 vim.autoread = true
@@ -104,35 +104,3 @@ vim.g.neominimap = {
     auto_switch_focus = true,
   },
 }
-
-require("quickui").setup({
-    keymap = "<F10>",
-    border = "single",
-    menus = {
-        {
-            name = "&File",
-            items = {
-                { name = "&New",   cmd = ":enew<CR>", key = "<C-n>" },
-                { name = "&Open",  cmd = ":e ",       key = "<C-o>" },
-                { name = "&Save",  cmd = ":w<CR>",    key = "<C-s>" },
-                { name = "separator" },
-                { name = "&Quit",  cmd = ":qa<CR>",   key = "<C-q>" },
-            },
-        },
-        {
-            name = "&Edit",
-            items = {
-                { name = "&Undo",  cmd = "u",      key = "<C-z>" },
-                { name = "&Redo",  cmd = "<C-r>",  key = "<C-y>" },
-                { name = "&Copy",  cmd = '"+y',    key = "<C-c>" },
-                { name = "&Paste", cmd = '"+p',    key = "<C-v>" },
-            },
-        },
-        {
-            name = "&Select",
-            items = {
-                { name = "&Select All", cmd = "ggVG", key = "<C-a>" },
-            },
-        },
-    },
-})
