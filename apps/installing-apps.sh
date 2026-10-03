@@ -45,6 +45,7 @@ cp apps/config/nvim/config/autopairs.lua ~/.config/nvim/config/
 cp apps/config/nvim/config/comment.lua ~/.config/nvim/config/
 cp apps/config/nvim/config/lualine.lua ~/.config/nvim/config/
 cp apps/config/nvim/config/mason.lua ~/.config/nvim/config/
+cp apps/config/nvim/config/neo-tree.lua ~/.config/nvim/config/
 mkdir -p ~/.config/nvim/colors/
 cp apps/config/nvim/colours/colour-scheme.lua ~/.config/nvim/colors/
 cp apps/config/nvim/init.lua ~/.config/nvim/
