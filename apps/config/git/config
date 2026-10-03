@@ -19,3 +19,19 @@
 
 [rerere]
     enabled=true
+
+[help]
+    autoCorrect = 0
+    format = man
+
+[user]
+    useConfigOnly = true
+
+[status]
+    relativePaths = false
+    short = false
+    aheadBehind = true
+    displayCommentPrefix = false
+    showStash = true
+    showUntrackedFiles = normal
+    branch = true
