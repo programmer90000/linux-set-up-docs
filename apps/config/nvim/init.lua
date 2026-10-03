@@ -1,5 +1,6 @@
 local config_path = vim.fn.stdpath("config") .. "/config/"
 
+dofile(config_path .. "dependencies.lua")
 dofile(config_path .. "autopairs.lua")
 dofile(config_path .. "comment.lua")
 dofile(config_path .. "indent-blankline.lua")
