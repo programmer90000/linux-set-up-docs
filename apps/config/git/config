@@ -57,3 +57,18 @@
     showEmail = true
     blankBoundary = false
     date = default
+
+[log]
+    date = default
+
+[tag]
+    sort = version:refname
+
+[branch]
+    sort = refname
+    sort = version:refname
+    sort = -committerdate
+
+[pull]
+    ff = only
+    rebase = interactive
