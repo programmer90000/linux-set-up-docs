@@ -52,6 +52,7 @@ cp apps/config/nvim/config/neominimap.lua ~/.config/nvim/config/
 cp apps/config/nvim/config/nvim-surround.lua ~/.config/nvim/config/
 cp apps/config/nvim/config/nvim-treesitter.lua ~/.config/nvim/config/
 cp apps/config/nvim/config/quickui.lua ~/.config/nvim/config/
+cp apps/config/nvim/config/settings.lua ~/.config/nvim/config/
 mkdir -p ~/.config/nvim/colors/
 cp apps/config/nvim/colours/colour-scheme.lua ~/.config/nvim/colors/
 cp apps/config/nvim/init.lua ~/.config/nvim/
