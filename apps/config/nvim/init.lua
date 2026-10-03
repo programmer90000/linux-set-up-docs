@@ -3,6 +3,7 @@ local config_path = vim.fn.stdpath("config") .. "/config/"
 dofile(config_path .. "autopairs.lua")
 dofile(config_path .. "comment.lua")
 dofile(config_path .. "lualine.lua")
+dofile(config_path .. "mason.lua")
 
 vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/plugins/indent-blankline/"))
 vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/plugins/neominimap/"))
