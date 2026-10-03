@@ -1,8 +1,8 @@
 local config_path = vim.fn.stdpath("config") .. "/config/"
 
 dofile(config_path .. "autopairs.lua")
+dofile(config_path .. "comment.lua")
 
-vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/plugins/comment/"))
 vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/plugins/indent-blankline/"))
 vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/plugins/lualine/"))
 vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/plugins/mason/"))
@@ -588,7 +588,6 @@ require("neo-tree").setup {
 }
 
 require("ibl").setup()
-require('Comment').setup()
 
 vim.g.neominimap = {
   auto_enable = true,
