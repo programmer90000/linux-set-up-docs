@@ -35,3 +35,25 @@
     showStash = true
     showUntrackedFiles = normal
     branch = true
+
+[i18n]
+    commitEncoding = UTF-8
+    logOutputEncoding = UTF-8
+
+[init]
+    defaultBranch = main
+
+[color]
+    ui = auto
+    advice = always
+
+[column]
+    ui = auto dense
+
+[sequence]
+    editor = nvim
+
+[blame]
+    showEmail = true
+    blankBoundary = false
+    date = default
