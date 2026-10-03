@@ -5,7 +5,6 @@ dofile(config_path .. "comment.lua")
 dofile(config_path .. "lualine.lua")
 
 vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/plugins/indent-blankline/"))
-vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/plugins/mason/"))
 vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/plugins/neominimap/"))
 vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/plugins/nvim-surround/"))
 vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/plugins/nvim-treesitter/"))
@@ -94,28 +93,6 @@ vim.o.undodir = os.getenv("HOME") .. "/.local/share/nvim/undo"
 vim.o.winbar = ""
 
 vim.cmd("colorscheme colour-scheme")
-
-require("mason").setup {
-    install_root_dir = vim.fn.stdpath("data") .. "/mason",
-    PATH = "prepend",
-    log_level = vim.log.levels.INFO,
-    max_concurrent_installers = 2,
-
-    ui = {
-        check_outdated_packages_on_open = false,
-        border = nil,
-        backdrop = 60,
-        width = 0.8,
-        height = 0.9,
-        icons = {
-            package_installed = "✅",
-            package_pending = "⏳",
-            package_uninstalled = "❌",
-        },
-
-        keymaps = {},
-    },
-}
 
 require("nvim-surround").setup {
     keymaps = {},
