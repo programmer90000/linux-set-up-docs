@@ -6,11 +6,11 @@ dofile(config_path .. "indent-blankline.lua")
 dofile(config_path .. "lualine.lua")
 dofile(config_path .. "mason.lua")
 dofile(config_path .. "neo-tree.lua")
+dofile(config_path .. "neominimap.lua")
 dofile(config_path .. "nvim-surround.lua")
 dofile(config_path .. "nvim-treesitter.lua")
 dofile(config_path .. "quickui.lua")
 
-vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/plugins/neominimap/"))
 vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/plugins/plenary/"))
 vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/plugins/nui/"))
 vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/plugins/nvim-web-devicons/"))
@@ -94,11 +94,3 @@ vim.o.undodir = os.getenv("HOME") .. "/.local/share/nvim/undo"
 vim.o.winbar = ""
 
 vim.cmd("colorscheme colour-scheme")
-
-vim.g.neominimap = {
-  auto_enable = true,
-  click = {
-    enabled = true,
-    auto_switch_focus = true,
-  },
-}

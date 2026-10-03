@@ -47,6 +47,7 @@ cp apps/config/nvim/config/indent-blankline.lua ~/.config/nvim/config/
 cp apps/config/nvim/config/lualine.lua ~/.config/nvim/config/
 cp apps/config/nvim/config/mason.lua ~/.config/nvim/config/
 cp apps/config/nvim/config/neo-tree.lua ~/.config/nvim/config/
+cp apps/config/nvim/config/neominimap.lua ~/.config/nvim/config/
 cp apps/config/nvim/config/nvim-surround.lua ~/.config/nvim/config/
 cp apps/config/nvim/config/nvim-treesitter.lua ~/.config/nvim/config/
 cp apps/config/nvim/config/quickui.lua ~/.config/nvim/config/
