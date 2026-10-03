@@ -27,6 +27,7 @@ sudo cp apps/app-icons/tmux/tmux.png /usr/share/icons/hicolor/256x256/apps/
 echo "Installing Neovim"
 sudo apt install -y neovim
 mkdir -p ~/.config/nvim/plugins/
+mkdir -p ~/.config/nvim/config/
 cp -r apps/config/nvim/plugins/lualine ~/.config/nvim/plugins/lualine/
 cp -r apps/config/nvim/plugins/mason/ ~/.config/nvim/plugins/
 cp -r apps/config/nvim/plugins/neo-tree/ ~/.config/nvim/plugins/
@@ -40,6 +41,7 @@ cp -r apps/config/nvim/plugins/comment/ ~/.config/nvim/plugins/
 cp -r apps/config/nvim/plugins/neominimap ~/.config/nvim/plugins/
 cp -r apps/config/nvim/plugins/autopairs/ ~/.config/nvim/plugins/
 cp -r apps/config/nvim/plugins/quickui/ ~/.config/nvim/plugins/
+cp apps/config/nvim/config/autopairs.lua ~/.config/nvim/config/
 mkdir -p ~/.config/nvim/colors/
 cp apps/config/nvim/colours/colour-scheme.lua ~/.config/nvim/colors/
 cp apps/config/nvim/init.lua ~/.config/nvim/
