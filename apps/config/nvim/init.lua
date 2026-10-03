@@ -11,10 +11,6 @@ dofile(config_path .. "nvim-surround.lua")
 dofile(config_path .. "nvim-treesitter.lua")
 dofile(config_path .. "quickui.lua")
 
-vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/plugins/plenary/"))
-vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/plugins/nui/"))
-vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/plugins/nvim-web-devicons/"))
-
 vim.autoindent = true
 vim.autoread = true
 vim.autowrite = false
