@@ -1,3 +1,5 @@
+vim.opt.rtp:prepend(vim.fn.expand("~/.config/nvim/plugins/lualine/"))
+
 require("lualine").setup {
     options = {
         icons_enabled = true,
