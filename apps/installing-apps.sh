@@ -43,6 +43,7 @@ cp -r apps/config/nvim/plugins/autopairs/ ~/.config/nvim/plugins/
 cp -r apps/config/nvim/plugins/quickui/ ~/.config/nvim/plugins/
 cp apps/config/nvim/config/autopairs.lua ~/.config/nvim/config/
 cp apps/config/nvim/config/comment.lua ~/.config/nvim/config/
+cp apps/config/nvim/config/indent-blankline.lua ~/.config/nvim/config/
 cp apps/config/nvim/config/lualine.lua ~/.config/nvim/config/
 cp apps/config/nvim/config/mason.lua ~/.config/nvim/config/
 cp apps/config/nvim/config/neo-tree.lua ~/.config/nvim/config/
