@@ -72,3 +72,16 @@
 [pull]
     ff = only
     rebase = interactive
+
+[push]
+    default = simple
+    followTags = true
+    gpgSign = false
+
+[commit]
+    status = true
+
+[stash]
+    showIncludeUntracked = true
+    showPatch = false
+    showStat = true
