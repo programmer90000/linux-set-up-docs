@@ -115,6 +115,11 @@
     colorMovedWS = ignore-all-space
     wsErrorHighlight = all
 
+[difftool]
+    trustExitCode = true
+    prompt = false
+    guiDefault = false
+
 [grep]
     lineNumber = true
     column = true
