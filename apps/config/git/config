@@ -28,6 +28,13 @@
     stat = true
     verbosity = 4
 
+[mergetool]
+    keepBackup = false
+    keepTemporaries = false
+    writeToTemp = false
+    hideResolved = false
+    prompt = false
+
 [rerere]
     enabled=true
 
