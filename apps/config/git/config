@@ -114,3 +114,11 @@
     colorMoved = zebra
     colorMovedWS = ignore-all-space
     wsErrorHighlight = all
+
+[grep]
+    lineNumber = true
+    column = true
+    patternType = default
+    extendedRegexp = false
+    fullName = true
+    fallbackToNoIndex = false
