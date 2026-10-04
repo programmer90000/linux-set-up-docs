@@ -16,6 +16,15 @@
 
 [merge]
     conflictStyle = zdiff3
+    renormalize = false
+    defaultToUpstream = false
+    ff = only
+    autoStash = false
+    verifySignatures = true
+    log = true
+    branchdesc = true
+    renames = copy
+    stat = true
 
 [rerere]
     enabled=true
