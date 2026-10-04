@@ -151,6 +151,9 @@ sudo apt install -y colordiff
 echo "Installing rmlint"
 sudo apt install -y rmlint
 
+echo "Installing tree"
+sudo apt install -y tree
+
 echo "Installing lnav"
 sudo apt install -y lnav
 sudo cp apps/app-icons/lnav/lnav.png /usr/share/icons/hicolor/512x512/apps/
