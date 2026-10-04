@@ -15,6 +15,7 @@
     dark = true
 
 [merge]
+    tool = nvimdiff
     conflictStyle = zdiff3
     renormalize = false
     defaultToUpstream = false
