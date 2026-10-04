@@ -35,6 +35,9 @@
     hideResolved = false
     prompt = false
 
+[mergetool "nvimdiff"]
+    layout = "BASE / (LOCAL, MERGED, REMOTE)"
+
 [rerere]
     enabled=true
 
