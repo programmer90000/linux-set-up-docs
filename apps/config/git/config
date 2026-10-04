@@ -126,6 +126,7 @@
     colorMoved = zebra
     colorMovedWS = ignore-all-space
     wsErrorHighlight = all
+    dirstat = files,cumulative,0
 
 [difftool]
     trustExitCode = true
