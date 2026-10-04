@@ -142,92 +142,83 @@
     fullName = true
     fallbackToNoIndex = false
 
-[color "advice"]
-	hint = hint
-
-[color "blame"]
-	highlightRecent = 
-	repeatedLines = dim
-
-[color "branch"]
-	color = auto
-	current = green
-	local = normal
-	remote = red
-	upstream = blue
-	plain = normal
-
-[color "diff"]
-	color = auto
-	context = normal
-	meta = bold
-	frag = cyan
-	func = normal
-	old = red
-	new = green
-	commit = yellow
-	whitespace = red reverse
-	oldMoved = bold cyan
-	newMoved = bold yellow
-
-[color "decorate"]
-	headline = normal
-	branch = green
-	remoteBranch = red
-	tag = bold yellow
-	stash = bold magenta
-	HEAD = bold cyan
-	graft = bold magenta
-
-[color "grep"]
-	color = auto
-	context = normal
-	filename = normal
-	function = normal
-	lineNumber = normal
-	match = bold red
-	matchContext = bold red
-	matchSelected = bold red
-	selected = normal
-	separator = normal
-
-[color "interactive"]
-	color = auto
-	prompt = bold blue
-	header = bold
-	help = red
-	error = bold red
 
 [color]
-	pager = true
+        pager = true
+[color "advice"]
+        hint = default
+
+[color "blame"]
+        highlightRecent = default
+        repeatedLines = dim
+
+[color "branch"]
+        current = green
+        local = normal
+        remote = red
+        upstream = blue
+        plain = normal
+
+[color "diff"]
+        context = normal
+        meta = bold
+        frag = cyan
+        func = normal
+        old = red
+        new = green
+        commit = yellow
+        whitespace = red reverse
+        oldMoved = bold cyan
+        newMoved = bold yellow
+
+[color "decorate"]
+        headline = normal
+        branch = green
+        remoteBranch = red
+        tag = bold yellow
+        stash = bold magenta
+        HEAD = bold cyan
+        graft = bold magenta
+
+[color "grep"]
+        context = normal
+        filename = normal
+        function = normal
+        lineNumber = normal
+        match = bold red
+        matchContext = bold red
+        matchSelected = bold red
+        selected = normal
+        separator = normal
+
+[color "interactive"]
+        prompt = bold blue
+        header = bold
+        help = red
+        error = bold red
 
 [color "push"]
-	color = auto
-	error = red
+        error = red
 
 [color "transport"]
-	color = auto
-	rejected = red
+        rejected = red
 
 [color "remote"]
-	color = auto
-	hint = yellow
-	warning = bold yellow
-	error = bold red
-	success = bold green
+        hint = yellow
+        warning = bold yellow
+        error = bold red
+        success = bold green
 
 [color "showBranch"]
-	color = auto
 
 [color "status"]
-	color = auto
-	header = normal
-	added = green
-	updated = green
-	changed = red
-	untracked = red
-	branch = bold cyan
-	nobranch = bold red
-	localBranch = bold green
-	remoteBranch = red
-	unmerged = bold red
+        header = normal
+        added = green
+        updated = green
+        changed = red
+        untracked = red
+        branch = bold cyan
+        nobranch = bold red
+        localBranch = bold green
+        remoteBranch = red
+        unmerged = bold red
