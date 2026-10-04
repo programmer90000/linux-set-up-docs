@@ -97,6 +97,7 @@
     showStat = true
 
 [diff]
+    tool = nvimdiff
     autoRefreshIndex = true
     algorithm = histogram
     context = 3
