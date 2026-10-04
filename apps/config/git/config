@@ -81,6 +81,7 @@
 
 [log]
     date = default
+    graphColors = red, green, yellow, blue, magenta, cyan
 
 [tag]
     sort = version:refname
