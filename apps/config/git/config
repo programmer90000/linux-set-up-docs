@@ -25,6 +25,7 @@
     branchdesc = true
     renames = copy
     stat = true
+    verbosity = 4
 
 [rerere]
     enabled=true
@@ -94,3 +95,22 @@
     showIncludeUntracked = true
     showPatch = false
     showStat = true
+
+[diff]
+    autoRefreshIndex = true
+    algorithm = histogram
+    context = 3
+    interHunkContext = 0
+    indentHeuristic = 0
+    suppressBlankEmpty = false
+    wordRegex = "."
+    mnemonicPrefix = true
+    noPrefix = false
+    srcPrefix = previous
+    dstPrefix = new
+    relative = false
+    submodule = diff
+    ignoreSubmodules = untracked
+    colorMoved = zebra
+    colorMovedWS = ignore-all-space
+    wsErrorHighlight = all
