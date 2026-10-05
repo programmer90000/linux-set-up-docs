@@ -21,7 +21,8 @@ setopt HIST_IGNORE_SPACE
 
 # Programs
 export EDITOR=nvim
-export PAGER="nvim -R -"
+export PAGER="nvimpager"
+export MANPAGER="nvimpager"
 
 # Language
 export LANG=en_GB.UTF-8
