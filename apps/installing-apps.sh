@@ -6,7 +6,7 @@ echo "Refreshing package list"
 sudo apt update
 
 echo "Installing git"
-sudo apt install -y git git-delta
+sudo apt install -y git git-delta lazygit
 mkdir -p ~/.config/git/
 cp apps/config/git/config ~/.config/git/
 unset PAGER
