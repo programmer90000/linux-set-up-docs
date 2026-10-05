@@ -58,7 +58,9 @@ cp apps/config/nvim/config/quickui.lua ~/.config/nvim/config/
 cp apps/config/nvim/config/nvimpager.lua ~/.config/nvim/config/
 cp apps/config/nvim/config/render-markdown.lua ~/.config/nvim/config/
 cp apps/config/nvim/config/atone.lua ~/.config/nvim/config/
+cp apps/config/nvim/config/folding.lua ~/.config/nvim/config/
 cp apps/config/nvim/config/settings.lua ~/.config/nvim/config/
+cp apps/config/nvim/config/highlight-whitespace.lua ~/.config/nvim/config/
 mkdir -p ~/.config/nvim/colors/
 cp apps/config/nvim/colours/colour-scheme.lua ~/.config/nvim/colors/
 cp apps/config/nvim/init.lua ~/.config/nvim/
