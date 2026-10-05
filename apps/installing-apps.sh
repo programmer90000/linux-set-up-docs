@@ -41,6 +41,9 @@ cp -r apps/config/nvim/plugins/comment/ ~/.config/nvim/plugins/
 cp -r apps/config/nvim/plugins/neominimap ~/.config/nvim/plugins/
 cp -r apps/config/nvim/plugins/autopairs/ ~/.config/nvim/plugins/
 cp -r apps/config/nvim/plugins/quickui/ ~/.config/nvim/plugins/
+cp -r apps/config/nvim/plugins/nvimpager/ ~/.config/nvim/plugins/
+cp -r apps/config/nvim/plugins/render-markdown/ ~/.config/nvim/plugins/
+cp -r apps/config/nvim/plugins/atone/ ~/.config/nvim/plugins/
 cp apps/config/nvim/config/autopairs.lua ~/.config/nvim/config/
 cp apps/config/nvim/config/comment.lua ~/.config/nvim/config/
 cp apps/config/nvim/config/dependencies.lua ~/.config/nvim/config/
@@ -52,6 +55,9 @@ cp apps/config/nvim/config/neominimap.lua ~/.config/nvim/config/
 cp apps/config/nvim/config/nvim-surround.lua ~/.config/nvim/config/
 cp apps/config/nvim/config/nvim-treesitter.lua ~/.config/nvim/config/
 cp apps/config/nvim/config/quickui.lua ~/.config/nvim/config/
+cp apps/config/nvim/config/nvimpager.lua ~/.config/nvim/config/
+cp apps/config/nvim/config/render-markdown.lua ~/.config/nvim/config/
+cp apps/config/nvim/config/atone.lua ~/.config/nvim/config/
 cp apps/config/nvim/config/settings.lua ~/.config/nvim/config/
 mkdir -p ~/.config/nvim/colors/
 cp apps/config/nvim/colours/colour-scheme.lua ~/.config/nvim/colors/
