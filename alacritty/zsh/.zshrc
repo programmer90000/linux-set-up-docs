@@ -47,6 +47,9 @@ setopt EXTENDED_GLOB
 setopt NO_CASE_GLOB
 setopt NOMATCH
 
+# Prevent > from overwriting existing files (use >! to force)
+setopt NO_CLOBBER
+
 # Notify when background process completes or stops
 setopt NOTIFY
 
