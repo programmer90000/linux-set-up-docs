@@ -6,6 +6,9 @@ mkdir -p "$ZDOTDIR"
 # Aliases
 [ -f ~/.config/zsh/.zsh-aliases ] && source ~/.config/zsh/.zsh-aliases
 
+# Set Vi keybindigs
+bindkey -v
+
 # History
 HISTSIZE=10000
 SAVEHIST=10000
