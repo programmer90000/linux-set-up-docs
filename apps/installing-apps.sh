@@ -209,6 +209,9 @@ sudo apt install -y docker.io docker-cli ca-certificates apparmor
 echo "Installing strace"
 sudo apt install -y strace
 
+echo "Installing fzf"
+sudo apt install fzf
+
 echo "Installing TigerVNC Viewer"
 sudo apt install -y tigervnc-viewer
 
