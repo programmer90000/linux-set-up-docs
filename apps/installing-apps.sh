@@ -221,6 +221,9 @@ sudo apt install -y tigervnc-viewer
 echo "Installing NodeJS"
 sudo apt install nodejs npm
 
+echo "Installing TreeSitter CLI"
+sudo npm install -g tree-sitter-cli
+
 echo "Installing Extrepo"
 sudo apt install -y extrepo
 sudo cp apps/config.yaml /etc/extrepo/config.yaml
