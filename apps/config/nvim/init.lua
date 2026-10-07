@@ -15,6 +15,7 @@ dofile(config_path .. "nvimpager.lua")
 dofile(config_path .. "quickui.lua")
 dofile(config_path .. "render-markdown.lua")
 dofile(config_path .. "folding.lua")
+dofile(config_path .. "nvim-dap.lua")
 dofile(config_path .. "settings.lua")
 vim.cmd("colorscheme colour-scheme")
 dofile(config_path .. "highlight-whitespace.lua") -- Keep this line under the colourscheme line
