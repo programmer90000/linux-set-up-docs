@@ -33,6 +33,9 @@ cp -r apps/config/nvim/plugins/neo-tree/ ~/.config/nvim/plugins/
 cp -r apps/config/nvim/plugins/nui/ ~/.config/nvim/plugins/
 cp -r apps/config/nvim/plugins/nvim-surround/ ~/.config/nvim/plugins/
 cp -r apps/config/nvim/plugins/nvim-treesitter/ ~/.config/nvim/plugins/
+cp -r apps/config/nvim/plugins/tree-sitter-c ~/.config/nvim/plugins/
+cp -r apps/config/nvim/plugins/tree-sitter-dart ~/.config/nvim/plugins/
+cp -r apps/config/nvim/plugins/tree-sitter-javascript ~/.config/nvim/plugins/
 cp -r apps/config/nvim/plugins/nvim-web-devicons/ ~/.config/nvim/plugins/
 cp -r apps/config/nvim/plugins/plenary/ ~/.config/nvim/plugins/
 cp -r apps/config/nvim/plugins/indent-blankline/ ~/.config/nvim/plugins/
