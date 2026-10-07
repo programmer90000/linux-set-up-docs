@@ -198,7 +198,7 @@ echo "Installing QEMU/KVM"
 sudo apt install -y qemu-kvm libvirt-daemon-system libvirt-clients virtinst bridge-utils
 
 echo "Installing Pipewire"
-sudo apt install pipewire pipewire-audio wireplumber pulsemixer
+sudo apt install -y pipewire pipewire-audio wireplumber pulsemixer
 
 echo "Installing ssh"
 sudo apt install -y ssh
