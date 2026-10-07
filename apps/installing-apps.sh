@@ -218,6 +218,9 @@ sudo apt install fzf
 echo "Installing TigerVNC Viewer"
 sudo apt install -y tigervnc-viewer
 
+echo "Installing NodeJS"
+sudo apt install nodejs npm
+
 echo "Installing Extrepo"
 sudo apt install -y extrepo
 sudo cp apps/config.yaml /etc/extrepo/config.yaml
