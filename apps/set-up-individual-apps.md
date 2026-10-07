@@ -1,5 +1,12 @@
 # Set Up Individual Apps
 
+## Neovim
+
+Inside Neovim, run:
+```
+:TSInstall javascript c rust dart
+```
+
 ## KeePassXc
 
 1. Click `Create Database`
