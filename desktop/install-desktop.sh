@@ -41,8 +41,7 @@ cd ../window-switcher/
 cargo build --release
 sudo cp target/release/window-switcher /usr/local/bin/
 sudo chmod +x /usr/local/bin/window-switcher
-sudo cp ../assets/window-switcher.png /usr/share/icons/hicolor/512x512/apps/
-
+sudo cp ../assets/window-switcher.png /usr/share/icons/hicolor/scalable/apps/
 cd ../dash/
 meson setup build -Dauto_features=enabled -Dbuildtype=release
 ninja -C build
