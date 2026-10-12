@@ -46,6 +46,15 @@ cp -r apps/config/nvim/plugins/quickui/ ~/.config/nvim/plugins/
 cp -r apps/config/nvim/plugins/nvimpager/ ~/.config/nvim/plugins/
 cp -r apps/config/nvim/plugins/render-markdown/ ~/.config/nvim/plugins/
 cp -r apps/config/nvim/plugins/atone/ ~/.config/nvim/plugins/
+cp -r apps/config/nvim/plugins/nvim-dap-ui/ ~/.config/nvim/plugins/
+cp -r apps/config/nvim/plugins/nvim-dap/ ~/.config/nvim/plugins/
+cp -r apps/config/nvim/plugins/nvim-nio/ ~/.config/nvim/plugins/
+cd apps/config/nvim/plugins/vscode-js-debug/
+npm install --legacy-peer-deps
+npx gulp dapDebugServer
+mv dist out
+cd ../../../../../
+cp -r apps/config/nvim/plugins/vscode-js-debug ~/.config/nvim/plugins/
 cp apps/config/nvim/config/autopairs.lua ~/.config/nvim/config/
 cp apps/config/nvim/config/comment.lua ~/.config/nvim/config/
 cp apps/config/nvim/config/dependencies.lua ~/.config/nvim/config/
@@ -63,6 +72,7 @@ cp apps/config/nvim/config/atone.lua ~/.config/nvim/config/
 cp apps/config/nvim/config/folding.lua ~/.config/nvim/config/
 cp apps/config/nvim/config/settings.lua ~/.config/nvim/config/
 cp apps/config/nvim/config/highlight-whitespace.lua ~/.config/nvim/config/
+cp apps/config/nvim/config/dap.lua ~/.config/nvim/config/
 mkdir -p ~/.config/nvim/colors/
 cp apps/config/nvim/colours/colour-scheme.lua ~/.config/nvim/colors/
 cp apps/config/nvim/init.lua ~/.config/nvim/
