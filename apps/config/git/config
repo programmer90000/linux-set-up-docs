@@ -21,7 +21,7 @@
     defaultToUpstream = false
     ff = only
     autoStash = false
-    verifySignatures = true
+    verifySignatures = false
     log = true
     branchdesc = true
     renames = copy
