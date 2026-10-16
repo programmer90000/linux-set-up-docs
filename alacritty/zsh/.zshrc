@@ -70,19 +70,27 @@ git_branch() {
     fi
 }
 
-# Dynamic Tmux pane and status bar styling on command execution
+# Dynamic Tmux pane and status bar styling on command execution and exit status
 pane_command_start() {
     if [[ -n "$TMUX" ]]; then
+        # Cyan while a command is actively running
         tmux set-option -p pane-active-border-style "fg=#61afef"
         tmux set-option -w window-status-current-style "bg=#61afef,fg=#1e1e1e"
     fi
 }
 
 pane_command_end() {
+    local exit_code=$?
     if [[ -n "$TMUX" ]]; then
-        # Restore default theme settings
-        tmux set-option -p pane-active-border-style fg=colour35
-        tmux set-option -w window-status-current-style bold,bg=colour238,fg=colour231
+        if [[ $exit_code -ne 0 ]]; then
+            # If the command failed, turn red and persist until the next command
+            tmux set-option -p pane-active-border-style "fg=red"
+            tmux set-option -w window-status-current-style "bg=red,fg=white"
+        else
+            # Otherwise, restore default theme settings
+            tmux set-option -p pane-active-border-style "fg=colour35"
+            tmux set-option -w window-status-current-style "bold,bg=colour238,fg=colour231"
+        fi
     fi
 }
 
