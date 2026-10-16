@@ -70,6 +70,26 @@ git_branch() {
     fi
 }
 
+# Dynamic Tmux pane and status bar styling on command execution
+pane_command_start() {
+    if [[ -n "$TMUX" ]]; then
+        tmux set-option -p pane-active-border-style "fg=#61afef"
+        tmux set-option -w window-status-current-style "bg=#61afef,fg=#1e1e1e"
+    fi
+}
+
+pane_command_end() {
+    if [[ -n "$TMUX" ]]; then
+        # Restore default theme settings
+        tmux set-option -p pane-active-border-style fg=colour35
+        tmux set-option -w window-status-current-style bold,bg=colour238,fg=colour231
+    fi
+}
+
+autoload -Uz add-zsh-hook
+add-zsh-hook preexec pane_command_start
+add-zsh-hook precmd pane_command_end
+
 # Enable command substitution in prompt
 setopt PROMPT_SUBST
 
