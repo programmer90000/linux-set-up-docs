@@ -416,12 +416,10 @@ impl WindowSwitcher {
             content = content.push(text("No windows found").color(text_color).size(self.text_size));
         } else {
             let mut grid = Column::new().spacing(10);
-            let cols: usize = 4;
             
             match self.active_group_idx {
                 None => {
-                    let mut rows = Vec::new();
-                    let mut current_row = Vec::new();
+                    let mut list_column = Column::new().spacing(10);
                     
                     for (app_idx, app_group) in self.app_groups.iter().enumerate() {
                         let display_text = if app_group.windows.len() == 1 {
@@ -434,52 +432,24 @@ impl WindowSwitcher {
                             .width(Length::Fill)
                             .on_press(Message::SelectAppGroup(app_idx));
                         
-                        current_row.push(button_widget);
-                        
-                        if current_row.len() >= cols {
-                            rows.push(current_row);
-                            current_row = Vec::new();
-                        }
+                        list_column = list_column.push(button_widget);
                     }
                     
-                    if !current_row.is_empty() {
-                        rows.push(current_row);
-                    }
-                    
-                    for row_buttons in rows {
-                        let mut row_widget = Row::new().spacing(10);
-                        for btn in row_buttons {
-                            row_widget = row_widget.push(btn);
-                        }
-                        grid = grid.push(row_widget);
-                    }
+                    grid = grid.push(list_column);
                 }
                 Some(app_idx) => {
                     if let Some(app_group) = self.app_groups.get(app_idx) {
-                        let mut current_row = Vec::new();
-                        let mut rows = Vec::new();
+                        let mut list_column = Column::new().spacing(10);
                         
                         for (win_idx, window) in app_group.windows.iter().enumerate() {
-                            let btn = button(text(&window.title).color(text_color).size(self.text_size)).width(Length::Fill).on_press(Message::SelectWindowInGroup(app_idx, win_idx));
+                            let btn = button(text(&window.title).color(text_color).size(self.text_size))
+                                .width(Length::Fill)
+                                .on_press(Message::SelectWindowInGroup(app_idx, win_idx));
                             
-                            current_row.push(btn);
-                            
-                            if current_row.len() >= cols {
-                                rows.push(current_row);
-                                current_row = Vec::new();
-                            }
-                        }
-                        if !current_row.is_empty() {
-                            rows.push(current_row);
+                            list_column = list_column.push(btn);
                         }
                         
-                        for row_buttons in rows {
-                            let mut row_widget = Row::new().spacing(10);
-                            for btn in row_buttons {
-                                row_widget = row_widget.push(btn);
-                            }
-                            grid = grid.push(row_widget);
-                        }
+                        grid = grid.push(list_column);
                     }
                 }
             }
@@ -490,4 +460,3 @@ impl WindowSwitcher {
         content.into()
     }
 }
-
