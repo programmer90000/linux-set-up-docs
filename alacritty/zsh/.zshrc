@@ -70,7 +70,9 @@ git_branch() {
     fi
 }
 
-# Dynamic Tmux pane and status bar styling on command execution and exit status
+# Flag to track if pane needs resetting on next keystroke
+typeset -g RESET_PANE_ON_TYPING=0
+
 pane_command_start() {
     if [[ -n "$TMUX" ]]; then
         # Cyan while a command is actively running
@@ -83,16 +85,31 @@ pane_command_end() {
     local exit_code=$?
     if [[ -n "$TMUX" ]]; then
         if [[ $exit_code -ne 0 ]]; then
-            # If the command failed, turn red and persist until the next command
+            # If the command failed, turn red and wait for typing
             tmux set-option -p pane-active-border-style "fg=red"
             tmux set-option -w window-status-current-style "bg=red,fg=white"
+            RESET_PANE_ON_TYPING=1
         else
-            # Otherwise, restore default theme settings
+            # Otherwise, restore default theme settings immediately
             tmux set-option -p pane-active-border-style "fg=colour35"
             tmux set-option -w window-status-current-style "bold,bg=colour238,fg=colour231"
+            RESET_PANE_ON_TYPING=0
         fi
     fi
 }
+
+# Reset colors on the very first keystroke after a non-zero exit code
+reset_pane_color_on_typing() {
+    if [[ "$RESET_PANE_ON_TYPING" -eq 1 ]]; then
+        if [[ -n "$TMUX" ]]; then
+            tmux set-option -p pane-active-border-style "fg=colour35"
+            tmux set-option -w window-status-current-style "bold,bg=colour238,fg=colour231"
+        fi
+        RESET_PANE_ON_TYPING=0
+    fi
+    zle .self-insert "$@"
+}
+zle -N self-insert reset_pane_color_on_typing
 
 autoload -Uz add-zsh-hook
 add-zsh-hook preexec pane_command_start
