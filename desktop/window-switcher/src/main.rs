@@ -1,11 +1,10 @@
 mod config;
 
-use iced::widget::{button, text_input, Column, scrollable, text, Row};
+use iced::widget::{button, pick_list, text_input, Column, scrollable, text, Row};
 use iced::{Element, Length, Task, Size};
 use iced::window;
 use std::collections::HashMap;
 use std::process::Command;
-use std::time::{SystemTime, UNIX_EPOCH};
 
 use config::Config;
 
@@ -185,11 +184,22 @@ impl Default for SortOrder {
     }
 }
 
+impl std::fmt::Display for SortOrder {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        match self {
+            SortOrder::Alphabetical => write!(f, "Alphabetical"),
+            SortOrder::NewestFirst => write!(f, "Most Recently Opened First"),
+            SortOrder::OldestFirst => write!(f, "Oldest Opened First"),
+        }
+    }
+}
+
 #[derive(Debug, Clone)]
 struct WindowInfo {
     app_id: String,
     title: String,
     handle: ZwlrForeignToplevelHandleV1,
+    index: usize,
 }
 
 #[derive(Debug, Clone)]
@@ -289,8 +299,7 @@ impl WindowSwitcher {
         
         let windows: Vec<WindowInfo> = state
             .windows
-            .into_iter()
-            .map(|w| WindowInfo {app_id: w.app_id, title: w.title, handle: w.handle})
+            .into_iter().enumerate().map(|(idx, w)| WindowInfo {app_id: w.app_id, title: w.title, handle: w.handle, index: idx,})
             .collect();
             
         self.app_groups = self.group_windows(windows);
@@ -315,8 +324,31 @@ impl WindowSwitcher {
     
     fn sort_app_groups(&mut self) {
         match self.sort_order {
-            SortOrder::Alphabetical | SortOrder::NewestFirst | SortOrder::OldestFirst => {
+            SortOrder::Alphabetical => {
                 self.app_groups.sort_by(|a, b| a.app_id.cmp(&b.app_id));
+                for group in &mut self.app_groups {
+                    group.windows.sort_by(|a, b| a.title.cmp(&b.title));
+                }
+            }
+            SortOrder::NewestFirst => {
+                self.app_groups.sort_by(|a, b| {
+                    let max_a = a.windows.iter().map(|w| w.index).max().unwrap_or(0);
+                    let max_b = b.windows.iter().map(|w| w.index).max().unwrap_or(0);
+                    max_a.cmp(&max_b)
+                });
+                for group in &mut self.app_groups {
+                    group.windows.sort_by(|a, b| a.index.cmp(&b.index));
+                }
+            }
+            SortOrder::OldestFirst => {
+                self.app_groups.sort_by(|a, b| {
+                    let min_a = a.windows.iter().map(|w| w.index).min().unwrap_or(0);
+                    let min_b = b.windows.iter().map(|w| w.index).min().unwrap_or(0);
+                    min_b.cmp(&min_a)
+                });
+                for group in &mut self.app_groups {
+                    group.windows.sort_by(|a, b| b.index.cmp(&a.index));
+                }
             }
         }
     }
@@ -392,33 +424,44 @@ impl WindowSwitcher {
         // Render search bar if enabled via config
         if self.search_enabled {
             let search_input = text_input("Type to search windows...", &self.search_query).on_input(Message::SearchChanged).padding(10).size(self.text_size).width(Length::Fill);
-            content = content.push(search_input);
+            
+            let sort_dropdown = pick_list(
+                &[
+                    SortOrder::NewestFirst,
+                    SortOrder::OldestFirst,
+                    SortOrder::Alphabetical,
+                ][..],
+                Some(self.sort_order.clone()),
+                Message::ChangeSortOrder,
+            ).text_size(self.text_size).padding(10);
+            
+            let search_and_sort_row = Row::new().spacing(10).align_y(iced::Alignment::Center).push(search_input).push(sort_dropdown);
+
+            content = content.push(search_and_sort_row);
         }
         
-        let mut sort_row = Row::new().spacing(10).padding(5);
+        let mut action_row = Row::new().spacing(10).padding(5);
         
         if self.active_group_idx.is_some() {
-            sort_row = sort_row.push(
+            action_row = action_row.push(
                 button(text("← Back").color(text_color)).on_press(Message::BackToMainView),
             );
         }
         
-        sort_row = sort_row
-            .push(button(text("Refresh").color(text_color)).on_press(Message::Refresh))
-            .push(button(text("Alphabetical").color(text_color)).on_press(Message::ChangeSortOrder(SortOrder::Alphabetical)))
-            .push(button(text("Newest First").color(text_color)).on_press(Message::ChangeSortOrder(SortOrder::NewestFirst)))
-            .push(button(text("Oldest First").color(text_color)).on_press(Message::ChangeSortOrder(SortOrder::OldestFirst)));
+        action_row = action_row.push(
+            button(text("Refresh").color(text_color)).on_press(Message::Refresh),
+        );
         
-        content = content.push(sort_row);
+        content = content.push(action_row);
         
         let sort_text = match self.sort_order {
             SortOrder::Alphabetical => "Alphabetical",
-            SortOrder::NewestFirst => "Newest First",
-            SortOrder::OldestFirst => "Oldest First",
+            SortOrder::NewestFirst => "Most Recently Opened First",
+            SortOrder::OldestFirst => "Oldest Opened First",
         };
         content = content.push(
-            text(format!("Sort: {} | Groups: {} | Windows: {} | Opacity: {:.1}", 
-                sort_text, 
+            text(format!("Sort: {} | Groups: {} | Windows: {} | Opacity: {:.1}",
+                sort_text,
                 self.app_groups.len(),
                 self.app_groups.iter().map(|g| g.windows.len()).sum::<usize>(),
                 self.background_opacity
@@ -479,9 +522,9 @@ impl WindowSwitcher {
             }
             
             content = content.push(scrollable(grid).width(Length::Fill).height(Length::Fill).direction(scrollable::Direction::Both {
-                    vertical: scrollable::Scrollbar::default(),
-                    horizontal: scrollable::Scrollbar::default(),
-                }));
+                vertical: scrollable::Scrollbar::default(),
+                horizontal: scrollable::Scrollbar::default(),
+            }));
         }
         
         content.into()
