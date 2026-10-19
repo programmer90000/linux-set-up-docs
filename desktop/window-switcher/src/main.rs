@@ -451,7 +451,7 @@ impl WindowSwitcher {
                         let matches = query.is_empty() || app_group.app_id.to_lowercase().contains(&query) || app_group.windows.iter().any(|w| w.title.to_lowercase().contains(&query));
                         
                         if matches {
-                            let button_widget = button(text(display_text).color(text_color).size(self.text_size)).width(Length::Fill).on_press(Message::SelectAppGroup(app_idx));
+                            let button_widget = button(text(display_text).color(text_color).size(self.text_size)).width(Length::Shrink).on_press(Message::SelectAppGroup(app_idx));
                             
                             list_column = list_column.push(button_widget);
                         }
@@ -467,7 +467,7 @@ impl WindowSwitcher {
                             let matches = query.is_empty() || window.title.to_lowercase().contains(&query) || window.app_id.to_lowercase().contains(&query);
                             
                             if matches {
-                                let btn = button(text(&window.title).color(text_color).size(self.text_size)).width(Length::Fill).on_press(Message::SelectWindowInGroup(app_idx, win_idx));
+                                let btn = button(text(&window.title).color(text_color).size(self.text_size)).width(Length::Shrink).on_press(Message::SelectWindowInGroup(app_idx, win_idx));
                                 
                                 list_column = list_column.push(btn);
                             }
@@ -478,7 +478,10 @@ impl WindowSwitcher {
                 }
             }
             
-            content = content.push(scrollable(grid).width(Length::Fill));
+            content = content.push(scrollable(grid).width(Length::Fill).height(Length::Fill).direction(scrollable::Direction::Both {
+                    vertical: scrollable::Scrollbar::default(),
+                    horizontal: scrollable::Scrollbar::default(),
+                }));
         }
         
         content.into()
