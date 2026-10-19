@@ -47,6 +47,12 @@ cp -r apps/config/nvim/plugins/atone/ ~/.config/nvim/plugins/
 cp -r apps/config/nvim/plugins/nvim-dap-ui/ ~/.config/nvim/plugins/
 cp -r apps/config/nvim/plugins/nvim-dap/ ~/.config/nvim/plugins/
 cp -r apps/config/nvim/plugins/nvim-nio/ ~/.config/nvim/plugins/
+cp -r apps/config/nvim/plugins/conform/ ~/.config/nvim/plugins/
+cp -r apps/config/nvim/plugins/diffview.nvim/ ~/.config/nvim/plugins/
+cp -r apps/config/nvim/nvim-lint/ ~/.config/nvim/plugins/
+cp -r apps/config/tmux/tmux-logging/ ~/.config/nvim/plugins/
+cp -r apps/config/tmux/tmux-named-snapshot/ ~/.config/nvim/plugins/
+cp -r apps/config/tmux/tmux-power-zoom/ ~/.config/nvim/plugins/
 cd apps/config/nvim/plugins/vscode-js-debug/
 npm install --legacy-peer-deps
 npx gulp dapDebugServer
@@ -68,6 +74,10 @@ cp apps/config/nvim/config/nvimpager.lua ~/.config/nvim/config/
 cp apps/config/nvim/config/render-markdown.lua ~/.config/nvim/config/
 cp apps/config/nvim/config/atone.lua ~/.config/nvim/config/
 cp apps/config/nvim/config/folding.lua ~/.config/nvim/config/
+cp apps/config/nvim/config/conform.lua ~/.config/nvim/config/
+cp apps/config/nvim/config/diffview.lua ~/.config/nvim/config/
+cp apps/config/nvim/config/nvim-dap.lua ~/.config/nvim/config/
+cp apps/config/nvim/config/nvim-lint.lua ~/.config/nvim/config/
 cp apps/config/nvim/config/settings.lua ~/.config/nvim/config/
 cp apps/config/nvim/config/highlight-whitespace.lua ~/.config/nvim/config/
 cp apps/config/nvim/config/dap.lua ~/.config/nvim/config/
