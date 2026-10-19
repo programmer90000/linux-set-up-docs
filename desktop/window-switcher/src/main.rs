@@ -373,7 +373,7 @@ impl WindowSwitcher {
     }
     
     fn view(&self) -> Element<Message> {
-        let mut content = Column::new().spacing(10).padding(20);
+        let mut content = Column::new().spacing(10).padding(20).width(Length::Fill);
         let text_color = Color::parse(&self.text_color).unwrap_or(Color::from_rgb(0.0, 0.0, 0.0));
         
         let mut sort_row = Row::new().spacing(10).padding(5);
@@ -454,7 +454,7 @@ impl WindowSwitcher {
                 }
             }
             
-            content = content.push(scrollable(grid));
+            content = content.push(scrollable(grid).width(Length::Fill));
         }
         
         content.into()
