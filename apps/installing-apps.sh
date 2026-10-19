@@ -27,6 +27,7 @@ echo "Installing Neovim"
 sudo apt install -y neovim
 mkdir -p ~/.config/nvim/plugins/
 mkdir -p ~/.config/nvim/config/
+cp apps/config/nvim/.stylua.toml ~/.config/nvim/plugins/
 cp -r apps/config/nvim/plugins/lualine ~/.config/nvim/plugins/lualine/
 cp -r apps/config/nvim/plugins/mason/ ~/.config/nvim/plugins/
 cp -r apps/config/nvim/plugins/neo-tree/ ~/.config/nvim/plugins/
