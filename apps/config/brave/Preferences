@@ -8,6 +8,9 @@
         "use_gaia_picture": true,
         "cookie_controls_mode": 1,
         "content_settings": {
+            "default_content_setting_values": {
+                "brave_remember_1p_storage": 1
+            }
             "exceptions": {
                 "cookies": {
                     "*,*": {
