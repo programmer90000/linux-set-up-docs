@@ -1,6 +1,6 @@
 mod config;
 
-use iced::widget::{button, Column, scrollable, text, Row};
+use iced::widget::{button, text_input, Column, scrollable, text, Row};
 use iced::{Element, Length, Task, Size};
 use iced::window;
 use std::collections::HashMap;
@@ -163,12 +163,13 @@ pub fn main() -> iced::Result {
     let bg_opacity = config.theme.background_opacity;
     let text_color = config.text.color.clone();
     let text_size = config.text.size;
+    let search_enabled = config.search.enabled;
     
     let bg_color_for_theme = bg_color.clone();
     let bg_color_for_state = bg_color.clone();
     let text_color_for_state = text_color.clone();
     
-    iced::application("LabWC Window Switcher", WindowSwitcher::update, WindowSwitcher::view).subscription(WindowSwitcher::subscription).window(iced::window::Settings { size: iced::Size::new(width, height), decorations: decorations, position: iced::window::Position::Centered, transparent: true, ..Default::default()}).theme(move |_state| theme(&bg_color_for_theme, bg_opacity)).run_with(move || {(WindowSwitcher::new(bg_color_for_state, bg_opacity, text_color_for_state, text_size), Task::none())})
+    iced::application("LabWC Window Switcher", WindowSwitcher::update, WindowSwitcher::view).subscription(WindowSwitcher::subscription).window(iced::window::Settings { size: iced::Size::new(width, height), decorations: decorations, position: iced::window::Position::Centered, transparent: true, ..Default::default()}).theme(move |_state| theme(&bg_color_for_theme, bg_opacity)).run_with(move || {(WindowSwitcher::new(bg_color_for_state, bg_opacity, text_color_for_state, text_size, search_enabled), Task::none())})
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -204,6 +205,7 @@ enum Message {
     SelectWindowInGroup(usize, usize),
     BackToMainView,
     ChangeSortOrder(SortOrder),
+    SearchChanged(String),
     Event(iced::Event),
 }
 
@@ -219,10 +221,12 @@ struct WindowSwitcher {
     text_size: u16,
     seat: Option<wl_seat::WlSeat>,
     connection: Option<Connection>,
+    search_enabled: bool,
+    search_query: String,
 }
 
 impl WindowSwitcher {
-    fn new(background_color: String, background_opacity: f32, text_color: String, text_size: u16) -> Self {
+    fn new(background_color: String, background_opacity: f32, text_color: String, text_size: u16, search_enabled: bool) -> Self {
         let mut switcher = Self {
             app_groups: Vec::new(),
             sort_order: SortOrder::default(),
@@ -235,6 +239,8 @@ impl WindowSwitcher {
             text_size,
             seat: None,
             connection: None,
+            search_enabled,
+            search_query: String::new(),
         };
         switcher.load_windows();
         switcher
@@ -248,6 +254,7 @@ impl WindowSwitcher {
         self.loading = true;
         self.error_message = None;
         self.active_group_idx = None;
+        self.search_query.clear();
         
         let connection = match Connection::connect_to_env() {
             Ok(conn) => conn,
@@ -347,6 +354,7 @@ impl WindowSwitcher {
                         return Self::close_window_task();
                     } else {
                         self.active_group_idx = Some(app_idx);
+                        self.search_query.clear(); // Reset search query when navigating into a group
                     }
                 }
                 Task::none()
@@ -362,11 +370,16 @@ impl WindowSwitcher {
             }
             Message::BackToMainView => {
                 self.active_group_idx = None;
+                self.search_query.clear(); // Reset search query when going back
                 Task::none()
             }
             Message::ChangeSortOrder(order) => {
                 self.sort_order = order;
                 self.sort_app_groups();
+                Task::none()
+            }
+            Message::SearchChanged(query) => {
+                self.search_query = query;
                 Task::none()
             }
         }
@@ -375,6 +388,12 @@ impl WindowSwitcher {
     fn view(&self) -> Element<Message> {
         let mut content = Column::new().spacing(10).padding(20).width(Length::Fill);
         let text_color = Color::parse(&self.text_color).unwrap_or(Color::from_rgb(0.0, 0.0, 0.0));
+        
+        // Render search bar if enabled via config
+        if self.search_enabled {
+            let search_input = text_input("Type to search windows...", &self.search_query).on_input(Message::SearchChanged).padding(10).size(self.text_size).width(Length::Fill);
+            content = content.push(search_input);
+        }
         
         let mut sort_row = Row::new().spacing(10).padding(5);
         
@@ -416,6 +435,7 @@ impl WindowSwitcher {
             content = content.push(text("No windows found").color(text_color).size(self.text_size));
         } else {
             let mut grid = Column::new().spacing(10);
+            let query = self.search_query.to_lowercase();
             
             match self.active_group_idx {
                 None => {
@@ -428,11 +448,13 @@ impl WindowSwitcher {
                             format!("{} ({} windows)", app_group.app_id, app_group.windows.len())
                         };
                         
-                        let button_widget = button(text(display_text).color(text_color).size(self.text_size))
-                            .width(Length::Fill)
-                            .on_press(Message::SelectAppGroup(app_idx));
+                        let matches = query.is_empty() || app_group.app_id.to_lowercase().contains(&query) || app_group.windows.iter().any(|w| w.title.to_lowercase().contains(&query));
                         
-                        list_column = list_column.push(button_widget);
+                        if matches {
+                            let button_widget = button(text(display_text).color(text_color).size(self.text_size)).width(Length::Fill).on_press(Message::SelectAppGroup(app_idx));
+                            
+                            list_column = list_column.push(button_widget);
+                        }
                     }
                     
                     grid = grid.push(list_column);
@@ -442,11 +464,13 @@ impl WindowSwitcher {
                         let mut list_column = Column::new().spacing(10);
                         
                         for (win_idx, window) in app_group.windows.iter().enumerate() {
-                            let btn = button(text(&window.title).color(text_color).size(self.text_size))
-                                .width(Length::Fill)
-                                .on_press(Message::SelectWindowInGroup(app_idx, win_idx));
+                            let matches = query.is_empty() || window.title.to_lowercase().contains(&query) || window.app_id.to_lowercase().contains(&query);
                             
-                            list_column = list_column.push(btn);
+                            if matches {
+                                let btn = button(text(&window.title).color(text_color).size(self.text_size)).width(Length::Fill).on_press(Message::SelectWindowInGroup(app_idx, win_idx));
+                                
+                                list_column = list_column.push(btn);
+                            }
                         }
                         
                         grid = grid.push(list_column);

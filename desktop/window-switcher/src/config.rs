@@ -7,6 +7,7 @@ pub struct Config {
     pub window: WindowConfig,
     pub theme: ThemeConfig,
     pub text: TextConfig,
+    pub search: SearchConfig,
 }
 
 #[derive(Debug, Deserialize, Serialize)]
@@ -29,6 +30,11 @@ pub struct TextConfig {
     pub size: u16,
 }
 
+#[derive(Debug, Deserialize, Serialize)]
+pub struct SearchConfig {
+    pub enabled: bool,
+}
+
 impl Default for Config {
     fn default() -> Self {
         Self {
@@ -45,6 +51,9 @@ impl Default for Config {
             text: TextConfig {
                 color: "#000000".to_string(),
                 size: 14,
+            },
+            search: SearchConfig {
+                enabled: true,
             },
         }
     }
