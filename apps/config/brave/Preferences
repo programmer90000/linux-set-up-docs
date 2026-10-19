@@ -118,6 +118,11 @@
             "stats_badge_visible": true
         },
         "top_site_suggestions_enabled": false,
+        "webcompat": {
+            "report": {
+                "enable_save_contact_info": false
+            }
+        }
         "web_view_rounded_corners": true,
         "wayback_machine_enabled": false
     },
