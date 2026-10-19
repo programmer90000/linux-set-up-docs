@@ -236,7 +236,7 @@ sudo apt install yad
 
 echo "Installing Extrepo"
 sudo apt install -y extrepo
-sudo cp apps/config.yaml /etc/extrepo/config.yaml
+sudo cp apps/extrepo/config.yaml /etc/extrepo/config.yaml
 
 echo "Installing Brave Browser"
 sudo extrepo enable brave_release
