@@ -741,7 +741,7 @@ impl WindowSwitcher {
                     let mut list_column = Column::new().spacing(10);
                     let mut current_item_idx = 0;
                     
-                    for (app_idx, app_group) in self.app_groups.iter().enumerate() {
+                    for (_app_idx, app_group) in self.app_groups.iter().enumerate() {
                         if app_group.windows.len() == 1 {
                             let win = &app_group.windows[0];
                             let handle_id = win.handle.id();
@@ -762,7 +762,7 @@ impl WindowSwitcher {
                                     list_column = list_column.push(edit_row);
                                 } else {
                                     let prefix = if is_focused { "▶ " } else { "  " };
-                                    let window_btn = button(text(format!("{}{}", prefix, display_text)).color(text_color).size(self.text_size)).width(Length::Shrink).on_press(Message::SelectAppGroup(app_idx));
+                                    let window_btn = button(text(format!("{}{}", prefix, display_text)).color(text_color).size(self.text_size)).width(Length::Shrink).on_press(Message::SelectAppGroup(_app_idx));
                                     let rename_btn = button(text("✏️").size(self.text_size)).on_press(Message::StartRename(handle_id, current_title.clone()));
                                     let item_row = Row::new().spacing(10).align_y(iced::Alignment::Center).push(window_btn).push(rename_btn);
                                     list_column = list_column.push(item_row);
@@ -780,7 +780,7 @@ impl WindowSwitcher {
                             if matches {
                                 let is_focused = current_item_idx == self.focused_index;
                                 let prefix = if is_focused { "▶ " } else { "  " };
-                                let button_widget = button(text(format!("{}{}", prefix, display_text)).color(text_color).size(self.text_size)).width(Length::Shrink).on_press(Message::SelectAppGroup(app_idx));
+                                let button_widget = button(text(format!("{}{}", prefix, display_text)).color(text_color).size(self.text_size)).width(Length::Shrink).on_press(Message::SelectAppGroup(_app_idx));
                                 
                                 list_column = list_column.push(button_widget);
                                 current_item_idx += 1;
@@ -827,7 +827,12 @@ impl WindowSwitcher {
                 }
             }
             
-            content = content.push(scrollable(grid).width(Length::Fill).height(Length::Fill));
+            let scrollable_content = scrollable(grid).direction(scrollable::Direction::Both {
+                    vertical: scrollable::Scrollbar::default(),
+                    horizontal: scrollable::Scrollbar::default(),
+                }).width(Length::Fill).height(Length::Fill);
+            
+            content = content.push(scrollable_content);
         }
         
         content.into()
