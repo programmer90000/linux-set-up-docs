@@ -1,6 +1,6 @@
 # Systemd
 
-Systemd is an init system. It is the first process that runs. It's job is to manage all other processes
+Systemd is an init system. It is the first process that runs. It's job is to manage all other processes, system services and background processes
 
 A `unit` is anything systemd is able to manage.
 
