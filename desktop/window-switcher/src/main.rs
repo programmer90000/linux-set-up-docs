@@ -1,22 +1,54 @@
 mod config;
 
 use iced::widget::{button, pick_list, text_input, Column, scrollable, text, Row};
-use iced::{Element, Length, Task, Size};
-use iced::window;
+use iced::{Element, Length, Task};
 use std::collections::HashMap;
-use std::process::Command;
+use std::fs;
+use std::path::PathBuf;
+use std::sync::{Arc, Mutex, LazyLock};
 
 use config::Config;
 
 use iced::{Color, Theme};
-use std::sync::{Arc, Mutex};
 
 use wayland_client::protocol::{wl_registry, wl_seat};
-use wayland_client::{backend::ObjectData, Connection, Dispatch, Proxy, QueueHandle};
+use wayland_client::{backend::{ObjectData, ObjectId}, Connection, Dispatch, Proxy, QueueHandle};
 use wayland_protocols_wlr::foreign_toplevel::v1::client::{
     zwlr_foreign_toplevel_handle_v1::{self, ZwlrForeignToplevelHandleV1},
     zwlr_foreign_toplevel_manager_v1::{self, ZwlrForeignToplevelManagerV1},
 };
+
+fn get_cache_path() -> PathBuf {
+    let mut path = std::env::temp_dir();
+    path.push("window-switcher-renames.json");
+    path
+}
+
+// Load custom titles from disk cache
+type TitleMap = HashMap<String, String>;
+
+fn load_disk_titles() -> TitleMap {
+    let path = get_cache_path();
+    if path.exists() {
+        if let Ok(content) = fs::read_to_string(path) {
+            if let Ok(map) = serde_json::from_str(&content) {
+                return map;
+            }
+        }
+    }
+    HashMap::new()
+}
+
+fn save_disk_titles(map: &TitleMap) {
+    let path = get_cache_path();
+    if let Ok(content) = serde_json::to_string(map) {
+        let _ = fs::write(path, content);
+    }
+}
+
+static CUSTOM_TITLES: LazyLock<Mutex<TitleMap>> = LazyLock::new(|| {
+    Mutex::new(load_disk_titles())
+});
 
 #[derive(Clone, Debug)]
 pub struct RawWindowInfo {
@@ -121,7 +153,12 @@ impl Dispatch<ZwlrForeignToplevelHandleV1, Arc<Mutex<PendingWindow>>> for Waylan
                 }
             }
             zwlr_foreign_toplevel_handle_v1::Event::Closed => {
-                state.windows.retain(|w| w.handle.id() != handle.id());
+                let handle_id = format!("{:?}", handle.id());
+                state.windows.retain(|w| format!("{:?}", w.handle.id()) != handle_id);
+                if let Ok(mut titles) = CUSTOM_TITLES.lock() {
+                    titles.remove(&handle_id);
+                    save_disk_titles(&titles);
+                }
             }
             zwlr_foreign_toplevel_handle_v1::Event::Done => {
                 if let Ok(pending) = data.lock() {
@@ -216,6 +253,10 @@ enum Message {
     BackToMainView,
     ChangeSortOrder(SortOrder),
     SearchChanged(String),
+    StartRename(ObjectId, String),
+    EditInputChanged(String),
+    SaveRename(ObjectId),
+    CancelRename,
     Event(iced::Event),
 }
 
@@ -233,6 +274,8 @@ struct WindowSwitcher {
     connection: Option<Connection>,
     search_enabled: bool,
     search_query: String,
+    editing_window_id: Option<ObjectId>,
+    edit_input_value: String,
 }
 
 impl WindowSwitcher {
@@ -251,6 +294,8 @@ impl WindowSwitcher {
             connection: None,
             search_enabled,
             search_query: String::new(),
+            editing_window_id: None,
+            edit_input_value: String::new(),
         };
         switcher.load_windows();
         switcher
@@ -265,6 +310,8 @@ impl WindowSwitcher {
         self.error_message = None;
         self.active_group_idx = None;
         self.search_query.clear();
+        self.editing_window_id = None;
+        self.edit_input_value.clear();
         
         let connection = match Connection::connect_to_env() {
             Ok(conn) => conn,
@@ -414,12 +461,40 @@ impl WindowSwitcher {
                 self.search_query = query;
                 Task::none()
             }
+            Message::StartRename(id, current_title) => {
+                self.editing_window_id = Some(id);
+                self.edit_input_value = current_title;
+                Task::none()
+            }
+            Message::EditInputChanged(val) => {
+                self.edit_input_value = val;
+                Task::none()
+            }
+            Message::SaveRename(id) => {
+                if !self.edit_input_value.trim().is_empty() {
+                    let key = format!("{:?}", id);
+                    if let Ok(mut titles) = CUSTOM_TITLES.lock() {
+                        titles.insert(key, self.edit_input_value.clone());
+                        save_disk_titles(&titles);
+                    }
+                }
+                self.editing_window_id = None;
+                self.edit_input_value.clear();
+                Task::none()
+            }
+            Message::CancelRename => {
+                self.editing_window_id = None;
+                self.edit_input_value.clear();
+                Task::none()
+            }
         }
     }
     
     fn view(&self) -> Element<Message> {
         let mut content = Column::new().spacing(10).padding(20).width(Length::Fill);
         let text_color = Color::parse(&self.text_color).unwrap_or(Color::from_rgb(0.0, 0.0, 0.0));
+        
+        let custom_titles = CUSTOM_TITLES.lock().unwrap();
         
         // Render search bar if enabled via config
         if self.search_enabled {
@@ -485,18 +560,42 @@ impl WindowSwitcher {
                     let mut list_column = Column::new().spacing(10);
                     
                     for (app_idx, app_group) in self.app_groups.iter().enumerate() {
-                        let display_text = if app_group.windows.len() == 1 {
-                            format!("{}: {}", app_group.app_id, app_group.windows[0].title)
-                        } else {
-                            format!("{} ({} windows)", app_group.app_id, app_group.windows.len())
-                        };
-                        
-                        let matches = query.is_empty() || app_group.app_id.to_lowercase().contains(&query) || app_group.windows.iter().any(|w| w.title.to_lowercase().contains(&query));
-                        
-                        if matches {
-                            let button_widget = button(text(display_text).color(text_color).size(self.text_size)).width(Length::Shrink).on_press(Message::SelectAppGroup(app_idx));
+                        if app_group.windows.len() == 1 {
+                            let win = &app_group.windows[0];
+                            let handle_id = win.handle.id();
+                            let handle_key = format!("{:?}", handle_id);
+                            let current_title = custom_titles.get(&handle_key).cloned().unwrap_or_else(|| win.title.clone());
+                            let display_text = format!("{}: {}", app_group.app_id, current_title);
                             
-                            list_column = list_column.push(button_widget);
+                            let matches = query.is_empty() || app_group.app_id.to_lowercase().contains(&query) || current_title.to_lowercase().contains(&query);
+                            
+                            if matches {
+                                if self.editing_window_id == Some(handle_id.clone()) {
+                                    let input = text_input("New name...", &self.edit_input_value).on_input(Message::EditInputChanged).size(self.text_size);
+                                    let save_btn = button(text("Save").size(self.text_size)).on_press(Message::SaveRename(handle_id));
+                                    let cancel_btn = button(text("Cancel").size(self.text_size)).on_press(Message::CancelRename);
+                                    let edit_row = Row::new().spacing(5).push(input).push(save_btn).push(cancel_btn);
+                                    list_column = list_column.push(edit_row);
+                                } else {
+                                    let window_btn = button(text(display_text).color(text_color).size(self.text_size)).width(Length::Shrink).on_press(Message::SelectAppGroup(app_idx));
+                                    let rename_btn = button(text("✏️").size(self.text_size)).on_press(Message::StartRename(handle_id, current_title.clone()));
+                                    let item_row = Row::new().spacing(10).align_y(iced::Alignment::Center).push(window_btn).push(rename_btn);
+                                    list_column = list_column.push(item_row);
+                                }
+                            }
+                        } else {
+                            let display_text = format!("{} ({} windows)", app_group.app_id, app_group.windows.len());
+                            let matches = query.is_empty() || app_group.app_id.to_lowercase().contains(&query) || app_group.windows.iter().any(|w| {
+                                    let key = format!("{:?}", w.handle.id());
+                                    let title = custom_titles.get(&key).cloned().unwrap_or_else(|| w.title.clone());
+                                    title.to_lowercase().contains(&query)
+                                });
+                            
+                            if matches {
+                                let button_widget = button(text(display_text).color(text_color).size(self.text_size)).width(Length::Shrink).on_press(Message::SelectAppGroup(app_idx));
+                                
+                                list_column = list_column.push(button_widget);
+                            }
                         }
                     }
                     
@@ -507,12 +606,25 @@ impl WindowSwitcher {
                         let mut list_column = Column::new().spacing(10);
                         
                         for (win_idx, window) in app_group.windows.iter().enumerate() {
-                            let matches = query.is_empty() || window.title.to_lowercase().contains(&query) || window.app_id.to_lowercase().contains(&query);
+                            let handle_id = window.handle.id();
+                            let handle_key = format!("{:?}", handle_id);
+                            let current_title = custom_titles.get(&handle_key).cloned().unwrap_or_else(|| window.title.clone());
+                            
+                            let matches = query.is_empty() || current_title.to_lowercase().contains(&query) || window.app_id.to_lowercase().contains(&query);
                             
                             if matches {
-                                let btn = button(text(&window.title).color(text_color).size(self.text_size)).width(Length::Shrink).on_press(Message::SelectWindowInGroup(app_idx, win_idx));
-                                
-                                list_column = list_column.push(btn);
+                                if self.editing_window_id == Some(handle_id.clone()) {
+                                    let input = text_input("New name...", &self.edit_input_value).on_input(Message::EditInputChanged).size(self.text_size);
+                                    let save_btn = button(text("Save").size(self.text_size)).on_press(Message::SaveRename(handle_id));
+                                    let cancel_btn = button(text("Cancel").size(self.text_size)).on_press(Message::CancelRename);
+                                    let edit_row = Row::new().spacing(5).push(input).push(save_btn).push(cancel_btn);
+                                    list_column = list_column.push(edit_row);
+                                } else {
+                                    let window_btn = button(text(current_title.clone()).color(text_color).size(self.text_size)).width(Length::Shrink).on_press(Message::SelectWindowInGroup(app_idx, win_idx));
+                                    let rename_btn = button(text("✏️").size(self.text_size)).on_press(Message::StartRename(handle_id, current_title));
+                                    let item_row = Row::new().spacing(10).align_y(iced::Alignment::Center).push(window_btn).push(rename_btn);
+                                    list_column = list_column.push(item_row);
+                                }
                             }
                         }
                         
@@ -521,10 +633,7 @@ impl WindowSwitcher {
                 }
             }
             
-            content = content.push(scrollable(grid).width(Length::Fill).height(Length::Fill).direction(scrollable::Direction::Both {
-                vertical: scrollable::Scrollbar::default(),
-                horizontal: scrollable::Scrollbar::default(),
-            }));
+            content = content.push(scrollable(grid).width(Length::Fill).height(Length::Fill));
         }
         
         content.into()
