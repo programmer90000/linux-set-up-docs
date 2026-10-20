@@ -258,6 +258,7 @@ enum Message {
     SaveRename(ObjectId),
     CancelRename,
     Event(iced::Event),
+    KeyPressed(iced::keyboard::Key, iced::keyboard::Modifiers),
 }
 
 struct WindowSwitcher {
@@ -276,6 +277,7 @@ struct WindowSwitcher {
     search_query: String,
     editing_window_id: Option<ObjectId>,
     edit_input_value: String,
+    focused_index: usize,
 }
 
 impl WindowSwitcher {
@@ -296,13 +298,17 @@ impl WindowSwitcher {
             search_query: String::new(),
             editing_window_id: None,
             edit_input_value: String::new(),
+            focused_index: 0,
         };
         switcher.load_windows();
         switcher
     }
 
     fn subscription(&self) -> iced::Subscription<Message> {
-        iced::event::listen().map(Message::Event)
+        iced::Subscription::batch(vec![
+            iced::event::listen().map(Message::Event),
+            iced::keyboard::on_key_press(|key, modifiers| Some(Message::KeyPressed(key, modifiers))),
+        ])
     }
     
     fn load_windows(&mut self) {
@@ -312,6 +318,7 @@ impl WindowSwitcher {
         self.search_query.clear();
         self.editing_window_id = None;
         self.edit_input_value.clear();
+        self.focused_index = 0;
         
         let connection = match Connection::connect_to_env() {
             Ok(conn) => conn,
@@ -415,6 +422,148 @@ impl WindowSwitcher {
     fn close_window_task() -> Task<Message> {
         iced::window::get_latest().and_then(|id| iced::window::close(id))
     }
+
+    fn get_current_item_count(&self) -> usize {
+        let query = self.search_query.to_lowercase();
+        let custom_titles = CUSTOM_TITLES.lock().unwrap();
+        
+        match self.active_group_idx {
+            None => {
+                self.app_groups.iter().filter(|group| {
+                    if group.windows.len() == 1 {
+                        let win = &group.windows[0];
+                        let key = format!("{:?}", win.handle.id());
+                        let title = custom_titles.get(&key).cloned().unwrap_or_else(|| win.title.clone());
+                        query.is_empty() || group.app_id.to_lowercase().contains(&query) || title.to_lowercase().contains(&query)
+                    } else {
+                        query.is_empty() || group.app_id.to_lowercase().contains(&query) || group.windows.iter().any(|w| {
+                            let key = format!("{:?}", w.handle.id());
+                            let title = custom_titles.get(&key).cloned().unwrap_or_else(|| w.title.clone());
+                            title.to_lowercase().contains(&query)
+                        })
+                    }
+                }).count()
+            }
+            Some(app_idx) => {
+                if let Some(group) = self.app_groups.get(app_idx) {
+                    group.windows.iter().filter(|w| {
+                        let key = format!("{:?}", w.handle.id());
+                        let title = custom_titles.get(&key).cloned().unwrap_or_else(|| w.title.clone());
+                        query.is_empty() || title.to_lowercase().contains(&query) || w.app_id.to_lowercase().contains(&query)
+                    }).count()
+                } else {
+                    0
+                }
+            }
+        }
+    }
+    
+    fn handle_enter_press(&mut self) -> Task<Message> {
+        let query = self.search_query.to_lowercase();
+        let custom_titles = CUSTOM_TITLES.lock().unwrap();
+        
+        match self.active_group_idx {
+            None => {
+                let mut current_idx = 0;
+                for (app_idx, group) in self.app_groups.iter().enumerate() {
+                    let matches = if group.windows.len() == 1 {
+                        let win = &group.windows[0];
+                        let key = format!("{:?}", win.handle.id());
+                        let title = custom_titles.get(&key).cloned().unwrap_or_else(|| win.title.clone());
+                        query.is_empty() || group.app_id.to_lowercase().contains(&query) || title.to_lowercase().contains(&query)
+                    } else {
+                        query.is_empty() || group.app_id.to_lowercase().contains(&query) || group.windows.iter().any(|w| {
+                            let key = format!("{:?}", w.handle.id());
+                            let title = custom_titles.get(&key).cloned().unwrap_or_else(|| w.title.clone());
+                            title.to_lowercase().contains(&query)
+                        })
+                    };
+
+                    if matches {
+                        if current_idx == self.focused_index {
+                            return self.update(Message::SelectAppGroup(app_idx));
+                        }
+                        current_idx += 1;
+                    }
+                }
+            }
+            Some(app_idx) => {
+                if let Some(group) = self.app_groups.get(app_idx) {
+                    let mut current_idx = 0;
+                    for (win_idx, window) in group.windows.iter().enumerate() {
+                        let key = format!("{:?}", window.handle.id());
+                        let title = custom_titles.get(&key).cloned().unwrap_or_else(|| window.title.clone());
+                        let matches = query.is_empty() || title.to_lowercase().contains(&query) || window.app_id.to_lowercase().contains(&query);
+
+                        if matches {
+                            if current_idx == self.focused_index {
+                                return self.update(Message::SelectWindowInGroup(app_idx, win_idx));
+                            }
+                            current_idx += 1;
+                        }
+                    }
+                }
+            }
+        }
+        Task::none()
+    }
+
+    fn handle_tab_press(&mut self) -> Task<Message> {
+        let query = self.search_query.to_lowercase();
+        let custom_titles = CUSTOM_TITLES.lock().unwrap();
+
+        match self.active_group_idx {
+            None => {
+                let mut current_idx = 0;
+                for (app_idx, group) in self.app_groups.iter().enumerate() {
+                    if group.windows.len() == 1 {
+                        let win = &group.windows[0];
+                        let key = format!("{:?}", win.handle.id());
+                        let title = custom_titles.get(&key).cloned().unwrap_or_else(|| win.title.clone());
+                        let matches = query.is_empty() || group.app_id.to_lowercase().contains(&query) || title.to_lowercase().contains(&query);
+
+                        if matches {
+                            if current_idx == self.focused_index {
+                                let handle_id = win.handle.id();
+                                drop(custom_titles);
+                                return self.update(Message::StartRename(handle_id, title));
+                            }
+                            current_idx += 1;
+                        }
+                    } else {
+                        let matches = query.is_empty() || group.app_id.to_lowercase().contains(&query) || group.windows.iter().any(|w| {
+                            let key = format!("{:?}", w.handle.id());
+                            let title = custom_titles.get(&key).cloned().unwrap_or_else(|| w.title.clone());
+                            title.to_lowercase().contains(&query)
+                        });
+                        if matches {
+                            current_idx += 1;
+                        }
+                    }
+                }
+            }
+            Some(app_idx) => {
+                if let Some(group) = self.app_groups.get(app_idx) {
+                    let mut current_idx = 0;
+                    for window in &group.windows {
+                        let key = format!("{:?}", window.handle.id());
+                        let title = custom_titles.get(&key).cloned().unwrap_or_else(|| window.title.clone());
+                        let matches = query.is_empty() || title.to_lowercase().contains(&query) || window.app_id.to_lowercase().contains(&query);
+
+                        if matches {
+                            if current_idx == self.focused_index {
+                                let handle_id = window.handle.id();
+                                drop(custom_titles);
+                                return self.update(Message::StartRename(handle_id, title));
+                            }
+                            current_idx += 1;
+                        }
+                    }
+                }
+            }
+        }
+        Task::none()
+    }
     
     fn update(&mut self, message: Message) -> Task<Message> {
         match message {
@@ -422,6 +571,34 @@ impl WindowSwitcher {
                 Self::close_window_task()
             }
             Message::Event(_) => Task::none(),
+            Message::KeyPressed(key, _modifiers) => {
+                if self.editing_window_id.is_some() {
+                    return Task::none();
+                }
+
+                use iced::keyboard::key::Key;
+
+                match key {
+                    Key::Named(iced::keyboard::key::Named::ArrowDown) => {
+                        let max_items = self.get_current_item_count();
+                        if max_items > 0 {
+                            self.focused_index = (self.focused_index + 1).min(max_items - 1);
+                        }
+                        Task::none()
+                    }
+                    Key::Named(iced::keyboard::key::Named::ArrowUp) => {
+                        self.focused_index = self.focused_index.saturating_sub(1);
+                        Task::none()
+                    }
+                    Key::Named(iced::keyboard::key::Named::Enter) => {
+                        self.handle_enter_press()
+                    }
+                    Key::Named(iced::keyboard::key::Named::Tab) => {
+                        self.handle_tab_press()
+                    }
+                    _ => Task::none(),
+                }
+            }
             Message::Refresh => {
                 self.load_windows();
                 Task::none()
@@ -434,6 +611,7 @@ impl WindowSwitcher {
                     } else {
                         self.active_group_idx = Some(app_idx);
                         self.search_query.clear(); // Reset search query when navigating into a group
+                        self.focused_index = 0;
                     }
                 }
                 Task::none()
@@ -450,15 +628,18 @@ impl WindowSwitcher {
             Message::BackToMainView => {
                 self.active_group_idx = None;
                 self.search_query.clear(); // Reset search query when going back
+                self.focused_index = 0;
                 Task::none()
             }
             Message::ChangeSortOrder(order) => {
                 self.sort_order = order;
                 self.sort_app_groups();
+                self.focused_index = 0;
                 Task::none()
             }
             Message::SearchChanged(query) => {
                 self.search_query = query;
+                self.focused_index = 0;
                 Task::none()
             }
             Message::StartRename(id, current_title) => {
@@ -558,6 +739,7 @@ impl WindowSwitcher {
             match self.active_group_idx {
                 None => {
                     let mut list_column = Column::new().spacing(10);
+                    let mut current_item_idx = 0;
                     
                     for (app_idx, app_group) in self.app_groups.iter().enumerate() {
                         if app_group.windows.len() == 1 {
@@ -570,6 +752,8 @@ impl WindowSwitcher {
                             let matches = query.is_empty() || app_group.app_id.to_lowercase().contains(&query) || current_title.to_lowercase().contains(&query);
                             
                             if matches {
+                                let is_focused = current_item_idx == self.focused_index;
+                                
                                 if self.editing_window_id == Some(handle_id.clone()) {
                                     let input = text_input("New name...", &self.edit_input_value).on_input(Message::EditInputChanged).size(self.text_size);
                                     let save_btn = button(text("Save").size(self.text_size)).on_press(Message::SaveRename(handle_id));
@@ -577,11 +761,13 @@ impl WindowSwitcher {
                                     let edit_row = Row::new().spacing(5).push(input).push(save_btn).push(cancel_btn);
                                     list_column = list_column.push(edit_row);
                                 } else {
-                                    let window_btn = button(text(display_text).color(text_color).size(self.text_size)).width(Length::Shrink).on_press(Message::SelectAppGroup(app_idx));
+                                    let prefix = if is_focused { "▶ " } else { "  " };
+                                    let window_btn = button(text(format!("{}{}", prefix, display_text)).color(text_color).size(self.text_size)).width(Length::Shrink).on_press(Message::SelectAppGroup(app_idx));
                                     let rename_btn = button(text("✏️").size(self.text_size)).on_press(Message::StartRename(handle_id, current_title.clone()));
                                     let item_row = Row::new().spacing(10).align_y(iced::Alignment::Center).push(window_btn).push(rename_btn);
                                     list_column = list_column.push(item_row);
                                 }
+                                current_item_idx += 1;
                             }
                         } else {
                             let display_text = format!("{} ({} windows)", app_group.app_id, app_group.windows.len());
@@ -592,9 +778,12 @@ impl WindowSwitcher {
                                 });
                             
                             if matches {
-                                let button_widget = button(text(display_text).color(text_color).size(self.text_size)).width(Length::Shrink).on_press(Message::SelectAppGroup(app_idx));
+                                let is_focused = current_item_idx == self.focused_index;
+                                let prefix = if is_focused { "▶ " } else { "  " };
+                                let button_widget = button(text(format!("{}{}", prefix, display_text)).color(text_color).size(self.text_size)).width(Length::Shrink).on_press(Message::SelectAppGroup(app_idx));
                                 
                                 list_column = list_column.push(button_widget);
+                                current_item_idx += 1;
                             }
                         }
                     }
@@ -604,6 +793,7 @@ impl WindowSwitcher {
                 Some(app_idx) => {
                     if let Some(app_group) = self.app_groups.get(app_idx) {
                         let mut list_column = Column::new().spacing(10);
+                        let mut current_item_idx = 0;
                         
                         for (win_idx, window) in app_group.windows.iter().enumerate() {
                             let handle_id = window.handle.id();
@@ -613,6 +803,8 @@ impl WindowSwitcher {
                             let matches = query.is_empty() || current_title.to_lowercase().contains(&query) || window.app_id.to_lowercase().contains(&query);
                             
                             if matches {
+                                let is_focused = current_item_idx == self.focused_index;
+                                
                                 if self.editing_window_id == Some(handle_id.clone()) {
                                     let input = text_input("New name...", &self.edit_input_value).on_input(Message::EditInputChanged).size(self.text_size);
                                     let save_btn = button(text("Save").size(self.text_size)).on_press(Message::SaveRename(handle_id));
@@ -620,11 +812,13 @@ impl WindowSwitcher {
                                     let edit_row = Row::new().spacing(5).push(input).push(save_btn).push(cancel_btn);
                                     list_column = list_column.push(edit_row);
                                 } else {
-                                    let window_btn = button(text(current_title.clone()).color(text_color).size(self.text_size)).width(Length::Shrink).on_press(Message::SelectWindowInGroup(app_idx, win_idx));
+                                    let prefix = if is_focused { "▶ " } else { "  " };
+                                    let window_btn = button(text(format!("{}{}", prefix, current_title)).color(text_color).size(self.text_size)).width(Length::Shrink).on_press(Message::SelectWindowInGroup(app_idx, win_idx));
                                     let rename_btn = button(text("✏️").size(self.text_size)).on_press(Message::StartRename(handle_id, current_title));
                                     let item_row = Row::new().spacing(10).align_y(iced::Alignment::Center).push(window_btn).push(rename_btn);
                                     list_column = list_column.push(item_row);
                                 }
+                                current_item_idx += 1;
                             }
                         }
                         
