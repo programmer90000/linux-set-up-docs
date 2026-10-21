@@ -245,6 +245,9 @@ sudo npm install -g tree-sitter-cli
 echo "Installing Yad"
 sudo apt install yad
 
+echo "Installing FFmpeg"
+sudo apt install ffmpeg
+
 echo "Installing Extrepo"
 sudo apt install -y extrepo
 sudo cp apps/extrepo/config.yaml /etc/extrepo/config.yaml
