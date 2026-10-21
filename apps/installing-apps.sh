@@ -248,6 +248,9 @@ sudo apt install yad
 echo "Installing FFmpeg"
 sudo apt install ffmpeg
 
+echo "Installing ncdu"
+sudo apt install ncdu
+
 echo "Installing Extrepo"
 sudo apt install -y extrepo
 sudo cp apps/extrepo/config.yaml /etc/extrepo/config.yaml
