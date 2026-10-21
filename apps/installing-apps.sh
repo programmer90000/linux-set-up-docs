@@ -266,6 +266,12 @@ sudo apt install tig
 echo "Installing Rust"
 sudo apt install rustc cargo
 
+echo "Installing wl-find-cursor"
+cd apps/apps/wl-find-cursor/
+make
+cd ../../../
+sudo cp apps/apps/wl-find-cursor/wl-find-cursor /usr/local/bin/
+
 echo "Installing Extrepo"
 sudo apt install -y extrepo
 sudo cp apps/extrepo/config.yaml /etc/extrepo/config.yaml
