@@ -257,6 +257,9 @@ sudo apt install bat
 echo "Installing tree"
 sudo apt install tree
 
+echo "Installing Ripgrep"
+sudo apt install ripgrep
+
 echo "Installing Extrepo"
 sudo apt install -y extrepo
 sudo cp apps/extrepo/config.yaml /etc/extrepo/config.yaml
