@@ -260,6 +260,9 @@ sudo apt install tree
 echo "Installing Ripgrep"
 sudo apt install ripgrep
 
+echo "Installing tig"
+sudo apt install tig
+
 echo "Installing Extrepo"
 sudo apt install -y extrepo
 sudo cp apps/extrepo/config.yaml /etc/extrepo/config.yaml
