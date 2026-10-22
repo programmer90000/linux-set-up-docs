@@ -27,5 +27,19 @@ Rectangle {
         }
     }
     
-    SplashScreen { id: splashScreen }
+    SplashScreen {
+        id: splashScreen
+        onDismissed: {
+            userList.focusList()
+        }
+    }
+    
+    Component.onCompleted: {
+        // If splash starts active, it grabs focus; otherwise focus user list
+        if (splashScreen.active) {
+            splashScreen.forceActiveFocus()
+        } else {
+            userList.focusList()
+        }
+    }
 }
