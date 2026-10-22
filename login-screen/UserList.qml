@@ -9,14 +9,35 @@ Rectangle {
     
     property string selectedUserName: ""
     signal userSelected(string username, string avatarPath)
+
+    function focusList() {
+        listView.forceActiveFocus()
+    }
     
     ListView {
         id: listView
         anchors.fill: parent
         spacing: 10
         
-        model: userModel || []
+	model: userModel || []
         
+        activeFocusOnTab: true
+        focus: true
+        
+        Keys.onPressed: function(event) {
+            if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
+                if (currentIndex >= 0 && count > 0) {
+                    var item = itemAtIndex(currentIndex)
+                    if (item) {
+                        var username = item.getUsername()
+                        var avatarPath = item.getAvatarPath()
+                        userListRoot.selectedUserName = username
+                        userListRoot.userSelected(username, avatarPath)
+                    }
+                }
+                event.accepted = true
+            }
+        }
         delegate: Rectangle {
             id: delegateRoot
             width: parent.width
@@ -27,6 +48,8 @@ Rectangle {
             color: {
                 if (isSelected) {
                     return "#3a6ea5"
+                } else if (listView.currentIndex === index) {
+                    return "#2a3a4a" // Highlight focused item via keyboard
                 } else if (mouseArea.containsMouse) {
                     return "#2a2a2a"
                 } else {
@@ -41,7 +64,7 @@ Rectangle {
                 if (typeof model === 'string') return model
                 if (model && model.name) return model.name
                 if (model && model.userName) return model.userName
-                return "User " + index
+                return ""
             }
             
             function getAvatarPath() {
@@ -102,7 +125,7 @@ Rectangle {
             // Username text next to the image
             Text {
                 id: usernameText
-                text: delegateRoot.getUsername()
+                text: delegateRoot.getUsername() || ""
                 anchors {
                     left: userIconContainer.right
                     leftMargin: 10
@@ -122,14 +145,15 @@ Rectangle {
             MouseArea {
                 id: mouseArea
                 anchors.fill: parent
-                hoverEnabled: true
+		hoverEnabled: true
                 onClicked: {
+                    listView.currentIndex = index // Sync keyboard index with mouse selection
                     var username = delegateRoot.getUsername()
                     var avatarPath = delegateRoot.getAvatarPath()
                     userListRoot.selectedUserName = username
                     userListRoot.userSelected(username, avatarPath)
                 }
-            }
+	    }
         }
         
         ScrollBar.vertical: ScrollBar {
@@ -137,3 +161,4 @@ Rectangle {
         }
     }
 }
+
