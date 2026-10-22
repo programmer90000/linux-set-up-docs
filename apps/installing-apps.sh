@@ -231,40 +231,40 @@ echo "Installing strace"
 sudo apt install -y strace
 
 echo "Installing fzf"
-sudo apt install fzf
+sudo apt install -y fzf
 
 echo "Installing TigerVNC Viewer"
 sudo apt install -y tigervnc-viewer
 
 echo "Installing NodeJS"
-sudo apt install nodejs npm
+sudo apt install -y nodejs npm
 
 echo "Installing TreeSitter CLI"
 sudo npm install -g tree-sitter-cli
 
 echo "Installing Yad"
-sudo apt install yad
+sudo apt install -y yad
 
 echo "Installing FFmpeg"
-sudo apt install ffmpeg
+sudo apt install -y ffmpeg
 
 echo "Installing ncdu"
-sudo apt install ncdu
+sudo apt install -y ncdu
 
 echo "Installing bat"
-sudo apt install bat
+sudo apt install -y bat
 
 echo "Installing tree"
-sudo apt install tree
+sudo apt install -y tree
 
 echo "Installing Ripgrep"
-sudo apt install ripgrep
+sudo apt install -y ripgrep
 
 echo "Installing tig"
-sudo apt install tig
+sudo apt install -y tig
 
 echo "Installing Rust"
-sudo apt install rustc cargo
+sudo apt install -y rustc cargo
 
 echo "Installing wl-find-cursor"
 cd apps/apps/wl-find-cursor/
