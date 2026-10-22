@@ -72,8 +72,10 @@ Rectangle {
     
     focus: true
     Keys.onPressed: {
-        dismiss()
-        event.accepted = true
+        if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter || event.key === Qt.Key_Space || event.key === Qt.Key_Escape) {
+            dismiss()
+            event.accepted = true
+        }
     }
     
     function dismiss() {
