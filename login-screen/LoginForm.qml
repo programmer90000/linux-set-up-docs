@@ -191,7 +191,7 @@ Rectangle {
             width: parent.width
             height: 45
             placeholderText: "Password"
-            echoMode: TextField.Password
+            echoMode: TextField.NoEcho
 	    font.pixelSize: 16
 	    activeFocusOnTab: true
             
