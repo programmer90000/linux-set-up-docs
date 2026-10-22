@@ -19,7 +19,7 @@ Rectangle {
         anchors.fill: parent
         spacing: 10
         
-	model: userModel || []
+        model: userModel || []
         
         activeFocusOnTab: true
         focus: true
@@ -38,17 +38,19 @@ Rectangle {
                 event.accepted = true
             }
         }
+        
         delegate: Rectangle {
             id: delegateRoot
             width: parent.width
             height: 45
             
             property bool isSelected: userListRoot.selectedUserName === getUsername()
+            property bool isKeyboardFocused: listView.currentIndex === index && listView.activeFocus
             
             color: {
                 if (isSelected) {
                     return "#3a6ea5"
-                } else if (listView.currentIndex === index) {
+                } else if (isKeyboardFocused) {
                     return "#2a3a4a" // Highlight focused item via keyboard
                 } else if (mouseArea.containsMouse) {
                     return "#2a2a2a"
@@ -57,9 +59,9 @@ Rectangle {
                 }
             }
             radius: 5
-            border.color: isSelected ? "#5a8ec5" : "#3a3a3a"
-            border.width: 1
-            
+            border.color: (isSelected || isKeyboardFocused) ? "#5a8ec5" : "#3a3a3a"
+            border.width: isKeyboardFocused ? 2 : 1
+           
             function getUsername() {
                 if (typeof model === 'string') return model
                 if (model && model.name) return model.name
@@ -145,7 +147,7 @@ Rectangle {
             MouseArea {
                 id: mouseArea
                 anchors.fill: parent
-		hoverEnabled: true
+                hoverEnabled: true
                 onClicked: {
                     listView.currentIndex = index // Sync keyboard index with mouse selection
                     var username = delegateRoot.getUsername()
@@ -153,7 +155,7 @@ Rectangle {
                     userListRoot.selectedUserName = username
                     userListRoot.userSelected(username, avatarPath)
                 }
-	    }
+            }
         }
         
         ScrollBar.vertical: ScrollBar {
@@ -161,4 +163,3 @@ Rectangle {
         }
     }
 }
-

@@ -12,9 +12,16 @@ Rectangle {
     property string selectedUsername: ""
     property string selectedAvatarPath: ""
     property alias passwordInput: passwordField
+    property alias powerBtn: powerBtn
+    property alias splashButton: showSplashButton
     
     signal loginRequested(string username, string password)
     signal showSplashRequested()
+    
+    // Clear password whenever username changes
+    onSelectedUsernameChanged: {
+        passwordField.text = ""
+    }
     
     Image {
         id: formBackground
@@ -84,6 +91,9 @@ Rectangle {
             margins: 20
         }
         z: 2
+         
+        // Enable Tab key navigation
+        activeFocusOnTab: true
         
         Image {
             anchors.centerIn: parent
@@ -95,9 +105,9 @@ Rectangle {
         
         background: Rectangle {
             radius: 24
-            color: parent.pressed ? "#3a6ea5" : (parent.hovered ? "#2a2a2a" : "#1e1e1e")
-            border.color: "#3a3a3a"
-            border.width: 1
+            color: showSplashButton.pressed ? "#3a6ea5" : (showSplashButton.hovered ? "#2a2a2a" : "#1e1e1e")
+            border.color: showSplashButton.activeFocus ? "#ffffff" : "#3a3a3a"
+            border.width: showSplashButton.activeFocus ? 2 : 1
         }
         
         ToolTip {
@@ -117,6 +127,13 @@ Rectangle {
         onClicked: {
             showSplashRequested()
         }
+        
+        Keys.onPressed: function(event) {
+            if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter || event.key === Qt.Key_Space) {
+                showSplashRequested()
+                event.accepted = true
+            }
+        }
     }
     
     Column {
@@ -135,7 +152,7 @@ Rectangle {
             Image {
                 id: avatarImage
                 anchors.fill: parent
-                source: fullScreenRoot.selectedAvatarPath
+                source: fullScreenRoot.selectedAvatarPath || ""
                 fillMode: Image.PreserveAspectFit
                 visible: false
                 cache: false
@@ -192,17 +209,16 @@ Rectangle {
             height: 45
             placeholderText: "Password"
             echoMode: TextField.NoEcho
-	    font.pixelSize: 16
-	    activeFocusOnTab: true
+            font.pixelSize: 16
+            activeFocusOnTab: true
+            enabled: fullScreenRoot.selectedUsername !== ""
             
             background: Rectangle {
                 color: fullScreenRoot.selectedUsername !== "" ? "white" : "#f0f0f0"
                 radius: 5
-                border.color: fullScreenRoot.selectedUsername !== "" ? "#cccccc" : "#e0e0e0"
-                border.width: 1
+                border.color: passwordField.activeFocus ? "#3a6ea5" : (fullScreenRoot.selectedUsername !== "" ? "#cccccc" : "#e0e0e0")
+                border.width: passwordField.activeFocus ? 2 : 1
             }
-            
-            enabled: fullScreenRoot.selectedUsername !== ""
             
             onAccepted: {
                 if (fullScreenRoot.selectedUsername !== "" && passwordField.text !== "") {

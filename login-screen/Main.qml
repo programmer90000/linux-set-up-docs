@@ -15,16 +15,33 @@ Rectangle {
         anchors.margins: 20
         visible: !splashScreen.active
         enabled: !splashScreen.active
-    	onUserSelected: {
-	    loginForm.setUsername(username, avatarPath)
-	    loginForm.passwordInput.forceActiveFocus()
-	}
+        
+        KeyNavigation.tab: loginForm.splashButton
+        KeyNavigation.backtab: loginForm.powerBtn
+        
+        onUserSelected: function(username, avatarPath) {
+            loginForm.setUsername(username, avatarPath)
+            loginForm.passwordInput.forceActiveFocus()
+        }
     }
     
     LoginForm {
         id: loginForm
         visible: !splashScreen.active
-        onLoginRequested: sddm.login(username, password, 0)
+        
+        // Tab ring order: UserList -> Back Button -> Password Field -> Power Button -> UserList
+        splashButton.KeyNavigation.tab: passwordInput
+        splashButton.KeyNavigation.backtab: userList
+        
+        passwordInput.KeyNavigation.tab: powerBtn
+        passwordInput.KeyNavigation.backtab: splashButton
+        
+        powerBtn.KeyNavigation.tab: userList
+        powerBtn.KeyNavigation.backtab: passwordInput
+        
+        onLoginRequested: function(username, password) {
+            sddm.login(username, password, 0)
+        }
         onShowSplashRequested: {
             splashScreen.show()
         }
