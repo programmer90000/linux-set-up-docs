@@ -192,7 +192,8 @@ Rectangle {
             height: 45
             placeholderText: "Password"
             echoMode: TextField.Password
-            font.pixelSize: 16
+	    font.pixelSize: 16
+	    activeFocusOnTab: true
             
             background: Rectangle {
                 color: fullScreenRoot.selectedUsername !== "" ? "white" : "#f0f0f0"
