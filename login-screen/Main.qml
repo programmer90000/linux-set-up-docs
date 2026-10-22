@@ -15,7 +15,10 @@ Rectangle {
         anchors.margins: 20
         visible: !splashScreen.active
         enabled: !splashScreen.active
-        onUserSelected: loginForm.setUsername(username, avatarPath)
+    	onUserSelected: {
+	    loginForm.setUsername(username, avatarPath)
+	    loginForm.passwordInput.forceActiveFocus()
+	}
     }
     
     LoginForm {
