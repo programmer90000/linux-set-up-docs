@@ -6,31 +6,31 @@ Rectangle {
     anchors.fill: parent
     color: "transparent"
     z: 1000
-    
+
     property bool active: true
-    
+
     signal dismissed()
-    
+
     focus: true
     Keys.onPressed: function(event) {
         dismiss()
         event.accepted = true
     }
-    
+
     Image {
         id: backgroundImage
         anchors.fill: parent
         source: Qt.resolvedUrl("splash_background.png")
         fillMode: Image.PreserveAspectCrop
-        z: -1  // Ensure it stays behind the transparent overlay
-        
+        z: -1
+
         Rectangle {
             anchors.fill: parent
-            color: "#80000000"  // Semi-transparent dark overlay
+            color: "#80000000"
             z: 1
         }
     }
-    
+
     Column {
         id: timeDateContainer
         anchors {
@@ -40,7 +40,7 @@ Rectangle {
         }
         spacing: 10
         z: 2
-        
+
         Clock {
             id: splashClock
             width: 400
@@ -49,7 +49,7 @@ Rectangle {
             fontSize: 48
             timeFormat: "hh:mm:ss"
         }
-        
+
         Text {
             id: splashDateText
             anchors.horizontalCenter: parent.horizontalCenter
@@ -59,7 +59,7 @@ Rectangle {
             font.family: "Sans"
             style: Text.Outline
             styleColor: "black"
-            
+
             Timer {
                 interval: 60000
                 running: true
@@ -70,30 +70,28 @@ Rectangle {
             }
         }
     }
-    
+
     MouseArea {
         anchors.fill: parent
         onClicked: dismiss()
     }
-    
+
     function dismiss() {
         if (!active) return
         active = false
         visible = false
         dismissed()
     }
-    
+
     function show() {
         active = true
         visible = true
-        // Refresh the date/time display
         splashClock.updateTime()
         splashDateText.text = Qt.formatDateTime(new Date(), "ddd dd/MM/yyyy")
         forceActiveFocus()
     }
-    
+
     Component.onCompleted: {
         forceActiveFocus()
     }
 }
-

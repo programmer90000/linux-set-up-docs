@@ -5,38 +5,36 @@ Rectangle {
     id: fullScreenRoot
     anchors.fill: parent
     color: "transparent"
-    
-    // This makes the component invisible to mouse events, allowing clicks to pass through to the UserList and other controls behind it
+
     z: -2
-    
+
     property string selectedUsername: ""
     property string selectedAvatarPath: ""
     property alias passwordInput: passwordField
     property alias powerBtn: powerBtn
     property alias splashButton: showSplashButton
-    
+
     signal loginRequested(string username, string password)
     signal showSplashRequested()
-    
+
     // Clear password whenever username changes
     onSelectedUsernameChanged: {
         passwordField.text = ""
     }
-    
+
     Image {
         id: formBackground
         anchors.fill: parent
         source: Qt.resolvedUrl("splash_background.png")
         fillMode: Image.PreserveAspectCrop
         z: -1
-        
-        // Add semi-transparent overlay
+
         Rectangle {
             anchors.fill: parent
-            color: "#80000000" // Dark overlay
+            color: "#80000000"
         }
     }
-    
+
     Column {
         id: timeDateContainer
         anchors {
@@ -46,7 +44,7 @@ Rectangle {
         }
         spacing: 10
         z: 1
-        
+
         Clock {
             id: loginClock
             width: 400
@@ -55,32 +53,29 @@ Rectangle {
             fontSize: 48
             timeFormat: "hh:mm:ss"
         }
-        
+
         Text {
             id: dateText
             anchors.horizontalCenter: parent.horizontalCenter
-            text: {
-                var now = new Date()
-                return Qt.formatDateTime(now, "ddd dd/MM/yyyy")
-            }
+            text: Qt.formatDateTime(new Date(), "ddd dd/MM/yyyy")
             color: "white"
             font.pixelSize: 20
             font.family: "Sans"
             style: Text.Outline
             styleColor: "black"
-            
+
             Timer {
                 interval: 60000
                 running: true
                 repeat: true
                 onTriggered: {
-                    var now = new Date()
-                    dateText.text = Qt.formatDateTime(now, "ddd dd/MM/yyyy")
+                    dateText.text = Qt.formatDateTime(new Date(), "ddd dd/MM/yyyy")
                 }
             }
         }
     }
-    
+
+    // BACK / SHOW SPLASH BUTTON
     Button {
         id: showSplashButton
         width: 48
@@ -91,10 +86,10 @@ Rectangle {
             margins: 20
         }
         z: 2
-         
+
         // Enable Tab key navigation
         activeFocusOnTab: true
-        
+
         Image {
             anchors.centerIn: parent
             source: Qt.resolvedUrl("assets/back_arrow_icon.png")
@@ -102,14 +97,14 @@ Rectangle {
             height: 24
             fillMode: Image.PreserveAspectFit
         }
-        
+
         background: Rectangle {
             radius: 24
             color: showSplashButton.pressed ? "#3a6ea5" : (showSplashButton.hovered ? "#2a2a2a" : "#1e1e1e")
             border.color: showSplashButton.activeFocus ? "#ffffff" : "#3a3a3a"
             border.width: showSplashButton.activeFocus ? 2 : 1
         }
-        
+
         ToolTip {
             visible: parent.hovered
             text: "Show Splash Screen"
@@ -123,11 +118,11 @@ Rectangle {
                 color: "white"
             }
         }
-        
+
         onClicked: {
             showSplashRequested()
         }
-        
+
         Keys.onPressed: function(event) {
             if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter || event.key === Qt.Key_Space) {
                 showSplashRequested()
@@ -135,20 +130,19 @@ Rectangle {
             }
         }
     }
-    
+
     Column {
         id: loginContent
         spacing: 15
         width: 300
         anchors.centerIn: parent
-        
-        // Avatar container
+
         Item {
             id: avatarContainer
             width: 80
             height: 80
             anchors.horizontalCenter: parent.horizontalCenter
-            
+
             Image {
                 id: avatarImage
                 anchors.fill: parent
@@ -156,7 +150,7 @@ Rectangle {
                 fillMode: Image.PreserveAspectFit
                 visible: false
                 cache: false
-                
+
                 onStatusChanged: {
                     if (status === Image.Ready) {
                         visible = true
@@ -164,19 +158,17 @@ Rectangle {
                     } else if (status === Image.Error) {
                         visible = false
                         fallbackRect.visible = true
-                        console.log("Login form: Avatar not found at:", source)
                     }
                 }
             }
-            
-            // Fallback circle with initial
+
             Rectangle {
                 id: fallbackRect
                 anchors.fill: parent
                 radius: 40
                 color: "#3a6ea5"
                 visible: true
-                
+
                 Text {
                     anchors.centerIn: parent
                     text: fullScreenRoot.selectedUsername !== "" ? fullScreenRoot.selectedUsername.charAt(0).toUpperCase() : "?"
@@ -186,10 +178,9 @@ Rectangle {
                 }
             }
         }
-        
-        // Spacing between avatar and username
+
         Item { height: 5 }
-        
+
         Text {
             id: usernameLabel
             width: parent.width
@@ -199,10 +190,9 @@ Rectangle {
             color: fullScreenRoot.selectedUsername !== "" ? "#3a6ea5" : "#999999"
             horizontalAlignment: Text.AlignHCenter
         }
-        
-        // Spacing between username and password field
+
         Item { height: 10 }
-        
+
         TextField {
             id: passwordField
             width: parent.width
@@ -212,14 +202,14 @@ Rectangle {
             font.pixelSize: 16
             activeFocusOnTab: true
             enabled: fullScreenRoot.selectedUsername !== ""
-            
+
             background: Rectangle {
                 color: fullScreenRoot.selectedUsername !== "" ? "white" : "#f0f0f0"
                 radius: 5
                 border.color: passwordField.activeFocus ? "#3a6ea5" : (fullScreenRoot.selectedUsername !== "" ? "#cccccc" : "#e0e0e0")
                 border.width: passwordField.activeFocus ? 2 : 1
             }
-            
+
             onAccepted: {
                 if (fullScreenRoot.selectedUsername !== "" && passwordField.text !== "") {
                     fullScreenRoot.loginRequested(fullScreenRoot.selectedUsername, passwordField.text)
@@ -227,7 +217,7 @@ Rectangle {
             }
         }
     }
-    
+
     PowerButton {
         id: powerBtn
         anchors {
@@ -236,39 +226,27 @@ Rectangle {
             margins: 20
         }
         z: 2
-        
-        onShutdownRequested: {
-            sddm.powerOff()
-        }
-        
-        onRestartRequested: {
-            sddm.reboot()
-        }
-        
-        onSuspendRequested: {
-            sddm.suspend()
-        }
+
+        onShutdownRequested: sddm.powerOff()
+        onRestartRequested: sddm.reboot()
+        onSuspendRequested: sddm.suspend()
     }
-    
+
     function setUsername(username, avatarPath) {
         fullScreenRoot.selectedUsername = username
-        
+
         if (avatarPath && avatarPath !== "") {
             fullScreenRoot.selectedAvatarPath = avatarPath
         } else {
-            var constructedPath = "/usr/share/sddm/themes/login-screen/" + username + "/profile-picture.png"
-            fullScreenRoot.selectedAvatarPath = constructedPath
+            fullScreenRoot.selectedAvatarPath = "/usr/share/sddm/themes/login-screen/" + username + "/profile-picture.png"
         }
-        
-        // Reset avatar visibility to trigger reload
+
         avatarImage.visible = false
         fallbackRect.visible = true
-        
-        // Reload the image
+
         avatarImage.source = ""
         avatarImage.source = fullScreenRoot.selectedAvatarPath
-        
-        // Clear password and focus
+
         passwordField.text = ""
         passwordField.forceActiveFocus()
     }

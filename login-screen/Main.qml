@@ -6,8 +6,8 @@ Rectangle {
     id: mainWindow
     width: 1920
     height: 1080
-    color: "transparent"  // Fallback color when splash is dismissed
-    
+    color: "transparent"
+
     UserList {
         id: userList
         anchors.bottom: parent.bottom
@@ -15,30 +15,30 @@ Rectangle {
         anchors.margins: 20
         visible: !splashScreen.active
         enabled: !splashScreen.active
-        
+
         KeyNavigation.tab: loginForm.splashButton
         KeyNavigation.backtab: loginForm.powerBtn
-        
+
         onUserSelected: function(username, avatarPath) {
             loginForm.setUsername(username, avatarPath)
             loginForm.passwordInput.forceActiveFocus()
         }
     }
-    
+
     LoginForm {
         id: loginForm
         visible: !splashScreen.active
-        
+
         // Tab ring order: UserList -> Back Button -> Password Field -> Power Button -> UserList
         splashButton.KeyNavigation.tab: passwordInput
         splashButton.KeyNavigation.backtab: userList
-        
+
         passwordInput.KeyNavigation.tab: powerBtn
         passwordInput.KeyNavigation.backtab: splashButton
-        
+
         powerBtn.KeyNavigation.tab: userList
         powerBtn.KeyNavigation.backtab: passwordInput
-        
+
         onLoginRequested: function(username, password) {
             sddm.login(username, password, 0)
         }
@@ -46,16 +46,15 @@ Rectangle {
             splashScreen.show()
         }
     }
-    
+
     SplashScreen {
         id: splashScreen
         onDismissed: {
             userList.focusList()
         }
     }
-    
+
     Component.onCompleted: {
-        // If splash starts active, it grabs focus; otherwise focus user list
         if (splashScreen.active) {
             splashScreen.forceActiveFocus()
         } else {
