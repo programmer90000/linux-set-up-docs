@@ -30,7 +30,7 @@ sudo cp -a --no-preserve=ownership boot-theme/grub-theme/assets/select/select_w.
 sudo /usr/sbin/grub-mkconfig -o /boot/grub/grub.cfg
 
 sudo apt update
-sudo apt install plymouth plymouth-themes git
+sudo apt install -y plymouth plymouth-themes git
 
 sudo cp boot-theme/grub /etc/default/grub
 
