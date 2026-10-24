@@ -42,9 +42,8 @@ chmod +x alacritty/alacritty.sh
 
 Run:
 ```
-chmod +x boot-theme/grub-theme/install-grub-theme.sh boot-theme/plymouth-theme/install-plymouth-theme.sh
-./boot-theme/grub-theme/install-grub-theme.sh
-./boot-theme/plymouth-theme/install-plymouth-theme.sh
+chmod +x boot-theme/install-boot-theme.sh
+./boot-theme/install-boot-theme.sh
 ```
 
 ## Install Labwc Window Manager
