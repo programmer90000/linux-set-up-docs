@@ -268,7 +268,7 @@ sudo apt install -y rustc cargo
 
 echo "Installing Extrepo"
 sudo apt install -y extrepo
-sudo cp apps/extrepo/config.yaml /etc/extrepo/config.yaml
+sudo cp apps/config/extrepo/config.yaml /etc/extrepo/config.yaml
 
 echo "Installing Brave Browser"
 sudo extrepo enable brave_release
