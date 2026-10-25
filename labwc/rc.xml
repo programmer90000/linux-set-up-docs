@@ -143,7 +143,7 @@
     </mouse>
     <libinput>
         <device category="default">
-            <naturalScroll>yes</naturalScroll>
+            <naturalScroll>no</naturalScroll>
             <leftHanded>no</leftHanded>
             <pointerSpeed>0.0</pointerSpeed>
             <accelProfile>flat</accelProfile>
