@@ -88,8 +88,8 @@
     <keyboard>
         <layoutScope>global</layoutScope>
         <numlock>off</numlock>
-        <repeatRate>3</repeatRate>
-        <repeatDelay>600</repeatDelay>
+        <repeatRate>25</repeatRate>
+        <repeatDelay>300</repeatDelay>
         <default />
         <keybind key="Print">
             <action name="Execute" command="~/.config/labwc/scripts/screen-capture-menu.sh" />
