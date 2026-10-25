@@ -53,4 +53,8 @@
             <weight>normal</weight>
         </font>
     </theme>
+    <placement>
+        <policy>automatic</policy>
+        <cascadeOffset x="0" y="0" />
+    </placement>
 </labwc_config>
