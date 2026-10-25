@@ -96,4 +96,10 @@
         <ignoreButtonReleasePeriod>250</ignoreButtonReleasePeriod>
         <showIcons>no</showIcons>
     </menu>
+    <desktops>
+        <popupTime>1000</popupTime>
+        <names>
+            <name>Default</name>
+        </names>
+    </desktops>
 </labwc_config>
