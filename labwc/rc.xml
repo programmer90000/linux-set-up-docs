@@ -137,6 +137,10 @@
         <keybind key="XF86_MonBrightnessUp"><action name="None" /></keybind>
         <keybind key="XF86_MonBrightnessDown"><action name="None" /></keybind>
     </keyboard>
+    <mouse>
+        <doubleClickTime>500</doubleClickTime>
+        <default />
+    </mouse>
     <magnifier>
         <width>400</width>
         <height>400</height>
