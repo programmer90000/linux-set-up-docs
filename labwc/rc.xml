@@ -11,4 +11,16 @@
         <xwaylandPersistence>no</xwaylandPersistence>
         <primarySelection>no</primarySelection>
     </core>
+    <theme>
+        <name></name>
+        <icon></icon>
+        <fallbackAppIcon>labwc</fallbackAppIcon>
+        <titlebar>
+        <layout>icon:iconify,max,close</layout>
+        <showTitle>yes</showTitle>
+        </titlebar>
+        <cornerRadius>8</cornerRadius>
+        <keepBorder>yes</keepBorder>
+        <dropShadows>no</dropShadows>
+    </theme>
 </labwc_config>
