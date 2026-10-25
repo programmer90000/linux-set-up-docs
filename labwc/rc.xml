@@ -60,4 +60,10 @@
     <windowSwitcher preview="yes" outlines="yes" unshade="yes" order="focus">
         <osd show="yes" style="thumbnail" output="cursor" thumbnailLabelFormat="" />
     </windowSwitcher>
+    <resistance>
+        <screenEdgeStrength>30</screenEdgeStrength>
+        <windowEdgeStrength>30</windowEdgeStrength>
+        <unSnapThreshold>30</unSnapThreshold>
+        <unMaximizeThreshold>30</unMaximizeThreshold>
+    </resistance>
 </labwc_config>
