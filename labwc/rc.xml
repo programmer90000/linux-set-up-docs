@@ -71,4 +71,11 @@
         <followMouseRequiresMovement>no</followMouseRequiresMovement>
         <raiseOnFocus>yes</raiseOnFocus>
     </focus>
+    <snapping>
+        <range>0</range>
+        <cornerRange>0</cornerRange>
+        <topMaximize>no</topMaximize>
+        <overlay enabled="no"></overlay>
+        <notifyClient>always</notifyClient>
+    </snapping>
 </labwc_config>
