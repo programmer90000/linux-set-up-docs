@@ -92,4 +92,8 @@
         <increment>0.2</increment>
         <useFilter>true</useFilter>
     </magnifier>
+    <menu>
+        <ignoreButtonReleasePeriod>250</ignoreButtonReleasePeriod>
+        <showIcons>no</showIcons>
+    </menu>
 </labwc_config>
