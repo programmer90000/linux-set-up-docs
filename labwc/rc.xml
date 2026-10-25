@@ -79,4 +79,10 @@
         <notifyClient>always</notifyClient>
     </snapping>
     <margin top="0" bottom="30" left="0" right="0" />
+    <resize>
+        <popupShow>Always</popupShow>
+        <drawContents>yes</drawContents>
+        <cornerRange>3</cornerRange>
+        <minimumArea>8</minimumArea>
+    </resize>
 </labwc_config>
