@@ -85,4 +85,11 @@
         <cornerRange>3</cornerRange>
         <minimumArea>8</minimumArea>
     </resize>
+    <magnifier>
+        <width>400</width>
+        <height>400</height>
+        <initScale>2.0</initScale>
+        <increment>0.2</increment>
+        <useFilter>true</useFilter>
+    </magnifier>
 </labwc_config>
