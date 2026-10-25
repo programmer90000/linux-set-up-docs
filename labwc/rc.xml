@@ -66,4 +66,9 @@
         <unSnapThreshold>30</unSnapThreshold>
         <unMaximizeThreshold>30</unMaximizeThreshold>
     </resistance>
+    <focus>
+        <followMouse>no</followMouse>
+        <followMouseRequiresMovement>no</followMouseRequiresMovement>
+        <raiseOnFocus>yes</raiseOnFocus>
+    </focus>
 </labwc_config>
