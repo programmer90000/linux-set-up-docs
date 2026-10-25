@@ -78,7 +78,7 @@
         <overlay enabled="no"></overlay>
         <notifyClient>always</notifyClient>
     </snapping>
-    <margin top="0" bottom="30" left="0" right="0" />
+    <margin top="0" bottom="0" left="0" right="0" />
     <resize>
         <popupShow>Always</popupShow>
         <drawContents>yes</drawContents>
