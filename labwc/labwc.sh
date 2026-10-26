@@ -31,14 +31,25 @@ fi
 echo "Installing Labwc"
 sudo apt update
 sudo apt install -y labwc
+
+echo "Installing wl-find-cursor"
+cd labwc/wl-find-cursor/
+make
+cd ../../
+sudo cp labwc/wl-find-cursor/wl-find-cursor /usr/local/bin/
+
 echo "Setting up configuration directory"
 mkdir -p ~/.config/labwc/
+
 echo "Copying environment file"
 cp $ENVIRONMENT ~/.config/labwc/
+
 echo "Copying rc.xml file"
 cp labwc/rc.xml ~/.config/labwc/
+
 echo "Copying autostart file"
 cp $AUTOSTART ~/.config/labwc/
 chmod +x ~/.config/labwc/autostart
+
 echo "Copying scripts directory"
 cp -r $SCRIPTS ~/.config/labwc/
