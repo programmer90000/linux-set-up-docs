@@ -120,7 +120,9 @@
         <keybind key="W-KP_2"><action name="None" /></keybind>
         <keybind key="W-KP_3"><action name="None" /></keybind>
         <keybind key="W-Space"><action name="None" /></keybind>
-        <keybind key="W-BackSpace"><action name="None" /></keybind>
+        <keybind key="W-BackSpace">
+            <action name="Execute" command="wl-find-cursor" />
+        </keybind>
         <keybind key="A-Escape"><action name="None" /></keybind>
         <keybind key="A-Tab"><action name="None" /></keybind>
         <keybind key="A-F3"><action name="None" /></keybind>
