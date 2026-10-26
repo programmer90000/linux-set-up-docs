@@ -50,7 +50,8 @@ Rectangle {
     SplashScreen {
         id: splashScreen
         onDismissed: {
-            userList.focusList()
+            userList.selectFirstUser()
+            loginForm.passwordInput.forceActiveFocus()
         }
     }
 
@@ -58,7 +59,8 @@ Rectangle {
         if (splashScreen.active) {
             splashScreen.forceActiveFocus()
         } else {
-            userList.focusList()
+            userList.selectFirstUser()
+            loginForm.passwordInput.forceActiveFocus()
         }
     }
 }

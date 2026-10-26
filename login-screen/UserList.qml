@@ -14,6 +14,19 @@ Rectangle {
         listView.forceActiveFocus()
     }
     
+    function selectFirstUser() {
+        if (listView.count > 0) {
+            listView.currentIndex = 0
+            var item = listView.itemAtIndex(0)
+            if (item) {
+                var username = item.getUsername()
+                var avatarPath = item.getAvatarPath()
+                userListRoot.selectedUserName = username
+                userListRoot.userSelected(username, avatarPath)
+            }
+        }
+    }
+    
     ListView {
         id: listView
         anchors.fill: parent
