@@ -39,8 +39,8 @@ impl Default for Config {
     fn default() -> Self {
         Self {
             window: WindowConfig {
-                width: 2000.0,
-                height: 200.0,
+                width: 600.0,
+                height: 500.0,
                 resizable: true,
                 decorations: true,
             },
