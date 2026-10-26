@@ -23,11 +23,25 @@ Rectangle {
 
     // Toggle menu or activate selection from button focus
     Keys.onPressed: function(event) {
-        if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter || event.key === Qt.Key_Space) {
-            if (!menuOpen) {
+        if (!menuOpen) {
+            if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter || event.key === Qt.Key_Space) {
                 openMenu()
+                event.accepted = true
             }
-            event.accepted = true
+        } else {
+            if (event.key === Qt.Key_Down) {
+                powerButtonRoot.selectedMenuIndex = (powerButtonRoot.selectedMenuIndex + 1) % 3
+                event.accepted = true
+            } else if (event.key === Qt.Key_Up) {
+                powerButtonRoot.selectedMenuIndex = (powerButtonRoot.selectedMenuIndex + 2) % 3
+                event.accepted = true
+            } else if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter || event.key === Qt.Key_Space) {
+                triggerSelectedAction()
+                event.accepted = true
+            } else if (event.key === Qt.Key_Escape) {
+                closeMenu()
+                event.accepted = true
+            }
         }
     }
 
@@ -35,7 +49,6 @@ Rectangle {
         menuOpen = true
         selectedMenuIndex = 0
         powerMenu.open()
-        powerMenu.forceActiveFocus()
     }
 
     function closeMenu() {
@@ -79,7 +92,7 @@ Rectangle {
         width: 160
         height: 160
         modal: false
-        focus: true
+        focus: false // Let root handle keys
         closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
 
         x: powerButtonRoot.width - width
@@ -88,28 +101,11 @@ Rectangle {
         background: Rectangle {
             color: "#2a2a2a"
             radius: 8
-            border.color: powerMenu.activeFocus ? "#5a8ec5" : "#3a3a3a"
+            border.color: "#3a3a3a"
             border.width: 1
         }
 
         onClosed: menuOpen = false
-
-        // Handle Up/Down arrow navigation and Enter inside popup
-        Keys.onPressed: function(event) {
-            if (event.key === Qt.Key_Down) {
-                powerButtonRoot.selectedMenuIndex = (powerButtonRoot.selectedMenuIndex + 1) % 3
-                event.accepted = true
-            } else if (event.key === Qt.Key_Up) {
-                powerButtonRoot.selectedMenuIndex = (powerButtonRoot.selectedMenuIndex + 2) % 3
-                event.accepted = true
-            } else if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter || event.key === Qt.Key_Space) {
-                powerButtonRoot.triggerSelectedAction()
-                event.accepted = true
-            } else if (event.key === Qt.Key_Escape) {
-                powerButtonRoot.closeMenu()
-                event.accepted = true
-            }
-        }
 
         Column {
             spacing: 5
