@@ -38,6 +38,21 @@ make
 cd ../../
 sudo cp labwc/wl-find-cursor/wl-find-cursor /usr/local/bin/
 
+echo "Installing wayland-wheeltani"
+cd labwc/wayland-wheeltani/
+cargo build --release --workspace --bins
+cd ../../
+sudo cp labwc/wayland-wheeltani/target/release/wayland-wheeltani /usr/local/bin/
+sudo cp etc/uinput.conf /etc/modules-load.d/uinput.conf
+sudo cp etc/99-uinput.rules /etc/udev/rules.d/99-uinput.rules
+sudo udevadm control --reload-rules
+sudo udevadm trigger
+mkdir -p ~/.config/systemd/user/
+cp labwc/config/systemd/wayland-wheeltani.service ~/.config/systemd/user/wayland-wheeltani.service
+systemctl --user daemon-reload
+systemctl --user enable --now wayland-wheeltani
+sudo adduser abdul input
+
 echo "Setting up configuration directory"
 mkdir -p ~/.config/labwc/
 
