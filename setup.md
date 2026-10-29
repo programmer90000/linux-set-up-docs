@@ -41,11 +41,11 @@ cd linux-set-up-docs/
 
 Run:
 ```
-chmod +x git/connect-to-online-git-accounts.sh
-./git/connect-to-online-git-accounts.sh
+chmod +x guides/git/connect-to-online-git-accounts.sh
+./guides/git/connect-to-online-git-accounts.sh
 ```
 
-Follow the docs in [connect-to-online-git-accounts.md](./git/connect-to-online-git-accounts.md)
+Follow the docs in [connect-to-online-git-accounts.md](./guides/git/connect-to-online-git-accounts.md)
 
 ## Install Alacritty
 
