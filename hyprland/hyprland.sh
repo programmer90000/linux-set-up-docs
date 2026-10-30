@@ -9,6 +9,8 @@ fi
 echo "Installing Hyprland"
 sudo apt update
 sudo apt install -y -t trixie-backports hyprland waybar
+echo "Installing make"
+sudo apt install make build-essential
 echo "Installing wl-find-cursor"
 cd hyprland/wl-find-cursor/
 make
