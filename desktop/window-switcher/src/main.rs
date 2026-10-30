@@ -205,7 +205,7 @@ pub fn main() -> iced::Result {
     let bg_color_for_state = bg_color.clone();
     let text_color_for_state = text_color.clone();
     
-    iced::application("LabWC Window Switcher", WindowSwitcher::update, WindowSwitcher::view).subscription(WindowSwitcher::subscription).window(iced::window::Settings { size: iced::Size::new(width, height), decorations: decorations, position: iced::window::Position::Centered, transparent: true, ..Default::default()}).theme(move |_state| theme(&bg_color_for_theme, bg_opacity)).run_with(move || {(WindowSwitcher::new(bg_color_for_state, bg_opacity, text_color_for_state, text_size, search_enabled), Task::none())})
+    iced::application("Hyprland Window Switcher", WindowSwitcher::update, WindowSwitcher::view).subscription(WindowSwitcher::subscription).window(iced::window::Settings { size: iced::Size::new(width, height), decorations: decorations, position: iced::window::Position::Centered, transparent: true, ..Default::default()}).theme(move |_state| theme(&bg_color_for_theme, bg_opacity)).run_with(move || {(WindowSwitcher::new(bg_color_for_state, bg_opacity, text_color_for_state, text_size, search_enabled), Task::none())})
 }
 
 #[derive(Debug, Clone, PartialEq, Eq)]

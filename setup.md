@@ -65,12 +65,12 @@ chmod +x boot-theme/install-boot-theme.sh
 ./boot-theme/install-boot-theme.sh
 ```
 
-## Install Labwc Window Manager
+## Install Hyprland Window Manager
 
 Run:
 ```
-chmod +x labwc/labwc.sh
-./labwc/labwc.sh
+chmod +x hyprland/hyprland.sh
+./hyprland/hyprland.sh
 ```
 
 ## Install Desktop
