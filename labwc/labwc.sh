@@ -32,6 +32,9 @@ echo "Installing Labwc"
 sudo apt update
 sudo apt install -y labwc
 
+echo "Installing make and build-essential"
+sudo apt install make build-essential
+
 echo "Installing wl-find-cursor"
 cd labwc/wl-find-cursor/
 make
