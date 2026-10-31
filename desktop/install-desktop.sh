@@ -1,12 +1,6 @@
 #!/bin/bash
 
 sudo apt update
-sudo apt install swaybg
-sudo cp desktop/desktop-wallpaper.png /usr/share/pixmaps/
-mkdir -p ~/.config/labwc
-cp desktop/labwc/autostart ~/.config/labwc/
-swaybg -i /usr/share/pixmaps/desktop-wallpaper.png -m fill &
-
 sudo apt install -y build-essential libgtk-3-dev libgtk-layer-shell-dev
 cd desktop/icons/
 make
@@ -46,11 +40,3 @@ cd ../dash/
 meson setup build -Dauto_features=enabled -Dbuildtype=release
 ninja -C build
 sudo ninja -C build install
-
-cd ../dash-config/
-mkdir -p ~/.config/sfwbar/scripts/
-cp sfwbar.config ~/.config/sfwbar/sfwbar.config
-cp style.css ~/.config/sfwbar/style.css
-cp init.sh ~/.config/sfwbar/scripts/init.sh
-chmod +x ~/.config/sfwbar/scripts/init.sh
-sfwbar &

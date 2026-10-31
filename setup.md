@@ -65,14 +65,6 @@ chmod +x boot-theme/install-boot-theme.sh
 ./boot-theme/install-boot-theme.sh
 ```
 
-## Install Labwc Window Manager
-
-Run:
-```
-chmod +x labwc/labwc.sh
-./labwc/labwc.sh
-```
-
 ## Install Desktop
 
 Run:
