@@ -3,6 +3,8 @@
 sudo apt update
 sudo apt install swaybg
 sudo cp desktop/desktop-wallpaper.png /usr/share/pixmaps/
+mkdir -p ~/.config/labwc
+cp desktop/labwc/autostart ~/.config/labwc/
 swaybg -i /usr/share/pixmaps/desktop-wallpaper.png -m fill &
 
 sudo apt install -y build-essential libgtk-3-dev libgtk-layer-shell-dev

@@ -12,8 +12,6 @@ Remove the current file contents. Add:
 deb http://deb.debian.org/debian/ trixie main contrib non-free non-free-firmware
 deb-src http://deb.debian.org/debian/ trixie main contrib non-free non-free-firmware
 
-deb http://deb.debian.org/debian/ trixie-backports main contrib non-free non-free-firmware
-
 deb http://deb.debian.org/debian/ trixie-updates main contrib non-free non-free-firmware
 deb-src http://deb.debian.org/debian/ trixie-updates main contrib non-free non-free-firmware
 
@@ -67,12 +65,12 @@ chmod +x boot-theme/install-boot-theme.sh
 ./boot-theme/install-boot-theme.sh
 ```
 
-## Install Hyprland Window Manager
+## Install Labwc Window Manager
 
 Run:
 ```
-chmod +x hyprland/hyprland.sh
-./hyprland/hyprland.sh
+chmod +x labwc/labwc.sh
+./labwc/labwc.sh
 ```
 
 ## Install Desktop
