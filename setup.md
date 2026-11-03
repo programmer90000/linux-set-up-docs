@@ -65,14 +65,6 @@ chmod +x boot-theme/install-boot-theme.sh
 ./boot-theme/install-boot-theme.sh
 ```
 
-## Install Desktop
-
-Run:
-```
-chmod +x desktop/install-desktop.sh
-./desktop/install-desktop.sh
-```
-
 ## Install Apps
 
 Run:
