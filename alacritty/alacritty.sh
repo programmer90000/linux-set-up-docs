@@ -24,4 +24,5 @@ sudo apt install -y zsh
 cp alacritty/zsh/.zsh-aliases ~/.config/zsh/
 cp alacritty/zsh/.zshrc ~/.config/zsh/
 ln -s ~/.config/zsh/.zshrc ~/.zshrc
+chsh -s $(which zsh)
 cp $ALACRITTY_CONFIG ~/.config/alacritty/alacritty.toml
