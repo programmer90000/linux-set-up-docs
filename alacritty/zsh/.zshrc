@@ -3,6 +3,9 @@ export ZDOTDIR="$HOME/.config/zsh"
 export HISTFILE="$ZDOTDIR/.zsh_history"
 mkdir -p "$ZDOTDIR"
 
+# Environment Variables
+export WAYFIRE_CONFIG_FILE="$HOME/.config/wayfire/wayfire.ini"
+
 # Aliases
 [ -f ~/.config/zsh/.zsh-aliases ] && source ~/.config/zsh/.zsh-aliases
 
