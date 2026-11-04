@@ -76,6 +76,14 @@ chmod +x apps/installing-apps.sh apps/get-and-install.sh
 
 Follow the docs in [apps/config/set-up-individual-apps.md](apps/set-up-individual-apps.md)
 
+## Install Desktop
+
+Run:
+```
+chmod +x desktop/install-desktop.sh
+./desktop/install-desktop.sh
+```
+
 ## Install Login Screen
 
 Run:
