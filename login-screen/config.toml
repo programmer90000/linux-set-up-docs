@@ -1,5 +1,5 @@
 [terminal]
-vt = 1
+vt = 2
 
 [default_session]
 command = "cage -s -- gtkgreet --layer-shell"
