@@ -1,1 +1,1 @@
-wayfire
+wayfire -c /home/abdul/.config/wayfire/wayfire.ini
