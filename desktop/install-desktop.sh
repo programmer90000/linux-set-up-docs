@@ -2,6 +2,8 @@
 
 sudo apt update
 sudo apt install -y wayfire
+sudo apt install -y swaybg
+cp desktop/desktop-wallpaper.png /usr/share/pixmaps/
 mkdir -p ~/.config/wayfire/
 cp desktop/wayfire/wayfire.ini ~/.config/wayfire/wayfire.ini
 
