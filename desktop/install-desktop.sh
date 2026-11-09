@@ -13,3 +13,5 @@ meson setup build
 ninja -C build
 sudo ninja -C build install
 cd ../../
+mkdir -p ~/.config/lambdock/
+cp desktop/lambdock-config/settings-1.scm ~/.config/lambdock/settings-1.scm
