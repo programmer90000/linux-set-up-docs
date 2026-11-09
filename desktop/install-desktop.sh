@@ -17,3 +17,10 @@ mkdir -p ~/.config/lambdock/
 cp desktop/lambdock-config/config.scm ~/.config/lambdock/config.scm
 cp desktop/lambdock-config/items.scm ~/.config/lambdock/items.scm
 cp desktop/lambdock-config/settings.scm ~/.config/lambdock/settings.scm
+
+cd desktop/window-switcher/
+cargo build --release
+sudo cp target/release/window-switcher /usr/local/bin/
+sudo chmod +x /usr/local/bin/window-switcher
+cd ../../
+sudo cp desktop/assets/window-switcher.png /usr/share/icons/hicolor/scalable/apps/
