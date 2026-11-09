@@ -14,4 +14,6 @@ ninja -C build
 sudo ninja -C build install
 cd ../../
 mkdir -p ~/.config/lambdock/
-cp desktop/lambdock-config/settings-1.scm ~/.config/lambdock/settings-1.scm
+cp desktop/lambdock-config/config.scm ~/.config/lambdock/config.scm
+cp desktop/lambdock-config/items.scm ~/.config/lambdock/items.scm
+cp desktop/lambdock-config/settings.scm ~/.config/lambdock/settings.scm
