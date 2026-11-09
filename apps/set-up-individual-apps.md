@@ -1,5 +1,36 @@
 # Set Up Individual Apps
 
+## Git
+
+Run:
+```
+mkdir -p ~/.config/ssh
+ssh-keygen -t ed25519 -C "your_email@example.com" -f ~/.config/ssh/id_ed25519
+chmod 700 ~/.config/ssh
+chmod 600 ~/.config/ssh/id_ed25519
+ln -s ~/.config/ssh ~/.ssh
+cat ~/.ssh/id_ed25519.pub
+```
+
+Copy the SSH key
+
+Go to GitHub > Settings > SSH and GPG keys
+
+Create a new SSH key
+
+Give it a title
+
+Set the key type to Authentication key
+
+Paste the SSH key you copied
+
+Run:
+```
+ssh -T git@github.com
+```
+
+Type `yes` when prompted
+
 ## Neovim
 
 Inside Neovim, run:
