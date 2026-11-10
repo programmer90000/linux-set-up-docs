@@ -43,3 +43,12 @@ cp desktop/desktop-files/shotcut.desktop ~/Desktop/
 cp desktop/desktop-files/vlc.desktop ~/Desktop/
 cp desktop/desktop-files/gimp.desktop ~/Desktop/
 cp desktop/desktop-files/hard-info-2.desktop ~/Desktop/
+
+mkdir -p ~/.config/desktop-files/
+cp desktop/desktop-files/* ~/.config/desktop-files/
+sudo apt install -y build-essential cmake meson ninja-build pkg-config libgtk-3-dev libgdk-pixbuf-2.0-dev libcairo2-dev libglib2.0-dev libwayland-dev libgtk-layer-shell-dev libxkbregistry-dev libgtkmm-3.0-dev libjson-c-dev nlohmann-json3-dev libpulse-dev libasound2-dev libpipewire-0.3-dev python3-docutils
+cd desktop/app-launcher/
+meson setup builddir -Dbuildtype=release
+ninja -C builddir
+sudo ninja -C builddir install
+cp grid/grid.conf ~/.config/nwg-launchers/nwggrid/
