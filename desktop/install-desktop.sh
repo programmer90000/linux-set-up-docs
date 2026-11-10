@@ -24,3 +24,20 @@ sudo cp target/release/window-switcher /usr/local/bin/
 sudo chmod +x /usr/local/bin/window-switcher
 cd ../../
 sudo cp desktop/assets/window-switcher.png /usr/share/icons/hicolor/scalable/apps/
+
+sudo apt update
+sudo apt install -y build-essential libgtk-3-dev libgtk-layer-shell-dev
+cd desktop/icons/
+make
+sudo make install
+mkdir -p ~/.config/desktop-icons/
+cp desktop/icons/order.conf ~/.config/desktop-icons/
+mkdir -p ~/Desktop/
+
+cp desktop/desktop-files/brave-browser.desktop ~/Desktop/
+cp desktop/desktop-files/thunderbird.desktop ~/Desktop/
+cp desktop/desktop-files/alacritty.desktop ~/Desktop/
+cp desktop/desktop-files/shotcut.desktop ~/Desktop/
+cp desktop/desktop-files/vlc.desktop ~/Desktop/
+cp desktop/desktop-files/gimp.desktop ~/Desktop/
+cp desktop/desktop-files/hard-info-2.desktop ~/Desktop/
