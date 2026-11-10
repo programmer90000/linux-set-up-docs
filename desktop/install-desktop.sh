@@ -54,3 +54,10 @@ ninja -C builddir
 sudo ninja -C builddir install
 mkdir -p ~/.config/nwg-launchers/nwggrid/
 cp grid/grid.conf ~/.config/nwg-launchers/nwggrid/
+
+sudo apt install make build-essential
+
+cd desktop/wl-find-cursor/
+make
+cd ../../
+sudo cp desktop/wl-find-cursor/wl-find-cursor /usr/local/bin/
