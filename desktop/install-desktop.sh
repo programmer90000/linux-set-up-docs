@@ -33,8 +33,9 @@ sudo make install
 cd ../../
 mkdir -p ~/.config/desktop-icons/
 cp desktop/icons/order.conf ~/.config/desktop-icons/
-mkdir -p ~/Desktop/
+cp desktop/icons/config.conf ~/.config/desktop-icons/
 
+mkdir -p ~/Desktop/
 cp desktop/desktop-files/brave-browser.desktop ~/Desktop/
 cp desktop/desktop-files/thunderbird.desktop ~/Desktop/
 cp desktop/desktop-files/alacritty.desktop ~/Desktop/
