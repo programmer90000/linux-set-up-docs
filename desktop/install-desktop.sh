@@ -24,6 +24,7 @@ sudo cp target/release/window-switcher /usr/local/bin/
 sudo chmod +x /usr/local/bin/window-switcher
 cd ../../
 sudo cp desktop/assets/window-switcher.png /usr/share/icons/hicolor/scalable/apps/
+sudo gtk-update-icon-cache -f /usr/share/icons/hicolor/
 
 sudo apt update
 sudo apt install -y build-essential libgtk-3-dev libgtk-layer-shell-dev
