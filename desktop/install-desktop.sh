@@ -30,6 +30,7 @@ sudo apt install -y build-essential libgtk-3-dev libgtk-layer-shell-dev
 cd desktop/icons/
 make
 sudo make install
+cd ../../
 mkdir -p ~/.config/desktop-icons/
 cp desktop/icons/order.conf ~/.config/desktop-icons/
 mkdir -p ~/Desktop/
