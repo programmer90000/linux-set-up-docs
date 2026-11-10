@@ -51,4 +51,5 @@ cd desktop/app-launcher/
 meson setup builddir -Dbuildtype=release
 ninja -C builddir
 sudo ninja -C builddir install
+mkdir -p ~/.config/nwg-launchers/nwggrid/
 cp grid/grid.conf ~/.config/nwg-launchers/nwggrid/
