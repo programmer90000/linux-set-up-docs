@@ -61,3 +61,17 @@ cd desktop/wl-find-cursor/
 make
 cd ../../
 sudo cp desktop/wl-find-cursor/wl-find-cursor /usr/local/bin/
+
+cd desktop/wayland-wheeltani/
+cargo build --release --workspace --bins
+cd ../../
+sudo cp desktop/wayland-wheeltani/target/release/wayland-wheeltani /usr/local/bin/
+sudo cp desktop/etc/uinput.conf /etc/modules-load.d/uinput.conf
+sudo cp desktop/etc/99-uinput.rules /etc/udev/rules.d/99-uinput.rules
+sudo udevadm control --reload-rules
+sudo udevadm trigger
+mkdir -p ~/.config/systemd/user/
+cp desktop/config/systemd/wayland-wheeltani.service ~/.config/systemd/user/wayland-wheeltani.service
+systemctl --user daemon-reload
+systemctl --user enable --now wayland-wheeltani
+sudo adduser abdul input
