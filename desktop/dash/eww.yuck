@@ -5,7 +5,7 @@
                 (image :icon "view-grid-symbolic" :icon-size "menu")
             )
             (button :class "module window-switcher" :onclick "window-switcher &"
-                (image :path "window-switcher.png" :image-width 16 :image-height 16)
+                (image :icon "preferences-system-windows" :icon-size "menu")
             )
         )
     )
