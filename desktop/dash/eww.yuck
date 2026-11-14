@@ -4,6 +4,9 @@
             (button :class "module switcher" :onclick "nwggrid &"
                 (image :path "/usr/share/icons/Adwaita/symbolic/actions/view-grid-symbolic.svg" :icon-size 16)
             )
+            (button :class "module window-switcher" :onclick "window-switcher &"
+                (image :path "window-switcher.png" :image-width 16 :image-height 16)
+            )
         )
     )
 )
