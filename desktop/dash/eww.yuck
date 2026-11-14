@@ -2,7 +2,7 @@
     (box :class "main-container" :orientation "h" :space-evenly true
         (box :class "left-group" :halign "start" :space-evenly false
             (button :class "module switcher" :onclick "nwggrid &"
-                (image :path "/usr/share/icons/Adwaita/symbolic/actions/view-grid-symbolic.svg" :icon-size 16)
+                (image :icon "view-grid-symbolic" :icon-size "menu")
             )
             (button :class "module window-switcher" :onclick "window-switcher &"
                 (image :path "window-switcher.png" :image-width 16 :image-height 16)
