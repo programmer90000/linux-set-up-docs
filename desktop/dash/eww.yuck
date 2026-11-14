@@ -10,6 +10,9 @@
             (button :class "module brave" :onclick "brave-browser &"
                 (image :icon "brave-browser" :icon-size "menu")
             )
+            (button :class "module alacritty" :onclick "alacritty &"
+                (image :icon "Alacritty" :icon-size "menu")
+            )
         )
     )
 )
