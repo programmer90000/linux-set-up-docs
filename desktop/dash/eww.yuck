@@ -7,6 +7,9 @@
             (button :class "module window-switcher" :onclick "window-switcher &"
                 (image :icon "preferences-system-windows" :icon-size "menu")
             )
+            (button :class "module brave" :onclick "brave-browser &"
+                (image :icon "brave-browser" :icon-size "menu")
+            )
         )
     )
 )
