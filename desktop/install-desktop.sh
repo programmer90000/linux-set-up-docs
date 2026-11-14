@@ -45,6 +45,14 @@ ninja -C builddir
 sudo ninja -C builddir install
 mkdir -p ~/.config/nwg-launchers/nwggrid/
 cp grid/grid.conf ~/.config/nwg-launchers/nwggrid/
+cd ../../
+
+sudo apt update
+sudo apt install libgtk-3-dev libgtk-layer-shell-dev libpango1.0-dev libgdk-pixbuf-2.0-dev libdbusmenu-gtk3-4 libdbusmenu-gtk3-dev libcairo2-dev libglib2.0-dev build-essential libc6-dev STILL NEED TO CHECK THIS
+cd desktop/eww/
+cargo build --release --no-default-features --features=wayland
+sudo install -m 755 target/release/eww /usr/local/bin/
+cd ../../
 
 sudo apt install make build-essential
 
