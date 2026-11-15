@@ -1,1 +1,0 @@
-wayfire -c $HOME/.config/wayfire/wayfire.ini
