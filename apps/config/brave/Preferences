@@ -10,7 +10,7 @@
         "content_settings": {
             "default_content_setting_values": {
                 "brave_remember_1p_storage": 1
-            }
+            },
             "exceptions": {
                 "cookies": {
                     "*,*": {
@@ -122,7 +122,7 @@
             "report": {
                 "enable_save_contact_info": false
             }
-        }
+        },
         "web_view_rounded_corners": true,
         "wayback_machine_enabled": false
     },
