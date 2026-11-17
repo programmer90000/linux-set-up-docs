@@ -1,5 +1,6 @@
 mod greetd;
 
+use chrono::Local;
 use gtk4::gdk::Display;
 use gtk4::glib;
 use gtk4::prelude::*;
@@ -13,6 +14,7 @@ use std::cell::RefCell;
 use std::fs;
 use std::path::Path;
 use std::rc::Rc;
+use std::time::Duration;
 
 const THEME_DIR: &str = "/usr/share/greetd/login-screen";
 
@@ -48,6 +50,14 @@ fn load_system_users() -> Vec<UserInfo> {
         }
     }
     users
+}
+
+fn format_clock() -> String {
+    Local::now().format("%H:%M:%S").to_string()
+}
+
+fn format_date() -> String {
+    Local::now().format("%a %d/%m/%Y").to_string()
 }
 
 fn load_css() {
@@ -114,11 +124,42 @@ fn build_ui(app: &Application) {
     splash_overlay.set_hexpand(true);
     splash_overlay.set_vexpand(true);
     splash_overlay.set_focusable(true);
+
+    let splash_clock_box = GtkBox::new(Orientation::Vertical, 10);
+    splash_clock_box.set_halign(Align::Center);
+    splash_clock_box.set_valign(Align::Start);
+    splash_clock_box.set_margin_top(50);
+
+    let splash_clock_label = Label::new(Some(&format_clock()));
+    splash_clock_label.add_css_class("clock-text");
+
+    let splash_date_label = Label::new(Some(&format_date()));
+    splash_date_label.add_css_class("date-text");
+
+    splash_clock_box.append(&splash_clock_label);
+    splash_clock_box.append(&splash_date_label);
+    splash_overlay.add_overlay(&splash_clock_box);
+
     main_stack.add_named(&splash_overlay, Some("splash"));
 
     let login_overlay = Overlay::new();
     login_overlay.set_hexpand(true);
     login_overlay.set_vexpand(true);
+
+    let login_clock_box = GtkBox::new(Orientation::Vertical, 10);
+    login_clock_box.set_halign(Align::Center);
+    login_clock_box.set_valign(Align::Start);
+    login_clock_box.set_margin_top(50);
+
+    let login_clock_label = Label::new(Some(&format_clock()));
+    login_clock_label.add_css_class("clock-text");
+
+    let login_date_label = Label::new(Some(&format_date()));
+    login_date_label.add_css_class("date-text");
+
+    login_clock_box.append(&login_clock_label);
+    login_clock_box.append(&login_date_label);
+    login_overlay.add_overlay(&login_clock_box);
 
     let back_button = Button::new();
     back_button.add_css_class("circle-btn");
@@ -407,11 +448,25 @@ fn build_ui(app: &Application) {
     {
         let stack = main_stack.clone();
         let splash = splash_overlay.clone();
+        let s_clk = splash_clock_label.clone();
+        let s_dt = splash_date_label.clone();
         back_button.connect_clicked(move |_| {
+            s_clk.set_text(&format_clock());
+            s_dt.set_text(&format_date());
             stack.set_visible_child_name("splash");
             splash.grab_focus();
         });
     }
+
+    glib::timeout_add_local(Duration::from_secs(1), move || {
+        let now_clock = format_clock();
+        let now_date = format_date();
+        splash_clock_label.set_text(&now_clock);
+        splash_date_label.set_text(&now_date);
+        login_clock_label.set_text(&now_clock);
+        login_date_label.set_text(&now_date);
+        glib::ControlFlow::Continue
+    });
 
     window.set_child(Some(&root_overlay));
     window.present();
