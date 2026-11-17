@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=CopyQ
 Type=Application
-Exec=copyq
+Exec=copyq show
 Icon=copyq
 Terminal=false
 Categories=Utilities;
