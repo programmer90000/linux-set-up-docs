@@ -29,4 +29,7 @@ sudo mkdir -p /etc/greetd/
 sudo cp login-screen/config/wayfire-greeter.ini /etc/greetd/wayfire-greeter.ini
 sudo cp login-screen/config/config.toml /etc/greetd/config.toml
 
+sudo mkdir -p /etc/polkit-1/rules.d
+sudo cp login-screen/rules.d/50-greetd-power.rules /etc/polkit-1/rules.d/50-greetd-power.rules
+
 sudo systemctl enable greetd

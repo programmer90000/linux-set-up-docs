@@ -73,6 +73,7 @@ window {
 
 .username-label-empty {
     font-size: 14px;
+    font-weight: normal;
     color: #999999;
 }
 
@@ -81,16 +82,30 @@ window {
     min-height: 45px;
     border-radius: 5px;
     background-color: #ffffff;
+    background-image: none;
     color: #111111;
     font-size: 16px;
     padding: 0 12px;
     border: 1px solid #cccccc;
+    box-shadow: none;
+}
+
+.password-input:disabled {
+    background-color: #f0f0f0;
+    border: 1px solid #e0e0e0;
+}
+
+.password-input:focus,
+.password-input:focus-visible {
+    border: 2px solid #3a6ea5;
+    outline: none;
 }
 
 .error-label {
     color: #ff6b6b;
     font-size: 13px;
     font-weight: bold;
+    text-shadow: 0 1px 2px #000000;
 }
 
 .user-list {
@@ -103,6 +118,12 @@ window {
     background-color: transparent;
 }
 
+.user-list row:focus,
+.user-list row:selected {
+    background-color: transparent;
+    outline: none;
+}
+
 .user-card {
     min-width: 200px;
     min-height: 45px;
@@ -110,6 +131,10 @@ window {
     background-color: #1e1e1e;
     border: 1px solid #3a3a3a;
     padding: 0 10px;
+}
+
+.user-card:hover {
+    background-color: #2a2a2a;
 }
 
 .user-card-focused {
@@ -122,12 +147,17 @@ window {
     border: 1px solid #5a8ec5;
 }
 
+.user-card-selected.user-card-focused {
+    border: 2px solid #5a8ec5;
+}
+
 .user-avatar-small-fallback {
     min-width: 30px;
     min-height: 30px;
     border-radius: 15px;
     background-color: #3a3a3a;
     color: #ffffff;
+    font-size: 16px;
     font-weight: bold;
 }
 
@@ -138,9 +168,42 @@ window {
 .user-row-name {
     color: #cccccc;
     font-size: 14px;
+    font-weight: normal;
 }
 
 .user-row-name-selected {
     color: #ffffff;
     font-weight: bold;
+}
+
+popover.power-popover > contents {
+    background-color: #2a2a2a;
+    border: 1px solid #3a3a3a;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.power-menu-item {
+    min-width: 140px;
+    min-height: 40px;
+    border-radius: 4px;
+    background-color: transparent;
+    background-image: none;
+    border: none;
+    box-shadow: none;
+    padding: 0 10px;
+}
+
+.power-menu-item:hover,
+.power-menu-item:focus,
+.power-menu-item:focus-visible,
+.power-menu-item-selected {
+    background-color: #3a6ea5;
+    outline: none;
+}
+
+.power-menu-label {
+    color: #ffffff;
+    font-size: 14px;
 }

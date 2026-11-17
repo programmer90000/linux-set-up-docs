@@ -1,16 +1,17 @@
 mod greetd;
 
 use chrono::Local;
-use gtk4::gdk::Display;
+use gtk4::gdk::{Display, Key};
 use gtk4::glib;
 use gtk4::prelude::*;
 use gtk4::{
     Align, Application, ApplicationWindow, Box as GtkBox, Button, ContentFit, CssProvider,
     EventControllerKey, GestureClick, Image, Label, ListBox, ListBoxRow, Orientation, Overlay,
-    PasswordEntry, PolicyType, ScrolledWindow, SelectionMode, Stack, StackTransitionType,
+    PasswordEntry, PolicyType, Popover, PositionType, ScrolledWindow, SelectionMode, Stack,
+    StackTransitionType,
 };
 use gtk4_layer_shell::{Edge, KeyboardMode, Layer, LayerShell};
-use std::cell::RefCell;
+use std::cell::{Cell, RefCell};
 use std::fs;
 use std::path::Path;
 use std::rc::Rc;
@@ -188,20 +189,26 @@ fn build_ui(app: &Application) {
 
     let avatar_fallback = Label::new(Some("?"));
     avatar_fallback.add_css_class("avatar-large-fallback");
+    avatar_fallback.set_halign(Align::Center);
+    avatar_fallback.set_valign(Align::Center);
     avatar_stack.add_named(&avatar_fallback, Some("fallback"));
     avatar_stack.set_visible_child_name("fallback");
 
     let username_label = Label::new(Some("Select a user"));
     username_label.add_css_class("username-label-empty");
     username_label.set_halign(Align::Center);
+    username_label.set_margin_top(5);
 
     let password_entry = PasswordEntry::new();
     password_entry.add_css_class("password-input");
     password_entry.set_placeholder_text(Some("Password"));
+    password_entry.set_show_peek_icon(false);
     password_entry.set_sensitive(false);
+    password_entry.set_margin_top(10);
 
     let error_label = Label::new(None);
     error_label.add_css_class("error-label");
+    error_label.set_halign(Align::Center);
     error_label.set_visible(false);
 
     center_box.append(&avatar_stack);
@@ -220,6 +227,7 @@ fn build_ui(app: &Application) {
     user_scroll.set_margin_bottom(20);
     user_scroll.set_min_content_width(200);
     user_scroll.set_max_content_height(300);
+    user_scroll.set_propagate_natural_height(true);
     user_scroll.set_policy(PolicyType::Never, PolicyType::Automatic);
 
     let user_listbox = ListBox::new();
@@ -228,6 +236,130 @@ fn build_ui(app: &Application) {
     user_scroll.set_child(Some(&user_listbox));
     login_overlay.add_overlay(&user_scroll);
 
+    let power_button = Button::new();
+    power_button.add_css_class("circle-btn");
+    power_button.set_halign(Align::End);
+    power_button.set_valign(Align::End);
+    power_button.set_margin_end(20);
+    power_button.set_margin_bottom(20);
+    power_button.set_tooltip_text(Some("Power Options"));
+    let gear_icon = Image::from_file(format!("{THEME_DIR}/assets/gear-icon.png"));
+    gear_icon.set_pixel_size(24);
+    power_button.set_child(Some(&gear_icon));
+    login_overlay.add_overlay(&power_button);
+
+    let power_popover = Popover::new();
+    power_popover.add_css_class("power-popover");
+    power_popover.set_parent(&power_button);
+    power_popover.set_position(PositionType::Top);
+    power_popover.set_has_arrow(false);
+    power_popover.set_offset(-56, -10);
+
+    let menu_box = GtkBox::new(Orientation::Vertical, 5);
+    let menu_specs = [
+        ("Shut Down", "shutdown-icon.png", "poweroff"),
+        ("Restart", "restart-icon.png", "reboot"),
+        ("Suspend", "suspend-icon.png", "suspend"),
+    ];
+
+    let mut menu_buttons: Vec<Button> = Vec::new();
+    for (label_text, icon_file, action) in menu_specs {
+        let item_btn = Button::new();
+        item_btn.add_css_class("power-menu-item");
+
+        let row_box = GtkBox::new(Orientation::Horizontal, 10);
+        let icon = Image::from_file(format!("{THEME_DIR}/assets/{icon_file}"));
+        icon.set_pixel_size(20);
+        let lbl = Label::new(Some(label_text));
+        lbl.add_css_class("power-menu-label");
+
+        row_box.append(&icon);
+        row_box.append(&lbl);
+        item_btn.set_child(Some(&row_box));
+
+        let pop_clone = power_popover.clone();
+        let pow_btn_clone = power_button.clone();
+        item_btn.connect_clicked(move |_| {
+            pop_clone.popdown();
+            pow_btn_clone.grab_focus();
+            greetd::system_power_action(action);
+        });
+
+        menu_box.append(&item_btn);
+        menu_buttons.push(item_btn);
+    }
+    power_popover.set_child(Some(&menu_box));
+
+    let selected_menu_idx = Rc::new(Cell::new(0usize));
+    let menu_buttons_rc = Rc::new(menu_buttons);
+
+    let update_menu_highlight = {
+        let btns = menu_buttons_rc.clone();
+        let idx = selected_menu_idx.clone();
+        move || {
+            for (i, b) in btns.iter().enumerate() {
+                if i == idx.get() {
+                    b.add_css_class("power-menu-item-selected");
+                } else {
+                    b.remove_css_class("power-menu-item-selected");
+                }
+            }
+        }
+    };
+
+    {
+        let pop = power_popover.clone();
+        let idx = selected_menu_idx.clone();
+        let highlight = update_menu_highlight.clone();
+        power_button.connect_clicked(move |_| {
+            if pop.is_visible() {
+                pop.popdown();
+            } else {
+                idx.set(0);
+                highlight();
+                pop.popup();
+            }
+        });
+    }
+
+    {
+        let pop = power_popover.clone();
+        let pow_btn = power_button.clone();
+        let idx = selected_menu_idx.clone();
+        let btns = menu_buttons_rc.clone();
+        let highlight = update_menu_highlight.clone();
+
+        let pop_key_ctrl = EventControllerKey::new();
+        pop_key_ctrl.connect_key_pressed(move |_, key, _, _| match key {
+            Key::Down => {
+                idx.set((idx.get() + 1) % 3);
+                highlight();
+                glib::Propagation::Stop
+            }
+            Key::Up => {
+                idx.set((idx.get() + 2) % 3);
+                highlight();
+                glib::Propagation::Stop
+            }
+            Key::Return | Key::KP_Enter | Key::space => {
+                let current = idx.get();
+                pop.popdown();
+                pow_btn.grab_focus();
+                btns[current].emit_clicked();
+                glib::Propagation::Stop
+            }
+            Key::Escape => {
+                pop.popdown();
+                pow_btn.grab_focus();
+                glib::Propagation::Stop
+            }
+            _ => glib::Propagation::Proceed,
+        });
+        power_popover.add_controller(pop_key_ctrl);
+    }
+
+    main_stack.add_named(&login_overlay, Some("login"));
+    
     struct RowWidgets {
         card: GtkBox,
         avatar_fallback: Label,
@@ -340,6 +472,7 @@ fn build_ui(app: &Application) {
         let name_lbl = Label::new(Some(&user.username));
         name_lbl.add_css_class("user-row-name");
         name_lbl.set_valign(Align::Center);
+        name_lbl.set_ellipsize(gtk4::pango::EllipsizeMode::End);
 
         card.append(&small_stack);
         card.append(&name_lbl);
@@ -402,8 +535,6 @@ fn build_ui(app: &Application) {
         });
     }
 
-    main_stack.add_named(&login_overlay, Some("login"));
-
     let dismiss_splash = {
         let stack = main_stack.clone();
         let users_clone = users.clone();
@@ -456,6 +587,65 @@ fn build_ui(app: &Application) {
             stack.set_visible_child_name("splash");
             splash.grab_focus();
         });
+    }
+    
+    {
+        let lb = user_listbox.clone();
+        let back = back_button.clone();
+        let pw = password_entry.clone();
+        let power = power_button.clone();
+        let refresh = refresh_user_list_styles.clone();
+
+        let tab_ctrl = EventControllerKey::new();
+        tab_ctrl.set_propagation_phase(gtk4::PropagationPhase::Capture);
+        tab_ctrl.connect_key_pressed(move |_, key, _, _| {
+            let pw_focused = pw.has_focus() || pw.focus_child().is_some();
+            let lb_focused = lb.has_focus() || lb.focus_child().is_some();
+
+            if key == Key::Tab {
+                if lb_focused {
+                    back.grab_focus();
+                } else if back.has_focus() {
+                    if pw.is_sensitive() {
+                        pw.grab_focus();
+                    } else {
+                        power.grab_focus();
+                    }
+                } else if pw_focused {
+                    power.grab_focus();
+                } else if power.has_focus() {
+                    if let Some(row) = lb.selected_row().or_else(|| lb.row_at_index(0)) {
+                        row.grab_focus();
+                    } else {
+                        back.grab_focus();
+                    }
+                }
+                refresh();
+                return glib::Propagation::Stop;
+            } else if key == Key::ISO_Left_Tab {
+                if lb_focused {
+                    power.grab_focus();
+                } else if back.has_focus() {
+                    if let Some(row) = lb.selected_row().or_else(|| lb.row_at_index(0)) {
+                        row.grab_focus();
+                    } else {
+                        power.grab_focus();
+                    }
+                } else if pw_focused {
+                    back.grab_focus();
+                } else if power.has_focus() {
+                    if pw.is_sensitive() {
+                        pw.grab_focus();
+                    } else {
+                        back.grab_focus();
+                    }
+                }
+                refresh();
+                return glib::Propagation::Stop;
+            }
+            glib::Propagation::Proceed
+        });
+        login_overlay.add_controller(tab_ctrl);
     }
 
     glib::timeout_add_local(Duration::from_secs(1), move || {

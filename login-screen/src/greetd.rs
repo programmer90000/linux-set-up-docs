@@ -2,6 +2,7 @@ use greetd_ipc::codec::SyncCodec;
 use greetd_ipc::{AuthMessageType, ErrorType, Request, Response};
 use std::env;
 use std::os::unix::net::UnixStream;
+use std::process::Command;
 
 pub fn authenticate_and_start(username: &str, password: &str, session_cmd: &[String]) -> Result<(), String> {
     let sock_path = env::var("GREETD_SOCK")
@@ -75,4 +76,6 @@ fn cancel_session(stream: &mut UnixStream) -> Result<(), ()> {
     Ok(())
 }
 
-pub fn system_power_action(_action: &str) {}
+pub fn system_power_action(action: &str) {
+    let _ = Command::new("loginctl").arg(action).spawn();
+}
