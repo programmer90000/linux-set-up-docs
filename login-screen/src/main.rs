@@ -4,7 +4,7 @@ use gtk4::gdk::Display;
 use gtk4::glib;
 use gtk4::prelude::*;
 use gtk4::{
-    Align, Application, ApplicationWindow, Box as GtkBox, ContentFit, CssProvider,
+    Align, Application, ApplicationWindow, Box as GtkBox, Button, ContentFit, CssProvider,
     EventControllerKey, GestureClick, Image, Label, ListBox, ListBoxRow, Orientation, Overlay,
     PasswordEntry, PolicyType, ScrolledWindow, SelectionMode, Stack, StackTransitionType,
 };
@@ -119,6 +119,18 @@ fn build_ui(app: &Application) {
     let login_overlay = Overlay::new();
     login_overlay.set_hexpand(true);
     login_overlay.set_vexpand(true);
+
+    let back_button = Button::new();
+    back_button.add_css_class("circle-btn");
+    back_button.set_halign(Align::Start);
+    back_button.set_valign(Align::Start);
+    back_button.set_margin_top(20);
+    back_button.set_margin_start(20);
+    back_button.set_tooltip_text(Some("Show Splash Screen"));
+    let back_icon = Image::from_file(format!("{THEME_DIR}/assets/back_arrow_icon.png"));
+    back_icon.set_pixel_size(24);
+    back_button.set_child(Some(&back_icon));
+    login_overlay.add_overlay(&back_button);
 
     let center_box = GtkBox::new(Orientation::Vertical, 15);
     center_box.set_halign(Align::Center);
@@ -390,6 +402,15 @@ fn build_ui(app: &Application) {
             dismiss();
         });
         splash_overlay.add_controller(click_ctrl);
+    }
+
+    {
+        let stack = main_stack.clone();
+        let splash = splash_overlay.clone();
+        back_button.connect_clicked(move |_| {
+            stack.set_visible_child_name("splash");
+            splash.grab_focus();
+        });
     }
 
     window.set_child(Some(&root_overlay));

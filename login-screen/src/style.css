@@ -6,6 +6,32 @@ window {
     background-color: rgba(0, 0, 0, 0.5);
 }
 
+.circle-btn {
+    min-width: 48px;
+    min-height: 48px;
+    padding: 0;
+    border-radius: 24px;
+    background-color: #1e1e1e;
+    background-image: none;
+    border: 1px solid #3a3a3a;
+    box-shadow: none;
+}
+
+.circle-btn:hover {
+    background-color: #2a2a2a;
+}
+
+.circle-btn:active {
+    background-color: #3a6ea5;
+}
+
+.circle-btn:focus,
+.circle-btn:focus-visible {
+    background-color: #3a6ea5;
+    border: 2px solid #ffffff;
+    outline: none;
+}
+
 .avatar-large-fallback {
     min-width: 80px;
     min-height: 80px;

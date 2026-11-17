@@ -18,7 +18,9 @@ cargo build --release
 sudo install -Dm755 target/release/wayfire-greetd-ui /usr/local/bin/wayfire-greetd-ui
 cd ../
 
+sudo mkdir -p "${THEME_DIR}/assets"
 sudo mkdir -p "${THEME_DIR}/${CURRENT_USER}"
+sudo cp -r login-screen/assets/* "${THEME_DIR}/assets/"
 sudo cp login-screen/splash_background.png "${THEME_DIR}/"
 sudo cp login-screen/profile-picture.png "${THEME_DIR}/${CURRENT_USER}/"
 sudo chmod -R 755 "${THEME_DIR}"
