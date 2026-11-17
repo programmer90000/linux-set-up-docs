@@ -11,7 +11,7 @@ CURRENT_USER="$(whoami)"
 THEME_DIR="/usr/share/greetd/login-screen"
 
 sudo apt update
-sudo apt install -y wayfire greetd cargo rustc pkg-config libgtk-4-dev libgtk4-layer-shell-dev polkitd
+sudo apt install -y greetd cargo rustc pkg-config libgtk-4-dev libgtk4-layer-shell-dev polkitd
 
 cd login-screen/
 cargo build --release
@@ -19,6 +19,7 @@ sudo install -Dm755 target/release/wayfire-greetd-ui /usr/local/bin/wayfire-gree
 cd ../
 
 sudo mkdir -p "${THEME_DIR}/${CURRENT_USER}"
+sudo cp login-screen/splash_background.png "${THEME_DIR}/"
 sudo cp login-screen/profile-picture.png "${THEME_DIR}/${CURRENT_USER}/"
 sudo chmod -R 755 "${THEME_DIR}"
 

@@ -89,6 +89,18 @@ fn build_ui(app: &Application) {
 
     let root_overlay = Overlay::new();
 
+    let bg_picture = gtk4::Picture::for_filename(format!("{THEME_DIR}/splash_background.png"));
+    bg_picture.set_hexpand(true);
+    bg_picture.set_vexpand(true);
+    bg_picture.set_content_fit(ContentFit::Cover);
+    root_overlay.set_child(Some(&bg_picture));
+
+    let dim_box = GtkBox::new(Orientation::Vertical, 0);
+    dim_box.add_css_class("dim-overlay");
+    dim_box.set_hexpand(true);
+    dim_box.set_vexpand(true);
+    root_overlay.add_overlay(&dim_box);
+
     let login_overlay = Overlay::new();
     login_overlay.set_hexpand(true);
     login_overlay.set_vexpand(true);
@@ -322,7 +334,7 @@ fn build_ui(app: &Application) {
         });
     }
 
-    root_overlay.set_child(Some(&login_overlay));
+    root_overlay.add_overlay(&login_overlay);
     window.set_child(Some(&root_overlay));
     window.present();
 

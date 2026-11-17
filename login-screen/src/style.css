@@ -1,5 +1,9 @@
 window {
-    background-color: #111111;
+    background-color: transparent;
+}
+
+.dim-overlay {
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .avatar-large-fallback {
