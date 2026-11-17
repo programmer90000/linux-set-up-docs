@@ -120,6 +120,7 @@ echo "Installing CopyQ"
 sudo apt install -y copyq
 mkdir -p ~/.config/copyq/
 cp apps/config/copyq/copyq.conf ~/.config/copyq/
+cp apps/config/copyq/copyq-commands.ini ~/.config/copyq/
 
 echo "Installing Audacity"
 sudo apt install -y audacity
