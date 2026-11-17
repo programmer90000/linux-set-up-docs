@@ -1,10 +1,12 @@
 mod greetd;
 
 use gtk4::gdk::Display;
+use gtk4::glib;
 use gtk4::prelude::*;
 use gtk4::{
     Align, Application, ApplicationWindow, Box as GtkBox, ContentFit, CssProvider,
-    Image, Label, ListBox, ListBoxRow, Orientation, Overlay, PasswordEntry, PolicyType, ScrolledWindow, SelectionMode, Stack,
+    EventControllerKey, GestureClick, Image, Label, ListBox, ListBoxRow, Orientation, Overlay,
+    PasswordEntry, PolicyType, ScrolledWindow, SelectionMode, Stack, StackTransitionType,
 };
 use gtk4_layer_shell::{Edge, KeyboardMode, Layer, LayerShell};
 use std::cell::RefCell;
@@ -100,6 +102,19 @@ fn build_ui(app: &Application) {
     dim_box.set_hexpand(true);
     dim_box.set_vexpand(true);
     root_overlay.add_overlay(&dim_box);
+
+    let main_stack = Stack::new();
+    main_stack.set_transition_type(StackTransitionType::Crossfade);
+    main_stack.set_transition_duration(150);
+    main_stack.set_hexpand(true);
+    main_stack.set_vexpand(true);
+    root_overlay.add_overlay(&main_stack);
+
+    let splash_overlay = Overlay::new();
+    splash_overlay.set_hexpand(true);
+    splash_overlay.set_vexpand(true);
+    splash_overlay.set_focusable(true);
+    main_stack.add_named(&splash_overlay, Some("splash"));
 
     let login_overlay = Overlay::new();
     login_overlay.set_hexpand(true);
@@ -334,14 +349,51 @@ fn build_ui(app: &Application) {
         });
     }
 
-    root_overlay.add_overlay(&login_overlay);
+    main_stack.add_named(&login_overlay, Some("login"));
+
+    let dismiss_splash = {
+        let stack = main_stack.clone();
+        let users_clone = users.clone();
+        let lb = user_listbox.clone();
+        let select_fn = select_user.clone();
+        let pw = password_entry.clone();
+
+        move || {
+            if stack.visible_child_name().as_deref() != Some("splash") {
+                return;
+            }
+            stack.set_visible_child_name("login");
+            if let Some(first_user) = users_clone.first() {
+                if let Some(first_row) = lb.row_at_index(0) {
+                    lb.select_row(Some(&first_row));
+                }
+                select_fn(first_user);
+            }
+            pw.grab_focus();
+        }
+    };
+
+    {
+        let dismiss = dismiss_splash.clone();
+        let key_ctrl = EventControllerKey::new();
+        key_ctrl.connect_key_pressed(move |_, _, _, _| {
+            dismiss();
+            glib::Propagation::Stop
+        });
+        splash_overlay.add_controller(key_ctrl);
+    }
+
+    {
+        let dismiss = dismiss_splash.clone();
+        let click_ctrl = GestureClick::new();
+        click_ctrl.connect_pressed(move |_, _, _, _| {
+            dismiss();
+        });
+        splash_overlay.add_controller(click_ctrl);
+    }
+
     window.set_child(Some(&root_overlay));
     window.present();
-
-    if let Some(first_user) = users.first() {
-        if let Some(first_row) = user_listbox.row_at_index(0) {
-            user_listbox.select_row(Some(&first_row));
-        }
-        select_user(first_user);
-    }
+    main_stack.set_visible_child_name("splash");
+    splash_overlay.grab_focus();
 }
