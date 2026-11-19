@@ -73,7 +73,7 @@ mkdir -p ~/.config/systemd/user/
 cp desktop/config/systemd/wayland-wheeltani.service ~/.config/systemd/user/wayland-wheeltani.service
 systemctl --user daemon-reload
 systemctl --user enable --now wayland-wheeltani
-sudo adduser abdul input
+sudo usermod -aG input $USER
 
 mkdir -p ~/.config/wayfire/
 cp desktop/scripts/* ~/.config/wayfire/
