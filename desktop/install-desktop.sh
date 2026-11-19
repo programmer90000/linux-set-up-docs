@@ -53,6 +53,8 @@ cd desktop/eww/
 cargo build --release --no-default-features --features=wayland
 sudo install -m 755 target/release/eww /usr/local/bin/
 cd ../../
+mkdir -p ~/.config/eww/
+cp desktop/dash/eww.yuck ~/.config/eww/
 
 sudo apt install -y make build-essential
 
