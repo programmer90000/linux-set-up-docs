@@ -7,6 +7,7 @@ pub mod app_list;
 pub mod caps_lock;
 pub mod clock;
 pub mod date;
+pub mod power;
 pub mod workspaces;
 
 pub struct Ctx {
@@ -23,6 +24,7 @@ pub fn build(kind: &str, ctx: &Ctx) -> Option<gtk::Widget> {
         "clock" => clock::build(ctx),
         "date" => date::build(ctx),
         "workspaces" => workspaces::build(ctx),
+        "power" => power::build(ctx),
         other => {
             eprintln!("dash: unknown widget type '{other}'");
             return None;
@@ -33,6 +35,16 @@ pub fn build(kind: &str, ctx: &Ctx) -> Option<gtk::Widget> {
 pub fn tag(w: &impl IsA<gtk::Widget>, kind: &str) {
     w.add_css_class("widget");
     w.add_css_class(&format!("widget-{}", kind.replace('_', "-")));
+}
+
+pub fn menu_button(ctx: &Ctx, content: &impl IsA<gtk::Widget>) -> (gtk::MenuButton, gtk::Popover) {
+    let pop = gtk::Popover::new();
+    pop.add_css_class("dash-popover");
+    pop.set_child(Some(content));
+    let mb = gtk::MenuButton::new();
+    mb.set_direction(ctx.arrow);
+    mb.set_popover(Some(&pop));
+    (mb, pop)
 }
 
 pub fn time_label(ctx: &Ctx, kind: &str, default_fmt: &str) -> gtk::Widget {

@@ -3,7 +3,7 @@ position = "bottom"
 size = 36
 spacing = 4
 monitors = ["*"]
-widgets = ["app_list", "workspaces", "caps_lock", "date", "clock"]
+widgets = ["app_list", "workspaces", "caps_lock", "date", "clock", "power"]
 
 [widget.app_list]
 items = [
@@ -16,3 +16,10 @@ format = "%H:%M"
 
 [widget.date]
 format = "%a %e %b"
+
+[widget.power]
+items = [
+  { label = "Suspend",   command = "systemctl suspend" },
+  { label = "Reboot",    command = "systemctl reboot" },
+  { label = "Power off", command = "systemctl poweroff" },
+]
