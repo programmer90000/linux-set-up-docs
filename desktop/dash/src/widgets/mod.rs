@@ -6,6 +6,7 @@ use std::rc::Rc;
 pub mod app_list;
 pub mod caps_lock;
 pub mod clock;
+pub mod copyq;
 pub mod date;
 pub mod notifications;
 pub mod power;
@@ -27,6 +28,7 @@ pub fn build(kind: &str, ctx: &Ctx) -> Option<gtk::Widget> {
         "workspaces" => workspaces::build(ctx),
         "power" => power::build(ctx),
         "notifications" => notifications::build(ctx),
+        "copyq" => copyq::build(ctx),
         other => {
             eprintln!("dash: unknown widget type '{other}'");
             return None;
