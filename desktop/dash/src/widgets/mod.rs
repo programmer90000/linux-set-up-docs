@@ -6,6 +6,7 @@ use std::rc::Rc;
 pub mod app_list;
 pub mod caps_lock;
 pub mod clock;
+pub mod command;
 pub mod copyq;
 pub mod date;
 pub mod notifications;
