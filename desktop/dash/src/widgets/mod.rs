@@ -7,6 +7,7 @@ pub mod app_list;
 pub mod caps_lock;
 pub mod clock;
 pub mod date;
+pub mod notifications;
 pub mod power;
 pub mod workspaces;
 
@@ -25,6 +26,7 @@ pub fn build(kind: &str, ctx: &Ctx) -> Option<gtk::Widget> {
         "date" => date::build(ctx),
         "workspaces" => workspaces::build(ctx),
         "power" => power::build(ctx),
+        "notifications" => notifications::build(ctx),
         other => {
             eprintln!("dash: unknown widget type '{other}'");
             return None;

@@ -3,7 +3,7 @@ position = "bottom"
 size = 36
 spacing = 4
 monitors = ["*"]
-widgets = ["app_list", "workspaces", "caps_lock", "date", "clock", "power"]
+widgets = ["app_list", "workspaces", "notifications", "caps_lock", "date", "clock", "power"]
 
 [widget.app_list]
 items = [
@@ -16,6 +16,10 @@ format = "%H:%M"
 
 [widget.date]
 format = "%a %e %b"
+
+[widget.notifications]
+stream = "swaync-client -swb"
+on_click = "swaync-client -t -sw"
 
 [widget.power]
 items = [
