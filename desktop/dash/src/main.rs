@@ -4,7 +4,21 @@ mod source;
 
 use gtk4 as gtk;
 use gtk::{gdk, glib, prelude::*};
-use std::{cell::RefCell, rc::Rc};
+use std::{cell::RefCell, path::Path, rc::Rc};
+
+const CSS: &str = include_str!("default.css");
+
+fn load_css(cfg_path: &Path) {
+    let Some(display) = gdk::Display::default() else { return };
+    let base = gtk::CssProvider::new();
+    base.load_from_data(CSS);
+    gtk::style_context_add_provider_for_display(&display, &base, gtk::STYLE_PROVIDER_PRIORITY_APPLICATION);
+    if let Ok(user) = std::fs::read_to_string(cfg_path.with_file_name("style.css")) {
+        let p = gtk::CssProvider::new();
+        p.load_from_data(&user);
+        gtk::style_context_add_provider_for_display(&display, &p, gtk::STYLE_PROVIDER_PRIORITY_USER);
+    }
+}
 
 fn main() -> glib::ExitCode {
     let path = std::env::args().nth(1).map(std::path::PathBuf::from).unwrap_or_else(config::default_path);
@@ -13,6 +27,7 @@ fn main() -> glib::ExitCode {
     
     app.connect_activate(move |app| {
         std::mem::forget(app.hold());
+        load_css(&path);
         let display = gdk::Display::default().expect("no display");
         let windows: Rc<RefCell<Vec<gtk::ApplicationWindow>>> = Default::default();
         
