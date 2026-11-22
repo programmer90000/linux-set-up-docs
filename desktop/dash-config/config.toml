@@ -1,0 +1,10 @@
+[[panel]]
+position = "bottom"
+size = 36
+spacing = 4
+monitors = ["*"]
+widgets = ["clock"]
+more = []
+
+[widget.clock]
+format = "%H:%M"

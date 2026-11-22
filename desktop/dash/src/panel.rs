@@ -1,14 +1,16 @@
 use crate::config::{Config, PanelCfg};
+use crate::widgets::{self, Ctx};
 use gtk4 as gtk;
 use gtk::{gdk, prelude::*};
 use gtk4_layer_shell::{Edge, Layer, LayerShell};
+use std::rc::Rc;
 
 pub fn wanted(p: &PanelCfg, m: &gdk::Monitor) -> bool {
     if p.monitors.is_empty() || p.monitors.iter().any(|x| x == "*") { return true; }
     m.connector().map(|c| p.monitors.iter().any(|x| x == c.as_str())).unwrap_or(false)
 }
 
-pub fn build(app: &gtk::Application, _cfg: &Config, p: &PanelCfg, mon: &gdk::Monitor) -> gtk::ApplicationWindow {
+pub fn build(app: &gtk::Application, cfg: &Config, p: &PanelCfg, mon: &gdk::Monitor) -> gtk::ApplicationWindow {
     let (top, bottom, left, right, vertical) = match p.position.as_str() {
         "bottom" => (false, true, true, true, false),
         "left" => (true, true, true, false, true),
@@ -32,7 +34,17 @@ pub fn build(app: &gtk::Application, _cfg: &Config, p: &PanelCfg, mon: &gdk::Mon
     let orient = if vertical { gtk::Orientation::Vertical } else { gtk::Orientation::Horizontal };
     let dash = gtk::Box::new(orient, p.spacing);
     dash.add_css_class("dash-box");
-
+    
+    let noop: Rc<dyn Fn(&str, &str)> = Rc::new(|_, _| {});
+    
+    for name in &p.widgets {
+        let (kind, wc) = cfg.resolve(name);
+        let ctx = Ctx { cfg: wc, vertical, arrow: gtk::ArrowType::Down, report: noop.clone() };
+        if let Some(w) = widgets::build(&kind, &ctx) {
+            dash.append(&w);
+        }
+    }
+    
     win.set_child(Some(&dash));
     win.present();
     win

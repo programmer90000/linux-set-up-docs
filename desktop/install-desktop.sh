@@ -52,6 +52,8 @@ sudo apt install build-essential rustc cargo pkg-config libssl-dev
 cd desktop/dash/
 cargo build --release
 cd ../../
+mkdir -p ~/.config/dash/
+cp desktop/dash-config/config.toml ~/.config/dash/
 
 sudo apt install -y make build-essential
 cd desktop/wl-find-cursor/

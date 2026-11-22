@@ -1,6 +1,7 @@
 mod config;
 mod panel;
 mod source;
+mod widgets;
 
 use gtk4 as gtk;
 use gtk::{gdk, glib, prelude::*};
