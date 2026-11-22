@@ -3,8 +3,13 @@ position = "bottom"
 size = 36
 spacing = 4
 monitors = ["*"]
-widgets = ["date", "clock"]
-more = []
+widgets = ["app_list", "date", "clock"]
+
+[widget.app_list]
+items = [
+  { desktop = "brave-browser.desktop" },
+  { label = "Terminal", icon = "utilities-terminal", command = "alacritty" },
+]
 
 [widget.clock]
 format = "%H:%M"
