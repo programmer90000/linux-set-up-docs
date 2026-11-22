@@ -84,7 +84,7 @@ pub fn load(path: &Path) -> Config {
     if c.panel.is_empty() {
         c.panel.push(PanelCfg {
             position: d_pos(), size: d_size(), spacing: d_spacing(), monitors: vec![],
-            widgets: vec!["app_list".into(), "workspaces".into(), "notifications".into(), "copyq".into(), "caps_lock".into(), "date".into(), "clock".into(), "power".into()],
+            widgets: vec!["app_list".into(), "workspaces".into(), "notifications".into(), "copyq".into(), "volume".into(), "caps_lock".into(), "date".into(), "clock".into(), "power".into()],
             more: vec![],
         });
     }
