@@ -7,6 +7,7 @@ pub mod app_list;
 pub mod caps_lock;
 pub mod clock;
 pub mod date;
+pub mod workspaces;
 
 pub struct Ctx {
     pub cfg: WidgetCfg,
@@ -21,6 +22,7 @@ pub fn build(kind: &str, ctx: &Ctx) -> Option<gtk::Widget> {
         "caps_lock" => caps_lock::build(ctx),
         "clock" => clock::build(ctx),
         "date" => date::build(ctx),
+        "workspaces" => workspaces::build(ctx),
         other => {
             eprintln!("dash: unknown widget type '{other}'");
             return None;
