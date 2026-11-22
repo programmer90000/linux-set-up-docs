@@ -4,6 +4,7 @@ use gtk::{glib, prelude::*};
 use std::rc::Rc;
 
 pub mod app_list;
+pub mod caps_lock;
 pub mod clock;
 pub mod date;
 
@@ -17,6 +18,7 @@ pub struct Ctx {
 pub fn build(kind: &str, ctx: &Ctx) -> Option<gtk::Widget> {
     Some(match kind {
         "app_list" => app_list::build(ctx),
+        "caps_lock" => caps_lock::build(ctx),
         "clock" => clock::build(ctx),
         "date" => date::build(ctx),
         other => {

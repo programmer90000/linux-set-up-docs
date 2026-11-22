@@ -3,7 +3,7 @@ position = "bottom"
 size = 36
 spacing = 4
 monitors = ["*"]
-widgets = ["app_list", "date", "clock"]
+widgets = ["app_list", "caps_lock", "date", "clock"]
 
 [widget.app_list]
 items = [

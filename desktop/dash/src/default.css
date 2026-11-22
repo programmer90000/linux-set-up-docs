@@ -6,6 +6,8 @@ button.widget, menubutton.widget > button {
   min-height: 0; min-width: 0; padding: 2px 8px;
 }
 button.widget:hover, menubutton.widget > button:hover { background: rgba(255,255,255,0.10); }
+.widget-caps-lock.on { color: #ffb454; font-weight: bold; }
+.widget-caps-lock.off { opacity: 0.35; }
 .muted, .critical { color: #ff6b6b; }
 .warning { color: #ffb454; }
 .dash-popover contents { padding: 8px; }
