@@ -7,8 +7,10 @@ widgets = ["app_list", "workspaces", "notifications", "copyq", "volume", "wifi",
 
 [widget.app_list]
 items = [
-  { desktop = "brave-browser.desktop" },
-  { label = "Terminal", icon = "utilities-terminal", command = "alacritty" },
+    { label = "App Launcher", icon = "view-grid-symbolic", command = "nwggrid" },
+    { label = "Window Switcher", icon = "window-switcher.png", command = "window-switcher" },
+    { label = "Brave Browser", icon = "brave-browser", command = "brave-browser --password-store=libsecret" },
+    { label = "Terminal", icon = "alacritty", command = "alacritty" },
 ]
 
 [widget.clock]
@@ -23,7 +25,7 @@ on_click = "swaync-client -t -sw"
 
 [widget.power]
 items = [
-  { label = "Suspend",   command = "systemctl suspend" },
-  { label = "Reboot",    command = "systemctl reboot" },
-  { label = "Power off", command = "systemctl poweroff" },
+    { label = "Suspend",   command = "systemctl suspend" },
+    { label = "Reboot",    command = "systemctl reboot" },
+    { label = "Power off", command = "systemctl poweroff" },
 ]
