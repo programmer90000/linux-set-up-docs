@@ -47,6 +47,12 @@ mkdir -p ~/.config/nwg-launchers/nwggrid/
 cp grid/grid.conf ~/.config/nwg-launchers/nwggrid/
 cd ../../
 
+sudo apt update
+sudo apt install build-essential rustc cargo pkg-config libssl-dev
+cd desktop/dash/
+cargo build --release
+cd ../../
+
 sudo apt install -y make build-essential
 cd desktop/wl-find-cursor/
 make
