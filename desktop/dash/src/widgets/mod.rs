@@ -4,6 +4,7 @@ use gtk::{glib, prelude::*};
 use std::rc::Rc;
 
 pub mod clock;
+pub mod date;
 
 pub struct Ctx {
     pub cfg: WidgetCfg,
@@ -15,6 +16,7 @@ pub struct Ctx {
 pub fn build(kind: &str, ctx: &Ctx) -> Option<gtk::Widget> {
     Some(match kind {
         "clock" => clock::build(ctx),
+        "date" => date::build(ctx),
         other => {
             eprintln!("dash: unknown widget type '{other}'");
             return None;

@@ -3,8 +3,11 @@ position = "bottom"
 size = 36
 spacing = 4
 monitors = ["*"]
-widgets = ["clock"]
+widgets = ["date", "clock"]
 more = []
 
 [widget.clock]
 format = "%H:%M"
+
+[widget.date]
+format = "%a %e %b"
