@@ -52,6 +52,7 @@ sudo apt install build-essential rustc cargo pkg-config libssl-dev
 cd desktop/dash/
 cargo build --release
 cd ../../
+sudo cp target/release/dash /usr/local/bin/
 mkdir -p ~/.config/dash/
 cp desktop/dash-config/config.toml ~/.config/dash/
 
