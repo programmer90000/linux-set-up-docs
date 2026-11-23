@@ -2,20 +2,63 @@ use crate::config::{Config, PanelCfg};
 use crate::widgets::{self, Ctx};
 use gtk4 as gtk;
 use gtk::{gdk, prelude::*};
+use gtk::glib::Propagation;
 use gtk4_layer_shell::{Edge, Layer, LayerShell};
-use std::rc::Rc;
+use std::{cell::RefCell, rc::Rc};
 
 pub fn wanted(p: &PanelCfg, m: &gdk::Monitor) -> bool {
     if p.monitors.is_empty() || p.monitors.iter().any(|x| x == "*") { return true; }
     m.connector().map(|c| p.monitors.iter().any(|x| x == c.as_str())).unwrap_or(false)
 }
 
+enum Mode {
+    Never,
+    Always,
+    NonEmpty,
+    Class(String),
+    MinLen(i32),
+}
+
+impl Mode {
+    fn parse(s: Option<&str>) -> Mode {
+        match s.unwrap_or("never") {
+            "never" => Mode::Never,
+            "always" => Mode::Always,
+            "nonempty" => Mode::NonEmpty,
+            x if x.starts_with("class:") =>
+                Mode::Class(x[6..].to_string()),
+            x if x.starts_with("min_length:") =>
+                Mode::MinLen(x[11..].parse().unwrap_or(i32::MAX)),
+            other => {
+                eprintln!("dash: bad show_on_dash '{other}'");
+                Mode::Never
+            }
+        }
+    }
+    
+    fn initially_on_dash(&self, len: i32) -> bool {
+        match self {
+            Mode::Always => true,
+            Mode::MinLen(n) => len >= *n,
+            _ => false,
+        }
+    }
+    
+    fn on_report(&self, text: &str, class: &str) -> Option<bool> {
+        match self {
+            Mode::NonEmpty => Some(!text.is_empty()),
+            Mode::Class(c) => Some(class == c),
+            _ => None,
+        }
+    }
+}
+
 pub fn build(app: &gtk::Application, cfg: &Config, p: &PanelCfg, mon: &gdk::Monitor) -> gtk::ApplicationWindow {
-    let (top, bottom, left, right, vertical) = match p.position.as_str() {
-        "bottom" => (false, true, true, true, false),
-        "left" => (true, true, true, false, true),
-        "right" => (true, true, false, true, true),
-        _ => (true, false, true, true, false),
+    let (top, bottom, left, right, vertical, arrow) = match p.position.as_str() {
+        "bottom" => (false, true, true, true, false, gtk::ArrowType::Up),
+        "left" => (true, true, true, false, true, gtk::ArrowType::Right),
+        "right" => (true, true, false, true, true, gtk::ArrowType::Left),
+        _ => (true, false, true, true, false, gtk::ArrowType::Down),
     };
     
     let win = gtk::ApplicationWindow::new(app);
@@ -35,12 +78,27 @@ pub fn build(app: &gtk::Application, cfg: &Config, p: &PanelCfg, mon: &gdk::Moni
     let dash = gtk::Box::new(orient, p.spacing);
     dash.add_css_class("dash-box");
     
+    let more_box = gtk::Box::new(gtk::Orientation::Vertical, 6);
+    more_box.add_css_class("more-box");
+    
+    let geo = mon.geometry();
+    let len = if vertical {
+        geo.height()
+    } else {
+        geo.width()
+    };
     let noop: Rc<dyn Fn(&str, &str)> = Rc::new(|_, _| {});
     
     for name in &p.widgets {
         let (kind, wc) = cfg.resolve(name);
-        let ctx = Ctx { cfg: wc, vertical, arrow: gtk::ArrowType::Down, report: noop.clone() };
-        if let Some(w) = widgets::build(&kind, &ctx) {
+        let ctx = Ctx { cfg: wc, vertical, arrow, report: noop.clone() };
+        let w = if kind == "show_more" {
+            Some(widgets::show_more::build(&ctx, &more_box))
+        } else {
+            widgets::build(&kind, &ctx)
+        };
+        
+        if let Some(w) = w {
             dash.append(&w);
         }
     }

@@ -5,6 +5,11 @@ spacing = 4
 monitors = ["*"]
 widgets = ["app_list", "workspaces", "notifications", "copyq", "volume", "wifi", "caps_lock", "date", "clock", "power"]
 
+more = [
+    "volume",
+    "copyq"
+]
+
 [widget.app_list]
 items = [
     { label = "App Launcher", icon = "view-grid-symbolic", command = "nwggrid" },

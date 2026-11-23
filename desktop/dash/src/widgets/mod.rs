@@ -3,6 +3,7 @@ use gtk4 as gtk;
 use gtk::{glib, prelude::*};
 use std::rc::Rc;
 
+pub mod show_more;
 pub mod app_list;
 pub mod caps_lock;
 pub mod clock;
@@ -32,6 +33,7 @@ pub fn build(kind: &str, ctx: &Ctx) -> Option<gtk::Widget> {
         "notifications" => notifications::build(ctx),
         "copyq" => copyq::build(ctx),
         "volume" => volume::build(ctx),
+        "show_more" => return None,
         other => {
             eprintln!("dash: unknown widget type '{other}'");
             return None;
