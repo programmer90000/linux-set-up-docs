@@ -3,7 +3,7 @@ position = "bottom"
 size = 36
 spacing = 4
 monitors = ["*"]
-widgets = ["app_list", "workspaces", "notifications", "copyq", "volume", "wifi", "caps_lock", "date", "clock", "power"]
+widgets = ["app_list", "workspaces", "notifications", "copyq", "volume", "wifi", "caps_lock", "date", "clock", "show_more", "power"]
 
 more = [
     "volume",
