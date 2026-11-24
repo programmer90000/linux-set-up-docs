@@ -5,6 +5,7 @@ use std::rc::Rc;
 
 pub mod show_more;
 pub mod app_list;
+pub mod bluetooth;
 pub mod caps_lock;
 pub mod clock;
 pub mod command;
@@ -25,6 +26,7 @@ pub struct Ctx {
 pub fn build(kind: &str, ctx: &Ctx) -> Option<gtk::Widget> {
     Some(match kind {
         "app_list" => app_list::build(ctx),
+        "bluetooth" => bluetooth::build(ctx),
         "caps_lock" => caps_lock::build(ctx),
         "clock" => clock::build(ctx),
         "date" => date::build(ctx),
