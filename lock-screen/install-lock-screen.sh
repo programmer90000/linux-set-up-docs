@@ -23,7 +23,7 @@ sudo mkdir -p "${THEME_DIR}/assets"
 sudo mkdir -p "${THEME_DIR}/${CURRENT_USER}"
 sudo cp -r lock-screen/assets/* "${THEME_DIR}/assets/"
 sudo cp lock-screen/splash_background.png "${THEME_DIR}/"
-sudo cp splash_background.png /usr/share/greetd/login-screen/splash_background.png
+sudo cp lock-screen/splash_background.png /usr/share/greetd/login-screen/splash_background.png
 sudo cp lock-screen/profile-picture.png "${THEME_DIR}/${CURRENT_USER}/"
 sudo chmod -R 755 "${THEME_DIR}"
 sudo mkdir -p /etc/greetd/
