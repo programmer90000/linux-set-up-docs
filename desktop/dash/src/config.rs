@@ -40,7 +40,6 @@ pub struct PanelCfg {
     #[serde(default)]
     pub right: Vec<String>,
     #[serde(default)]
-    #[serde(default)]
     pub more: Vec<String>,
 }
 
