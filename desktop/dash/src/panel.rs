@@ -51,7 +51,7 @@ impl Mode {
 }
 
 pub fn build(app: &gtk::Application, cfg: &Config, p: &PanelCfg, mon: &gdk::Monitor) -> gtk::ApplicationWindow {
-    let (top, bottom, left, right, vertical, arrow) = match p.position.as_str() {
+    let (top, bottom, left_anchor, right_anchor, vertical, arrow) = match p.position.as_str() {
         "bottom" => (false, true, true, true, false, gtk::ArrowType::Up),
         "left" => (true, true, true, false, true, gtk::ArrowType::Right),
         "right" => (true, true, false, true, true, gtk::ArrowType::Left),
@@ -66,14 +66,28 @@ pub fn build(app: &gtk::Application, cfg: &Config, p: &PanelCfg, mon: &gdk::Moni
     win.set_namespace("dash");
     win.set_anchor(Edge::Top, top);
     win.set_anchor(Edge::Bottom, bottom);
-    win.set_anchor(Edge::Left, left);
-    win.set_anchor(Edge::Right, right);
+    win.set_anchor(Edge::Left, left_anchor);
+    win.set_anchor(Edge::Right, right_anchor);
     win.auto_exclusive_zone_enable();
     if vertical { win.set_default_size(p.size, -1) } else { win.set_default_size(-1, p.size) }
     
     let orient = if vertical { gtk::Orientation::Vertical } else { gtk::Orientation::Horizontal };
     let dash = gtk::Box::new(orient, p.spacing);
     dash.add_css_class("dash-box");
+    
+    let left_box = gtk::Box::new(orient, p.spacing);
+    let right_box = gtk::Box::new(orient, p.spacing);
+    
+    let spacer = gtk::Box::new(orient, 0);
+    if vertical {
+        spacer.set_vexpand(true);
+    } else {
+        spacer.set_hexpand(true);
+    }
+    
+    dash.append(&left_box);
+    dash.append(&spacer);
+    dash.append(&right_box);
     
     let more_box = gtk::Box::new(gtk::Orientation::Vertical, 6);
     more_box.add_css_class("more-box");
@@ -86,19 +100,24 @@ pub fn build(app: &gtk::Application, cfg: &Config, p: &PanelCfg, mon: &gdk::Moni
     };
     let noop: Rc<dyn Fn(&str, &str)> = Rc::new(|_, _| {});
     
-    for name in &p.widgets {
-        let (kind, wc) = cfg.resolve(name);
-        let ctx = Ctx { cfg: wc, vertical, arrow, report: noop.clone() };
-        let w = if kind == "show_more" {
-            Some(widgets::show_more::build(&ctx, &more_box))
-        } else {
-            widgets::build(&kind, &ctx)
-        };
-        
-        if let Some(w) = w {
-            dash.append(&w);
+    let build_widgets = |widgets: &[String], target_box: &gtk::Box| {
+        for name in widgets {
+            let (kind, wc) = cfg.resolve(name);
+            let ctx = Ctx { cfg: wc, vertical, arrow, report: noop.clone() };
+            let w = if kind == "show_more" {
+                Some(widgets::show_more::build(&ctx, &more_box))
+            } else {
+                widgets::build(&kind, &ctx)
+            };
+            
+            if let Some(w) = w {
+                target_box.append(&w);
+            }
         }
-    }
+    };
+    
+    build_widgets(&p.left, &left_box);
+    build_widgets(&p.right, &right_box);
     
     for name in &p.more {
         let (kind, wc) = cfg.resolve(name);
@@ -106,13 +125,13 @@ pub fn build(app: &gtk::Application, cfg: &Config, p: &PanelCfg, mon: &gdk::Moni
         let slot: Rc<RefCell<Option<gtk::Widget>>> = Default::default();
         
         let mover = {
-            let (slot, dash, more_box) = (slot.clone(), dash.clone(), more_box.clone());
+            let (slot, right_box, more_box) = (slot.clone(), right_box.clone(), more_box.clone());
             Rc::new(move |on: bool| {
                 let Some(w) = slot.borrow().clone() else { return };
-                let in_dash = w.parent().map(|p| p == dash.clone().upcast::<gtk::Widget>());
-                if in_dash == Some(on) { return; }
+                let in_right = w.parent().map(|p| p == right_box.clone().upcast::<gtk::Widget>());
+                if in_right == Some(on) { return; }
                 if let Some(b) = w.parent().and_then(|p| p.downcast::<gtk::Box>().ok()) { b.remove(&w); }
-                if on { dash.append(&w) } else { more_box.append(&w) }
+                if on { right_box.append(&w) } else { more_box.append(&w) }
             })
         };
         let report: Rc<dyn Fn(&str, &str)> = {
@@ -123,7 +142,7 @@ pub fn build(app: &gtk::Application, cfg: &Config, p: &PanelCfg, mon: &gdk::Moni
         let ctx = Ctx { cfg: wc, vertical, arrow, report };
         if let Some(w) = widgets::build(&kind, &ctx) {
             *slot.borrow_mut() = Some(w.clone());
-            if mode.initially_on_dash(len) { dash.append(&w) } else { more_box.append(&w) }
+            if mode.initially_on_dash(len) { right_box.append(&w) } else { more_box.append(&w) }
         }
     }
     

@@ -36,7 +36,10 @@ pub struct PanelCfg {
     #[serde(default)]
     pub monitors: Vec<String>,
     #[serde(default)]
-    pub widgets: Vec<String>,
+    pub left: Vec<String>,
+    #[serde(default)]
+    pub right: Vec<String>,
+    #[serde(default)]
     #[serde(default)]
     pub more: Vec<String>,
 }
@@ -84,7 +87,8 @@ pub fn load(path: &Path) -> Config {
     if c.panel.is_empty() {
         c.panel.push(PanelCfg {
             position: d_pos(), size: d_size(), spacing: d_spacing(), monitors: vec![],
-            widgets: vec!["app_list".into(), "workspaces".into(), "notifications".into(), "copyq".into(), "volume".into(), "wifi".into(), "caps_lock".into(), "date".into(), "clock".into(), "show_more".into(), "power".into()],
+            left: vec!["app_list".into(), "workspaces".into(), "notifications".into()],
+            right: vec!["copyq".into(), "volume".into(), "wifi".into(), "caps_lock".into(), "date".into(), "clock".into(), "show_more".into(), "power".into()],
             more: vec![
                 "volume".into(),
                 "copyq".into(),
