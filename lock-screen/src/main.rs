@@ -12,7 +12,6 @@ use gtk4::{
 };
 use gtk4_layer_shell::{Edge, KeyboardMode, Layer, LayerShell};
 use std::cell::{Cell, RefCell};
-use std::env;
 use std::fs;
 use std::path::Path;
 use std::rc::Rc;
@@ -26,12 +25,32 @@ struct UserInfo {
     avatar_path: String,
 }
 
-fn load_current_user() -> UserInfo {
-    let username = env::var("USER").unwrap_or_else(|_| "user".to_string());
-    UserInfo {
-        username: username.clone(),
-        avatar_path: format!("{THEME_DIR}/{username}/profile-picture.png"),
+fn load_system_users() -> Vec<UserInfo> {
+    let mut users = Vec::new();
+    if let Ok(content) = fs::read_to_string("/etc/passwd") {
+        for line in content.lines() {
+            if line.starts_with('#') || line.trim().is_empty() {
+                continue;
+            }
+            let parts: Vec<&str> = line.split(':').collect();
+            if parts.len() >= 7 {
+                let username = parts[0];
+                let uid: u32 = parts[2].parse().unwrap_or(0);
+                let shell = parts[6];
+                if uid >= 1000
+                    && username != "nobody"
+                    && !shell.ends_with("/nologin")
+                    && !shell.ends_with("/false")
+                {
+                    users.push(UserInfo {
+                        username: username.to_string(),
+                        avatar_path: format!("{THEME_DIR}/{username}/profile-picture.png"),
+                    });
+                }
+            }
+        }
     }
+    users
 }
 
 fn format_clock() -> String {
@@ -175,8 +194,8 @@ fn build_ui(app: &Application) {
     avatar_stack.add_named(&avatar_fallback, Some("fallback"));
     avatar_stack.set_visible_child_name("fallback");
 
-    let username_label = Label::new(None);
-    username_label.add_css_class("username-label");
+    let username_label = Label::new(Some("Select a user"));
+    username_label.add_css_class("username-label-empty");
     username_label.set_halign(Align::Center);
     username_label.set_margin_top(5);
 
@@ -184,6 +203,7 @@ fn build_ui(app: &Application) {
     password_entry.add_css_class("password-input");
     password_entry.set_placeholder_text(Some("Password"));
     password_entry.set_show_peek_icon(false);
+    password_entry.set_sensitive(false);
     password_entry.set_margin_top(10);
 
     let error_label = Label::new(None);
@@ -197,25 +217,13 @@ fn build_ui(app: &Application) {
     center_box.append(&error_label);
     login_overlay.add_overlay(&center_box);
 
-    let current_user = load_current_user();
-    let selected_username = Rc::new(RefCell::new(current_user.username.clone()));
+    let users = Rc::new(load_system_users());
+    let selected_username = Rc::new(RefCell::new(String::new()));
 
-    {
-        let initial = current_user
-            .username
-            .chars()
-            .next()
-            .map(|c| c.to_uppercase().to_string())
-            .unwrap_or_else(|| "?".to_string());
-        avatar_fallback.set_text(&initial);
-
-        if Path::new(&current_user.avatar_path).exists() {
-            avatar_image.set_from_file(Some(&current_user.avatar_path));
-            avatar_stack.set_visible_child_name("image");
-        } else {
-            avatar_stack.set_visible_child_name("fallback");
-        }
-        username_label.set_text(&current_user.username);
+    if let Some(first) = users.first() {
+        *selected_username.borrow_mut() = first.username.clone();
+        username_label.set_text(&first.username);
+        password_entry.set_sensitive(true);
     }
 
     let power_button = Button::new();
