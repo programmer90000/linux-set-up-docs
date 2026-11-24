@@ -1,8 +1,7 @@
 use crate::config::{Config, PanelCfg};
 use crate::widgets::{self, Ctx};
 use gtk4 as gtk;
-use gtk::{gdk, prelude::*};
-use gtk::glib::Propagation;
+use gtk::{gdk, glib, prelude::*};
 use gtk4_layer_shell::{Edge, Layer, LayerShell};
 use std::{cell::RefCell, rc::Rc};
 
@@ -25,10 +24,8 @@ impl Mode {
             "never" => Mode::Never,
             "always" => Mode::Always,
             "nonempty" => Mode::NonEmpty,
-            x if x.starts_with("class:") =>
-                Mode::Class(x[6..].to_string()),
-            x if x.starts_with("min_length:") =>
-                Mode::MinLen(x[11..].parse().unwrap_or(i32::MAX)),
+            x if x.starts_with("class:") => Mode::Class(x[6..].to_string()),
+            x if x.starts_with("min_length:") => Mode::MinLen(x[11..].parse().unwrap_or(i32::MAX)),
             other => {
                 eprintln!("dash: bad show_on_dash '{other}'");
                 Mode::Never
@@ -103,7 +100,48 @@ pub fn build(app: &gtk::Application, cfg: &Config, p: &PanelCfg, mon: &gdk::Moni
         }
     }
     
-    win.set_child(Some(&dash));
+    for name in &p.more {
+        let (kind, wc) = cfg.resolve(name);
+        let mode = Rc::new(Mode::parse(wc.show_on_dash.as_deref()));
+        let slot: Rc<RefCell<Option<gtk::Widget>>> = Default::default();
+        
+        let mover = {
+            let (slot, dash, more_box) = (slot.clone(), dash.clone(), more_box.clone());
+            Rc::new(move |on: bool| {
+                let Some(w) = slot.borrow().clone() else { return };
+                let in_dash = w.parent().map(|p| p == dash.clone().upcast::<gtk::Widget>());
+                if in_dash == Some(on) { return; }
+                if let Some(b) = w.parent().and_then(|p| p.downcast::<gtk::Box>().ok()) { b.remove(&w); }
+                if on { dash.append(&w) } else { more_box.append(&w) }
+            })
+        };
+        let report: Rc<dyn Fn(&str, &str)> = {
+            let (mode, mover) = (mode.clone(), mover.clone());
+            Rc::new(move |t, c| { if let Some(on) = mode.on_report(t, c) { mover(on) } })
+        };
+        
+        let ctx = Ctx { cfg: wc, vertical, arrow, report };
+        if let Some(w) = widgets::build(&kind, &ctx) {
+            *slot.borrow_mut() = Some(w.clone());
+            if mode.initially_on_dash(len) { dash.append(&w) } else { more_box.append(&w) }
+        }
+    }
+    
+    let scroll = gtk::ScrolledWindow::new();
+    if vertical {
+        scroll.set_policy(gtk::PolicyType::Never, gtk::PolicyType::Automatic);
+    } else {
+        scroll.set_policy(gtk::PolicyType::Automatic, gtk::PolicyType::Never);
+        let sc = gtk::EventControllerScroll::new(gtk::EventControllerScrollFlags::VERTICAL);
+        let adj = scroll.hadjustment();
+        sc.connect_scroll(move |_, _, dy| {
+            adj.set_value(adj.value() + dy * 40.0);
+            glib::Propagation::Stop
+        });
+        scroll.add_controller(sc);
+    }
+    scroll.set_child(Some(&dash));
+    win.set_child(Some(&scroll));
     win.present();
     win
 }
