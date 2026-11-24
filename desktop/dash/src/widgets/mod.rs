@@ -17,6 +17,7 @@ pub mod notifications;
 pub mod pipewire;
 pub mod power;
 pub mod volume;
+pub mod wheeltani;
 pub mod wifi;
 pub mod workspaces;
 
@@ -43,6 +44,7 @@ pub fn build(kind: &str, ctx: &Ctx) -> Option<gtk::Widget> {
         "keyboard_layout" => keyboard_layout::build(ctx),
         "mpd" => mpd::build(ctx),
         "pipewire" => pipewire::build(ctx),
+        "wheeltani" => wheeltani::build(ctx),
         "show_more" => return None,
         other => {
             eprintln!("dash: unknown widget type '{other}'");
