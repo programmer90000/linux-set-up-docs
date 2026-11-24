@@ -4,7 +4,7 @@ size = 36
 spacing = 4
 monitors = ["*"]
 left = ["app_list", "workspaces", "notifications"]
-right = ["volume", "wifi", "bluetooth", "caps_lock", "date", "clock", "show_more", "power"]
+right = ["volume", "wifi", "bluetooth", "caps_lock", "keyboard_layout", "date", "clock", "show_more", "power"]
 more = [
     "volume",
     "copyq"
