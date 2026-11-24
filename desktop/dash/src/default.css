@@ -12,3 +12,4 @@ button.widget:hover, menubutton.widget > button:hover { background: rgba(255,255
 .warning { color: #ffb454; }
 .dash-popover contents { padding: 8px; }
 .section-title { font-weight: bold; opacity: 0.7; }
+window.dash scrolledwindow scrollbar, window.dash scrolledwindow scrollbar slider { opacity: 0; min-width: 0px; min-height: 0px; }
