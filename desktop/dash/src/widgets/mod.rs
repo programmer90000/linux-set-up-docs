@@ -14,6 +14,7 @@ pub mod date;
 pub mod notifications;
 pub mod power;
 pub mod volume;
+pub mod wifi;
 pub mod workspaces;
 
 pub struct Ctx {
@@ -35,6 +36,7 @@ pub fn build(kind: &str, ctx: &Ctx) -> Option<gtk::Widget> {
         "notifications" => notifications::build(ctx),
         "copyq" => copyq::build(ctx),
         "volume" => volume::build(ctx),
+        "wifi" => wifi::build(ctx),
         "show_more" => return None,
         other => {
             eprintln!("dash: unknown widget type '{other}'");
