@@ -2,7 +2,7 @@ use crate::config::{Config, PanelCfg};
 use crate::widgets::{self, Ctx};
 use gtk4 as gtk;
 use gtk::{gdk, glib, prelude::*};
-use gtk4_layer_shell::{Edge, Layer, LayerShell};
+use gtk4_layer_shell::{Edge, KeyboardMode, Layer, LayerShell};
 use std::{cell::RefCell, rc::Rc};
 
 pub fn wanted(p: &PanelCfg, m: &gdk::Monitor) -> bool {
@@ -68,6 +68,8 @@ pub fn build(app: &gtk::Application, cfg: &Config, p: &PanelCfg, mon: &gdk::Moni
     win.set_anchor(Edge::Bottom, bottom);
     win.set_anchor(Edge::Left, left_anchor);
     win.set_anchor(Edge::Right, right_anchor);
+    win.set_keyboard_mode(KeyboardMode::OnDemand);
+    
     win.auto_exclusive_zone_enable();
     if vertical { win.set_default_size(p.size, -1) } else { win.set_default_size(-1, p.size) }
     

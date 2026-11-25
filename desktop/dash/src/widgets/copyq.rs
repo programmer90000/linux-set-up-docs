@@ -108,8 +108,12 @@ fn build_popover(parent: &gtk::Widget) -> gtk::Popover {
     vbox.append(&scrolled);
     popover.set_child(Some(&vbox));
     
+    let entry_clone = new_entry.clone();
     let lb = list_box.clone();
-    popover.connect_show(move |_| populate(&lb));
+    popover.connect_show(move |_| {
+        populate(&lb);
+        entry_clone.grab_focus();
+    });
     
     let p = popover.clone();
     list_box.connect_row_activated(move |_, row| {
