@@ -6,8 +6,8 @@ use gtk4::glib;
 use gtk4::prelude::*;
 use gtk4::{
     Align, Application, ApplicationWindow, Box as GtkBox, Button, ContentFit, CssProvider,
-    EventControllerKey, GestureClick, Image, Label, Orientation, Overlay,
-    PasswordEntry, Popover, PositionType, Stack,
+    EventControllerKey, GestureClick, Image, Label, ListBox, ListBoxRow, Orientation, Overlay,
+    PasswordEntry, PolicyType, Popover, PositionType, ScrolledWindow, SelectionMode, Stack,
     StackTransitionType,
 };
 use gtk4_layer_shell::{Edge, KeyboardMode, Layer, LayerShell};
@@ -220,11 +220,21 @@ fn build_ui(app: &Application) {
     let users = Rc::new(load_system_users());
     let selected_username = Rc::new(RefCell::new(String::new()));
 
-    if let Some(first) = users.first() {
-        *selected_username.borrow_mut() = first.username.clone();
-        username_label.set_text(&first.username);
-        password_entry.set_sensitive(true);
-    }
+    let user_scroll = ScrolledWindow::new();
+    user_scroll.set_halign(Align::Start);
+    user_scroll.set_valign(Align::End);
+    user_scroll.set_margin_start(20);
+    user_scroll.set_margin_bottom(20);
+    user_scroll.set_min_content_width(200);
+    user_scroll.set_max_content_height(300);
+    user_scroll.set_propagate_natural_height(true);
+    user_scroll.set_policy(PolicyType::Never, PolicyType::Automatic);
+
+    let user_listbox = ListBox::new();
+    user_listbox.add_css_class("user-list");
+    user_listbox.set_selection_mode(SelectionMode::Single);
+    user_scroll.set_child(Some(&user_listbox));
+    login_overlay.add_overlay(&user_scroll);
 
     let power_button = Button::new();
     power_button.add_css_class("circle-btn");
