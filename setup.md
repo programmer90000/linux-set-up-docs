@@ -84,10 +84,11 @@ chmod +x desktop/install-desktop.sh
 ./desktop/install-desktop.sh
 ```
 
-## Install Login Screen
+## Install Display Manager
 
 Run:
 ```
-chmod +x login-screen/install-login-screen.sh
-./login-screen/install-login-screen.sh
+chmod +x display-manager/login-screen/install-login-screen.sh display-manager/lock-screen/install-lock-screen.sh
+./display-manager/login-screen/install-login-screen.sh
+./display-manager/lock-screen/install-lock-screen.sh
 ```
