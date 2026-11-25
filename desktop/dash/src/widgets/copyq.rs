@@ -1,7 +1,13 @@
 use super::{command::{build as cmd, Defaults}, Ctx};
 use gtk4 as gtk;
-use gtk::{glib, prelude::*};
+use gtk::{gdk, glib, prelude::*};
 use std::process::Command;
+
+#[derive(Clone)]
+pub enum ItemContent {
+    Text(String),
+    Image(Vec<u8>),
+}
 
 pub fn build(ctx: &Ctx) -> gtk::Widget {
     let widget = cmd(ctx, Defaults {
@@ -28,10 +34,21 @@ fn copyq(args: &[&str]) {
     let _ = Command::new("copyq").args(args).status();
 }
 
-fn read_item(idx: usize) -> String {
-    Command::new("copyq").arg("read").arg(idx.to_string()).output()
+fn read_item_content(idx: usize) -> ItemContent {
+    if let Ok(o) = Command::new("copyq").args(["read", "image/png", &idx.to_string()]).output() {
+        if o.status.success() && !o.stdout.is_empty() {
+            return ItemContent::Image(o.stdout);
+        }
+    }
+    if let Ok(o) = Command::new("copyq").args(["read", "image/jpeg", &idx.to_string()]).output() {
+        if o.status.success() && !o.stdout.is_empty() {
+            return ItemContent::Image(o.stdout);
+        }
+    }
+    let text = Command::new("copyq").arg("read").arg(idx.to_string()).output()
         .map(|o| String::from_utf8_lossy(&o.stdout).into_owned())
-        .unwrap_or_default()
+        .unwrap_or_default();
+    ItemContent::Text(text)
 }
 
 fn replace_item(idx: usize, text: &str) {
@@ -56,7 +73,7 @@ fn set_pinned(idx: usize, pin: bool) {
     copyq(&["eval", &script]);
 }
 
-fn fetch_copyq_items() -> Result<Vec<(usize, String, bool)>, String> {
+fn fetch_copyq_items() -> Result<Vec<(usize, ItemContent, bool)>, String> {
     let out = Command::new("copyq").arg("count").output()
         .map_err(|e| format!("Failed to run copyq: {e}"))?;
     if !out.status.success() {
@@ -66,10 +83,17 @@ fn fetch_copyq_items() -> Result<Vec<(usize, String, bool)>, String> {
     
     let mut items = Vec::new();
     for i in 0..count {
-        let text = read_item(i);
-        let single = text.lines().collect::<Vec<_>>().join(" ");
-        if !single.trim().is_empty() {
-            items.push((i, single, is_pinned(i)));
+        let content = read_item_content(i);
+        match &content {
+            ItemContent::Text(t) => {
+                let single = t.lines().collect::<Vec<_>>().join(" ");
+                if !single.trim().is_empty() {
+                    items.push((i, content, is_pinned(i)));
+                }
+            }
+            ItemContent::Image(_) => {
+                items.push((i, content, is_pinned(i)));
+            }
         }
     }
     Ok(items)
@@ -153,30 +177,84 @@ fn populate(lb: &gtk::ListBox) {
             lb.append(&gtk::Label::new(Some("No clipboard items found.")));
         }
         Ok(items) => {
-            for (idx, text, pinned) in items {
-                lb.append(&build_row(lb, idx, &text, pinned));
+            for (idx, content, pinned) in items {
+                lb.append(&build_row(lb, idx, &content, pinned));
             }
         }
     }
 }
 
-fn build_row(lb: &gtk::ListBox, idx: usize, text: &str, pinned: bool) -> gtk::ListBoxRow {
+fn build_row(lb: &gtk::ListBox, idx: usize, content: &ItemContent, pinned: bool) -> gtk::ListBoxRow {
     let row = gtk::ListBoxRow::new();
     row.set_widget_name(&idx.to_string());
     
-    let label = gtk::Label::new(Some(text));
-    label.set_xalign(0.0);
-    label.set_ellipsize(gtk::pango::EllipsizeMode::End);
-    label.set_max_width_chars(42);
-    
-    let entry = gtk::Entry::new();
-    entry.set_hexpand(true);
-    
     let stack = gtk::Stack::new();
     stack.set_hexpand(true);
-    stack.add_named(&label, Some("view"));
-    stack.add_named(&entry, Some("edit"));
-    stack.set_visible_child_name("view");
+    
+    let edit_btn = gtk::Button::with_label("✎");
+    
+    match content {
+        ItemContent::Text(text) => {
+            let label = gtk::Label::new(Some(text));
+            label.set_xalign(0.0);
+            label.set_ellipsize(gtk::pango::EllipsizeMode::End);
+            label.set_max_width_chars(42);
+            
+            let entry = gtk::Entry::new();
+            entry.set_hexpand(true);
+            
+            stack.add_named(&label, Some("view"));
+            stack.add_named(&entry, Some("edit"));
+            stack.set_visible_child_name("view");
+            
+            let entry_clone = entry.clone();
+            let stack_clone = stack.clone();
+            edit_btn.connect_clicked(move |_| {
+                if let ItemContent::Text(t) = read_item_content(idx) {
+                    entry_clone.set_text(t.trim_end_matches('\n'));
+                }
+                stack_clone.set_visible_child_name("edit");
+                entry_clone.grab_focus();
+            });
+            
+            let lb_clone = lb.clone();
+            entry.connect_activate(move |e| {
+                let new_text = e.text().to_string();
+                if !new_text.trim().is_empty() {
+                    replace_item(idx, &new_text);
+                }
+                populate(&lb_clone);
+            });
+            
+            let stack_esc = stack.clone();
+            let keys = gtk::EventControllerKey::new();
+            keys.connect_key_pressed(move |_, key, _, _| {
+                if key == gtk::gdk::Key::Escape {
+                    stack_esc.set_visible_child_name("view");
+                    glib::Propagation::Stop
+                } else {
+                    glib::Propagation::Proceed
+                }
+            });
+            entry.add_controller(keys);
+        }
+        ItemContent::Image(bytes) => {
+            let glib_bytes = glib::Bytes::from(bytes);
+            let picture = if let Ok(texture) = gdk::Texture::from_bytes(&glib_bytes) {
+                let pic = gtk::Picture::for_paintable(&texture);
+                pic.set_size_request(-1, 80);
+                pic.set_can_shrink(true);
+                pic.set_content_fit(gtk::ContentFit::Contain);
+                pic
+            } else {
+                gtk::Picture::new()
+            };
+            
+            stack.add_named(&picture, Some("view"));
+            stack.set_visible_child_name("view");
+            edit_btn.set_sensitive(false);
+        }
+    }
     
     let pin_btn = gtk::Button::with_label(if pinned { "📌" } else { "📍" });
     pin_btn.set_tooltip_text(Some(if pinned { "Unpin" } else { "Pin" }));
@@ -185,7 +263,6 @@ fn build_row(lb: &gtk::ListBox, idx: usize, text: &str, pinned: bool) -> gtk::Li
         pin_btn.set_opacity(0.45);
     }
     
-    let edit_btn = gtk::Button::with_label("✎");
     edit_btn.set_tooltip_text(Some("Edit"));
     edit_btn.add_css_class("flat");
     let del_btn = gtk::Button::with_label("🗑");
@@ -210,40 +287,6 @@ fn build_row(lb: &gtk::ListBox, idx: usize, text: &str, pinned: bool) -> gtk::Li
             set_pinned(idx, !pinned);
             populate(&lb);
         });
-    }
-    
-    {
-        let (stack, entry) = (stack.clone(), entry.clone());
-        edit_btn.connect_clicked(move |_| {
-            entry.set_text(read_item(idx).trim_end_matches('\n'));
-            stack.set_visible_child_name("edit");
-            entry.grab_focus();
-        });
-    }
-    
-    {
-        let lb = lb.clone();
-        entry.connect_activate(move |e| {
-            let new_text = e.text().to_string();
-            if !new_text.trim().is_empty() {
-                replace_item(idx, &new_text);
-            }
-            populate(&lb);
-        });
-    }
-    
-    {
-        let stack = stack.clone();
-        let keys = gtk::EventControllerKey::new();
-        keys.connect_key_pressed(move |_, key, _, _| {
-            if key == gtk::gdk::Key::Escape {
-                stack.set_visible_child_name("view");
-                glib::Propagation::Stop
-            } else {
-                glib::Propagation::Proceed
-            }
-        });
-        entry.add_controller(keys);
     }
     
     {
