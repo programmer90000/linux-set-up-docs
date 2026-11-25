@@ -12,7 +12,7 @@ pub fn verify_lock_password(username: &str, password: &str) -> Result<(), String
         .map_err(|e| format!("Failed to start auth process: {e}"))?;
 
     if let Some(mut stdin) = child.stdin.take() {
-        writeln!(stdin, "{}", password).map_err(|_| "Failed to pass password".to_string())?;
+        stdin.write_all(password.as_bytes()).map_err(|_| "Failed to pass password".to_string())?;
     }
 
     let status = child.wait().map_err(|_| "Authentication process error".to_string())?;
@@ -25,5 +25,10 @@ pub fn verify_lock_password(username: &str, password: &str) -> Result<(), String
 }
 
 pub fn system_power_action(action: &str) {
-    let _ = Command::new("loginctl").arg(action).spawn();
+    let cmd = match action {
+        "poweroff" | "reboot" | "suspend" => action,
+        _ => return,
+    };
+    
+    let _ = Command::new("systemctl").arg(cmd).spawn();
 }
