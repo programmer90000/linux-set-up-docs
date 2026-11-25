@@ -22,14 +22,6 @@ fn load_css(cfg_path: &Path) {
 }
 
 fn main() -> glib::ExitCode {
-    if std::env::args().any(|arg| arg == "--show-copyq-popup") {
-        let app = gtk::Application::builder().application_id("dev.local.dash.copyq").build();
-        app.connect_activate(|app| {
-            widgets::copyq::show_custom_copyq_window(app);
-        });
-        return app.run_with_args(&["dash-copyq"]);
-    }
-    
     let path = std::env::args().nth(1).map(std::path::PathBuf::from).unwrap_or_else(config::default_path);
     let cfg = Rc::new(config::load(&path));
     let app = gtk::Application::builder().application_id("dev.local.dash").build();
