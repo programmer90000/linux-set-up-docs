@@ -588,6 +588,65 @@ fn build_ui(app: &Application) {
         });
     }
 
+    {
+        let lb = user_listbox.clone();
+        let back = back_button.clone();
+        let pw = password_entry.clone();
+        let power = power_button.clone();
+        let refresh = refresh_user_list_styles.clone();
+
+        let tab_ctrl = EventControllerKey::new();
+        tab_ctrl.set_propagation_phase(gtk4::PropagationPhase::Capture);
+        tab_ctrl.connect_key_pressed(move |_, key, _, _| {
+            let pw_focused = pw.has_focus() || pw.focus_child().is_some();
+            let lb_focused = lb.has_focus() || lb.focus_child().is_some();
+
+            if key == Key::Tab {
+                if lb_focused {
+                    back.grab_focus();
+                } else if back.has_focus() {
+                    if pw.is_sensitive() {
+                        pw.grab_focus();
+                    } else {
+                        power.grab_focus();
+                    }
+                } else if pw_focused {
+                    power.grab_focus();
+                } else if power.has_focus() {
+                    if let Some(row) = lb.selected_row().or_else(|| lb.row_at_index(0)) {
+                        row.grab_focus();
+                    } else {
+                        back.grab_focus();
+                    }
+                }
+                refresh();
+                return glib::Propagation::Stop;
+            } else if key == Key::ISO_Left_Tab {
+                if lb_focused {
+                    power.grab_focus();
+                } else if back.has_focus() {
+                    if let Some(row) = lb.selected_row().or_else(|| lb.row_at_index(0)) {
+                        row.grab_focus();
+                    } else {
+                        power.grab_focus();
+                    }
+                } else if pw_focused {
+                    back.grab_focus();
+                } else if power.has_focus() {
+                    if pw.is_sensitive() {
+                        pw.grab_focus();
+                    } else {
+                        back.grab_focus();
+                    }
+                }
+                refresh();
+                return glib::Propagation::Stop;
+            }
+            glib::Propagation::Proceed
+        });
+        login_overlay.add_controller(tab_ctrl);
+    }
+
     glib::timeout_add_local(Duration::from_secs(1), move || {
         let now_clock = format_clock();
         let now_date = format_date();
