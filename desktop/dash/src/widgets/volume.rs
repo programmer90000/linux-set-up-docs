@@ -6,8 +6,18 @@ use std::{cell::{Cell, RefCell}, process::Command, rc::Rc, time::Duration};
 
 #[derive(Clone, Default)]
 struct Dev { name: String, desc: String, vol: u32, mute: bool }
+
 #[derive(Clone, Default)]
-struct Snap { sinks: Vec<Dev>, sources: Vec<Dev>, def_sink: String, def_source: String }
+struct AppStream { index: u32, name: String, vol: u32, mute: bool }
+
+#[derive(Clone, Default)]
+struct Snap { 
+    sinks: Vec<Dev>, 
+    sources: Vec<Dev>, 
+    app_streams: Vec<AppStream>,
+    def_sink: String, 
+    def_source: String 
+}
 
 fn pactl(args: &[&str]) -> serde_json::Value {
     Command::new("pactl").arg("--format=json").args(args).output().ok()
@@ -26,11 +36,35 @@ fn devices(kind: &str) -> Vec<Dev> {
     }).collect()
 }
 
+fn app_streams() -> Vec<AppStream> {
+    let v = pactl(&["list", "sink-inputs"]);
+    v.as_array().cloned().unwrap_or_default().iter().filter_map(|d| {
+        let index = d["index"].as_u64()? as u32;
+        let props = d["properties"].as_object()?;
+        let name = props.get("application.name")
+            .or_else(|| props.get("media.name"))
+            .and_then(|v| v.as_str())
+            .unwrap_or("Unknown App")
+            .to_string();
+            
+        let vol = d["volume"].as_object()?.values().next()?["value_percent"]
+            .as_str()?.trim_end_matches('%').parse().ok()?;
+            
+        Some(AppStream {
+            index,
+            name,
+            vol,
+            mute: d["mute"].as_bool().unwrap_or(false),
+        })
+    }).collect()
+}
+
 fn snapshot() -> Snap {
     let info = pactl(&["info"]);
     Snap {
         sinks: devices("sinks"),
         sources: devices("sources"),
+        app_streams: app_streams(),
         def_sink: info["default_sink_name"].as_str().unwrap_or("").into(),
         def_source: info["default_source_name"].as_str().unwrap_or("").into(),
     }
@@ -42,7 +76,7 @@ fn snapshots() -> async_channel::Receiver<Snap> {
         let ev = source::lines("pactl subscribe");
         if tx.send_blocking(snapshot()).is_err() { return; }
         while let Ok(l) = ev.recv_blocking() {
-            if !(l.contains("on sink #") || l.contains("on source #") || l.contains("on server")) { continue; }
+            if !(l.contains("on sink #") || l.contains("on source #") || l.contains("on sink-input #") || l.contains("on server")) { continue; }
             std::thread::sleep(Duration::from_millis(30));
             while ev.try_recv().is_ok() {}
             if tx.send_blocking(snapshot()).is_err() { break; }
@@ -153,6 +187,59 @@ impl Section {
     }
 }
 
+struct AppSection {
+    root: gtk::Box,
+}
+
+impl AppSection {
+    fn new() -> Self {
+        let root = gtk::Box::new(gtk::Orientation::Vertical, 4);
+        let t = gtk::Label::new(Some("Applications"));
+        t.set_xalign(0.0);
+        t.add_css_class("section-title");
+        root.append(&t);
+        AppSection { root }
+    }
+    
+    fn update(&self, streams: &[AppStream]) {
+        while let Some(child) = self.root.last_child() {
+            if child.has_css_class("section-title") { break; }
+            self.root.remove(&child);
+        }
+        
+        if streams.is_empty() {
+            let lbl = gtk::Label::new(Some("No active audio streams"));
+            lbl.set_xalign(0.0);
+            lbl.add_css_class("muted");
+            self.root.append(&lbl);
+            return;
+        }
+        
+        for app in streams {
+            let row = gtk::Box::new(gtk::Orientation::Horizontal, 8);
+            
+            let name_lbl = gtk::Label::new(Some(&app.name));
+            name_lbl.set_xalign(0.0);
+            name_lbl.set_hexpand(true);
+            
+            let scale = gtk::Scale::with_range(gtk::Orientation::Horizontal, 0.0, 150.0, 1.0);
+            scale.set_size_request(200, -1);
+            scale.set_value(app.vol as f64);
+            scale.set_draw_value(true);
+            
+            let idx = app.index;
+            scale.connect_value_changed(move |s| {
+                let v = s.value() as u32;
+                source::exec(&["pactl", "set-sink-input-volume", &idx.to_string(), &format!("{v}%")]);
+            });
+            
+            row.append(&name_lbl);
+            row.append(&scale);
+            self.root.append(&row);
+        }
+    }
+}
+
 pub fn build(ctx: &Ctx) -> gtk::Widget {
     let base_icon = ctx.cfg.icon.clone().unwrap_or_else(|| "🔊".into());
     let muted_dash_icon = "🔇";
@@ -161,9 +248,11 @@ pub fn build(ctx: &Ctx) -> gtk::Widget {
     
     let out = Section::new("Output", "sink", "🔊");
     let inp = Section::new("Input", "source", "🎤");
+    let apps = AppSection::new();
     
     content.append(&out.root);
     content.append(&inp.root);
+    content.append(&apps.root);
     
     let (mb, _pop) = menu_button(ctx, &content);
     mb.set_label(&base_icon);
@@ -182,6 +271,7 @@ pub fn build(ctx: &Ctx) -> gtk::Widget {
             
             out.update(&s.sinks, &s.def_sink, sink_muted, "🔊", "🔇");
             inp.update(&s.sources, &s.def_source, source_muted, "🎤", "🔇");
+            apps.update(&s.app_streams);
             
             let (vol_text, current_icon, class): (String, &str, &str) = match cur_sink {
                 Some(d) if d.mute => (format!("{}%", d.vol), muted_dash_icon, "muted"),
