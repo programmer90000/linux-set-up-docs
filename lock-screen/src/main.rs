@@ -360,6 +360,149 @@ fn build_ui(app: &Application) {
 
     main_stack.add_named(&login_overlay, Some("login"));
 
+    struct RowWidgets {
+        card: GtkBox,
+        avatar_fallback: Label,
+        name_label: Label,
+        user: UserInfo,
+    }
+
+    let row_widgets: Rc<RefCell<Vec<RowWidgets>>> = Rc::new(RefCell::new(Vec::new()));
+
+    let refresh_user_list_styles = {
+        let rows = row_widgets.clone();
+        let sel_user = selected_username.clone();
+        let lb = user_listbox.clone();
+        move || {
+            let current_sel = sel_user.borrow();
+            let list_has_focus = lb.has_focus() || lb.focus_child().is_some();
+            for (idx, rw) in rows.borrow().iter().enumerate() {
+                let is_sel = *current_sel == rw.user.username;
+                let is_kbd = list_has_focus
+                    && lb.selected_row().map(|r| r.index() as usize) == Some(idx);
+
+                if is_sel {
+                    rw.card.add_css_class("user-card-selected");
+                    rw.avatar_fallback.add_css_class("user-avatar-small-selected");
+                    rw.name_label.add_css_class("user-row-name-selected");
+                } else {
+                    rw.card.remove_css_class("user-card-selected");
+                    rw.avatar_fallback.remove_css_class("user-avatar-small-selected");
+                    rw.name_label.remove_css_class("user-row-name-selected");
+                }
+
+                if is_kbd {
+                    rw.card.add_css_class("user-card-focused");
+                } else {
+                    rw.card.remove_css_class("user-card-focused");
+                }
+            }
+        }
+    };
+
+    let select_user = {
+        let sel_user = selected_username.clone();
+        let avatar_stack = avatar_stack.clone();
+        let avatar_image = avatar_image.clone();
+        let avatar_fallback = avatar_fallback.clone();
+        let username_label = username_label.clone();
+        let password_entry = password_entry.clone();
+        let error_label = error_label.clone();
+        let refresh = refresh_user_list_styles.clone();
+
+        move |user: &UserInfo| {
+            *sel_user.borrow_mut() = user.username.clone();
+
+            let initial = user
+                .username
+                .chars()
+                .next()
+                .map(|c| c.to_uppercase().to_string())
+                .unwrap_or_else(|| "?".to_string());
+            avatar_fallback.set_text(&initial);
+
+            if Path::new(&user.avatar_path).exists() {
+                avatar_image.set_from_file(Some(&user.avatar_path));
+                avatar_stack.set_visible_child_name("image");
+            } else {
+                avatar_stack.set_visible_child_name("fallback");
+            }
+
+            username_label.set_text(&user.username);
+            username_label.remove_css_class("username-label-empty");
+            username_label.add_css_class("username-label");
+
+            password_entry.set_text("");
+            password_entry.set_sensitive(true);
+            error_label.set_visible(false);
+            refresh();
+            password_entry.grab_focus();
+        }
+    };
+
+    for user in users.iter() {
+        let row = ListBoxRow::new();
+        let card = GtkBox::new(Orientation::Horizontal, 10);
+        card.add_css_class("user-card");
+
+        let small_stack = Stack::new();
+        small_stack.set_size_request(30, 30);
+        small_stack.set_valign(Align::Center);
+
+        let initial = user
+            .username
+            .chars()
+            .next()
+            .map(|c| c.to_uppercase().to_string())
+            .unwrap_or_else(|| "?".to_string());
+
+        let small_fallback = Label::new(Some(&initial));
+        small_fallback.add_css_class("user-avatar-small-fallback");
+        small_stack.add_named(&small_fallback, Some("fallback"));
+
+        if Path::new(&user.avatar_path).exists() {
+            let small_img = Image::from_file(&user.avatar_path);
+            small_img.set_pixel_size(30);
+            small_stack.add_named(&small_img, Some("image"));
+            small_stack.set_visible_child_name("image");
+        } else {
+            small_stack.set_visible_child_name("fallback");
+        }
+
+        let name_lbl = Label::new(Some(&user.username));
+        name_lbl.add_css_class("user-row-name");
+        name_lbl.set_valign(Align::Center);
+        name_lbl.set_ellipsize(gtk4::pango::EllipsizeMode::End);
+
+        card.append(&small_stack);
+        card.append(&name_lbl);
+        row.set_child(Some(&card));
+        user_listbox.append(&row);
+
+        row_widgets.borrow_mut().push(RowWidgets {
+            card,
+            avatar_fallback: small_fallback,
+            name_label: name_lbl,
+            user: user.clone(),
+        });
+    }
+
+    {
+        let users_clone = users.clone();
+        let select_fn = select_user.clone();
+        user_listbox.connect_row_activated(move |_, row| {
+            let idx = row.index() as usize;
+            if let Some(u) = users_clone.get(idx) {
+                select_fn(u);
+            }
+        });
+    }
+
+    {
+        let refresh = refresh_user_list_styles.clone();
+        user_listbox.connect_selected_rows_changed(move |_| refresh());
+    }
+
     {
         let sel_user = selected_username.clone();
         let pw_entry = password_entry.clone();
@@ -393,6 +536,9 @@ fn build_ui(app: &Application) {
 
     let dismiss_splash = {
         let stack = main_stack.clone();
+        let users_clone = users.clone();
+        let lb = user_listbox.clone();
+        let select_fn = select_user.clone();
         let pw = password_entry.clone();
 
         move || {
@@ -400,6 +546,12 @@ fn build_ui(app: &Application) {
                 return;
             }
             stack.set_visible_child_name("login");
+            if let Some(first_user) = users_clone.first() {
+                if let Some(first_row) = lb.row_at_index(0) {
+                    lb.select_row(Some(&first_row));
+                }
+                select_fn(first_user);
+            }
             pw.grab_focus();
         }
     };
