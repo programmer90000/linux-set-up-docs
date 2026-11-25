@@ -35,11 +35,28 @@ fn read_item(idx: usize) -> String {
 }
 
 fn replace_item(idx: usize, text: &str) {
-    copyq(&["insert", &idx.to_string(), text]);
-    copyq(&["remove", &(idx + 1).to_string()]);
+    copyq(&["write", &idx.to_string(), "text/plain", text]);
 }
 
-fn fetch_copyq_items() -> Result<Vec<(usize, String)>, String> {
+fn is_pinned(idx: usize) -> bool {
+    let script = format!("plugins.itempinned.isPinned({})", idx);
+    Command::new("copyq")
+        .args(["eval", &script])
+        .output()
+        .map(|o| String::from_utf8_lossy(&o.stdout).trim() == "true")
+        .unwrap_or(false)
+}
+
+fn set_pinned(idx: usize, pin: bool) {
+    let script = if pin {
+        format!("plugins.itempinned.pin({})", idx)
+    } else {
+        format!("plugins.itempinned.unpin({})", idx)
+    };
+    copyq(&["eval", &script]);
+}
+
+fn fetch_copyq_items() -> Result<Vec<(usize, String, bool)>, String> {
     let out = Command::new("copyq").arg("count").output()
         .map_err(|e| format!("Failed to run copyq: {e}"))?;
     if !out.status.success() {
@@ -52,7 +69,7 @@ fn fetch_copyq_items() -> Result<Vec<(usize, String)>, String> {
         let text = read_item(i);
         let single = text.lines().collect::<Vec<_>>().join(" ");
         if !single.trim().is_empty() {
-            items.push((i, single));
+            items.push((i, single, is_pinned(i)));
         }
     }
     Ok(items)
@@ -136,21 +153,21 @@ fn populate(lb: &gtk::ListBox) {
             lb.append(&gtk::Label::new(Some("No clipboard items found.")));
         }
         Ok(items) => {
-            for (idx, text) in items {
-                lb.append(&build_row(lb, idx, &text));
+            for (idx, text, pinned) in items {
+                lb.append(&build_row(lb, idx, &text, pinned));
             }
         }
     }
 }
 
-fn build_row(lb: &gtk::ListBox, idx: usize, text: &str) -> gtk::ListBoxRow {
+fn build_row(lb: &gtk::ListBox, idx: usize, text: &str, pinned: bool) -> gtk::ListBoxRow {
     let row = gtk::ListBoxRow::new();
     row.set_widget_name(&idx.to_string());
     
     let label = gtk::Label::new(Some(text));
     label.set_xalign(0.0);
     label.set_ellipsize(gtk::pango::EllipsizeMode::End);
-    label.set_max_width_chars(45);
+    label.set_max_width_chars(42);
     
     let entry = gtk::Entry::new();
     entry.set_hexpand(true);
@@ -161,12 +178,20 @@ fn build_row(lb: &gtk::ListBox, idx: usize, text: &str) -> gtk::ListBoxRow {
     stack.add_named(&entry, Some("edit"));
     stack.set_visible_child_name("view");
     
+    let pin_btn = gtk::Button::with_label(if pinned { "📌" } else { "📍" });
+    pin_btn.set_tooltip_text(Some(if pinned { "Unpin" } else { "Pin" }));
+    pin_btn.add_css_class("flat");
+    if !pinned {
+        pin_btn.set_opacity(0.45);
+    }
+    
     let edit_btn = gtk::Button::with_label("✎");
     edit_btn.set_tooltip_text(Some("Edit"));
     edit_btn.add_css_class("flat");
     let del_btn = gtk::Button::with_label("🗑");
-    del_btn.set_tooltip_text(Some("Delete"));
+    del_btn.set_tooltip_text(Some(if pinned { "Unpin before deleting" } else { "Delete" }));
     del_btn.add_css_class("flat");
+    del_btn.set_sensitive(!pinned);
     
     let hbox = gtk::Box::new(gtk::Orientation::Horizontal, 4);
     hbox.set_margin_top(4);
@@ -174,9 +199,18 @@ fn build_row(lb: &gtk::ListBox, idx: usize, text: &str) -> gtk::ListBoxRow {
     hbox.set_margin_start(6);
     hbox.set_margin_end(6);
     hbox.append(&stack);
+    hbox.append(&pin_btn);
     hbox.append(&edit_btn);
     hbox.append(&del_btn);
     row.set_child(Some(&hbox));
+    
+    {
+        let lb = lb.clone();
+        pin_btn.connect_clicked(move |_| {
+            set_pinned(idx, !pinned);
+            populate(&lb);
+        });
+    }
     
     {
         let (stack, entry) = (stack.clone(), entry.clone());
