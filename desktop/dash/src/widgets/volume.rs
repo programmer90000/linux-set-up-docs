@@ -131,10 +131,6 @@ pub fn build(ctx: &Ctx) -> gtk::Widget {
     mb.set_label(&icon);
     tag(&mb, "volume");
     
-    let g = gtk::GestureClick::builder().button(3).build();
-    g.connect_pressed(|_, _, _, _| source::exec(&["pactl", "set-sink-mute", "@DEFAULT_SINK@", "toggle"]));
-    mb.add_controller(g);
-    
     let rx = snapshots();
     let (mbc, report) = (mb.clone(), ctx.report.clone());
     glib::spawn_future_local(async move {
