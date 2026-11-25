@@ -17,7 +17,7 @@ use std::path::Path;
 use std::rc::Rc;
 use std::time::Duration;
 
-const THEME_DIR: &str = "/usr/share/greetd/login-screen";
+const THEME_DIR: &str = "/usr/share/greetd/lock-screen";
 
 #[derive(Clone, Debug)]
 struct UserInfo {
