@@ -218,21 +218,33 @@ impl AppSection {
         for app in streams {
             let row = gtk::Box::new(gtk::Orientation::Horizontal, 8);
             
+            let mute_btn = gtk::Button::with_label(if app.mute { "🔇" } else { "🔊" });
+            mute_btn.add_css_class("flat");
+            if app.mute {
+                mute_btn.add_css_class("muted");
+            }
+            mute_btn.set_tooltip_text(Some("Toggle mute"));
+            
             let name_lbl = gtk::Label::new(Some(&app.name));
             name_lbl.set_xalign(0.0);
             name_lbl.set_hexpand(true);
             
             let scale = gtk::Scale::with_range(gtk::Orientation::Horizontal, 0.0, 150.0, 1.0);
-            scale.set_size_request(200, -1);
+            scale.set_size_request(160, -1);
             scale.set_value(app.vol as f64);
             scale.set_draw_value(true);
             
             let idx = app.index;
+            mute_btn.connect_clicked(move |_| {
+                source::exec(&["pactl", "set-sink-input-mute", &idx.to_string(), "toggle"]);
+            });
+            
             scale.connect_value_changed(move |s| {
                 let v = s.value() as u32;
                 source::exec(&["pactl", "set-sink-input-volume", &idx.to_string(), &format!("{v}%")]);
             });
             
+            row.append(&mute_btn);
             row.append(&name_lbl);
             row.append(&scale);
             self.root.append(&row);
