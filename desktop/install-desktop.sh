@@ -48,7 +48,7 @@ cp grid/grid.conf ~/.config/nwg-launchers/nwggrid/
 cd ../../
 
 sudo apt update
-sudo apt install build-essential rustc cargo pkg-config libssl-dev
+sudo apt install -y build-essential rustc cargo pkg-config libssl-dev
 cd desktop/dash/
 cargo build --release
 cd ../../
