@@ -134,12 +134,6 @@ pub fn build(ctx: &Ctx) -> gtk::Widget {
     let g = gtk::GestureClick::builder().button(3).build();
     g.connect_pressed(|_, _, _, _| source::exec(&["pactl", "set-sink-mute", "@DEFAULT_SINK@", "toggle"]));
     mb.add_controller(g);
-    let sc = gtk::EventControllerScroll::new(gtk::EventControllerScrollFlags::VERTICAL);
-    sc.connect_scroll(|_, _, dy| {
-        source::exec(&["pactl", "set-sink-volume", "@DEFAULT_SINK@", if dy < 0.0 { "+5%" } else { "-5%" }]);
-        glib::Propagation::Stop
-    });
-    mb.add_controller(sc);
     
     let rx = snapshots();
     let (mbc, report) = (mb.clone(), ctx.report.clone());
