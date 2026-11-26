@@ -195,10 +195,13 @@ fn build_row(lb: &gtk::ListBox, idx: usize, content: &ItemContent, pinned: bool)
     
     match content {
         ItemContent::Text(text) => {
-            let label = gtk::Label::new(Some(text));
+            let display_text = text.lines().collect::<Vec<_>>().join(" ");
+            let label = gtk::Label::new(Some(&display_text));
             label.set_xalign(0.0);
+            label.set_wrap(true);
+            label.set_wrap_mode(gtk::pango::WrapMode::WordChar);
+            label.set_lines(3);
             label.set_ellipsize(gtk::pango::EllipsizeMode::End);
-            label.set_max_width_chars(42);
             
             let entry = gtk::Entry::new();
             entry.set_hexpand(true);
