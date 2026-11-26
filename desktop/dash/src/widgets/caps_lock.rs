@@ -15,6 +15,7 @@ pub fn build(ctx: &Ctx) -> gtk::Widget {
     let label = gtk::Label::new(Some(&icon));
     tag(&label, "caps_lock");
     label.add_css_class("off");
+    label.set_visible(false);
     
     let set = Rc::new({
         let (label, report) = (label.clone(), ctx.report.clone());
@@ -22,6 +23,7 @@ pub fn build(ctx: &Ctx) -> gtk::Widget {
             label.set_text(&if on { format!("{icon} CAPS") } else { icon.clone() });
             label.remove_css_class(if on { "off" } else { "on" });
             label.add_css_class(if on { "on" } else { "off" });
+            label.set_visible(on);
             report(if on { "CAPS" } else { "" }, if on { "on" } else { "off" });
         }
     });
