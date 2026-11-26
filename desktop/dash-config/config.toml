@@ -3,11 +3,12 @@ position = "bottom"
 size = 36
 spacing = 4
 monitors = ["*"]
-left = ["app_list", "workspaces", "notifications"]
+left = ["app_list", "workspaces"]
 right = ["volume", "wifi", "bluetooth", "caps_lock", "mpd", "pipewire", "keyboard_layout", "wheeltani", "date", "clock", "show_more", "power"]
 more = [
     "volume",
-    "copyq"
+    "copyq",
+    "notifications"
 ]
 
 [widget.app_list]
@@ -27,6 +28,7 @@ format = "%a %e %b"
 [widget.notifications]
 stream = "swaync-client -swb"
 on_click = "swaync-client -t -sw"
+show_on_dash = "nonempty"
 
 [widget.power]
 items = [
