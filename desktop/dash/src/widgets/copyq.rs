@@ -13,7 +13,7 @@ pub fn build(ctx: &Ctx) -> gtk::Widget {
     let widget = cmd(ctx, Defaults {
         kind: "copyq", icon: "📋",
         watch: Some("wl-paste --watch echo changed"),
-        command: Some("copyq count"),
+        command: Some("echo"),
         ..Default::default()
     });
     
