@@ -2,6 +2,7 @@ use super::Ctx;
 use gtk4 as gtk;
 use gtk::prelude::*;
 use gtk::glib;
+use gtk::gio;
 use std::rc::Rc;
 
 type Report = Rc<dyn Fn(&str, &str)>;
@@ -15,14 +16,27 @@ fn count(kind: &str) -> u32 {
 }
 
 fn update_indicator(button: &gtk::Button, report: &Report) {
-    let total = count("history");
-    if total > 0 {
-        report(&total.to_string(), "");
-        button.add_css_class("has-notifications");
-    } else {
-        report("", "");
-        button.remove_css_class("has-notifications");
-    }
+    let button = button.clone();
+    let report = report.clone();
+    
+    glib::spawn_future_local(async move {
+        let total = gio::spawn_blocking(move || {
+            crate::source::run_once("dunstctl count history")
+                .trim()
+                .parse::<u32>()
+                .unwrap_or(0)
+        })
+        .await
+        .unwrap_or(0);
+        
+        if total > 0 {
+            report(&total.to_string(), "");
+            button.add_css_class("has-notifications");
+        } else {
+            report("", "");
+            button.remove_css_class("has-notifications");
+        }
+    });
 }
 
 pub fn build(ctx: &Ctx) -> gtk::Widget {
@@ -195,69 +209,78 @@ fn refresh_notifications(list_box: &gtk::ListBox, on_change: &OnChange) {
         list_box.remove(&child);
     }
     
-    let entries = fetch_history();
+    let list_box = list_box.clone();
+    let on_change = on_change.clone();
     
-    if entries.is_empty() {
-        let lbl = gtk::Label::new(Some("No notifications"));
-        lbl.set_margin_top(50);
-        list_box.append(&lbl);
-        return;
-    }
-    
-    for e in entries {
-        let row_box = gtk::Box::new(gtk::Orientation::Horizontal, 8);
-        row_box.set_margin_top(8);
-        row_box.set_margin_bottom(8);
+    glib::spawn_future_local(async move {
+        let entries = gio::spawn_blocking(move || {
+            fetch_history()
+        })
+        .await
+        .unwrap_or_default();
         
-        let text_box = gtk::Box::new(gtk::Orientation::Vertical, 3);
-        text_box.set_hexpand(true);
-        
-        if !e.app.is_empty() {
-            let app_lbl = gtk::Label::new(Some(&e.app));
-            app_lbl.set_halign(gtk::Align::Start);
-            app_lbl.add_css_class("notification-app");
-            text_box.append(&app_lbl);
+        if entries.is_empty() {
+            let lbl = gtk::Label::new(Some("No notifications"));
+            lbl.set_margin_top(50);
+            list_box.append(&lbl);
+            return;
         }
         
-        let summary_lbl = gtk::Label::new(Some(&e.summary));
-        summary_lbl.set_halign(gtk::Align::Start);
-        summary_lbl.set_xalign(0.0);
-        summary_lbl.set_wrap(true);
-        summary_lbl.add_css_class("notification-summary");
-        text_box.append(&summary_lbl);
-        
-        if !e.body.is_empty() {
-            let body_lbl = gtk::Label::new(Some(&e.body));
-            body_lbl.set_halign(gtk::Align::Start);
-            body_lbl.set_xalign(0.0);
-            body_lbl.set_wrap(true);
-            body_lbl.add_css_class("notification-body");
-            text_box.append(&body_lbl);
-        }
-        
-        row_box.append(&text_box);
-        
-        let dismiss_btn = gtk::Button::with_label("✕");
-        dismiss_btn.add_css_class("dismiss-button");
-        dismiss_btn.set_valign(gtk::Align::Start);
-        let lb = list_box.clone();
-        let on_change = on_change.clone();
-        let id = e.id;
-        
-        dismiss_btn.connect_clicked(move |_| {
-            crate::source::spawn(&format!("dunstctl history-rm {id}"));
-            let lb = lb.clone();
+        for e in entries {
+            let row_box = gtk::Box::new(gtk::Orientation::Horizontal, 8);
+            row_box.set_margin_top(8);
+            row_box.set_margin_bottom(8);
+            
+            let text_box = gtk::Box::new(gtk::Orientation::Vertical, 3);
+            text_box.set_hexpand(true);
+            
+            if !e.app.is_empty() {
+                let app_lbl = gtk::Label::new(Some(&e.app));
+                app_lbl.set_halign(gtk::Align::Start);
+                app_lbl.add_css_class("notification-app");
+                text_box.append(&app_lbl);
+            }
+            
+            let summary_lbl = gtk::Label::new(Some(&e.summary));
+            summary_lbl.set_halign(gtk::Align::Start);
+            summary_lbl.set_xalign(0.0);
+            summary_lbl.set_wrap(true);
+            summary_lbl.add_css_class("notification-summary");
+            text_box.append(&summary_lbl);
+            
+            if !e.body.is_empty() {
+                let body_lbl = gtk::Label::new(Some(&e.body));
+                body_lbl.set_halign(gtk::Align::Start);
+                body_lbl.set_xalign(0.0);
+                body_lbl.set_wrap(true);
+                body_lbl.add_css_class("notification-body");
+                text_box.append(&body_lbl);
+            }
+            
+            row_box.append(&text_box);
+            
+            let dismiss_btn = gtk::Button::with_label("✕");
+            dismiss_btn.add_css_class("dismiss-button");
+            dismiss_btn.set_valign(gtk::Align::Start);
+            let lb = list_box.clone();
             let on_change = on_change.clone();
-            glib::timeout_add_local_once(std::time::Duration::from_millis(150), move || {
-                refresh_notifications(&lb, &on_change);
-                on_change();
+            let id = e.id;
+            
+            dismiss_btn.connect_clicked(move |_| {
+                crate::source::spawn(&format!("dunstctl history-rm {id}"));
+                let lb = lb.clone();
+                let on_change = on_change.clone();
+                glib::timeout_add_local_once(std::time::Duration::from_millis(150), move || {
+                    refresh_notifications(&lb, &on_change);
+                    on_change();
+                });
             });
-        });
-        
-        row_box.append(&dismiss_btn);
-        
-        let row = gtk::ListBoxRow::new();
-        row.set_child(Some(&row_box));
-        list_box.append(&row);
-    }
+            
+            row_box.append(&dismiss_btn);
+            
+            let row = gtk::ListBoxRow::new();
+            row.set_child(Some(&row_box));
+            list_box.append(&row);
+        }
+    });
 }
