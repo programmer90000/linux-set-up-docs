@@ -157,6 +157,19 @@ install_sniffnet() {
     fi
 }
 
+install_localsend() {
+    local source
+    source=$(get_source "LocalSend")
+    install_from_source "$source" "LocalSend"
+    
+    echo ""
+    if command -v localsend &> /dev/null || dpkg -l | grep -qi localsend; then
+        echo "LocalSend has been successfully installed!"
+    else
+        echo "Installation completed. Check your application menu to launch LocalSend."
+    fi
+}
+
 read -p "What would you like to install? " install_target
 
 install_target=$(echo "$install_target" | xargs)
@@ -165,6 +178,8 @@ if [[ "$install_target" == "Zoom" || "$install_target" == "zoom" ]]; then
     install_zoom
 elif [[ "$install_target" == "Sniffnet" || "$install_target" == "sniffnet" ]]; then
     install_sniffnet
+elif [[ "$install_target" == "LocalSend" || "$install_target" == "localsend" ]]; then
+    install_localsend
 else
     echo "You entered an invalid app name to install"
     exit 1
