@@ -97,6 +97,7 @@ install_from_source() {
                 ./"$downloaded_file"
             elif [[ "$downloaded_file" == *.deb ]]; then
                 echo "Installing $app_name .deb package..."
+                sudo apt update
                 sudo apt install -y "./$downloaded_file"
                 sudo apt-get install -f -y # Fix any dependency issues
             else
@@ -117,6 +118,7 @@ install_from_source() {
         
         if [[ "$source" == *.deb ]]; then
             echo "Installing .deb package..."
+            sudo apt update
             sudo apt install -y "$source"
             sudo apt-get install -f -y # Fix any dependency issues
         elif [[ "$source" == *.sh ]]; then
